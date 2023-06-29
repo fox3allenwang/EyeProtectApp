@@ -26,6 +26,7 @@
 		32BE4B582A0A45210014161D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32BE4B562A0A45210014161D /* LaunchScreen.storyboard */; };
 		32BE4B612A0A45600014161D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BE4B5F2A0A45600014161D /* MainViewController.swift */; };
 		32BE4B622A0A45600014161D /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32BE4B602A0A45600014161D /* MainViewController.xib */; };
+		3FDFE2132A4D27E6005100EC /* Gary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDFE2122A4D27E6005100EC /* Gary.swift */; };
 		7C4409812A20A1D200C68A1E /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4409802A20A1D200C68A1E /* Alert.swift */; };
 		D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */; };
 		D8925D1E2A4D1FAC00DB9EC9 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1D2A4D1FAC00DB9EC9 /* NetworkConstants.swift */; };
@@ -54,6 +55,7 @@
 		32BE4B592A0A45210014161D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32BE4B5F2A0A45600014161D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		32BE4B602A0A45600014161D /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		3FDFE2122A4D27E6005100EC /* Gary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gary.swift; sourceTree = "<group>"; };
 		7C4409802A20A1D200C68A1E /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		D8925D1D2A4D1FAC00DB9EC9 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		32BE4B3F2A0A451E0014161D = {
 			isa = PBXGroup;
 			children = (
+				3FDFE2122A4D27E6005100EC /* Gary.swift */,
 				32BE4B4A2A0A451E0014161D /* EyesApp */,
 				32BE4B492A0A451E0014161D /* Products */,
 			);
@@ -276,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8925D1E2A4D1FAC00DB9EC9 /* NetworkConstants.swift in Sources */,
+				3FDFE2132A4D27E6005100EC /* Gary.swift in Sources */,
 				D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */,
 				32BE4B4C2A0A451E0014161D /* AppDelegate.swift in Sources */,
 				3261461F2A17808900855A6E /* BaseTabBarController.swift in Sources */,
