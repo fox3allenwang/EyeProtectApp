@@ -39,7 +39,7 @@ enum HTTPMethod: String {
 }
 
 enum RequestError: Error {
-    case unknownError
+    case unknownError(Error)
     case connectionError
     case authorizationError
     case invalidRequest
@@ -49,13 +49,13 @@ enum RequestError: Error {
     case serverUnavailable
     case internalError
     case badGateway
-    case jsonDecodeFailed
+    case jsonDecodeFailed(Error)
     case badRequest
 }
 
 // API 的網址
 enum ApiPathConstants: String {
-    case login = "192.168.1.224:8080/api/account"
+    case login = "192.168.8.156:8080/api/account"
     case logout = "172.20.10.4:5000/account/logout"
     case cabinet = "172.20.10.4:5000/account/inventory"
 }

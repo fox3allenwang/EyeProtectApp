@@ -48,12 +48,12 @@ class NetworkManager {
                 
                 return result
             } catch {
-                throw RequestError.jsonDecodeFailed
+                throw RequestError.jsonDecodeFailed(error as! DecodingError)
             }
 
         } catch {
             print(error.localizedDescription)
-            throw RequestError.unknownError
+            throw RequestError.unknownError(error)
         }
     }
     

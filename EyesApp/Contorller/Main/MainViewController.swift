@@ -128,10 +128,10 @@ class MainViewController: UIViewController {
     }
     
     @objc private func handleTimerExecution1() {
-        Alert.showAlertWith(title: "提醒",
-                            message: "用眼30分鐘需休息",
-                            vc: self,
-                            confirmTitle: "確認") {
+        Alert.showAlert(title: "提醒",
+                        message: "用眼30分鐘需休息",
+                        vc: self,
+                        confirmTitle: "確認") {
             if let timer = self.timer1 {
                 timer.invalidate()
             }
@@ -221,10 +221,10 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                         self.web?.load(urlReq)
                         self.lightLevelLabel.text = "亮度中"
                     }
-                    Alert.showAlertWith(title: "提醒",
-                                        message: "環境亮度不足",
-                                        vc: self,
-                                        confirmTitle: "確認")
+                    Alert.showAlert(title: "提醒",
+                                    message: "環境亮度不足",
+                                    vc: self,
+                                    confirmTitle: "確認")
                 } else if (LocalDatabase.shared.statusRecord[LocalDatabase.shared.statusRecord.count - 1] > 300) {
                     self.isoLabel.text = "目前環境亮度嚴重不足"
                     let url = URL(string: "http://192.168.4.1/led/3")
@@ -233,10 +233,10 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                         self.web?.load(urlReq)
                         self.lightLevelLabel.text = "亮度高"
                     }
-                    Alert.showAlertWith(title: "提醒",
-                                        message: "環境亮度嚴重不足",
-                                        vc: self,
-                                        confirmTitle: "確認")
+                    Alert.showAlert(title: "提醒",
+                                    message: "環境亮度嚴重不足",
+                                    vc: self,
+                                    confirmTitle: "確認")
                 }
                 
                 self.captureSession.stopRunning()

@@ -3,6 +3,7 @@
 
 target 'EyesApp' do
   pod 'lottie-ios' , '4.2.0'
+  pod 'IQKeyboardManager' , '6.5.12'
 
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!

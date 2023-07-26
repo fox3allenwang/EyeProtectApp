@@ -19,9 +19,17 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var txfView: UIView!
     @IBOutlet weak var txfPassword: UITextField!
     @IBOutlet weak var txfAccount: UITextField!
+    @IBOutlet weak var txfName: UITextField!
+    @IBOutlet weak var lbLoginOrSingUp: UILabel!
+    @IBOutlet weak var btnBack: UIButton!
     
     // MARK: - Variables
-    
+    let manager = NetworkManager()
+    var loginOrSingUp: LoginOrSingUpStatus = .login
+    enum LoginOrSingUpStatus {
+        case login
+        case SingUp
+    }
     
     // MARK: - LifeCycle
     
@@ -52,6 +60,21 @@ class LoginViewController: UIViewController {
         setupAnimate()
         setupButton()
         setupTxfView()
+        setupBackButtom()
+    }
+    
+    func setupBackButtom() {
+        btnSingUp.imageView?.contentMode = .scaleToFill
+        let config = UIImage.SymbolConfiguration(pointSize: 25)
+        let image = UIImage(systemName: "chevron.backward", withConfiguration: config)
+
+        btnBack.configuration = UIButton.Configuration.filled()
+        btnBack.configuration?.cornerStyle = .medium
+        btnBack.configuration?.baseBackgroundColor = .clear
+        btnBack.configuration?.baseForegroundColor = .buttomColor
+        btnBack.configuration?.image = image
+        btnBack.alpha = 0
+        btnBack.isEnabled = false
     }
     
     func setupTxfView() {
@@ -69,6 +92,11 @@ class LoginViewController: UIViewController {
         txfPassword.layer.borderWidth = 1
         txfPassword.layer.cornerRadius = 20
         txfPassword.tintColor = .buttomColor
+        txfPassword.isSecureTextEntry = true
+        txfName.layer.borderColor = UIColor.buttomColor?.cgColor
+        txfName.layer.borderWidth = 1
+        txfName.layer.cornerRadius = 20
+        txfName.tintColor = .buttomColor
         
         txfAccount.setTextFieldImage(systemImageName: "person.text.rectangle",
                                      imageX: 10,
@@ -81,6 +109,11 @@ class LoginViewController: UIViewController {
                                              imageY: 5,
                                              imageWidth: 40,
                                              imageheight: 30)
+        txfName.setTextFieldImage(systemImageName: "person.circle",
+                                             imageX: 10,
+                                             imageY: 2,
+                                             imageWidth: 35,
+                                             imageheight: 35)
         
         
         
@@ -102,18 +135,180 @@ class LoginViewController: UIViewController {
         animationView.play()
     }
     
-    // MARK: - IBAction
+    // MARK: - networkManager
     
-    @IBAction func clickLogin() {
+    func callLoginApi() async {
+        let request = LoginRequest(email: txfAccount.text!, password: txfPassword.text!)
+        Task {
+            do {
+                let response: GeneralResponse<String> = try await manager.requestData(method: .get,
+                                                                                      path: .login,
+                                                                                      parameters: request)
+                if response.result == 0 {
+                    print("帳號密碼正確")
+                } else {
+                    print("帳號密碼錯誤")
+                    Alert.showAlert(title: "帳號或密碼錯誤",
+                                    message: "未找到此組帳號密碼",
+                                    vc: self,
+                                    confirmTitle: "確認")
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func callRegisterApi() async {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let now = dateFormatter.string(from: Date())
+//        let now = Date()
+        
+        let request = RegisterRequest(dor: now,
+                                      email: txfAccount.text!,
+                                      password: txfPassword.text!,
+                                      name: txfName.text!)
+        Task {
+            do {
+                let response: GeneralResponse<String> = try await manager.requestData(method: .post,
+                                                                                      path: .login,
+                                                                                      parameters: request)
+                if response.result == 0 {
+                    print("註冊成功")
+                    Alert.showAlert(title: "註冊成功", message: "", vc: self, confirmTitle: "確認")
+                    loginOrSingUp = .login
+                    setupLoginUI()
+                    
+                } else {
+                    print("註冊失敗")
+//                    Alert.showAlert(title: "帳號或密碼錯誤",
+//                                    message: "未找到此組帳號密碼",
+//                                    vc: self,
+//                                    confirmTitle: "確認")
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
         
     }
     
-    @IBAction func clickSingUp() {
+    func setupLoginUI() {
+        UIView.transition(with: lbLoginOrSingUp,
+                          duration: 0.2,
+                          options: .transitionCrossDissolve) {
+            self.lbLoginOrSingUp.text = "LOGIN"
+        }
+        UIView.transition(with: btnLogin,
+                          duration: 0.2,
+                          options: .transitionCrossDissolve) {
+            self.btnLogin.alpha = 1
+            self.btnLogin.isEnabled = true
+        }
+        UIView.transition(with: btnBack,
+                          duration: 0.2,
+                          options: .transitionCrossDissolve) {
+            self.btnBack.alpha = 0
+            self.btnBack.isEnabled = false
+        }
+        UIView.transition(with: txfName,
+                          duration: 0.2,
+                          options: .transitionCrossDissolve) {
+            self.txfName.alpha = 0
+            self.txfName.isEnabled = false
+        }
         
-//        UIButton.transition(with: btnLogin, duration: 0.4,options: .transitionCrossDissolve) {
-//            self.btnLogin.alpha = 0
-//            self.btnLogin.isHidden = true
-//        }
+        let transformValue = txfAccount.frame.height + 30
+        UIView.animate(withDuration: 0.3) {
+            self.txfAccount.transform = CGAffineTransform(translationX: 0,
+                                                          y: 0)
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.txfPassword.transform = CGAffineTransform(translationX: 0,
+                                                           y: 0)
+        }
+        
+        btnSingUp.backgroundColor = UIColor.buttomColor
+    }
+    
+    func setupSingUpUI() {
+        UIView.transition(with: lbLoginOrSingUp,
+                          duration: 0.2,
+                          options: .transitionCrossDissolve) {
+            self.lbLoginOrSingUp.text = "SING UP"
+        }
+        UIView.transition(with: btnLogin,
+                          duration: 0.2,
+                          options: .transitionCrossDissolve) {
+            self.btnLogin.alpha = 0
+            self.btnLogin.isEnabled = false
+        }
+        UIView.transition(with: btnBack,
+                          duration: 0.2,
+                          options: .transitionCrossDissolve) {
+            self.btnBack.alpha = 1
+            self.btnBack.isEnabled = true
+        }
+        UIView.transition(with: txfName,
+                          duration: 0.2,
+                          options: .transitionCrossDissolve) {
+            self.txfName.alpha = 1
+            self.txfName.isEnabled = true
+        }
+    
+        btnSingUp.backgroundColor = UIColor.buttom2Color
+      
+        
+        let transformValue = txfAccount.frame.height + 30
+        UIView.animate(withDuration: 0.3) {
+            self.txfAccount.transform = CGAffineTransform(translationX: 0,
+                                                          y: transformValue)
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.txfPassword.transform = CGAffineTransform(translationX: 0,
+                                                           y: transformValue)
+        }
+    }
+    
+    // MARK: - IBAction
+    
+    @IBAction func clickLogin() {
+        if txfAccount.text == "" || txfPassword.text == "" {
+            Alert.showAlert(title: "帳號或密碼未輸入",
+                            message: "請輸入帳號及密碼",
+                            vc: self,
+                            confirmTitle: "確認")
+        } else {
+            Task {
+                await callLoginApi()
+            }
+        }
+    }
+    
+    @IBAction func clickSingUp() {
+        if loginOrSingUp == .login {
+            setupSingUpUI()
+            loginOrSingUp = .SingUp
+        } else {
+            if txfAccount.text == "" ||
+                txfPassword.text == "" ||
+                txfName.text == "" {
+                Alert.showAlert(title: "名稱、帳號或密碼未輸入",
+                                message: "請輸入名稱、帳號及密碼",
+                                vc: self,
+                                confirmTitle: "確認")
+            } else {
+                Task {
+                    await callRegisterApi()
+                }
+            }
+        }
+    }
+    
+    @IBAction func clickBack() {
+        loginOrSingUp = .login
+        setupLoginUI()
     }
     
 }

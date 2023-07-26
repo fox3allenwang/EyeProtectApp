@@ -77,10 +77,10 @@ class EyeExerciseViewController: UIViewController {
     
     @IBAction func continueBtnClicked(_ sender: UIButton) {
         if contents.count == (number + 1) {
-            Alert.showAlertWith(title: "提醒",
-                                message: "護眼運動已完成",
-                                vc: self,
-                                confirmTitle: "確認") {
+            Alert.showAlert(title: "提醒",
+                            message: "護眼運動已完成",
+                            vc: self,
+                            confirmTitle: "確認") {
                 let nextVC = EyeExerciseViewController()
                 self.navigationController?.popViewController(animated: true)
             }
