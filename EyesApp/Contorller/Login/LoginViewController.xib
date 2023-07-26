@@ -147,7 +147,7 @@
     <resources>
         <image name="Login_logo" width="1440" height="1440"/>
         <namedColor name="ButtomColor">
-            <color red="0.2352941036" green="0.49411764740000003" blue="0.20392158630000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.23499999940395355" green="0.49399998784065247" blue="0.20399999618530273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
