@@ -11,32 +11,50 @@ class NetworkManager {
     
     static var shared = NetworkManager()
     
-    func requestData<E: Encodable, D: Decodable>(method: HTTPMethod,
-                                                 path: ApiPathConstants,
-                                                 parameters: E?,
-                                                 finish: @escaping (Result<D, RequestError>) -> Void) {
-        
+    public func requestData<E, D>(method: HTTPMethod,
+                                  path: ApiPathConstants,
+                                  parameters: E) async throws -> D where E: Encodable, D: Decodable {
         let urlRequest = handleHTTPMethod(method, path, parameters)
-        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            DispatchQueue.main.async {
-                let errorCode = (response as? HTTPURLResponse)?.statusCode
-                if error != nil {
-                    finish(.failure(.unknownError))
-                } else if errorCode == 502 {
-                    finish(.failure(.badGateway))
-                } else if let data = data {
-                    let decoder = JSONDecoder()
-                    if let results = try? decoder.decode(D.self, from: data) {
-                        #if DEBUG
-                        self.printNeworkProgress(urlRequest, parameters, results)
-                        #endif
-                        finish(.success(results))
-                    } else {
-                        finish(.failure(.jsonDecodeFailed))
-                    }
+        do {
+            let (data, response) = try await URLSession.shared.data(for: urlRequest)
+            guard let response = (response as? HTTPURLResponse) else {
+                throw RequestError.invalidResponse
+            }
+            let statusCode = response.statusCode
+            guard (200 ... 299).contains(statusCode) else {
+                switch statusCode {
+                case 400:
+                    throw RequestError.badRequest
+                case 401:
+                    throw RequestError.authorizationError
+                case 404:
+                    throw RequestError.notFound
+                case 500:
+                    throw RequestError.internalError
+                case 502:
+                    throw RequestError.badGateway
+                case 503:
+                    throw RequestError.serverUnavailable
+                default:
+                    throw RequestError.invalidResponse
                 }
             }
-        }.resume()
+            do {
+                let result = try JSONDecoder().decode(D.self, from: data)
+                
+                #if DEBUG
+                printNeworkProgress(urlRequest, parameters, result)
+                #endif
+                
+                return result
+            } catch {
+                throw RequestError.jsonDecodeFailed
+            }
+
+        } catch {
+            print(error.localizedDescription)
+            throw RequestError.unknownError
+        }
     }
     
     private func requestWithURL(urlString: String, parameters: [String : String]?) -> URL? {

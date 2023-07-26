@@ -26,15 +26,24 @@
 		32BE4B582A0A45210014161D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32BE4B562A0A45210014161D /* LaunchScreen.storyboard */; };
 		32BE4B612A0A45600014161D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BE4B5F2A0A45600014161D /* MainViewController.swift */; };
 		32BE4B622A0A45600014161D /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32BE4B602A0A45600014161D /* MainViewController.xib */; };
-		3FDFE2132A4D27E6005100EC /* Gary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDFE2122A4D27E6005100EC /* Gary.swift */; };
+		3F6DFBDF2A6D76750058CDFB /* Coloe+Extnesion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFBDE2A6D76750058CDFB /* Coloe+Extnesion.swift */; };
+		3F6DFE262A6E2DA90058CDFB /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */; };
+		3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */; };
+		3FDCE2DF2A702DF6004981D7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDCE2DD2A702DF6004981D7 /* LoginViewController.swift */; };
+		3FDCE2E02A702DF6004981D7 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCE2DE2A702DF6004981D7 /* LoginViewController.xib */; };
+		3FDCE2E22A702F52004981D7 /* EyeProtect.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCE2E12A702F52004981D7 /* EyeProtect.json */; };
+		3FDCE2E52A70BECD004981D7 /* AstroSpace-eZ2Bg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCE2E42A70B8D2004981D7 /* AstroSpace-eZ2Bg.ttf */; };
+		3FDCE3082A710452004981D7 /* Text+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDCE3072A710452004981D7 /* Text+Extension.swift */; };
+		3FE31D572A6D653A00E287A0 /* Logo-Animation - 1690117050344.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FE31D562A6D653A00E287A0 /* Logo-Animation - 1690117050344.json */; };
+		5364894A85EA3AC094430E85 /* Pods_EyesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BB7DA1F85E5DC44B2FAC5D /* Pods_EyesApp.framework */; };
 		7C4409812A20A1D200C68A1E /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4409802A20A1D200C68A1E /* Alert.swift */; };
-		B0E8BDBD2A4D64F100FA5CA4 /* Darcy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8BDBC2A4D64F100FA5CA4 /* Darcy.swift */; };
 		D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */; };
 		D8925D1E2A4D1FAC00DB9EC9 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1D2A4D1FAC00DB9EC9 /* NetworkConstants.swift */; };
 		D8925D202A4D202E00DB9EC9 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1F2A4D202E00DB9EC9 /* Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03BB7DA1F85E5DC44B2FAC5D /* Pods_EyesApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EyesApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32593D2E2A1DFBB7005A1A6B /* LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabase.swift; sourceTree = "<group>"; };
 		3261460C2A1744A000855A6E /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		3261460D2A1744A000855A6E /* RecordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordViewController.xib; sourceTree = "<group>"; };
@@ -56,9 +65,18 @@
 		32BE4B592A0A45210014161D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32BE4B5F2A0A45600014161D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		32BE4B602A0A45600014161D /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
-		3FDFE2122A4D27E6005100EC /* Gary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gary.swift; sourceTree = "<group>"; };
+		3F6DFBDE2A6D76750058CDFB /* Coloe+Extnesion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coloe+Extnesion.swift"; sourceTree = "<group>"; };
+		3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
+		3FDCE2DD2A702DF6004981D7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		3FDCE2DE2A702DF6004981D7 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		3FDCE2E12A702F52004981D7 /* EyeProtect.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EyeProtect.json; sourceTree = "<group>"; };
+		3FDCE2E42A70B8D2004981D7 /* AstroSpace-eZ2Bg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AstroSpace-eZ2Bg.ttf"; sourceTree = "<group>"; };
+		3FDCE3072A710452004981D7 /* Text+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Extension.swift"; sourceTree = "<group>"; };
+		3FE31D562A6D653A00E287A0 /* Logo-Animation - 1690117050344.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Logo-Animation - 1690117050344.json"; sourceTree = "<group>"; };
+		7676AE22173A08CF302C5B8F /* Pods-EyesApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.release.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.release.xcconfig"; sourceTree = "<group>"; };
 		7C4409802A20A1D200C68A1E /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
-		B0E8BDBC2A4D64F100FA5CA4 /* Darcy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Darcy.swift; sourceTree = "<group>"; };
+		B4690A957F43C863D075AD8F /* Pods-EyesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.debug.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.debug.xcconfig"; sourceTree = "<group>"; };
 		D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		D8925D1D2A4D1FAC00DB9EC9 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		D8925D1F2A4D202E00DB9EC9 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -69,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5364894A85EA3AC094430E85 /* Pods_EyesApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +106,7 @@
 		326146192A1770E600855A6E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3FDCE3062A71042A004981D7 /* Extension */,
 				32593D2E2A1DFBB7005A1A6B /* LocalDatabase.swift */,
 				7C4409802A20A1D200C68A1E /* Alert.swift */,
 			);
@@ -96,6 +116,7 @@
 		3261461C2A177F6500855A6E /* Contorller */ = {
 			isa = PBXGroup;
 			children = (
+				3FE31D542A6D524A00E287A0 /* Login */,
 				3261461D2A17808900855A6E /* BaseTabBarController.swift */,
 				3261461E2A17808900855A6E /* BaseTabBarController.xib */,
 				7C4409822A20A85700C68A1E /* Main */,
@@ -109,10 +130,10 @@
 		32BE4B3F2A0A451E0014161D = {
 			isa = PBXGroup;
 			children = (
-				B0E8BDBC2A4D64F100FA5CA4 /* Darcy.swift */,
-				3FDFE2122A4D27E6005100EC /* Gary.swift */,
 				32BE4B4A2A0A451E0014161D /* EyesApp */,
 				32BE4B492A0A451E0014161D /* Products */,
+				45B2180F3F537D6E8999AA74 /* Pods */,
+				E01E9B74241C568599753070 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,9 +161,62 @@
 			path = EyesApp;
 			sourceTree = "<group>";
 		};
+		3F6DFE242A6E2D8D0058CDFB /* API */ = {
+			isa = PBXGroup;
+			children = (
+				3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		3FDCE2E32A70B85A004981D7 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				3FDCE2E42A70B8D2004981D7 /* AstroSpace-eZ2Bg.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		3FDCE3062A71042A004981D7 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				3FDCE3072A710452004981D7 /* Text+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		3FE31D542A6D524A00E287A0 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				3FDCE2DD2A702DF6004981D7 /* LoginViewController.swift */,
+				3FDCE2DE2A702DF6004981D7 /* LoginViewController.xib */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		3FE31D552A6D64C400E287A0 /* Animate */ = {
+			isa = PBXGroup;
+			children = (
+				3FDCE2E12A702F52004981D7 /* EyeProtect.json */,
+				3FE31D562A6D653A00E287A0 /* Logo-Animation - 1690117050344.json */,
+			);
+			path = Animate;
+			sourceTree = "<group>";
+		};
+		45B2180F3F537D6E8999AA74 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B4690A957F43C863D075AD8F /* Pods-EyesApp.debug.xcconfig */,
+				7676AE22173A08CF302C5B8F /* Pods-EyesApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		7C44097F2A20A0EB00C68A1E /* Resoureces */ = {
 			isa = PBXGroup;
 			children = (
+				3FDCE2E32A70B85A004981D7 /* Font */,
+				3FE31D552A6D64C400E287A0 /* Animate */,
 				32BE4B542A0A45210014161D /* Assets.xcassets */,
 			);
 			path = Resoureces;
@@ -190,8 +264,10 @@
 		D8925D1A2A4D1E7700DB9EC9 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				3F6DFE242A6E2D8D0058CDFB /* API */,
 				D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */,
 				D8925D1D2A4D1FAC00DB9EC9 /* NetworkConstants.swift */,
+				3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -200,8 +276,17 @@
 			isa = PBXGroup;
 			children = (
 				D8925D1F2A4D202E00DB9EC9 /* Extension.swift */,
+				3F6DFBDE2A6D76750058CDFB /* Coloe+Extnesion.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		E01E9B74241C568599753070 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				03BB7DA1F85E5DC44B2FAC5D /* Pods_EyesApp.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,9 +296,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32BE4B5C2A0A45210014161D /* Build configuration list for PBXNativeTarget "EyesApp" */;
 			buildPhases = (
+				1EF8FAA8FF266C8BC1E09F6E /* [CP] Check Pods Manifest.lock */,
 				32BE4B442A0A451E0014161D /* Sources */,
 				32BE4B452A0A451E0014161D /* Frameworks */,
 				32BE4B462A0A451E0014161D /* Resources */,
+				2F8EDC94A27A69F21024FA2D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -265,10 +352,14 @@
 				326146282A17911700855A6E /* EyeExerciseViewController.xib in Resources */,
 				32BE4B582A0A45210014161D /* LaunchScreen.storyboard in Resources */,
 				32BE4B552A0A45210014161D /* Assets.xcassets in Resources */,
+				3FDCE2E52A70BECD004981D7 /* AstroSpace-eZ2Bg.ttf in Resources */,
 				32BE4B622A0A45600014161D /* MainViewController.xib in Resources */,
+				3FE31D572A6D653A00E287A0 /* Logo-Animation - 1690117050344.json in Resources */,
+				3FDCE2E22A702F52004981D7 /* EyeProtect.json in Resources */,
 				326146242A178F9800855A6E /* BlueLightFilterViewController.xib in Resources */,
 				326146202A17808900855A6E /* BaseTabBarController.xib in Resources */,
 				3261462C2A1792D600855A6E /* EyeExerciseInitialViewController.xib in Resources */,
+				3FDCE2E02A702DF6004981D7 /* LoginViewController.xib in Resources */,
 				326146182A17691900855A6E /* RecordTableViewCell.xib in Resources */,
 				3261460F2A1744A000855A6E /* RecordViewController.xib in Resources */,
 			);
@@ -276,22 +367,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1EF8FAA8FF266C8BC1E09F6E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EyesApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2F8EDC94A27A69F21024FA2D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EyesApp/Pods-EyesApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EyesApp/Pods-EyesApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EyesApp/Pods-EyesApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		32BE4B442A0A451E0014161D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D8925D1E2A4D1FAC00DB9EC9 /* NetworkConstants.swift in Sources */,
-				3FDFE2132A4D27E6005100EC /* Gary.swift in Sources */,
+				3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */,
+				3F6DFE262A6E2DA90058CDFB /* LoginRequest.swift in Sources */,
 				D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */,
 				32BE4B4C2A0A451E0014161D /* AppDelegate.swift in Sources */,
 				3261461F2A17808900855A6E /* BaseTabBarController.swift in Sources */,
 				3261462B2A1792D600855A6E /* EyeExerciseInitialViewController.swift in Sources */,
+				3FDCE2DF2A702DF6004981D7 /* LoginViewController.swift in Sources */,
+				3FDCE3082A710452004981D7 /* Text+Extension.swift in Sources */,
 				326146232A178F9800855A6E /* BlueLightFilterViewController.swift in Sources */,
 				32BE4B4E2A0A451E0014161D /* SceneDelegate.swift in Sources */,
 				7C4409812A20A1D200C68A1E /* Alert.swift in Sources */,
-				B0E8BDBD2A4D64F100FA5CA4 /* Darcy.swift in Sources */,
 				32593D2F2A1DFBB7005A1A6B /* LocalDatabase.swift in Sources */,
+				3F6DFBDF2A6D76750058CDFB /* Coloe+Extnesion.swift in Sources */,
 				D8925D202A4D202E00DB9EC9 /* Extension.swift in Sources */,
 				326146272A17911700855A6E /* EyeExerciseViewController.swift in Sources */,
 				32BE4B612A0A45600014161D /* MainViewController.swift in Sources */,
@@ -430,6 +566,7 @@
 		};
 		32BE4B5D2A0A45210014161D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4690A957F43C863D075AD8F /* Pods-EyesApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -438,10 +575,12 @@
 				DEVELOPMENT_TEAM = S8FBP4YLUA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EyesApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -458,6 +597,7 @@
 		};
 		32BE4B5E2A0A45210014161D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7676AE22173A08CF302C5B8F /* Pods-EyesApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -466,10 +606,12 @@
 				DEVELOPMENT_TEAM = S8FBP4YLUA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EyesApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
