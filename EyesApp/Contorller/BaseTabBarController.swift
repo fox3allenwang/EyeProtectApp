@@ -15,7 +15,7 @@ class BaseTabBarController: UITabBarController {
     }
     
     func setupTabBar() {
-        let mainNC = UINavigationController(rootViewController: MainViewController())
+        let mainNC = UINavigationController(rootViewController: OldMainViewController())
         let recordNC = UINavigationController(rootViewController: RecordViewController())
         let EyeExerciseNC = UINavigationController(rootViewController: EyeExerciseInitialViewController())
         mainNC.tabBarItem.image = UIImage(systemName: "house")

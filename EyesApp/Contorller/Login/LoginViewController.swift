@@ -8,7 +8,7 @@
 import UIKit
 import Lottie
 
-class LoginViewController: UIViewController {
+class LoginViewController: BaseViewController {
     
     // MARK: - IBOutlet
     @IBOutlet weak var btnLogin: UIButton!
@@ -18,7 +18,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var lbProtect:UILabel!
     @IBOutlet weak var txfView: UIView!
     @IBOutlet weak var txfPassword: UITextField!
-    @IBOutlet weak var txfAccount: UITextField!
+    @IBOutlet weak var txfEmail: UITextField!
     @IBOutlet weak var txfName: UITextField!
     @IBOutlet weak var lbLoginOrSingUp: UILabel!
     @IBOutlet weak var btnBack: UIButton!
@@ -35,6 +35,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = true
         setupUI()
     }
     
@@ -84,10 +85,10 @@ class LoginViewController: UIViewController {
         txfView.layer.shadowRadius = 20
         txfView.alpha = 0.2
         txfView.layer.cornerRadius = 20
-        txfAccount.layer.borderColor = UIColor.buttomColor?.cgColor
-        txfAccount.layer.borderWidth = 1
-        txfAccount.layer.cornerRadius = 20
-        txfAccount.tintColor = .buttomColor
+        txfEmail.layer.borderColor = UIColor.buttomColor?.cgColor
+        txfEmail.layer.borderWidth = 1
+        txfEmail.layer.cornerRadius = 20
+        txfEmail.tintColor = .buttomColor
         txfPassword.layer.borderColor = UIColor.buttomColor?.cgColor
         txfPassword.layer.borderWidth = 1
         txfPassword.layer.cornerRadius = 20
@@ -98,7 +99,7 @@ class LoginViewController: UIViewController {
         txfName.layer.cornerRadius = 20
         txfName.tintColor = .buttomColor
         
-        txfAccount.setTextFieldImage(systemImageName: "person.text.rectangle",
+        txfEmail.setTextFieldImage(systemImageName: "envelope",
                                      imageX: 10,
                                      imageY: 5,
                                      imageWidth: 40,
@@ -138,7 +139,7 @@ class LoginViewController: UIViewController {
     // MARK: - networkManager
     
     func callLoginApi() async {
-        let request = LoginRequest(email: txfAccount.text!, password: txfPassword.text!)
+        let request = LoginRequest(email: txfEmail.text!, password: txfPassword.text!)
         Task {
             do {
                 let response: GeneralResponse<String> = try await manager.requestData(method: .get,
@@ -146,6 +147,8 @@ class LoginViewController: UIViewController {
                                                                                       parameters: request)
                 if response.result == 0 {
                     print("帳號密碼正確")
+                    let nextVC = MainViewController()
+                    navigationController?.pushViewController(nextVC, animated: true)
                 } else {
                     print("帳號密碼錯誤")
                     Alert.showAlert(title: "帳號或密碼錯誤",
@@ -166,7 +169,7 @@ class LoginViewController: UIViewController {
 //        let now = Date()
         
         let request = RegisterRequest(dor: now,
-                                      email: txfAccount.text!,
+                                      email: txfEmail.text!,
                                       password: txfPassword.text!,
                                       name: txfName.text!)
         Task {
@@ -219,9 +222,9 @@ class LoginViewController: UIViewController {
             self.txfName.isEnabled = false
         }
         
-        let transformValue = txfAccount.frame.height + 30
+        let transformValue = txfEmail.frame.height + 30
         UIView.animate(withDuration: 0.3) {
-            self.txfAccount.transform = CGAffineTransform(translationX: 0,
+            self.txfEmail.transform = CGAffineTransform(translationX: 0,
                                                           y: 0)
         }
         UIView.animate(withDuration: 0.3) {
@@ -260,9 +263,9 @@ class LoginViewController: UIViewController {
         btnSingUp.backgroundColor = UIColor.buttom2Color
       
         
-        let transformValue = txfAccount.frame.height + 30
+        let transformValue = txfEmail.frame.height + 30
         UIView.animate(withDuration: 0.3) {
-            self.txfAccount.transform = CGAffineTransform(translationX: 0,
+            self.txfEmail.transform = CGAffineTransform(translationX: 0,
                                                           y: transformValue)
         }
         UIView.animate(withDuration: 0.3) {
@@ -274,7 +277,7 @@ class LoginViewController: UIViewController {
     // MARK: - IBAction
     
     @IBAction func clickLogin() {
-        if txfAccount.text == "" || txfPassword.text == "" {
+        if txfEmail.text == "" || txfPassword.text == "" {
             Alert.showAlert(title: "帳號或密碼未輸入",
                             message: "請輸入帳號及密碼",
                             vc: self,
@@ -291,7 +294,7 @@ class LoginViewController: UIViewController {
             setupSingUpUI()
             loginOrSingUp = .SingUp
         } else {
-            if txfAccount.text == "" ||
+            if txfEmail.text == "" ||
                 txfPassword.text == "" ||
                 txfName.text == "" {
                 Alert.showAlert(title: "名稱、帳號或密碼未輸入",

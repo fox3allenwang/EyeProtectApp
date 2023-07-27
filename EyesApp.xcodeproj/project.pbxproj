@@ -24,10 +24,28 @@
 		32BE4B4E2A0A451E0014161D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BE4B4D2A0A451E0014161D /* SceneDelegate.swift */; };
 		32BE4B552A0A45210014161D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32BE4B542A0A45210014161D /* Assets.xcassets */; };
 		32BE4B582A0A45210014161D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32BE4B562A0A45210014161D /* LaunchScreen.storyboard */; };
-		32BE4B612A0A45600014161D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BE4B5F2A0A45600014161D /* MainViewController.swift */; };
-		32BE4B622A0A45600014161D /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32BE4B602A0A45600014161D /* MainViewController.xib */; };
+		32BE4B612A0A45600014161D /* OldMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BE4B5F2A0A45600014161D /* OldMainViewController.swift */; };
+		32BE4B622A0A45600014161D /* OldMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32BE4B602A0A45600014161D /* OldMainViewController.xib */; };
 		3F44875D2A71553900D573AB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44875C2A71553900D573AB /* Alert.swift */; };
 		3F44875F2A71736400D573AB /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44875E2A71736400D573AB /* RegisterRequest.swift */; };
+		3F44884C2A722C4F00D573AB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44884A2A722C4F00D573AB /* MainViewController.swift */; };
+		3F44884D2A722C4F00D573AB /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F44884B2A722C4F00D573AB /* MainViewController.xib */; };
+		3F4488522A723EBF00D573AB /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4488512A723EBF00D573AB /* CustomTabBarView.swift */; };
+		3F4488542A723EDD00D573AB /* CustomTabBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F4488532A723EDD00D573AB /* CustomTabBarView.xib */; };
+		3F4488562A724D1800D573AB /* TabBarItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F4488552A724D1800D573AB /* TabBarItemView.xib */; };
+		3F4488582A724D5100D573AB /* TabBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4488572A724D5100D573AB /* TabBarItemView.swift */; };
+		3F44885A2A725B7F00D573AB /* tabTap.json in Resources */ = {isa = PBXBuildFile; fileRef = 3F4488592A725B7F00D573AB /* tabTap.json */; };
+		3F4488622A72A75E00D573AB /* PersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4488602A72A75E00D573AB /* PersonalViewController.swift */; };
+		3F4488632A72A75E00D573AB /* PersonalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F4488612A72A75E00D573AB /* PersonalViewController.xib */; };
+		3F4488662A72A77700D573AB /* FatigueDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4488642A72A77700D573AB /* FatigueDetectionViewController.swift */; };
+		3F4488672A72A77700D573AB /* FatigueDetectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F4488652A72A77700D573AB /* FatigueDetectionViewController.xib */; };
+		3F44886A2A72A79000D573AB /* ConcentrateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4488682A72A79000D573AB /* ConcentrateViewController.swift */; };
+		3F44886B2A72A79000D573AB /* ConcentrateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F4488692A72A79000D573AB /* ConcentrateViewController.xib */; };
+		3F44886E2A72A7A500D573AB /* EquipmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44886C2A72A7A500D573AB /* EquipmentViewController.swift */; };
+		3F44886F2A72A7A500D573AB /* EquipmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F44886D2A72A7A500D573AB /* EquipmentViewController.xib */; };
+		3F4488722A72A7B700D573AB /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4488702A72A7B700D573AB /* SocialViewController.swift */; };
+		3F4488732A72A7B700D573AB /* SocialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F4488712A72A7B700D573AB /* SocialViewController.xib */; };
+		3F4488752A72BD2800D573AB /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4488742A72BD2800D573AB /* BaseViewController.swift */; };
 		3F6DFBDF2A6D76750058CDFB /* Coloe+Extnesion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFBDE2A6D76750058CDFB /* Coloe+Extnesion.swift */; };
 		3F6DFE262A6E2DA90058CDFB /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */; };
 		3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */; };
@@ -64,10 +82,28 @@
 		32BE4B542A0A45210014161D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32BE4B572A0A45210014161D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		32BE4B592A0A45210014161D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32BE4B5F2A0A45600014161D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		32BE4B602A0A45600014161D /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		32BE4B5F2A0A45600014161D /* OldMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldMainViewController.swift; sourceTree = "<group>"; };
+		32BE4B602A0A45600014161D /* OldMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OldMainViewController.xib; sourceTree = "<group>"; };
 		3F44875C2A71553900D573AB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		3F44875E2A71736400D573AB /* RegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
+		3F44884A2A722C4F00D573AB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		3F44884B2A722C4F00D573AB /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		3F4488512A723EBF00D573AB /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
+		3F4488532A723EDD00D573AB /* CustomTabBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTabBarView.xib; sourceTree = "<group>"; };
+		3F4488552A724D1800D573AB /* TabBarItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabBarItemView.xib; sourceTree = "<group>"; };
+		3F4488572A724D5100D573AB /* TabBarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemView.swift; sourceTree = "<group>"; };
+		3F4488592A725B7F00D573AB /* tabTap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tabTap.json; sourceTree = "<group>"; };
+		3F4488602A72A75E00D573AB /* PersonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewController.swift; sourceTree = "<group>"; };
+		3F4488612A72A75E00D573AB /* PersonalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalViewController.xib; sourceTree = "<group>"; };
+		3F4488642A72A77700D573AB /* FatigueDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatigueDetectionViewController.swift; sourceTree = "<group>"; };
+		3F4488652A72A77700D573AB /* FatigueDetectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FatigueDetectionViewController.xib; sourceTree = "<group>"; };
+		3F4488682A72A79000D573AB /* ConcentrateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcentrateViewController.swift; sourceTree = "<group>"; };
+		3F4488692A72A79000D573AB /* ConcentrateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConcentrateViewController.xib; sourceTree = "<group>"; };
+		3F44886C2A72A7A500D573AB /* EquipmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentViewController.swift; sourceTree = "<group>"; };
+		3F44886D2A72A7A500D573AB /* EquipmentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EquipmentViewController.xib; sourceTree = "<group>"; };
+		3F4488702A72A7B700D573AB /* SocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewController.swift; sourceTree = "<group>"; };
+		3F4488712A72A7B700D573AB /* SocialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialViewController.xib; sourceTree = "<group>"; };
+		3F4488742A72BD2800D573AB /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		3F6DFBDE2A6D76750058CDFB /* Coloe+Extnesion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coloe+Extnesion.swift"; sourceTree = "<group>"; };
 		3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
@@ -118,13 +154,18 @@
 		3261461C2A177F6500855A6E /* Contorller */ = {
 			isa = PBXGroup;
 			children = (
+				3F44885F2A72A6BE00D573AB /* Personal */,
+				3F44885E2A72A68000D573AB /* FatigueDetection */,
+				3F44885D2A72A61F00D573AB /* Concentrate */,
+				3F44885C2A72A5F800D573AB /* Equipment */,
+				3F44885B2A72A5DE00D573AB /* Social */,
 				3FE31D542A6D524A00E287A0 /* Login */,
 				3261461D2A17808900855A6E /* BaseTabBarController.swift */,
 				3261461E2A17808900855A6E /* BaseTabBarController.xib */,
 				7C4409822A20A85700C68A1E /* Main */,
-				7C4409832A20A86100C68A1E /* Record */,
-				7C4409842A20A87A00C68A1E /* EyeExercise */,
-				7C4409852A20A88C00C68A1E /* BlueLightFilter */,
+				7C4409832A20A86100C68A1E /* Record(old) */,
+				7C4409842A20A87A00C68A1E /* EyeExercise(old) */,
+				7C4409852A20A88C00C68A1E /* BlueLightFilter(old) */,
 			);
 			path = Contorller;
 			sourceTree = "<group>";
@@ -165,9 +206,67 @@
 		3F44875B2A71551400D573AB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3F4488502A723E9D00D573AB /* CustomTabBar */,
 				3F44875C2A71553900D573AB /* Alert.swift */,
+				3F4488742A72BD2800D573AB /* BaseViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3F4488502A723E9D00D573AB /* CustomTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				3F4488512A723EBF00D573AB /* CustomTabBarView.swift */,
+				3F4488532A723EDD00D573AB /* CustomTabBarView.xib */,
+				3F4488552A724D1800D573AB /* TabBarItemView.xib */,
+				3F4488572A724D5100D573AB /* TabBarItemView.swift */,
+			);
+			path = CustomTabBar;
+			sourceTree = "<group>";
+		};
+		3F44885B2A72A5DE00D573AB /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				3F4488702A72A7B700D573AB /* SocialViewController.swift */,
+				3F4488712A72A7B700D573AB /* SocialViewController.xib */,
+			);
+			path = Social;
+			sourceTree = "<group>";
+		};
+		3F44885C2A72A5F800D573AB /* Equipment */ = {
+			isa = PBXGroup;
+			children = (
+				3F44886C2A72A7A500D573AB /* EquipmentViewController.swift */,
+				3F44886D2A72A7A500D573AB /* EquipmentViewController.xib */,
+			);
+			path = Equipment;
+			sourceTree = "<group>";
+		};
+		3F44885D2A72A61F00D573AB /* Concentrate */ = {
+			isa = PBXGroup;
+			children = (
+				3F4488682A72A79000D573AB /* ConcentrateViewController.swift */,
+				3F4488692A72A79000D573AB /* ConcentrateViewController.xib */,
+			);
+			path = Concentrate;
+			sourceTree = "<group>";
+		};
+		3F44885E2A72A68000D573AB /* FatigueDetection */ = {
+			isa = PBXGroup;
+			children = (
+				3F4488642A72A77700D573AB /* FatigueDetectionViewController.swift */,
+				3F4488652A72A77700D573AB /* FatigueDetectionViewController.xib */,
+			);
+			path = FatigueDetection;
+			sourceTree = "<group>";
+		};
+		3F44885F2A72A6BE00D573AB /* Personal */ = {
+			isa = PBXGroup;
+			children = (
+				3F4488602A72A75E00D573AB /* PersonalViewController.swift */,
+				3F4488612A72A75E00D573AB /* PersonalViewController.xib */,
+			);
+			path = Personal;
 			sourceTree = "<group>";
 		};
 		3F6DFE242A6E2D8D0058CDFB /* API */ = {
@@ -210,6 +309,7 @@
 		3FE31D552A6D64C400E287A0 /* Animate */ = {
 			isa = PBXGroup;
 			children = (
+				3F4488592A725B7F00D573AB /* tabTap.json */,
 				3FDCE2E12A702F52004981D7 /* EyeProtect.json */,
 				3FE31D562A6D653A00E287A0 /* Logo-Animation - 1690117050344.json */,
 			);
@@ -238,23 +338,25 @@
 		7C4409822A20A85700C68A1E /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				32BE4B5F2A0A45600014161D /* MainViewController.swift */,
-				32BE4B602A0A45600014161D /* MainViewController.xib */,
+				32BE4B5F2A0A45600014161D /* OldMainViewController.swift */,
+				32BE4B602A0A45600014161D /* OldMainViewController.xib */,
+				3F44884A2A722C4F00D573AB /* MainViewController.swift */,
+				3F44884B2A722C4F00D573AB /* MainViewController.xib */,
 			);
 			path = Main;
 			sourceTree = "<group>";
 		};
-		7C4409832A20A86100C68A1E /* Record */ = {
+		7C4409832A20A86100C68A1E /* Record(old) */ = {
 			isa = PBXGroup;
 			children = (
 				3261460C2A1744A000855A6E /* RecordViewController.swift */,
 				3261460D2A1744A000855A6E /* RecordViewController.xib */,
 				326146102A17628900855A6E /* Components */,
 			);
-			path = Record;
+			path = "Record(old)";
 			sourceTree = "<group>";
 		};
-		7C4409842A20A87A00C68A1E /* EyeExercise */ = {
+		7C4409842A20A87A00C68A1E /* EyeExercise(old) */ = {
 			isa = PBXGroup;
 			children = (
 				326146252A17911700855A6E /* EyeExerciseViewController.swift */,
@@ -262,16 +364,16 @@
 				326146292A1792D600855A6E /* EyeExerciseInitialViewController.swift */,
 				3261462A2A1792D600855A6E /* EyeExerciseInitialViewController.xib */,
 			);
-			path = EyeExercise;
+			path = "EyeExercise(old)";
 			sourceTree = "<group>";
 		};
-		7C4409852A20A88C00C68A1E /* BlueLightFilter */ = {
+		7C4409852A20A88C00C68A1E /* BlueLightFilter(old) */ = {
 			isa = PBXGroup;
 			children = (
 				326146212A178F9800855A6E /* BlueLightFilterViewController.swift */,
 				326146222A178F9800855A6E /* BlueLightFilterViewController.xib */,
 			);
-			path = BlueLightFilter;
+			path = "BlueLightFilter(old)";
 			sourceTree = "<group>";
 		};
 		D8925D1A2A4D1E7700DB9EC9 /* Network */ = {
@@ -354,17 +456,26 @@
 			files = (
 				326146282A17911700855A6E /* EyeExerciseViewController.xib in Resources */,
 				32BE4B582A0A45210014161D /* LaunchScreen.storyboard in Resources */,
+				3F44885A2A725B7F00D573AB /* tabTap.json in Resources */,
 				32BE4B552A0A45210014161D /* Assets.xcassets in Resources */,
 				3FDCE2E52A70BECD004981D7 /* AstroSpace-eZ2Bg.ttf in Resources */,
-				32BE4B622A0A45600014161D /* MainViewController.xib in Resources */,
+				3F4488732A72A7B700D573AB /* SocialViewController.xib in Resources */,
+				32BE4B622A0A45600014161D /* OldMainViewController.xib in Resources */,
+				3F44884D2A722C4F00D573AB /* MainViewController.xib in Resources */,
 				3FE31D572A6D653A00E287A0 /* Logo-Animation - 1690117050344.json in Resources */,
 				3FDCE2E22A702F52004981D7 /* EyeProtect.json in Resources */,
 				326146242A178F9800855A6E /* BlueLightFilterViewController.xib in Resources */,
 				326146202A17808900855A6E /* BaseTabBarController.xib in Resources */,
+				3F4488562A724D1800D573AB /* TabBarItemView.xib in Resources */,
+				3F4488672A72A77700D573AB /* FatigueDetectionViewController.xib in Resources */,
 				3261462C2A1792D600855A6E /* EyeExerciseInitialViewController.xib in Resources */,
 				3FDCE2E02A702DF6004981D7 /* LoginViewController.xib in Resources */,
+				3F44886B2A72A79000D573AB /* ConcentrateViewController.xib in Resources */,
+				3F44886F2A72A7A500D573AB /* EquipmentViewController.xib in Resources */,
 				326146182A17691900855A6E /* RecordTableViewCell.xib in Resources */,
 				3261460F2A1744A000855A6E /* RecordViewController.xib in Resources */,
+				3F4488632A72A75E00D573AB /* PersonalViewController.xib in Resources */,
+				3F4488542A723EDD00D573AB /* CustomTabBarView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,26 +528,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F44884C2A722C4F00D573AB /* MainViewController.swift in Sources */,
 				D8925D1E2A4D1FAC00DB9EC9 /* NetworkConstants.swift in Sources */,
 				3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */,
 				3F44875F2A71736400D573AB /* RegisterRequest.swift in Sources */,
+				3F4488752A72BD2800D573AB /* BaseViewController.swift in Sources */,
 				3F6DFE262A6E2DA90058CDFB /* LoginRequest.swift in Sources */,
+				3F44886E2A72A7A500D573AB /* EquipmentViewController.swift in Sources */,
+				3F44886A2A72A79000D573AB /* ConcentrateViewController.swift in Sources */,
+				3F4488582A724D5100D573AB /* TabBarItemView.swift in Sources */,
 				D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */,
 				32BE4B4C2A0A451E0014161D /* AppDelegate.swift in Sources */,
 				3261461F2A17808900855A6E /* BaseTabBarController.swift in Sources */,
 				3261462B2A1792D600855A6E /* EyeExerciseInitialViewController.swift in Sources */,
+				3F4488622A72A75E00D573AB /* PersonalViewController.swift in Sources */,
 				3FDCE2DF2A702DF6004981D7 /* LoginViewController.swift in Sources */,
 				3FDCE3082A710452004981D7 /* Text+Extension.swift in Sources */,
+				3F4488662A72A77700D573AB /* FatigueDetectionViewController.swift in Sources */,
 				326146232A178F9800855A6E /* BlueLightFilterViewController.swift in Sources */,
 				32BE4B4E2A0A451E0014161D /* SceneDelegate.swift in Sources */,
 				32593D2F2A1DFBB7005A1A6B /* LocalDatabase.swift in Sources */,
 				3F6DFBDF2A6D76750058CDFB /* Coloe+Extnesion.swift in Sources */,
 				D8925D202A4D202E00DB9EC9 /* Extension.swift in Sources */,
 				326146272A17911700855A6E /* EyeExerciseViewController.swift in Sources */,
-				32BE4B612A0A45600014161D /* MainViewController.swift in Sources */,
+				32BE4B612A0A45600014161D /* OldMainViewController.swift in Sources */,
+				3F4488722A72A7B700D573AB /* SocialViewController.swift in Sources */,
 				326146172A17691900855A6E /* RecordTableViewCell.swift in Sources */,
 				3F44875D2A71553900D573AB /* Alert.swift in Sources */,
 				3261460E2A1744A000855A6E /* RecordViewController.swift in Sources */,
+				3F4488522A723EBF00D573AB /* CustomTabBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
