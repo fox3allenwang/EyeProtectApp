@@ -14,7 +14,7 @@ class CustomTabBarView: UIView {
     @IBOutlet weak var social: TabBarItemView!
     @IBOutlet weak var equipment: TabBarItemView!
     @IBOutlet weak var concentrateMode: TabBarItemView!
-    @IBOutlet weak var fatigueDetection: TabBarItemView!
+    @IBOutlet weak var news: TabBarItemView!
     @IBOutlet weak var personal: TabBarItemView!
     
     
@@ -31,17 +31,17 @@ class CustomTabBarView: UIView {
     // MARK: - UI Settings
     
     func setupInit() {
-        social.setupInit(index: 0,
+        social.setupInit(index: 1,
                          image: "person.2",
                          delegate: self)
-        equipment.setupInit(index: 1,
+        equipment.setupInit(index: 3,
                             image: "lightbulb.circle",
                             delegate: self)
         concentrateMode.setupInit(index: 2,
                                   image: "ButtomColorIcon",
                                   delegate: self)
-        fatigueDetection.setupInit(index: 3,
-                                   image: "vial.viewfinder",
+        news.setupInit(index: 0,
+                                   image: "newspaper",
                                    delegate: self)
         personal.setupInit(index: 4,
                             image: "person.text.rectangle",
@@ -87,28 +87,28 @@ extension CustomTabBarView: TapTabBarDelegate {
         case 0:
             noTapAnimation(btn: equipment)
             noTapForConcentrate(btn: concentrateMode)
-            noTapAnimation(btn: fatigueDetection)
+            noTapAnimation(btn: social)
             noTapAnimation(btn: personal)
         case 1:
-            noTapAnimation(btn: social)
+            noTapAnimation(btn: news)
             noTapForConcentrate(btn: concentrateMode)
-            noTapAnimation(btn: fatigueDetection)
+            noTapAnimation(btn: equipment)
             noTapAnimation(btn: personal)
         case 2:
             noTapAnimation(btn: social)
             noTapAnimation(btn: equipment)
-            noTapAnimation(btn: fatigueDetection)
+            noTapAnimation(btn: news)
             noTapAnimation(btn: personal)
         case 3:
             noTapAnimation(btn: social)
-            noTapAnimation(btn: equipment)
+            noTapAnimation(btn: news)
             noTapForConcentrate(btn: concentrateMode)
             noTapAnimation(btn: personal)
         default:
             noTapAnimation(btn: social)
             noTapAnimation(btn: equipment)
             noTapForConcentrate(btn: concentrateMode)
-            noTapAnimation(btn: fatigueDetection)
+            noTapAnimation(btn: news)
         }
         
         tapIndexClosure?(indexTap)

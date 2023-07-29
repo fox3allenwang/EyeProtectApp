@@ -9,8 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonalViewController" customModule="EyesApp" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EyeExerciseViewController" customModule="EyesApp" customModuleProvider="target">
             <connections>
+                <outlet property="faceTrackerView" destination="QJN-wl-H7k" id="dSP-8E-KwF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,14 +19,25 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJN-wl-H7k">
+                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                </arscnView>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBrownColor"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="QJN-wl-H7k" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="3v9-Id-B4o"/>
+                <constraint firstItem="QJN-wl-H7k" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="7LX-rF-9i3"/>
+                <constraint firstItem="QJN-wl-H7k" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" id="Wa4-Eb-HZY"/>
+                <constraint firstItem="QJN-wl-H7k" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="lCs-DS-eX4"/>
+            </constraints>
             <point key="canvasLocation" x="58" y="21"/>
         </view>
     </objects>
     <resources>
-        <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

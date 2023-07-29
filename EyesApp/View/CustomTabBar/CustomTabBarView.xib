@@ -11,10 +11,10 @@
             <connections>
                 <outlet property="backgroundView" destination="0g5-xP-4ki" id="JKs-4v-0p1"/>
                 <outlet property="concentrateMode" destination="IUB-jD-5vJ" id="w3n-f0-BqV"/>
-                <outlet property="equipment" destination="pws-lv-i25" id="Lo2-Sd-iSm"/>
-                <outlet property="fatigueDetection" destination="1a2-po-bfx" id="L2Y-L7-rQo"/>
+                <outlet property="equipment" destination="1a2-po-bfx" id="kXL-Lh-LeZ"/>
+                <outlet property="news" destination="4Hp-M8-ISY" id="6dC-ju-55x"/>
                 <outlet property="personal" destination="1JE-ld-QQK" id="Ne3-nR-vOm"/>
-                <outlet property="social" destination="4Hp-M8-ISY" id="Ql4-WN-4mL"/>
+                <outlet property="social" destination="pws-lv-i25" id="kEk-Ns-ERV"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

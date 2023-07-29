@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +12,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="EyesApp" customModuleProvider="target">
             <connections>
+                <outlet property="animateView" destination="0yJ-Lr-3iJ" id="VQ1-1o-1NK"/>
+                <outlet property="btnEyeExcrise" destination="OWK-tc-Tto" id="yDs-8X-lvX"/>
+                <outlet property="btnFatigueDetection" destination="YWG-3M-a8p" id="WcM-Xf-lHX"/>
+                <outlet property="cameraManuView" destination="l7R-AI-ual" id="57y-Fb-7iI"/>
                 <outlet property="containerView" destination="YUJ-L0-ZJJ" id="XJ9-lZ-pnt"/>
                 <outlet property="customTabBarView" destination="CCu-ex-B74" id="6hr-Ho-v33"/>
                 <outlet property="shadowView" destination="efF-U5-eip" id="xZv-D5-S3r"/>
@@ -22,6 +27,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0yJ-Lr-3iJ">
+                    <rect key="frame" x="0.0" y="711" width="375" height="67"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="efF-U5-eip">
                     <rect key="frame" x="12.666666666666657" y="711" width="350" height="57"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -38,25 +47,67 @@
                     <rect key="frame" x="0.0" y="50" width="375" height="661"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l7R-AI-ual">
+                    <rect key="frame" x="375" y="50" width="150" height="145.66666666666666"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OWK-tc-Tto">
+                    <rect key="frame" x="375" y="50.000000000000007" width="150" height="72.666666666666686"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="tintColor" name="ButtomColor"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title=" Eye Exercise" image="dot.circle.viewfinder" catalog="system">
+                        <color key="titleColor" name="ButtomColor"/>
+                    </state>
+                    <connections>
+                        <action selector="clickBtnEyeExercise" destination="-2" eventType="touchUpInside" id="fmP-po-NlB"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWG-3M-a8p">
+                    <rect key="frame" x="375" y="122.66666666666669" width="150" height="73"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="l7R-AI-ual" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.4" id="8gs-ES-LJn"/>
+                <constraint firstItem="YWG-3M-a8p" firstAttribute="trailing" secondItem="l7R-AI-ual" secondAttribute="trailing" id="9T8-CI-Lhg"/>
+                <constraint firstItem="l7R-AI-ual" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="AxB-sH-WlK"/>
                 <constraint firstItem="CCu-ex-B74" firstAttribute="top" secondItem="YUJ-L0-ZJJ" secondAttribute="bottom" id="DG7-qb-xKd"/>
+                <constraint firstItem="0yJ-Lr-3iJ" firstAttribute="top" secondItem="YUJ-L0-ZJJ" secondAttribute="bottom" id="FgV-Ak-a7s"/>
+                <constraint firstItem="YWG-3M-a8p" firstAttribute="bottom" secondItem="l7R-AI-ual" secondAttribute="bottom" id="HUs-jq-HdD"/>
+                <constraint firstItem="YWG-3M-a8p" firstAttribute="top" secondItem="OWK-tc-Tto" secondAttribute="bottom" id="Ime-rs-gyq"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0yJ-Lr-3iJ" secondAttribute="trailing" id="L0V-2D-UKT"/>
+                <constraint firstItem="OWK-tc-Tto" firstAttribute="leading" secondItem="l7R-AI-ual" secondAttribute="leading" id="L6W-N5-A53"/>
                 <constraint firstItem="YUJ-L0-ZJJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="O7A-pS-ZFe"/>
                 <constraint firstItem="efF-U5-eip" firstAttribute="height" secondItem="CCu-ex-B74" secondAttribute="height" id="PxH-2r-yg9"/>
                 <constraint firstItem="CCu-ex-B74" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Qtt-eH-v7y"/>
                 <constraint firstItem="efF-U5-eip" firstAttribute="centerX" secondItem="CCu-ex-B74" secondAttribute="centerX" id="VOU-99-AOK"/>
                 <constraint firstItem="efF-U5-eip" firstAttribute="width" secondItem="CCu-ex-B74" secondAttribute="width" id="ZFY-xK-LXC"/>
+                <constraint firstItem="0yJ-Lr-3iJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bEq-LA-tmM"/>
+                <constraint firstItem="l7R-AI-ual" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.2" id="dMo-Nr-RiW"/>
+                <constraint firstItem="OWK-tc-Tto" firstAttribute="top" secondItem="l7R-AI-ual" secondAttribute="top" id="eXY-h7-NEQ"/>
+                <constraint firstItem="YWG-3M-a8p" firstAttribute="height" secondItem="OWK-tc-Tto" secondAttribute="height" id="huI-B7-uqb"/>
+                <constraint firstItem="YWG-3M-a8p" firstAttribute="width" secondItem="OWK-tc-Tto" secondAttribute="width" id="jNF-cz-ZeA"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="l7R-AI-ual" secondAttribute="leading" id="m9O-dT-C7S"/>
                 <constraint firstItem="YUJ-L0-ZJJ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="nW9-GT-DkV"/>
+                <constraint firstItem="OWK-tc-Tto" firstAttribute="trailing" secondItem="l7R-AI-ual" secondAttribute="trailing" id="nYx-73-qx4"/>
                 <constraint firstItem="CCu-ex-B74" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-10" id="nwo-0k-gwc"/>
+                <constraint firstItem="YWG-3M-a8p" firstAttribute="leading" secondItem="l7R-AI-ual" secondAttribute="leading" id="qGC-FB-WxY"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="YUJ-L0-ZJJ" secondAttribute="trailing" id="rHY-gM-kOE"/>
                 <constraint firstItem="efF-U5-eip" firstAttribute="bottom" secondItem="CCu-ex-B74" secondAttribute="bottom" id="sLB-Gd-mdA"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="0yJ-Lr-3iJ" secondAttribute="bottom" id="xTt-WA-sn0"/>
             </constraints>
             <point key="canvasLocation" x="58" y="21"/>
         </view>
     </objects>
     <resources>
+        <image name="dot.circle.viewfinder" catalog="system" width="128" height="115"/>
+        <namedColor name="ButtomColor">
+            <color red="0.23499999940395355" green="0.49399998784065247" blue="0.20399999618530273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

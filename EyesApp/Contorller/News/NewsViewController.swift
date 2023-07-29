@@ -1,13 +1,13 @@
 //
-//  ConcentrateViewController.swift
+//  NewsViewController.swift
 //  EyesApp
 //
-//  Created by imac-3570 on 2023/7/27.
+//  Created by imac-3570 on 2023/7/29.
 //
 
 import UIKit
 
-class ConcentrateViewController: UIViewController {
+class NewsViewController: UIViewController {
     
     // MARK: - IBOutlet
     
@@ -23,7 +23,7 @@ class ConcentrateViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("ConcentrateViewController")
+        print("NewsViewController")
     }
     
     override func viewDidAppear(_ animated: Bool) {

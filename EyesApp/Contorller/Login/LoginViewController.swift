@@ -26,6 +26,7 @@ class LoginViewController: BaseViewController {
     // MARK: - Variables
     let manager = NetworkManager()
     var loginOrSingUp: LoginOrSingUpStatus = .login
+    
     enum LoginOrSingUpStatus {
         case login
         case SingUp
