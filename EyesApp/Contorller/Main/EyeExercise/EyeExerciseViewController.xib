@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22138.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22113"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,31 +12,70 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EyeExerciseViewController" customModule="EyesApp" customModuleProvider="target">
             <connections>
+                <outlet property="eyeDistance" destination="Av8-eu-R7y" id="N1a-M3-TKZ"/>
+                <outlet property="eyePositionIndicatorView" destination="vnL-y1-26M" id="47I-1E-ePg"/>
                 <outlet property="faceTrackerView" destination="QJN-wl-H7k" id="dSP-8E-KwF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJN-wl-H7k">
-                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                    <rect key="frame" x="0.0" y="50" width="375" height="728"/>
                 </arscnView>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vnL-y1-26M">
+                    <rect key="frame" x="150" y="376.66666666666669" width="75" height="75"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.viewfinder" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2yA-8p-WTz">
+                            <rect key="frame" x="0.0" y="1.3333333333333357" width="75" height="73"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" name="ButtomColor"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" name="Buttom2Color"/>
+                    <constraints>
+                        <constraint firstItem="2yA-8p-WTz" firstAttribute="height" secondItem="vnL-y1-26M" secondAttribute="height" id="56b-9u-3xw"/>
+                        <constraint firstAttribute="width" secondItem="vnL-y1-26M" secondAttribute="height" multiplier="1:1" id="AEd-Rk-hex"/>
+                        <constraint firstItem="2yA-8p-WTz" firstAttribute="centerY" secondItem="vnL-y1-26M" secondAttribute="centerY" id="a8a-Tg-OUU"/>
+                        <constraint firstItem="2yA-8p-WTz" firstAttribute="centerX" secondItem="vnL-y1-26M" secondAttribute="centerX" id="fm7-eL-8Pu"/>
+                        <constraint firstItem="2yA-8p-WTz" firstAttribute="width" secondItem="vnL-y1-26M" secondAttribute="width" id="r21-63-Kmw"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Av8-eu-R7y">
+                    <rect key="frame" x="140" y="727" width="225" height="21"/>
+                    <color key="backgroundColor" red="0.070461036599999999" green="0.069758158400000006" blue="0.078431375319999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="Av8-eu-R7y" firstAttribute="trailing" secondItem="QJN-wl-H7k" secondAttribute="trailing" constant="-10" id="3Fg-q5-akW"/>
                 <constraint firstItem="QJN-wl-H7k" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="3v9-Id-B4o"/>
+                <constraint firstItem="Av8-eu-R7y" firstAttribute="width" secondItem="QJN-wl-H7k" secondAttribute="width" multiplier="0.6" id="6Zq-eH-Eu7"/>
                 <constraint firstItem="QJN-wl-H7k" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="7LX-rF-9i3"/>
+                <constraint firstItem="Av8-eu-R7y" firstAttribute="bottom" secondItem="QJN-wl-H7k" secondAttribute="bottom" constant="-30" id="Vyj-ag-zwM"/>
                 <constraint firstItem="QJN-wl-H7k" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" id="Wa4-Eb-HZY"/>
+                <constraint firstItem="vnL-y1-26M" firstAttribute="width" secondItem="QJN-wl-H7k" secondAttribute="width" multiplier="0.2" id="bGZ-oP-0FW"/>
                 <constraint firstItem="QJN-wl-H7k" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="lCs-DS-eX4"/>
+                <constraint firstItem="Av8-eu-R7y" firstAttribute="height" secondItem="QJN-wl-H7k" secondAttribute="height" multiplier="0.0288462" id="rxW-Mi-KcK"/>
             </constraints>
             <point key="canvasLocation" x="58" y="21"/>
         </view>
     </objects>
     <resources>
+        <image name="plus.viewfinder" catalog="system" width="128" height="115"/>
+        <namedColor name="Buttom2Color">
+            <color red="0.35699999332427979" green="0.7369999885559082" blue="0.31000000238418579" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="ButtomColor">
+            <color red="0.23499999940395355" green="0.49399998784065247" blue="0.20399999618530273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

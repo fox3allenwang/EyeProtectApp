@@ -72,9 +72,9 @@ class MainViewController: BaseViewController {
     
     func setupCameraMenuView() {
         cameraManuView.layer.shadowOffset = CGSize(width: 5, height: 5)
-        cameraManuView.layer.shadowOpacity = 1
+        cameraManuView.layer.shadowOpacity = 0.4
         cameraManuView.layer.shadowRadius = 20
-        cameraManuView.alpha = 0.2
+        cameraManuView.alpha = 0.9
         cameraManuView.layer.cornerRadius = 20
     }
     

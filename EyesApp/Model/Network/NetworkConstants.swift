@@ -55,7 +55,7 @@ enum RequestError: Error {
 
 // API 的網址
 enum ApiPathConstants: String {
-    case login = "192.168.8.156:8080/api/account"
+    case login = "192.168.166.226:8080/api/account"
     case logout = "172.20.10.4:5000/account/logout"
     case cabinet = "172.20.10.4:5000/account/inventory"
 }
