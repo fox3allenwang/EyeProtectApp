@@ -33,19 +33,14 @@ public struct LoginRequest: Codable {
     }
 }
 
-// 給我一個台灣地名的 enum
-//public enum TaiwanCity: String, Codable {
-//
-//    case taipei = "台北市"
-//
-//    case newTaipei = "新北市"
-//
-//    case taoyuan = "桃園市"
+public struct LogingResponse: Decodable {
 
-
-
-
-//public struct LogingResponse: Decodable {
-//
-//    public var
-//}
+    public var accountId: String
+    
+    public var name: String
+    
+    public var dor: String
+    
+    public var friendList: [String]
+    
+}

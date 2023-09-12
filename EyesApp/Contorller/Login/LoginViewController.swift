@@ -143,11 +143,16 @@ class LoginViewController: BaseViewController {
         let request = LoginRequest(email: txfEmail.text!, password: txfPassword.text!, deviceToken: UserPreferences.shared.deviceToken)
         Task {
             do {
-                let response: GeneralResponse<String> = try await manager.requestData(method: .post,
+                let response: GeneralResponse<LogingResponse> = try await manager.requestData(method: .post,
                                                                                       path: .login,
                                                                                       parameters: request)
                 if response.result == 0 {
                     print("帳號密碼正確")
+                    UserPreferences.shared.accountId = response.data!.accountId
+                    UserPreferences.shared.email = txfEmail.text!
+                    UserPreferences.shared.password = txfPassword.text!
+                    UserPreferences.shared.dor = response.data!.dor
+                    UserPreferences.shared.friendList = response.data!.friendList
                     let nextVC = MainViewController()
                     navigationController?.pushViewController(nextVC, animated: true)
                 } else {
@@ -158,7 +163,7 @@ class LoginViewController: BaseViewController {
                                     confirmTitle: "確認")
                 }
             } catch {
-                print(error.localizedDescription)
+                print(error)
             }
         }
     }

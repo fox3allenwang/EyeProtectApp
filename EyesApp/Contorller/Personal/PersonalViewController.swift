@@ -26,11 +26,13 @@ class PersonalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        callGetPersonInformationApi()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("PersonalViewController")
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,7 +86,61 @@ class PersonalViewController: UIViewController {
         backgroundView.alpha = 0.2
     }
     
+    func callUploadImageApi(imageString: String) {
+        let request = UploadImageRequest(accountId: UUID(uuidString: UserPreferences.shared.accountId)!, image: imageString)
+        
+        Task {
+            do {
+                let response: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                               path: .uploadImage,
+                                                                                               parameters: request)
+                print(response)
+            
+            } catch {
+                print(error)
+            }
+        }
+        
+    }
+    
+    func callGetPersonInformationApi() {
+        let request = GetPersonInfromationRequest(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
+        
+        Task{
+            do {
+                let response: GeneralResponse<GetPersonInfromationResponse> = try await NetworkManager().requestData(method: .post,
+                                                                      path: .getPersonInformation,
+                                                                      parameters: request)
+                UserPreferences.shared.dor = response.data!.dor
+                UserPreferences.shared.email = response.data!.email
+                UserPreferences.shared.name = response.data!.name
+                let imageString = response.data!.image
+                let imageData = Data(base64Encoded: imageString, options: .ignoreUnknownCharacters)
+                let image = base64ToImage(imageData: imageData)
+                igvUser.image = image
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     // MARK: - IBAction
+    @IBAction func clickBtnLogout() {
+        UserPreferences.shared.resetInitialFlowVarables()
+        let nextVC = LoginViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @IBAction func uploadAndSetImage() {
+        
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.modalPresentationStyle = .fullScreen
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true)
+        
+    }
     
 }
 
@@ -113,5 +169,42 @@ extension PersonalViewController: UITableViewDelegate, UITableViewDataSource {
     
     
 }
+
+// MARK: - UIImagePickerControllerExtension
+
+extension PersonalViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("取消選擇圖片")
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print("選擇圖片")
+        let image = info[.editedImage] as? UIImage
+        igvUser.image = image
+        let imageString = imageToBase64(image: image!)
+        print("=================================")
+        print("\(imageString)")
+        print("=================================")
+        callUploadImageApi(imageString: imageString)
+        picker.dismiss(animated: true)
+    }
+    
+    func imageToBase64(image: UIImage) -> String {
+        let imageData: Data? = image.jpegData(compressionQuality: 0.1)
+        let str: String = imageData!.base64EncodedString()
+        //返回
+        return str
+    }
+    
+    func base64ToImage(imageData: Data?) -> UIImage {
+        let uiimage: UIImage = UIImage.init(data: imageData!)!
+        return uiimage
+    }
+   
+}
+
 
 // MARK: - Protocol

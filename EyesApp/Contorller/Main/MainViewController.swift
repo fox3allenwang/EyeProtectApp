@@ -29,6 +29,7 @@ class MainViewController: BaseViewController {
     var vc: [UIViewController] = []
     let vcTitleArray = ["NEWS", "SOCILA", "CONCENTRATE", "EQUIPMENT", "PERSIONAL"]
     var cameraMenuButtomItem: UIBarButtonItem?
+    var lastVC: Int? = nil
     
     var cameraMenuStatus: CameraMenueStatus = .close
     enum CameraMenueStatus {

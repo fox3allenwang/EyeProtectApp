@@ -11,7 +11,7 @@ struct NetworkConstants {
     
     static let httpBaseUrl = "http://"
     static let httpsBaseUrl = "https://"
-    static let server = "192.168.1.223:8080"
+    static let server = "192.168.8.156:8080"
     
     enum HttpHeaderField: String {
         case authentication = "Authorization"
@@ -58,6 +58,8 @@ enum RequestError: Error {
 enum ApiPathConstants: String {
     case login = "/api/account"
     case register = "/api/account/register"
+    case uploadImage = "/api/account/uploadImage"
+    case getPersonInformation = "/api/account/getAccountPersonInformation"
     case logout = "172.20.10.4:5000/account/logout"
     case cabinet = "172.20.10.4:5000/account/inventory"
 }
