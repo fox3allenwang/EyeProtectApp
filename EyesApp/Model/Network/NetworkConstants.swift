@@ -11,6 +11,7 @@ struct NetworkConstants {
     
     static let httpBaseUrl = "http://"
     static let httpsBaseUrl = "https://"
+    static let server = "192.168.1.223:8080"
     
     enum HttpHeaderField: String {
         case authentication = "Authorization"
@@ -55,7 +56,8 @@ enum RequestError: Error {
 
 // API 的網址
 enum ApiPathConstants: String {
-    case login = "192.168.166.226:8080/api/account"
+    case login = "/api/account"
+    case register = "/api/account/register"
     case logout = "172.20.10.4:5000/account/logout"
     case cabinet = "172.20.10.4:5000/account/inventory"
 }

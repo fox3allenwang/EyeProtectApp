@@ -17,6 +17,7 @@ public struct RegisterRequest: Codable {
     
     public var name: String
     
+    public var image: String
     
     enum CodingKeys: String, CodingKey {
         
@@ -27,15 +28,19 @@ public struct RegisterRequest: Codable {
         case password
         
         case name
+        
+        case image
     }
     
     public init(dor: String,
                 email: String,
                 password: String,
-                name: String) {
+                name: String,
+                image: String) {
         self.dor = dor
         self.email = email
         self.password = password
         self.name = name
+        self.image = image
     }
 }

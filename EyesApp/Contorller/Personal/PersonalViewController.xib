@@ -4,13 +4,24 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="AstroSpace-eZ2Bg.ttf">
+            <string>aAstroSpace</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonalViewController" customModule="EyesApp" customModuleProvider="target">
             <connections>
+                <outlet property="backgroundView" destination="Qcp-o4-Geb" id="SxI-gq-Rce"/>
+                <outlet property="btnLogout" destination="Qxm-bb-sFJ" id="JpW-60-Aog"/>
+                <outlet property="igvUser" destination="tBG-ez-kgc" id="3o7-zr-4uu"/>
+                <outlet property="lbUserName" destination="rgi-b0-ptg" id="LqF-cs-eYa"/>
+                <outlet property="tvPersonal" destination="arA-0W-OXq" id="dtd-JC-ddI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,14 +29,68 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcp-o4-Geb">
+                    <rect key="frame" x="19.666666666666657" y="240" width="353.66666666666674" height="568"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="tBG-ez-kgc">
+                    <rect key="frame" x="147.33333333333334" y="81" width="98.333333333333343" height="95"/>
+                    <color key="tintColor" name="Buttom2Color"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="tBG-ez-kgc" secondAttribute="height" multiplier="1:1" id="knh-ID-BlS"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgi-b0-ptg">
+                    <rect key="frame" x="59" y="187.33333333333334" width="275" height="42.666666666666657"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="arA-0W-OXq">
+                    <rect key="frame" x="29.333333333333343" y="250" width="334.33333333333326" height="440"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qxm-bb-sFJ">
+                    <rect key="frame" x="39.333333333333343" y="730" width="314.33333333333326" height="68"/>
+                    <color key="backgroundColor" red="0.77185314685314688" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="aAstroSpace" family="a Astro Space" pointSize="18"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="LOGOUT"/>
+                </button>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBrownColor"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Qcp-o4-Geb" secondAttribute="bottom" constant="10" id="2co-Cz-cLQ"/>
+                <constraint firstItem="Qcp-o4-Geb" firstAttribute="top" secondItem="rgi-b0-ptg" secondAttribute="bottom" constant="10" id="6cj-Bq-Jdr"/>
+                <constraint firstItem="rgi-b0-ptg" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.7" id="FL5-wr-QjN"/>
+                <constraint firstItem="tBG-ez-kgc" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="IBY-1w-Ehg"/>
+                <constraint firstItem="arA-0W-OXq" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Ogk-eW-mZy"/>
+                <constraint firstItem="Qxm-bb-sFJ" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.8" id="Qrz-6O-XiF"/>
+                <constraint firstItem="rgi-b0-ptg" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="UXD-Wq-DNj"/>
+                <constraint firstItem="Qcp-o4-Geb" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="anq-eS-eys"/>
+                <constraint firstItem="rgi-b0-ptg" firstAttribute="top" secondItem="tBG-ez-kgc" secondAttribute="bottom" constant="10" id="caS-Oe-kL8"/>
+                <constraint firstItem="arA-0W-OXq" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.85" id="cn0-Sj-B3t"/>
+                <constraint firstItem="Qxm-bb-sFJ" firstAttribute="bottom" secondItem="Qcp-o4-Geb" secondAttribute="bottom" constant="-10" id="ebW-DM-zzD"/>
+                <constraint firstItem="Qxm-bb-sFJ" firstAttribute="top" secondItem="arA-0W-OXq" secondAttribute="bottom" constant="40" id="fIA-Uu-eMV"/>
+                <constraint firstItem="rgi-b0-ptg" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="gbs-wd-OLb"/>
+                <constraint firstItem="tBG-ez-kgc" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="hmF-6X-fvQ"/>
+                <constraint firstItem="Qxm-bb-sFJ" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.08" id="hpM-Vh-TzH"/>
+                <constraint firstItem="Qxm-bb-sFJ" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="jmb-UR-iTb"/>
+                <constraint firstItem="tBG-ez-kgc" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.25" id="l1n-oH-heh"/>
+                <constraint firstItem="arA-0W-OXq" firstAttribute="top" secondItem="rgi-b0-ptg" secondAttribute="bottom" constant="20" id="qZp-Lu-ylU"/>
+                <constraint firstItem="Qcp-o4-Geb" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.9" id="ye1-gm-OyM"/>
+            </constraints>
             <point key="canvasLocation" x="58" y="21"/>
         </view>
     </objects>
     <resources>
-        <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <namedColor name="Buttom2Color">
+            <color red="0.35699999332427979" green="0.7369999885559082" blue="0.31000000238418579" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

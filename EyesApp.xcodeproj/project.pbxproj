@@ -49,6 +49,12 @@
 		3F6DFBDF2A6D76750058CDFB /* Coloe+Extnesion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFBDE2A6D76750058CDFB /* Coloe+Extnesion.swift */; };
 		3F6DFE262A6E2DA90058CDFB /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */; };
 		3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */; };
+		3F7C2E402AAED9BE004B71F4 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */; };
+		3F96808A2A909D650031BEFE /* AppDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9680892A909D650031BEFE /* AppDefine.swift */; };
+		3F9681072A920D780031BEFE /* PersonalLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9681052A920D780031BEFE /* PersonalLabelTableViewCell.swift */; };
+		3F9681082A920D780031BEFE /* PersonalLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F9681062A920D780031BEFE /* PersonalLabelTableViewCell.xib */; };
+		3F96810B2A920E220031BEFE /* PersonalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9681092A920E220031BEFE /* PersonalTableViewCell.swift */; };
+		3F96810C2A920E220031BEFE /* PersonalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F96810A2A920E220031BEFE /* PersonalTableViewCell.xib */; };
 		3FDCE2DF2A702DF6004981D7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDCE2DD2A702DF6004981D7 /* LoginViewController.swift */; };
 		3FDCE2E02A702DF6004981D7 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCE2DE2A702DF6004981D7 /* LoginViewController.xib */; };
 		3FDCE2E22A702F52004981D7 /* EyeProtect.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCE2E12A702F52004981D7 /* EyeProtect.json */; };
@@ -58,7 +64,7 @@
 		5364894A85EA3AC094430E85 /* Pods_EyesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BB7DA1F85E5DC44B2FAC5D /* Pods_EyesApp.framework */; };
 		D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */; };
 		D8925D1E2A4D1FAC00DB9EC9 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1D2A4D1FAC00DB9EC9 /* NetworkConstants.swift */; };
-		D8925D202A4D202E00DB9EC9 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1F2A4D202E00DB9EC9 /* Extension.swift */; };
+		D8925D202A4D202E00DB9EC9 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1F2A4D202E00DB9EC9 /* Encodable+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +113,13 @@
 		3F6DFBDE2A6D76750058CDFB /* Coloe+Extnesion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coloe+Extnesion.swift"; sourceTree = "<group>"; };
 		3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
+		3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		3F9680892A909D650031BEFE /* AppDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefine.swift; sourceTree = "<group>"; };
+		3F96808B2A90AB250031BEFE /* EyesApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EyesApp.entitlements; sourceTree = "<group>"; };
+		3F9681052A920D780031BEFE /* PersonalLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLabelTableViewCell.swift; sourceTree = "<group>"; };
+		3F9681062A920D780031BEFE /* PersonalLabelTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalLabelTableViewCell.xib; sourceTree = "<group>"; };
+		3F9681092A920E220031BEFE /* PersonalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalTableViewCell.swift; sourceTree = "<group>"; };
+		3F96810A2A920E220031BEFE /* PersonalTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalTableViewCell.xib; sourceTree = "<group>"; };
 		3FDCE2DD2A702DF6004981D7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3FDCE2DE2A702DF6004981D7 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		3FDCE2E12A702F52004981D7 /* EyeProtect.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EyeProtect.json; sourceTree = "<group>"; };
@@ -117,7 +130,7 @@
 		B4690A957F43C863D075AD8F /* Pods-EyesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.debug.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.debug.xcconfig"; sourceTree = "<group>"; };
 		D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		D8925D1D2A4D1FAC00DB9EC9 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
-		D8925D1F2A4D202E00DB9EC9 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		D8925D1F2A4D202E00DB9EC9 /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +160,8 @@
 				D8925D1A2A4D1E7700DB9EC9 /* Network */,
 				3FDCE3062A71042A004981D7 /* Extension */,
 				32593D2E2A1DFBB7005A1A6B /* LocalDatabase.swift */,
+				3F9680892A909D650031BEFE /* AppDefine.swift */,
+				3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -190,6 +205,7 @@
 		32BE4B4A2A0A451E0014161D /* EyesApp */ = {
 			isa = PBXGroup;
 			children = (
+				3F96808B2A90AB250031BEFE /* EyesApp.entitlements */,
 				32BE4B4B2A0A451E0014161D /* AppDelegate.swift */,
 				32BE4B4D2A0A451E0014161D /* SceneDelegate.swift */,
 				32BE4B562A0A45210014161D /* LaunchScreen.storyboard */,
@@ -264,6 +280,7 @@
 			children = (
 				3F4488602A72A75E00D573AB /* PersonalViewController.swift */,
 				3F4488612A72A75E00D573AB /* PersonalViewController.xib */,
+				3F9681002A9206EB0031BEFE /* Component */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -287,6 +304,17 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		3F9681002A9206EB0031BEFE /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				3F9681052A920D780031BEFE /* PersonalLabelTableViewCell.swift */,
+				3F9681062A920D780031BEFE /* PersonalLabelTableViewCell.xib */,
+				3F9681092A920E220031BEFE /* PersonalTableViewCell.swift */,
+				3F96810A2A920E220031BEFE /* PersonalTableViewCell.xib */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		3FDCE2E32A70B85A004981D7 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,7 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				3F6DFBDE2A6D76750058CDFB /* Coloe+Extnesion.swift */,
-				D8925D1F2A4D202E00DB9EC9 /* Extension.swift */,
+				D8925D1F2A4D202E00DB9EC9 /* Encodable+Extension.swift */,
 				3FDCE3072A710452004981D7 /* Text+Extension.swift */,
 				3F4489BA2A77FDA700D573AB /* ARkitCount.swift */,
 			);
@@ -467,9 +495,11 @@
 				326146202A17808900855A6E /* BaseTabBarController.xib in Resources */,
 				3F4488562A724D1800D573AB /* TabBarItemView.xib in Resources */,
 				3F4488D72A74B9B500D573AB /* NewsViewController.xib in Resources */,
+				3F9681082A920D780031BEFE /* PersonalLabelTableViewCell.xib in Resources */,
 				3F4488D92A74C7B400D573AB /* OLas.json in Resources */,
 				3F4488E72A750A0D00D573AB /* EyeExerciseViewController.xib in Resources */,
 				3FDCE2E02A702DF6004981D7 /* LoginViewController.xib in Resources */,
+				3F96810C2A920E220031BEFE /* PersonalTableViewCell.xib in Resources */,
 				3F44886B2A72A79000D573AB /* ConcentrateViewController.xib in Resources */,
 				3F44886F2A72A7A500D573AB /* EquipmentViewController.xib in Resources */,
 				326146182A17691900855A6E /* RecordTableViewCell.xib in Resources */,
@@ -538,6 +568,7 @@
 				3F44886A2A72A79000D573AB /* ConcentrateViewController.swift in Sources */,
 				3F4488582A724D5100D573AB /* TabBarItemView.swift in Sources */,
 				D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */,
+				3F7C2E402AAED9BE004B71F4 /* UserPreferences.swift in Sources */,
 				32BE4B4C2A0A451E0014161D /* AppDelegate.swift in Sources */,
 				3F4489BB2A77FDA700D573AB /* ARkitCount.swift in Sources */,
 				3261461F2A17808900855A6E /* BaseTabBarController.swift in Sources */,
@@ -548,13 +579,16 @@
 				32BE4B4E2A0A451E0014161D /* SceneDelegate.swift in Sources */,
 				32593D2F2A1DFBB7005A1A6B /* LocalDatabase.swift in Sources */,
 				3F6DFBDF2A6D76750058CDFB /* Coloe+Extnesion.swift in Sources */,
+				3F96808A2A909D650031BEFE /* AppDefine.swift in Sources */,
 				3F4488E62A750A0D00D573AB /* EyeExerciseViewController.swift in Sources */,
-				D8925D202A4D202E00DB9EC9 /* Extension.swift in Sources */,
+				D8925D202A4D202E00DB9EC9 /* Encodable+Extension.swift in Sources */,
 				32BE4B612A0A45600014161D /* OldMainViewController.swift in Sources */,
 				3F4488722A72A7B700D573AB /* SocialViewController.swift in Sources */,
 				326146172A17691900855A6E /* RecordTableViewCell.swift in Sources */,
 				3F44875D2A71553900D573AB /* Alert.swift in Sources */,
+				3F9681072A920D780031BEFE /* PersonalLabelTableViewCell.swift in Sources */,
 				3F4488D62A74B9B500D573AB /* NewsViewController.swift in Sources */,
+				3F96810B2A920E220031BEFE /* PersonalTableViewCell.swift in Sources */,
 				3261460E2A1744A000855A6E /* RecordViewController.swift in Sources */,
 				3F4488522A723EBF00D573AB /* CustomTabBarView.swift in Sources */,
 			);
@@ -606,6 +640,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development: Hung-Ming Chen (NHPJ3CC74D)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -666,6 +701,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development: Hung-Ming Chen (NHPJ3CC74D)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -694,6 +730,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = EyesApp/EyesApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S8FBP4YLUA;
@@ -725,6 +763,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = EyesApp/EyesApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S8FBP4YLUA;
@@ -744,6 +784,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.imac.eyesapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

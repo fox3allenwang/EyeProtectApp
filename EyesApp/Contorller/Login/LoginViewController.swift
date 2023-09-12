@@ -140,10 +140,10 @@ class LoginViewController: BaseViewController {
     // MARK: - networkManager
     
     func callLoginApi() async {
-        let request = LoginRequest(email: txfEmail.text!, password: txfPassword.text!)
+        let request = LoginRequest(email: txfEmail.text!, password: txfPassword.text!, deviceToken: UserPreferences.shared.deviceToken)
         Task {
             do {
-                let response: GeneralResponse<String> = try await manager.requestData(method: .get,
+                let response: GeneralResponse<String> = try await manager.requestData(method: .post,
                                                                                       path: .login,
                                                                                       parameters: request)
                 if response.result == 0 {
@@ -172,11 +172,12 @@ class LoginViewController: BaseViewController {
         let request = RegisterRequest(dor: now,
                                       email: txfEmail.text!,
                                       password: txfPassword.text!,
-                                      name: txfName.text!)
+                                      name: txfName.text!,
+                                      image: "未設置")
         Task {
             do {
                 let response: GeneralResponse<String> = try await manager.requestData(method: .post,
-                                                                                      path: .login,
+                                                                                      path: .register,
                                                                                       parameters: request)
                 if response.result == 0 {
                     print("註冊成功")
