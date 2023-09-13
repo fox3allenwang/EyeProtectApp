@@ -114,10 +114,15 @@ class PersonalViewController: UIViewController {
                 UserPreferences.shared.dor = response.data!.dor
                 UserPreferences.shared.email = response.data!.email
                 UserPreferences.shared.name = response.data!.name
-                let imageString = response.data!.image
-                let imageData = Data(base64Encoded: imageString, options: .ignoreUnknownCharacters)
-                let image = base64ToImage(imageData: imageData)
-                igvUser.image = image
+                lbUserName.text = UserPreferences.shared.name
+                guard response.data?.image == "未設置" else {
+                    let imageString = response.data!.image
+                    let imageData = Data(base64Encoded: imageString, options: .ignoreUnknownCharacters)
+                    let image = base64ToImage(imageData: imageData)
+                    igvUser.image = image
+                    return
+                }
+                
             } catch {
                 print(error)
             }
@@ -152,19 +157,35 @@ extension PersonalViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row < 2 {
+        switch indexPath.row {
+        case 0:
             let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalLabelTableViewCell.identified,
                                                       for: indexPath) as! PersonalLabelTableViewCell
             cell.title.text = tvTitleArry[indexPath.row]
-            cell.value.text = AppDefine.userName
+            cell.value.text = UserPreferences.shared.email
             return cell
-        } else {
+        case 1:
+            let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalLabelTableViewCell.identified,
+                                                      for: indexPath) as! PersonalLabelTableViewCell
+            cell.title.text = tvTitleArry[indexPath.row]
+            cell.value.text = UserPreferences.shared.dor
+            return cell
+        case 2:
+            let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
+                                                      for: indexPath) as! PersonalTableViewCell
+            cell.title.text = tvTitleArry[indexPath.row]
+            return cell
+        case 3:
+            let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
+                                                      for: indexPath) as! PersonalTableViewCell
+            cell.title.text = tvTitleArry[indexPath.row]
+            return cell
+        default:
             let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
                                                       for: indexPath) as! PersonalTableViewCell
             cell.title.text = tvTitleArry[indexPath.row]
             return cell
         }
-       
     }
     
     

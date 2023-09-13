@@ -52,7 +52,7 @@ class TabBarItemView: UIView {
         animationView.play()
         if indexTap == 2 {
             UIView.transition(with: igvIcon, duration: 0.5, options: .transitionCrossDissolve) {
-                self.igvIcon.image = UIImage(named: "ButtomColorIcon")
+                self.igvIcon.image = UIImage(named: "buttomColorIcon")
             }
         } else {
             UIView.transition(with: igvIcon, duration: 0.5, options: .transitionCrossDissolve) {

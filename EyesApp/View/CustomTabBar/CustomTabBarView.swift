@@ -38,7 +38,7 @@ class CustomTabBarView: UIView {
                             image: "lightbulb.circle",
                             delegate: self)
         concentrateMode.setupInit(index: 2,
-                                  image: "ButtomColorIcon",
+                                  image: "buttomColorIcon",
                                   delegate: self)
         news.setupInit(index: 0,
                                    image: "newspaper",

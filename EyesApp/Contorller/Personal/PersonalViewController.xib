@@ -41,7 +41,7 @@
                         <constraint firstAttribute="width" secondItem="tBG-ez-kgc" secondAttribute="height" multiplier="1:1" id="knh-ID-BlS"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgi-b0-ptg">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgi-b0-ptg">
                     <rect key="frame" x="59" y="187.33333333333334" width="275" height="42.666666666666657"/>
                     <fontDescription key="fontDescription" type="system" pointSize="27"/>
                     <nil key="textColor"/>
