@@ -47,6 +47,7 @@ class MainViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setNavigationbar(backgroundcolor: .buttom2Color)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -91,7 +92,6 @@ class MainViewController: BaseViewController {
     }
     
     func setupNavigation() {
-        setNavigationbar(backgroundcolor: .buttom2Color)
         navigationController?.navigationBar.isHidden = false
         self.navigationController?.interactivePopGestureRecognizer!.isEnabled = false
         navigationItem.hidesBackButton = true

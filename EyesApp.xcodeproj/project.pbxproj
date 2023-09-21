@@ -22,6 +22,8 @@
 		32BE4B582A0A45210014161D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32BE4B562A0A45210014161D /* LaunchScreen.storyboard */; };
 		32BE4B612A0A45600014161D /* OldMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BE4B5F2A0A45600014161D /* OldMainViewController.swift */; };
 		32BE4B622A0A45600014161D /* OldMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32BE4B602A0A45600014161D /* OldMainViewController.xib */; };
+		3F0246BA2ABC1A3A006EA177 /* MissionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0246B82ABC1A3A006EA177 /* MissionTableViewCell.swift */; };
+		3F0246BB2ABC1A3A006EA177 /* MissionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F0246B92ABC1A3A006EA177 /* MissionTableViewCell.xib */; };
 		3F44875D2A71553900D573AB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44875C2A71553900D573AB /* Alert.swift */; };
 		3F44875F2A71736400D573AB /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44875E2A71736400D573AB /* RegisterRequest.swift */; };
 		3F44884C2A722C4F00D573AB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44884A2A722C4F00D573AB /* MainViewController.swift */; };
@@ -88,6 +90,8 @@
 		32BE4B592A0A45210014161D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32BE4B5F2A0A45600014161D /* OldMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldMainViewController.swift; sourceTree = "<group>"; };
 		32BE4B602A0A45600014161D /* OldMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OldMainViewController.xib; sourceTree = "<group>"; };
+		3F0246B82ABC1A3A006EA177 /* MissionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionTableViewCell.swift; sourceTree = "<group>"; };
+		3F0246B92ABC1A3A006EA177 /* MissionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MissionTableViewCell.xib; sourceTree = "<group>"; };
 		3F44875C2A71553900D573AB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		3F44875E2A71736400D573AB /* RegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
 		3F44884A2A722C4F00D573AB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -222,6 +226,15 @@
 			path = EyesApp;
 			sourceTree = "<group>";
 		};
+		3F0246B72ABC1A0C006EA177 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				3F0246B82ABC1A3A006EA177 /* MissionTableViewCell.swift */,
+				3F0246B92ABC1A3A006EA177 /* MissionTableViewCell.xib */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		3F44875B2A71551400D573AB /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +277,7 @@
 		3F44885D2A72A61F00D573AB /* Concentrate */ = {
 			isa = PBXGroup;
 			children = (
+				3F0246B72ABC1A0C006EA177 /* Component */,
 				3F4488682A72A79000D573AB /* ConcentrateViewController.swift */,
 				3F4488692A72A79000D573AB /* ConcentrateViewController.xib */,
 			);
@@ -510,6 +524,7 @@
 				3F44886F2A72A7A500D573AB /* EquipmentViewController.xib in Resources */,
 				326146182A17691900855A6E /* RecordTableViewCell.xib in Resources */,
 				3261460F2A1744A000855A6E /* RecordViewController.xib in Resources */,
+				3F0246BB2ABC1A3A006EA177 /* MissionTableViewCell.xib in Resources */,
 				3F4488632A72A75E00D573AB /* PersonalViewController.xib in Resources */,
 				3F4488542A723EDD00D573AB /* CustomTabBarView.xib in Resources */,
 			);
@@ -598,6 +613,7 @@
 				3F4488D62A74B9B500D573AB /* NewsViewController.swift in Sources */,
 				3F96810B2A920E220031BEFE /* PersonalTableViewCell.swift in Sources */,
 				3261460E2A1744A000855A6E /* RecordViewController.swift in Sources */,
+				3F0246BA2ABC1A3A006EA177 /* MissionTableViewCell.swift in Sources */,
 				3F4488522A723EBF00D573AB /* CustomTabBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -748,6 +764,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "需要啟用眼睛保健操功能";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -781,6 +798,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "需要啟用眼睛保健操功能";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;

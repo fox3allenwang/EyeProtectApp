@@ -106,7 +106,7 @@
     <resources>
         <image name="dot.circle.viewfinder" catalog="system" width="128" height="115"/>
         <namedColor name="ButtomColor">
-            <color red="0.23499999940395355" green="0.49399998784065247" blue="0.20399999618530273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.23100000619888306" green="0.49399998784065247" blue="0.20399999618530273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

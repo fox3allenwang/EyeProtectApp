@@ -69,10 +69,10 @@ class EquipmentViewController: UIViewController {
     }
     
     func changeColor() {
-        changeBackgroundValue = CGFloat(lightSlider.value) * 0.5
-        changeImageValueR = 0.23137 / CGFloat(lightSlider.value)
-        changeImageValueG = 0.49411 / CGFloat(lightSlider.value)
-        changeImageValueB = 0.203921 / CGFloat(lightSlider.value)
+        changeBackgroundValue = CGFloat(lightSlider.value / 100) * 0.5
+        changeImageValueR = 0.23137 / CGFloat(lightSlider.value / 100)
+        changeImageValueG = 0.49411 / CGFloat(lightSlider.value / 100)
+        changeImageValueB = 0.203921 / CGFloat(lightSlider.value / 100)
     }
     
     // MARK: - IBAction
@@ -90,6 +90,8 @@ class EquipmentViewController: UIViewController {
         ivgLight.tintColor = UIColor(red: changeImageValueR!,
                                      green: changeImageValueG!,
                                      blue: changeImageValueB!, alpha: 1)
+        let step: Float = 20
+        lightSlider.value = (lightSlider.value / step).rounded() * step
     }
     
     @IBAction func clickLightBtn() {

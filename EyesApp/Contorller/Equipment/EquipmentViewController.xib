@@ -57,7 +57,7 @@
                         <action selector="clickbtnLight" destination="-2" eventType="touchUpInside" id="tiD-7h-hDF"/>
                     </connections>
                 </button>
-                <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="gPQ-yN-Xc5">
+                <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="gPQ-yN-Xc5">
                     <rect key="frame" x="71" y="388.66666666666669" width="251" height="31"/>
                     <color key="tintColor" name="ButtomColor"/>
                     <connections>
