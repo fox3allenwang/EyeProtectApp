@@ -47,7 +47,7 @@ class MainViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setNavigationbar(backgroundcolor: .buttom2Color)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -121,6 +121,11 @@ class MainViewController: BaseViewController {
         }
         navigationItem.title = vcTitleArray[index]
         // 將中間的 container 替換成閉包, delegate 帶進來的值
+        for i in 0 ... 4 {
+            if i != index {
+                vc[i].view.removeFromSuperview()
+            }
+        }
         containerView.addSubview(vc[index].view)
     }
     

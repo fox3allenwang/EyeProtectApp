@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class PersonalViewController: UIViewController {
     
@@ -26,13 +27,16 @@ class PersonalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        callGetPersonInformationApi()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("PersonalViewController")
-        
+        ProgressHUD.colorAnimation = .buttomColor!
+        ProgressHUD.colorHUD = .themeColor!
+        ProgressHUD.animationType = .multipleCircleScaleRipple
+        ProgressHUD.show("載入中...")
+        callGetPersonInformationApi()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -117,12 +121,11 @@ class PersonalViewController: UIViewController {
                 lbUserName.text = UserPreferences.shared.name
                 guard response.data?.image == "未設置" else {
                     let imageString = response.data!.image
-                    let imageData = Data(base64Encoded: imageString, options: .ignoreUnknownCharacters)
-                    let image = base64ToImage(imageData: imageData)
+                    let image = imageString.stringToUIImage()
                     igvUser.image = image
+                    ProgressHUD.dismiss()
                     return
                 }
-                
             } catch {
                 print(error)
             }
@@ -205,24 +208,12 @@ extension PersonalViewController: UIImagePickerControllerDelegate, UINavigationC
         print("選擇圖片")
         let image = info[.editedImage] as? UIImage
         igvUser.image = image
-        let imageString = imageToBase64(image: image!)
+        let imageString = image?.imageToBase64()
         print("=================================")
         print("\(imageString)")
         print("=================================")
-        callUploadImageApi(imageString: imageString)
+        callUploadImageApi(imageString: imageString!)
         picker.dismiss(animated: true)
-    }
-    
-    func imageToBase64(image: UIImage) -> String {
-        let imageData: Data? = image.jpegData(compressionQuality: 0.1)
-        let str: String = imageData!.base64EncodedString()
-        //返回
-        return str
-    }
-    
-    func base64ToImage(imageData: Data?) -> UIImage {
-        let uiimage: UIImage = UIImage.init(data: imageData!)!
-        return uiimage
     }
    
 }

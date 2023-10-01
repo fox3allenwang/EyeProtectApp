@@ -50,7 +50,7 @@
 		3F4489BB2A77FDA700D573AB /* ARkitCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4489BA2A77FDA700D573AB /* ARkitCount.swift */; };
 		3F5005472AB0B355007D9DED /* UploadImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5005462AB0B355007D9DED /* UploadImageRequest.swift */; };
 		3F5005A72AB0D87B007D9DED /* GetPersonInfromationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5005A62AB0D87B007D9DED /* GetPersonInfromationRequest.swift */; };
-		3F6DFBDF2A6D76750058CDFB /* Coloe+Extnesion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFBDE2A6D76750058CDFB /* Coloe+Extnesion.swift */; };
+		3F6DFBDF2A6D76750058CDFB /* Color+Extnesion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFBDE2A6D76750058CDFB /* Color+Extnesion.swift */; };
 		3F6DFE262A6E2DA90058CDFB /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */; };
 		3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */; };
 		3F7C2E402AAED9BE004B71F4 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */; };
@@ -59,6 +59,12 @@
 		3F9681082A920D780031BEFE /* PersonalLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F9681062A920D780031BEFE /* PersonalLabelTableViewCell.xib */; };
 		3F96810B2A920E220031BEFE /* PersonalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9681092A920E220031BEFE /* PersonalTableViewCell.swift */; };
 		3F96810C2A920E220031BEFE /* PersonalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F96810A2A920E220031BEFE /* PersonalTableViewCell.xib */; };
+		3FB632102AC46D6E0015AF8D /* FriendListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB6320E2AC46D6E0015AF8D /* FriendListTableViewCell.swift */; };
+		3FB632112AC46D6E0015AF8D /* FriendListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FB6320F2AC46D6E0015AF8D /* FriendListTableViewCell.xib */; };
+		3FB632312AC947C30015AF8D /* GetFriendListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB632302AC947C30015AF8D /* GetFriendListRequest.swift */; };
+		3FB632912AC94D990015AF8D /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB632902AC94D990015AF8D /* String+Extension.swift */; };
+		3FB632932AC94E570015AF8D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB632922AC94E570015AF8D /* UIImage+Extension.swift */; };
+		3FB6330D2AC9C79C0015AF8D /* GetMissionListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB6330C2AC9C79C0015AF8D /* GetMissionListRequest.swift */; };
 		3FDCE2DF2A702DF6004981D7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDCE2DD2A702DF6004981D7 /* LoginViewController.swift */; };
 		3FDCE2E02A702DF6004981D7 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCE2DE2A702DF6004981D7 /* LoginViewController.xib */; };
 		3FDCE2E22A702F52004981D7 /* EyeProtect.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCE2E12A702F52004981D7 /* EyeProtect.json */; };
@@ -118,7 +124,7 @@
 		3F4489BA2A77FDA700D573AB /* ARkitCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARkitCount.swift; sourceTree = "<group>"; };
 		3F5005462AB0B355007D9DED /* UploadImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageRequest.swift; sourceTree = "<group>"; };
 		3F5005A62AB0D87B007D9DED /* GetPersonInfromationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPersonInfromationRequest.swift; sourceTree = "<group>"; };
-		3F6DFBDE2A6D76750058CDFB /* Coloe+Extnesion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coloe+Extnesion.swift"; sourceTree = "<group>"; };
+		3F6DFBDE2A6D76750058CDFB /* Color+Extnesion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extnesion.swift"; sourceTree = "<group>"; };
 		3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
 		3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
@@ -128,6 +134,12 @@
 		3F9681062A920D780031BEFE /* PersonalLabelTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalLabelTableViewCell.xib; sourceTree = "<group>"; };
 		3F9681092A920E220031BEFE /* PersonalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalTableViewCell.swift; sourceTree = "<group>"; };
 		3F96810A2A920E220031BEFE /* PersonalTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalTableViewCell.xib; sourceTree = "<group>"; };
+		3FB6320E2AC46D6E0015AF8D /* FriendListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListTableViewCell.swift; sourceTree = "<group>"; };
+		3FB6320F2AC46D6E0015AF8D /* FriendListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendListTableViewCell.xib; sourceTree = "<group>"; };
+		3FB632302AC947C30015AF8D /* GetFriendListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendListRequest.swift; sourceTree = "<group>"; };
+		3FB632902AC94D990015AF8D /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		3FB632922AC94E570015AF8D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		3FB6330C2AC9C79C0015AF8D /* GetMissionListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMissionListRequest.swift; sourceTree = "<group>"; };
 		3FDCE2DD2A702DF6004981D7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3FDCE2DE2A702DF6004981D7 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		3FDCE2E12A702F52004981D7 /* EyeProtect.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EyeProtect.json; sourceTree = "<group>"; };
@@ -259,6 +271,7 @@
 		3F44885B2A72A5DE00D573AB /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				3FB6320D2AC46D280015AF8D /* Components */,
 				3F4488702A72A7B700D573AB /* SocialViewController.swift */,
 				3F4488712A72A7B700D573AB /* SocialViewController.xib */,
 			);
@@ -320,6 +333,8 @@
 				3F44875E2A71736400D573AB /* RegisterRequest.swift */,
 				3F5005462AB0B355007D9DED /* UploadImageRequest.swift */,
 				3F5005A62AB0D87B007D9DED /* GetPersonInfromationRequest.swift */,
+				3FB632302AC947C30015AF8D /* GetFriendListRequest.swift */,
+				3FB6330C2AC9C79C0015AF8D /* GetMissionListRequest.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -335,6 +350,15 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		3FB6320D2AC46D280015AF8D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3FB6320E2AC46D6E0015AF8D /* FriendListTableViewCell.swift */,
+				3FB6320F2AC46D6E0015AF8D /* FriendListTableViewCell.xib */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		3FDCE2E32A70B85A004981D7 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,10 +370,12 @@
 		3FDCE3062A71042A004981D7 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				3F6DFBDE2A6D76750058CDFB /* Coloe+Extnesion.swift */,
+				3F6DFBDE2A6D76750058CDFB /* Color+Extnesion.swift */,
 				D8925D1F2A4D202E00DB9EC9 /* Encodable+Extension.swift */,
 				3FDCE3072A710452004981D7 /* Text+Extension.swift */,
 				3F4489BA2A77FDA700D573AB /* ARkitCount.swift */,
+				3FB632902AC94D990015AF8D /* String+Extension.swift */,
+				3FB632922AC94E570015AF8D /* UIImage+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -513,6 +539,7 @@
 				3FDCE2E22A702F52004981D7 /* EyeProtect.json in Resources */,
 				326146242A178F9800855A6E /* BlueLightFilterViewController.xib in Resources */,
 				326146202A17808900855A6E /* BaseTabBarController.xib in Resources */,
+				3FB632112AC46D6E0015AF8D /* FriendListTableViewCell.xib in Resources */,
 				3F4488562A724D1800D573AB /* TabBarItemView.xib in Resources */,
 				3F4488D72A74B9B500D573AB /* NewsViewController.xib in Resources */,
 				3F9681082A920D780031BEFE /* PersonalLabelTableViewCell.xib in Resources */,
@@ -583,6 +610,7 @@
 				D8925D1E2A4D1FAC00DB9EC9 /* NetworkConstants.swift in Sources */,
 				3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */,
 				3F44875F2A71736400D573AB /* RegisterRequest.swift in Sources */,
+				3FB632312AC947C30015AF8D /* GetFriendListRequest.swift in Sources */,
 				3F4488752A72BD2800D573AB /* BaseViewController.swift in Sources */,
 				3F6DFE262A6E2DA90058CDFB /* LoginRequest.swift in Sources */,
 				3F44886E2A72A7A500D573AB /* EquipmentViewController.swift in Sources */,
@@ -596,17 +624,21 @@
 				3261461F2A17808900855A6E /* BaseTabBarController.swift in Sources */,
 				3F4488622A72A75E00D573AB /* PersonalViewController.swift in Sources */,
 				3FDCE2DF2A702DF6004981D7 /* LoginViewController.swift in Sources */,
+				3FB6330D2AC9C79C0015AF8D /* GetMissionListRequest.swift in Sources */,
 				3FDCE3082A710452004981D7 /* Text+Extension.swift in Sources */,
+				3FB632912AC94D990015AF8D /* String+Extension.swift in Sources */,
 				326146232A178F9800855A6E /* BlueLightFilterViewController.swift in Sources */,
 				32BE4B4E2A0A451E0014161D /* SceneDelegate.swift in Sources */,
 				32593D2F2A1DFBB7005A1A6B /* LocalDatabase.swift in Sources */,
-				3F6DFBDF2A6D76750058CDFB /* Coloe+Extnesion.swift in Sources */,
+				3F6DFBDF2A6D76750058CDFB /* Color+Extnesion.swift in Sources */,
 				3F5005A72AB0D87B007D9DED /* GetPersonInfromationRequest.swift in Sources */,
 				3F96808A2A909D650031BEFE /* AppDefine.swift in Sources */,
 				3F4488E62A750A0D00D573AB /* EyeExerciseViewController.swift in Sources */,
+				3FB632932AC94E570015AF8D /* UIImage+Extension.swift in Sources */,
 				D8925D202A4D202E00DB9EC9 /* Encodable+Extension.swift in Sources */,
 				32BE4B612A0A45600014161D /* OldMainViewController.swift in Sources */,
 				3F4488722A72A7B700D573AB /* SocialViewController.swift in Sources */,
+				3FB632102AC46D6E0015AF8D /* FriendListTableViewCell.swift in Sources */,
 				326146172A17691900855A6E /* RecordTableViewCell.swift in Sources */,
 				3F44875D2A71553900D573AB /* Alert.swift in Sources */,
 				3F9681072A920D780031BEFE /* PersonalLabelTableViewCell.swift in Sources */,
@@ -765,8 +797,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -799,8 +831,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (

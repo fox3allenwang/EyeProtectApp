@@ -60,6 +60,8 @@ enum ApiPathConstants: String {
     case register = "/api/account/register"
     case uploadImage = "/api/account/uploadImage"
     case getPersonInformation = "/api/account/getAccountPersonInformation"
+    case getFriendList = "/api/account/getFriendList"
+    case getMissionList = "/api/missionList/getAll"
     case logout = "172.20.10.4:5000/account/logout"
     case cabinet = "172.20.10.4:5000/account/inventory"
 }

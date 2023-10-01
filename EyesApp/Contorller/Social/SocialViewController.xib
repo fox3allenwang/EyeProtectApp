@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SocialViewController" customModule="EyesApp" customModuleProvider="target">
             <connections>
+                <outlet property="tbvFriendList" destination="Dgd-ef-ffC" id="lfU-Yf-RXE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,14 +19,26 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Dgd-ef-ffC">
+                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemCyanColor"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Dgd-ef-ffC" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="O2H-Ia-REN"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Dgd-ef-ffC" secondAttribute="trailing" id="iY7-aE-int"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Dgd-ef-ffC" secondAttribute="bottom" id="saS-mw-Zdf"/>
+                <constraint firstItem="Dgd-ef-ffC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="vuW-7o-vdb"/>
+            </constraints>
             <point key="canvasLocation" x="117" y="20"/>
         </view>
     </objects>
     <resources>
-        <systemColor name="systemCyanColor">
-            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

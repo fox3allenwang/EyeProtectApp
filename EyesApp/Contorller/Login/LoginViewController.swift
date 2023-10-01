@@ -7,6 +7,7 @@
 
 import UIKit
 import Lottie
+import ProgressHUD
 
 class LoginViewController: BaseViewController {
     
@@ -36,12 +37,13 @@ class LoginViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.isHidden = true
-        setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setNavigationbar(backgroundcolor: .buttom2Color)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        setupUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -153,9 +155,11 @@ class LoginViewController: BaseViewController {
                     UserPreferences.shared.password = txfPassword.text!
                     UserPreferences.shared.dor = response.data!.dor
                     UserPreferences.shared.friendList = response.data!.friendList
+                    ProgressHUD.showSucceed()
                     let nextVC = MainViewController()
                     navigationController?.pushViewController(nextVC, animated: true)
                 } else {
+                    ProgressHUD.dismiss()
                     print("帳號密碼錯誤")
                     Alert.showAlert(title: "帳號或密碼錯誤",
                                     message: "未找到此組帳號密碼",
@@ -290,6 +294,10 @@ class LoginViewController: BaseViewController {
                             vc: self,
                             confirmTitle: "確認")
         } else {
+            ProgressHUD.colorAnimation = .buttomColor!
+            ProgressHUD.colorHUD = .themeColor!
+            ProgressHUD.animationType = .multipleCircleScaleRipple
+            ProgressHUD.show("登入中...")
             Task {
                 await callLoginApi()
             }

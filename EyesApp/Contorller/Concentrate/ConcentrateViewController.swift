@@ -7,6 +7,7 @@
 
 import UIKit
 import FlexibleSteppedProgressBar
+import ProgressHUD
 
 class ConcentrateViewController: UIViewController {
     
@@ -19,7 +20,15 @@ class ConcentrateViewController: UIViewController {
     
     // MARK: - Variables
     var progressBar: FlexibleSteppedProgressBar!
+    let manager = NetworkManager()
+    var missionList: [MissionList] = []
     
+    struct MissionList {
+        public var missionID: UUID
+        public var title: String
+        public var progress: Int
+        public var progressType: String
+    }
     
     // MARK: - LifeCycle
     
@@ -31,6 +40,8 @@ class ConcentrateViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("ConcentrateViewController")
+        callApiGetMissionList()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -94,14 +105,36 @@ class ConcentrateViewController: UIViewController {
     }
     
     func setupTableView() {
-       
+        missionTableView?.register(UINib(nibName: "MissionTableViewCell", bundle: nil), forCellReuseIdentifier: MissionTableViewCell.identified)
+        missionTableView?.dataSource = self
+        missionTableView?.delegate = self
+    }
+    
+    // MARK: - callAPIGetMissionList
+    
+    func callApiGetMissionList() {
+        let request = GetMissionListRequest()
+        Task {
+            do {
+                let result: GeneralResponse<[GetMissionListResponse]> = try await manager.requestData(method: .get,
+                                                                                         path: .getMissionList,
+                                                                                         parameters: request)
+                missionList = []
+                result.data?.forEach({ mission in
+                    missionList.append(MissionList(missionID: mission.missionID, title: mission.title, progress: mission.progress, progressType: mission.progressType))
+                })
+                missionTableView?.reloadData()
+            } catch {
+                print(error)
+            }
+        }
     }
     
     // MARK: - IBAction
     
 }
 
-// MARK: - Extension
+// MARK: - FlexibleSteppedProgressBarDelegate
 
 extension ConcentrateViewController: FlexibleSteppedProgressBarDelegate {
     
@@ -128,6 +161,21 @@ extension ConcentrateViewController: FlexibleSteppedProgressBarDelegate {
     }
     
     
+}
+
+// MARK: - MissionTableView
+
+extension ConcentrateViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return missionList.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: MissionTableViewCell.identified, for: indexPath) as! MissionTableViewCell
+        cell.lbTitle.text = missionList[indexPath.row].title
+        cell.lbProgress.text = "\(missionList[indexPath.row].progress) \(missionList[indexPath.row].progressType)"
+        return cell
+    }
 }
 
 // MARK: - Protocol
