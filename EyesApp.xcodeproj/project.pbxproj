@@ -71,6 +71,9 @@
 		3FDCE2E52A70BECD004981D7 /* AstroSpace-eZ2Bg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCE2E42A70B8D2004981D7 /* AstroSpace-eZ2Bg.ttf */; };
 		3FDCE3082A710452004981D7 /* Text+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDCE3072A710452004981D7 /* Text+Extension.swift */; };
 		3FE31D572A6D653A00E287A0 /* Logo-Animation - 1690117050344.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FE31D562A6D653A00E287A0 /* Logo-Animation - 1690117050344.json */; };
+		3FF44B1B2AD52091007A4ECA /* RobotHead.scn in Resources */ = {isa = PBXBuildFile; fileRef = 3FF44B1A2AD52091007A4ECA /* RobotHead.scn */; };
+		3FF44B1D2AD57598007A4ECA /* 144251-check.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FF44B1C2AD57598007A4ECA /* 144251-check.json */; };
+		3FF44B1F2AD57767007A4ECA /* Check.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FF44B1E2AD57767007A4ECA /* Check.json */; };
 		5364894A85EA3AC094430E85 /* Pods_EyesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BB7DA1F85E5DC44B2FAC5D /* Pods_EyesApp.framework */; };
 		D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */; };
 		D8925D1E2A4D1FAC00DB9EC9 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1D2A4D1FAC00DB9EC9 /* NetworkConstants.swift */; };
@@ -146,6 +149,9 @@
 		3FDCE2E42A70B8D2004981D7 /* AstroSpace-eZ2Bg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AstroSpace-eZ2Bg.ttf"; sourceTree = "<group>"; };
 		3FDCE3072A710452004981D7 /* Text+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Extension.swift"; sourceTree = "<group>"; };
 		3FE31D562A6D653A00E287A0 /* Logo-Animation - 1690117050344.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Logo-Animation - 1690117050344.json"; sourceTree = "<group>"; };
+		3FF44B1A2AD52091007A4ECA /* RobotHead.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = RobotHead.scn; sourceTree = "<group>"; };
+		3FF44B1C2AD57598007A4ECA /* 144251-check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "144251-check.json"; sourceTree = "<group>"; };
+		3FF44B1E2AD57767007A4ECA /* Check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Check.json; sourceTree = "<group>"; };
 		7676AE22173A08CF302C5B8F /* Pods-EyesApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.release.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.release.xcconfig"; sourceTree = "<group>"; };
 		B4690A957F43C863D075AD8F /* Pods-EyesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.debug.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.debug.xcconfig"; sourceTree = "<group>"; };
 		D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -392,12 +398,22 @@
 		3FE31D552A6D64C400E287A0 /* Animate */ = {
 			isa = PBXGroup;
 			children = (
+				3FF44B1E2AD57767007A4ECA /* Check.json */,
+				3FF44B1C2AD57598007A4ECA /* 144251-check.json */,
 				3F4488D82A74C7B400D573AB /* OLas.json */,
 				3F4488592A725B7F00D573AB /* tabTap.json */,
 				3FDCE2E12A702F52004981D7 /* EyeProtect.json */,
 				3FE31D562A6D653A00E287A0 /* Logo-Animation - 1690117050344.json */,
 			);
 			path = Animate;
+			sourceTree = "<group>";
+		};
+		3FF44B192AD52076007A4ECA /* ScenceFile */ = {
+			isa = PBXGroup;
+			children = (
+				3FF44B1A2AD52091007A4ECA /* RobotHead.scn */,
+			);
+			path = ScenceFile;
 			sourceTree = "<group>";
 		};
 		45B2180F3F537D6E8999AA74 /* Pods */ = {
@@ -412,6 +428,7 @@
 		7C44097F2A20A0EB00C68A1E /* Resoureces */ = {
 			isa = PBXGroup;
 			children = (
+				3FF44B192AD52076007A4ECA /* ScenceFile */,
 				3FDCE2E32A70B85A004981D7 /* Font */,
 				3FE31D552A6D64C400E287A0 /* Animate */,
 				32BE4B542A0A45210014161D /* Assets.xcassets */,
@@ -533,6 +550,7 @@
 				32BE4B552A0A45210014161D /* Assets.xcassets in Resources */,
 				3FDCE2E52A70BECD004981D7 /* AstroSpace-eZ2Bg.ttf in Resources */,
 				3F4488732A72A7B700D573AB /* SocialViewController.xib in Resources */,
+				3FF44B1F2AD57767007A4ECA /* Check.json in Resources */,
 				32BE4B622A0A45600014161D /* OldMainViewController.xib in Resources */,
 				3F44884D2A722C4F00D573AB /* MainViewController.xib in Resources */,
 				3FE31D572A6D653A00E287A0 /* Logo-Animation - 1690117050344.json in Resources */,
@@ -540,10 +558,12 @@
 				326146242A178F9800855A6E /* BlueLightFilterViewController.xib in Resources */,
 				326146202A17808900855A6E /* BaseTabBarController.xib in Resources */,
 				3FB632112AC46D6E0015AF8D /* FriendListTableViewCell.xib in Resources */,
+				3FF44B1B2AD52091007A4ECA /* RobotHead.scn in Resources */,
 				3F4488562A724D1800D573AB /* TabBarItemView.xib in Resources */,
 				3F4488D72A74B9B500D573AB /* NewsViewController.xib in Resources */,
 				3F9681082A920D780031BEFE /* PersonalLabelTableViewCell.xib in Resources */,
 				3F4488D92A74C7B400D573AB /* OLas.json in Resources */,
+				3FF44B1D2AD57598007A4ECA /* 144251-check.json in Resources */,
 				3F4488E72A750A0D00D573AB /* EyeExerciseViewController.xib in Resources */,
 				3FDCE2E02A702DF6004981D7 /* LoginViewController.xib in Resources */,
 				3F96810C2A920E220031BEFE /* PersonalTableViewCell.xib in Resources */,

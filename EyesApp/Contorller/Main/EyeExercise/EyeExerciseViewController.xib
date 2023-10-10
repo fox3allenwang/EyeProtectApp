@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22138.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22113"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -15,6 +15,7 @@
                 <outlet property="eyeDistance" destination="Av8-eu-R7y" id="N1a-M3-TKZ"/>
                 <outlet property="eyePositionIndicatorView" destination="vnL-y1-26M" id="47I-1E-ePg"/>
                 <outlet property="faceTrackerView" destination="QJN-wl-H7k" id="dSP-8E-KwF"/>
+                <outlet property="vAnimate" destination="B88-Ys-WAm" id="Lgo-aA-jCS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -51,16 +52,24 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B88-Ys-WAm">
+                    <rect key="frame" x="0.0" y="50" width="375" height="728"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Av8-eu-R7y" firstAttribute="trailing" secondItem="QJN-wl-H7k" secondAttribute="trailing" constant="-10" id="3Fg-q5-akW"/>
                 <constraint firstItem="QJN-wl-H7k" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="3v9-Id-B4o"/>
+                <constraint firstItem="B88-Ys-WAm" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" id="49u-Pi-7fJ"/>
                 <constraint firstItem="Av8-eu-R7y" firstAttribute="width" secondItem="QJN-wl-H7k" secondAttribute="width" multiplier="0.6" id="6Zq-eH-Eu7"/>
                 <constraint firstItem="QJN-wl-H7k" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="7LX-rF-9i3"/>
+                <constraint firstItem="B88-Ys-WAm" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" id="Hv8-bS-WNG"/>
                 <constraint firstItem="Av8-eu-R7y" firstAttribute="bottom" secondItem="QJN-wl-H7k" secondAttribute="bottom" constant="-30" id="Vyj-ag-zwM"/>
                 <constraint firstItem="QJN-wl-H7k" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" id="Wa4-Eb-HZY"/>
+                <constraint firstItem="B88-Ys-WAm" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="XDe-SH-4cC"/>
+                <constraint firstItem="B88-Ys-WAm" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="aOj-XF-BbH"/>
                 <constraint firstItem="vnL-y1-26M" firstAttribute="width" secondItem="QJN-wl-H7k" secondAttribute="width" multiplier="0.2" id="bGZ-oP-0FW"/>
                 <constraint firstItem="QJN-wl-H7k" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="lCs-DS-eX4"/>
                 <constraint firstItem="Av8-eu-R7y" firstAttribute="height" secondItem="QJN-wl-H7k" secondAttribute="height" multiplier="0.0288462" id="rxW-Mi-KcK"/>
@@ -74,7 +83,7 @@
             <color red="0.35699999332427979" green="0.7369999885559082" blue="0.31000000238418579" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="ButtomColor">
-            <color red="0.23499999940395355" green="0.49399998784065247" blue="0.20399999618530273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.23100000619888306" green="0.49399998784065247" blue="0.20399999618530273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

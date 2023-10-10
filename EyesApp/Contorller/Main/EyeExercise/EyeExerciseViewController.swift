@@ -8,6 +8,7 @@
 import UIKit
 import ARKit
 import SceneKit
+import Lottie
 
 class EyeExerciseViewController: UIViewController {
     
@@ -15,7 +16,7 @@ class EyeExerciseViewController: UIViewController {
     @IBOutlet weak var faceTrackerView: ARSCNView!
     @IBOutlet weak var eyePositionIndicatorView: UIView!
     @IBOutlet weak var eyeDistance: UILabel!
-    
+    @IBOutlet weak var vAnimate: UIView!
     // MARK: - Variables
     var lookAtTargetEyeLNode: SCNNode = SCNNode()
     var lookAtTargetEyeRNode: SCNNode = SCNNode()
@@ -25,6 +26,21 @@ class EyeExerciseViewController: UIViewController {
     var faceNode: SCNNode?
     
     var eyeLNode: SCNNode = SCNNode()
+    
+//    var eyeLNode: SCNNode = {
+//        let guessTry = SCNCone(topRadius: 0.003, bottomRadius: 1, height: 0.1)
+//        guessTry.radialSegmentCount = 3
+//        guessTry.firstMaterial?.diffuse.contents = UIColor.blue
+//        let node = SCNNode()
+//        node.geometry = guessTry
+//        node.eulerAngles.x = -.pi
+//
+//
+//        let parentNode = SCNNode()
+//        parentNode.addChildNode(node)
+//        return parentNode
+//
+//    }()
     
     var eyeRNode: SCNNode = SCNNode()
     
@@ -41,6 +57,34 @@ class EyeExerciseViewController: UIViewController {
     
     var eyeLookAtPositionYs: [CGFloat] = []
     
+    var lookAtPointX:CGFloat = 0.0
+    var lookAtPointy:CGFloat = 0.0
+    
+    var distance = 0
+    
+    var leftEyeDazzing: NSNumber = 0
+    
+    var rightEyeDazzing:NSNumber = 0
+    
+    // 黑色透明遮罩
+    var blackBackgroundView = UIView()
+    
+    // 透明的區塊
+    var correctionBoxPath = UIBezierPath()
+//    var correctionBoxView = UIView()
+    
+    var correctionCount: Int = 0
+    
+    // 短震動
+    let soundShort = SystemSoundID(1519)
+    
+    // 校正 Timer
+    var correctionTimer = Timer()
+    
+    var correctionErrorsTimer = Timer()
+    
+    var correctionMode = true
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -50,6 +94,9 @@ class EyeExerciseViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+       
+        correctionRectOfInterest()
+        correctionBlackView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -71,6 +118,38 @@ class EyeExerciseViewController: UIViewController {
         setFaceTrackerView()
         phoneScreenSize = getScreenSize()
         print("\(phoneScreenSize.width), \(phoneScreenSize.height)")
+        correctionTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(correctionTimerAction), userInfo: nil, repeats: true)
+    }
+    
+    func correctionRectOfInterest() {
+        let width = eyePositionIndicatorView.frame.width * 1.3
+        let newX = view.frame.width / 2 - (width / 2)
+        let newY = view.frame.height / 2 - (width / 0.8)
+        let tempPath = UIBezierPath(roundedRect: CGRect(x: newX, y: newY, width: width, height: width),
+                                    cornerRadius: width / 10)
+        correctionBoxPath = tempPath
+    }
+    
+    func correctionBlackView() {
+        blackBackgroundView = UIView(frame: UIScreen.main.bounds)
+        blackBackgroundView.backgroundColor = UIColor.black
+        blackBackgroundView.alpha = 0.6
+        blackBackgroundView.layer.mask = addTransparencyView(tempPath: correctionBoxPath) // 只有遮罩層覆蓋的地方才會顯示出來
+        blackBackgroundView.layer.name = "blackBackgroundView"
+        faceTrackerView!.addSubview(blackBackgroundView)
+    }
+    
+    func addTransparencyView(tempPath: UIBezierPath) -> CAShapeLayer {
+        let path = UIBezierPath(rect: UIScreen.main.bounds)
+        path.append(tempPath)
+        path.usesEvenOddFillRule = true
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.fillColor = UIColor.black.cgColor // 其他顏色都可以，只要不是透明的
+        shapeLayer.fillRule = .evenOdd
+        
+        return shapeLayer
     }
     
     func setFaceTrackerView() {
@@ -146,30 +225,72 @@ class EyeExerciseViewController: UIViewController {
             let smoothEyeLookAtPositionX = self.eyeLookAtPositionXs.average!
             let smoothEyeLookAtPositionY = self.eyeLookAtPositionYs.average!
             
-            self.eyePositionIndicatorView.transform = CGAffineTransform(translationX: smoothEyeLookAtPositionX, y: smoothEyeLookAtPositionY)
+            if self.correctionMode == false {
+                self.eyePositionIndicatorView.isHidden = true
+            } else {
+                self.eyePositionIndicatorView.isHidden = false
+                self.eyePositionIndicatorView.transform = CGAffineTransform(translationX: smoothEyeLookAtPositionX, y: smoothEyeLookAtPositionY)
+            }
+            
             
             
             var lookAtPositionXLabel = "\(Int(round(smoothEyeLookAtPositionX + self.phoneScreenPointSize.width / 2)))"
            
             var lookAtPositionYLabel = "\(Int(round(smoothEyeLookAtPositionY + self.phoneScreenPointSize.height / 2)))"
             print("x: \(lookAtPositionXLabel), y: \(lookAtPositionYLabel)")
+            self.lookAtPointX = smoothEyeLookAtPositionX
+            self.lookAtPointy = smoothEyeLookAtPositionY
+            
             // Calculate distance of the eyes to the camera
             let distanceL = self.eyeLNode.worldPosition - SCNVector3Zero
             let distanceR = self.eyeRNode.worldPosition - SCNVector3Zero
             
             // Average distance from two eyes
-            let distance = (distanceL.length() + distanceR.length()) / 2
+            self.distance = Int(round(((distanceL.length() + distanceR.length()) / 2) * 100))
+            
             
             // 最維持在 45 cm
-            self.eyeDistance.text = "\(Int(round(distance * 100)))"
+            self.eyeDistance.text = "\(self.distance)"
             
         }
     }
-
     
+    func setupAnimate(complete: (() -> Void)?) {
+        let animationView = LottieAnimationView(name: "Check")
+        animationView.contentMode = .scaleAspectFit
+        animationView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        animationView.center = CGPoint(x: UIScreen.main.bounds.size.width * 0.5, y:  UIScreen.main.bounds.size.height * 0.4)
+        animationView.loopMode = .repeatBackwards(1)
+        animationView.animationSpeed = 1.2
+        vAnimate.addSubview(animationView)
+        animationView.play { animate in
+            complete!()
+        }
+    }
     
     // MARK: - IBAction
-    
+    @objc func correctionTimerAction() {
+        if lookAtPointX < self.view.center.x + 8 && lookAtPointX > self.view.center.x - 50 &&
+            lookAtPointy < self.view.center.y + 60 && lookAtPointy > self.view.center.y - 60 &&
+            distance == 45
+        {
+            AudioServicesPlaySystemSound(soundShort)
+            correctionCount += 1
+        } else {
+            correctionCount = 0
+        }
+        
+        if correctionCount == 10 {
+            correctionTimer.invalidate()
+            setupAnimate {
+                self.correctionMode = false
+                self.eyePositionIndicatorView.isHidden = true
+                self.blackBackgroundView.isHidden = true
+                self.eyePositionIndicatorView.isHidden = true
+                Alert.showAlert(title: "校正完成", message: "請與眼睛保持一樣角度以及距離來進行後續的眼睛保健操", vc: self, confirmTitle: "確認")
+            }
+        }
+    }
 }
 
 // MARK: - ARSCN Extension
@@ -196,10 +317,27 @@ extension EyeExerciseViewController: ARSCNViewDelegate, ARSessionDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         if let faceAnchor = anchor as? ARFaceAnchor, let faceGeometry =  node.geometry as? ARSCNFaceGeometry {
+//            faceGeometry.firstMaterial?.diffuse.contents = UIColor.themeColor
             faceGeometry.update(from: faceAnchor.geometry)
+            if correctionMode == false {
+                faceGeometry.firstMaterial?.diffuse.contents = UIColor.clear
+            }
         }
         faceNode!.transform = node.transform
         guard let faceAnchor = anchor as? ARFaceAnchor else { return }
+        
+        // 新增扎眼判斷
+        leftEyeDazzing = faceAnchor.blendShapes[.eyeBlinkLeft]!
+        rightEyeDazzing = faceAnchor.blendShapes[.eyeBlinkRight]!
+        
+        // 計算扎眼機率，如果皆大於 50% 則隱藏專注點
+        if leftEyeDazzing.decimalValue >= 0.5 && rightEyeDazzing.decimalValue >= 0.5 ||
+            correctionMode == false {
+            eyePositionIndicatorView.isHidden = true
+        } else {
+            eyePositionIndicatorView.isHidden = false
+        }
+        
         update(withFaceAnchor: faceAnchor)
     }
     
