@@ -145,9 +145,10 @@ class LoginViewController: BaseViewController {
         let request = LoginRequest(email: txfEmail.text!, password: txfPassword.text!, deviceToken: UserPreferences.shared.deviceToken)
         Task {
             do {
-                let response: GeneralResponse<LogingResponse> = try await manager.requestData(method: .post,
-                                                                                      path: .login,
-                                                                                      parameters: request)
+                let response: AuthenticationResponse<LogingResponse> = try await manager.requestData(method: .post,
+                                                                                                     path: .login,
+                                                                                                     parameters: request,
+                                                                                                     needToken: false)
                 if response.result == 0 {
                     print("帳號密碼正確")
                     UserPreferences.shared.accountId = response.data!.accountId
@@ -155,6 +156,7 @@ class LoginViewController: BaseViewController {
                     UserPreferences.shared.password = txfPassword.text!
                     UserPreferences.shared.dor = response.data!.dor
                     UserPreferences.shared.friendList = response.data!.friendList
+                    UserPreferences.shared.jwtToken = response.token
                     ProgressHUD.showSucceed()
                     let nextVC = MainViewController()
                     navigationController?.pushViewController(nextVC, animated: true)
@@ -167,7 +169,20 @@ class LoginViewController: BaseViewController {
                                     confirmTitle: "確認")
                 }
             } catch {
-                print(error)
+                let errorString = "\(error)"
+                if errorString.contains("invalidResponse") {
+                    Alert.showAlert(title: "登入失敗",
+                                    message: "請確認帳號密碼是否正確",
+                                    vc: self,
+                                    confirmTitle: "確認")
+                    ProgressHUD.dismiss()
+                } else {
+                    print(error)
+                    Alert.showAlert(title: "登入失敗",
+                                    message: "請確認與伺服器的連線",
+                                    vc: self,
+                                    confirmTitle: "確認")
+                }
             }
         }
     }
@@ -187,7 +202,8 @@ class LoginViewController: BaseViewController {
             do {
                 let response: GeneralResponse<String> = try await manager.requestData(method: .post,
                                                                                       path: .register,
-                                                                                      parameters: request)
+                                                                                      parameters: request,
+                                                                                      needToken: false)
                 if response.result == 0 {
                     print("註冊成功")
                     Alert.showAlert(title: "註冊成功", message: "", vc: self, confirmTitle: "確認")

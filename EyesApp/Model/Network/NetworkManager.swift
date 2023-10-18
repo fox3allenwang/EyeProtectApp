@@ -13,8 +13,9 @@ class NetworkManager {
     
     public func requestData<E, D>(method: HTTPMethod,
                                   path: ApiPathConstants,
-                                  parameters: E) async throws -> D where E: Encodable, D: Decodable {
-        let urlRequest = handleHTTPMethod(method, path, parameters)
+                                  parameters: E,
+                                  needToken: Bool) async throws -> D where E: Encodable, D: Decodable {
+        let urlRequest = handleHTTPMethod(method, path, parameters, needToken)
         do {
             let (data, response) = try await URLSession.shared.data(for: urlRequest)
             guard let response = (response as? HTTPURLResponse) else {
@@ -67,12 +68,22 @@ class NetworkManager {
     
     private func handleHTTPMethod<E: Encodable>(_ method: HTTPMethod,
                                                 _ path: ApiPathConstants,
-                                                _ parameters: E?) -> URLRequest {
+                                                _ parameters: E?,
+                                                _ needToken: Bool) -> URLRequest {
         let baseURL = NetworkConstants.httpBaseUrl + NetworkConstants.server
         let url = URL(string: baseURL + path.rawValue)!
         var urlRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
         let httpType = NetworkConstants.ContentType.json.rawValue
-        urlRequest.allHTTPHeaderFields = [NetworkConstants.HttpHeaderField.contentType.rawValue : httpType]
+        
+        if needToken {
+            urlRequest.allHTTPHeaderFields = [
+                NetworkConstants.HttpHeaderField.contentType.rawValue : httpType,
+                NetworkConstants.HttpHeaderField.authentication.rawValue : "Bearer \(UserPreferences.shared.jwtToken)"
+            ]
+        } else {
+            urlRequest.allHTTPHeaderFields = [NetworkConstants.HttpHeaderField.contentType.rawValue : httpType]
+        }
+        
         urlRequest.httpMethod = method.rawValue
         
         let dict1 = try? parameters.asDictionary()

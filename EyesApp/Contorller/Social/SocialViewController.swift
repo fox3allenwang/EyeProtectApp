@@ -79,7 +79,10 @@ class SocialViewController: UIViewController {
             let request = GetFriendListRequest(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
                                                
             do {
-                let result: GetFriendListResponse = try await manager.requestData(method: .post, path: .getFriendList, parameters: request)
+                let result: GetFriendListResponse = try await manager.requestData(method: .post,
+                                                                                  path: .getFriendList,
+                                                                                  parameters: request,
+                                                                                  needToken: true)
                 result.data.forEach { friendInfo in
                     friendListArray.append(friendListInfo(accountId: friendInfo.accountId, name: friendInfo.name, email: friendInfo.email, image: friendInfo.image.stringToUIImage()))
                 }

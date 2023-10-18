@@ -36,6 +36,8 @@ class UserPreferences {
         
         // 大頭貼
         case image
+        
+        case jwtToken
 
     }
     
@@ -81,6 +83,10 @@ class UserPreferences {
         set { userPreferences.set(newValue, forKey: UserPreference.image.rawValue)}
     }
     
+    var jwtToken: String {
+        get { return userPreferences.string(forKey: UserPreference.jwtToken.rawValue) ?? "" }
+        set { userPreferences.set(newValue, forKey: UserPreference.jwtToken.rawValue)}
+    }
     
     // MARK: - Reset Initial Flow Variables
     
@@ -93,5 +99,6 @@ class UserPreferences {
         UserPreferences.shared.dor = ""
         UserPreferences.shared.friendList = []
         UserPreferences.shared.image = ""
+        UserPreferences.shared.jwtToken = ""
     }
 }

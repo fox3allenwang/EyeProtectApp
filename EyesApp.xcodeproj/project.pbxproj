@@ -54,6 +54,7 @@
 		3F6DFE262A6E2DA90058CDFB /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */; };
 		3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */; };
 		3F7C2E402AAED9BE004B71F4 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */; };
+		3F89F83A2AE0314D00E8781C /* AuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F89F8392AE0314D00E8781C /* AuthenticationResponse.swift */; };
 		3F96808A2A909D650031BEFE /* AppDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9680892A909D650031BEFE /* AppDefine.swift */; };
 		3F9681072A920D780031BEFE /* PersonalLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9681052A920D780031BEFE /* PersonalLabelTableViewCell.swift */; };
 		3F9681082A920D780031BEFE /* PersonalLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F9681062A920D780031BEFE /* PersonalLabelTableViewCell.xib */; };
@@ -131,6 +132,7 @@
 		3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
 		3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		3F89F8392AE0314D00E8781C /* AuthenticationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationResponse.swift; sourceTree = "<group>"; };
 		3F9680892A909D650031BEFE /* AppDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefine.swift; sourceTree = "<group>"; };
 		3F96808B2A90AB250031BEFE /* EyesApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EyesApp.entitlements; sourceTree = "<group>"; };
 		3F9681052A920D780031BEFE /* PersonalLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLabelTableViewCell.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 				3F5005A62AB0D87B007D9DED /* GetPersonInfromationRequest.swift */,
 				3FB632302AC947C30015AF8D /* GetFriendListRequest.swift */,
 				3FB6330C2AC9C79C0015AF8D /* GetMissionListRequest.swift */,
+				3F89F8392AE0314D00E8781C /* AuthenticationResponse.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 				32BE4B4C2A0A451E0014161D /* AppDelegate.swift in Sources */,
 				3F4489BB2A77FDA700D573AB /* ARkitCount.swift in Sources */,
 				3261461F2A17808900855A6E /* BaseTabBarController.swift in Sources */,
+				3F89F83A2AE0314D00E8781C /* AuthenticationResponse.swift in Sources */,
 				3F4488622A72A75E00D573AB /* PersonalViewController.swift in Sources */,
 				3FDCE2DF2A702DF6004981D7 /* LoginViewController.swift in Sources */,
 				3FB6330D2AC9C79C0015AF8D /* GetMissionListRequest.swift in Sources */,

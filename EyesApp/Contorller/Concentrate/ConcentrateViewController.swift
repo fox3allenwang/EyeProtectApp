@@ -117,8 +117,9 @@ class ConcentrateViewController: UIViewController {
         Task {
             do {
                 let result: GeneralResponse<[GetMissionListResponse]> = try await manager.requestData(method: .get,
-                                                                                         path: .getMissionList,
-                                                                                         parameters: request)
+                                                                                                      path: .getMissionList,
+                                                                                                      parameters: request,
+                                                                                                      needToken: true)
                 missionList = []
                 result.data?.forEach({ mission in
                     missionList.append(MissionList(missionID: mission.missionID, title: mission.title, progress: mission.progress, progressType: mission.progressType))

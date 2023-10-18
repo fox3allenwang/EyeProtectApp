@@ -97,7 +97,8 @@ class PersonalViewController: UIViewController {
             do {
                 let response: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
                                                                                                path: .uploadImage,
-                                                                                               parameters: request)
+                                                                                               parameters: request,
+                                                                                               needToken: true)
                 print(response)
             
             } catch {
@@ -113,8 +114,9 @@ class PersonalViewController: UIViewController {
         Task{
             do {
                 let response: GeneralResponse<GetPersonInfromationResponse> = try await NetworkManager().requestData(method: .post,
-                                                                      path: .getPersonInformation,
-                                                                      parameters: request)
+                                                                                                                     path: .getPersonInformation,
+                                                                                                                     parameters: request,
+                                                                                                                     needToken: true)
                 UserPreferences.shared.dor = response.data!.dor
                 UserPreferences.shared.email = response.data!.email
                 UserPreferences.shared.name = response.data!.name
@@ -126,6 +128,7 @@ class PersonalViewController: UIViewController {
                     ProgressHUD.dismiss()
                     return
                 }
+                ProgressHUD.dismiss()
             } catch {
                 print(error)
             }

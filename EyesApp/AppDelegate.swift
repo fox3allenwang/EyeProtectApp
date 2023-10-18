@@ -59,6 +59,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        // 打通知會做的事
+        
+        
         return [.banner, .badge, .sound]
     }
+    
 }
