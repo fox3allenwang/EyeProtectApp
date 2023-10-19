@@ -29,6 +29,8 @@ class MainViewController: BaseViewController {
     var vc: [UIViewController] = []
     let vcTitleArray = ["NEWS", "SOCILA", "CONCENTRATE", "EQUIPMENT", "PERSIONAL"]
     var cameraMenuButtomItem: UIBarButtonItem?
+    var addFriendButtonItem: UIBarButtonItem?
+    var friendNotificationButtonItem: UIBarButtonItem?
     var lastVC: Int? = nil
     
     var cameraMenuStatus: CameraMenueStatus = .close
@@ -95,10 +97,6 @@ class MainViewController: BaseViewController {
         navigationController?.navigationBar.isHidden = false
         self.navigationController?.interactivePopGestureRecognizer!.isEnabled = false
         navigationItem.hidesBackButton = true
-        
-        cameraMenuButtomItem = UIBarButtonItem(image: UIImage(systemName: "vial.viewfinder"), style: .done, target: self, action: #selector(clickCameraMenu))
-        
-        navigationItem.rightBarButtonItems = [cameraMenuButtomItem!]
     }
     
     func setupCustomTabBarView() {
@@ -127,6 +125,16 @@ class MainViewController: BaseViewController {
             }
         }
         containerView.addSubview(vc[index].view)
+        if index == 1 {
+            friendNotificationButtonItem = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .plain, target: self, action: #selector(clickFriendNotification))
+            addFriendButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.badge.plus"), style: .plain, target: self, action: #selector(clickFriendNotification))
+            
+            navigationItem.rightBarButtonItems = [addFriendButtonItem!, friendNotificationButtonItem!]
+        } else {
+            cameraMenuButtomItem = UIBarButtonItem(image: UIImage(systemName: "vial.viewfinder"), style: .done, target: self, action: #selector(clickCameraMenu))
+            
+            navigationItem.rightBarButtonItems = [cameraMenuButtomItem!]
+        }
     }
     
     // MARK: - IBAction
@@ -162,6 +170,14 @@ class MainViewController: BaseViewController {
             }
             cameraMenuStatus = .open
         }
+    }
+    
+    @objc func clickFriendNotification() {
+        
+    }
+    
+    @objc func clickAddFriend() {
+        
     }
     
     @IBAction func clickBtnEyeExercise() {

@@ -46,6 +46,7 @@
                     </stackView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zBU-i6-31P">
                         <rect key="frame" x="18" y="16" width="88" height="88"/>
+                        <color key="tintColor" name="Buttom2Color"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="zBU-i6-31P" secondAttribute="height" multiplier="1:1" id="Ysb-rK-IN1"/>
                         </constraints>
@@ -77,6 +78,9 @@
         </tableViewCell>
     </objects>
     <resources>
+        <namedColor name="Buttom2Color">
+            <color red="0.35699999332427979" green="0.7369999885559082" blue="0.31000000238418579" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="ButtomColor">
             <color red="0.23100000619888306" green="0.49399998784065247" blue="0.20399999618530273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

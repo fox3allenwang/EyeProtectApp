@@ -24,9 +24,14 @@ class FriendListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        vCustomView.layer.cornerRadius = 20
-//        vCustomView.layer.borderColor = UIColor.buttomColor?.cgColor
+      
+        vCustomView.layer.borderColor = UIColor.buttomColor?.cgColor
 //        vCustomView.layer.borderWidth = 5
+        
+        imgvAccountImage.layer.cornerRadius = vCustomView.frame.height / 2
+        imgvAccountImage.layer.borderWidth = 3
+        imgvAccountImage.layer.borderColor = UIColor.buttomColor?.cgColor
+        
         vCustomView.layer.shadowOffset = CGSize(width: 5, height: 0)
         vCustomView?.layer.shadowOpacity = 0.2
 

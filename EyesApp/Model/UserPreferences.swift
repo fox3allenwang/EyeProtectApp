@@ -29,7 +29,7 @@ class UserPreferences {
         case password
         
         // 遠端推播裝置的 token
-        case deviceToken
+        case userDeviceToken
         
         // 註冊日期
         case dor
@@ -63,9 +63,9 @@ class UserPreferences {
         set { userPreferences.set(newValue, forKey: UserPreference.password.rawValue)}
     }
     
-    var deviceToken: String {
-        get { return userPreferences.string(forKey: UserPreference.deviceToken.rawValue) ?? "" }
-        set { userPreferences.set(newValue, forKey: UserPreference.deviceToken.rawValue)}
+    var userDeviceToken: String {
+        get { return userPreferences.string(forKey: UserPreference.userDeviceToken.rawValue) ?? "" }
+        set { userPreferences.set(newValue, forKey: UserPreference.userDeviceToken.rawValue)}
     }
     
     var dor: String {
@@ -95,7 +95,7 @@ class UserPreferences {
         UserPreferences.shared.name = ""
         UserPreferences.shared.email = ""
         UserPreferences.shared.password = ""
-        UserPreferences.shared.deviceToken = ""
+        UserPreferences.shared.userDeviceToken = ""
         UserPreferences.shared.dor = ""
         UserPreferences.shared.friendList = []
         UserPreferences.shared.image = ""

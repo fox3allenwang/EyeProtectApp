@@ -21,7 +21,6 @@ class PersonalViewController: UIViewController {
     // MARK: - Variables
     let tvTitleArry = ["電子信箱", "註冊日期", "成就", "通知設定", "修改密碼"]
     
-    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -72,7 +71,7 @@ class PersonalViewController: UIViewController {
     }
     
     func setupIgvUser() {
-        igvUser.layer.cornerRadius = igvUser.frame.width / 2.1
+        igvUser.layer.cornerRadius = igvUser.frame.width / 2
         igvUser.layer.borderWidth = 3
         igvUser.layer.borderColor = UIColor.buttomColor?.cgColor
     }
@@ -135,11 +134,35 @@ class PersonalViewController: UIViewController {
         }
     }
     
+// MARK: - callLogoutAPI
+    
+    func callLogoutApi() {
+        let request = LogoutRequest(accountId: UserPreferences.shared.accountId)
+        
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .logout,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if result.data == "登出成功" {
+                    UserPreferences.shared.resetInitialFlowVarables()
+                    let nextVC = LoginViewController()
+                    navigationController?.pushViewController(nextVC, animated: true)
+                } else {
+                    Alert.showAlert(title: "登出失敗", message: "帳號資訊有誤", vc: self, confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "登出失敗", message: "請確認與伺服器的連線", vc: self, confirmTitle: "確認")
+            }
+           
+        }
+    }
+    
     // MARK: - IBAction
     @IBAction func clickBtnLogout() {
-        UserPreferences.shared.resetInitialFlowVarables()
-        let nextVC = LoginViewController()
-        navigationController?.pushViewController(nextVC, animated: true)
+        callLogoutApi()
     }
     
     @IBAction func uploadAndSetImage() {

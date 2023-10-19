@@ -24,7 +24,7 @@ class SocialViewController: UIViewController {
         var accountId: String
         var name: String
         var email: String
-        var image: UIImage
+        var image: String
     }
     
     // MARK: - LifeCycle
@@ -84,7 +84,11 @@ class SocialViewController: UIViewController {
                                                                                   parameters: request,
                                                                                   needToken: true)
                 result.data.forEach { friendInfo in
-                    friendListArray.append(friendListInfo(accountId: friendInfo.accountId, name: friendInfo.name, email: friendInfo.email, image: friendInfo.image.stringToUIImage()))
+                    if friendInfo.image == "未設置" {
+                        friendListArray.append(friendListInfo(accountId: friendInfo.accountId, name: friendInfo.name, email: friendInfo.email, image: friendInfo.image))
+                    } else {
+                        friendListArray.append(friendListInfo(accountId: friendInfo.accountId, name: friendInfo.name, email: friendInfo.email, image: friendInfo.image))
+                    }
                 }
                 tbvFriendList.reloadData()
                 print(friendListArray.count)
@@ -108,7 +112,12 @@ extension SocialViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tbvFriendList.dequeueReusableCell(withIdentifier: FriendListTableViewCell.identified, for: indexPath) as! FriendListTableViewCell
-        cell.imgvAccountImage.image = friendListArray[indexPath.row].image
+        if friendListArray[indexPath.row].image == "未設置" {
+            cell.imgvAccountImage.image = UIImage(systemName: "person.fill")
+        } else {
+            cell.imgvAccountImage.image = friendListArray[indexPath.row].image.stringToUIImage()
+        }
+        
         cell.imgvAccountImage.contentMode = .scaleAspectFit
         cell.lbName.text = friendListArray[indexPath.row].name
         cell.lbEmail.text = friendListArray[indexPath.row].email

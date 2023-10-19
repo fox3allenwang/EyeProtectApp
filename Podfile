@@ -6,6 +6,7 @@ target 'EyesApp' do
   pod 'IQKeyboardManager' , '6.5.12'
   pod "FlexibleSteppedProgressBar" , "0.7.2"
   pod 'ProgressHUD' , '13.7.2'
+  pod 'SwiftEntryKit', '2.0.0'
 
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!

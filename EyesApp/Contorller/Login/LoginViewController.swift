@@ -37,6 +37,13 @@ class LoginViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if UserPreferences.shared.accountId != "" || !UserPreferences.shared.accountId.isEmpty {
+            txfEmail.text = UserPreferences.shared.email
+            txfPassword.text = UserPreferences.shared.password
+            Task {
+                await callLoginApi(email: UserPreferences.shared.email ,password: UserPreferences.shared.password)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,8 +148,15 @@ class LoginViewController: BaseViewController {
     
     // MARK: - networkManager
     
-    func callLoginApi() async {
-        let request = LoginRequest(email: txfEmail.text!, password: txfPassword.text!, deviceToken: UserPreferences.shared.deviceToken)
+    func callLoginApi(email: String, password: String) async {
+        ProgressHUD.colorAnimation = .buttomColor!
+        ProgressHUD.colorHUD = .themeColor!
+        ProgressHUD.animationType = .multipleCircleScaleRipple
+        ProgressHUD.show("登入中...")
+        UserPreferences.shared.userDeviceToken = AppDefine.deviceToken
+        let request = LoginRequest(email: email,
+                                   password: password,
+                                   deviceToken: UserPreferences.shared.userDeviceToken)
         Task {
             do {
                 let response: AuthenticationResponse<LogingResponse> = try await manager.requestData(method: .post,
@@ -310,12 +324,8 @@ class LoginViewController: BaseViewController {
                             vc: self,
                             confirmTitle: "確認")
         } else {
-            ProgressHUD.colorAnimation = .buttomColor!
-            ProgressHUD.colorHUD = .themeColor!
-            ProgressHUD.animationType = .multipleCircleScaleRipple
-            ProgressHUD.show("登入中...")
             Task {
-                await callLoginApi()
+                await callLoginApi(email: txfEmail.text!, password: txfPassword.text!)
             }
         }
     }

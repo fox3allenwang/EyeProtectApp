@@ -24,6 +24,7 @@
 		32BE4B622A0A45600014161D /* OldMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32BE4B602A0A45600014161D /* OldMainViewController.xib */; };
 		3F0246BA2ABC1A3A006EA177 /* MissionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0246B82ABC1A3A006EA177 /* MissionTableViewCell.swift */; };
 		3F0246BB2ABC1A3A006EA177 /* MissionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F0246B92ABC1A3A006EA177 /* MissionTableViewCell.xib */; };
+		3F35FA252AE19B0000465D9E /* LogoutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F35FA242AE19B0000465D9E /* LogoutRequest.swift */; };
 		3F44875D2A71553900D573AB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44875C2A71553900D573AB /* Alert.swift */; };
 		3F44875F2A71736400D573AB /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44875E2A71736400D573AB /* RegisterRequest.swift */; };
 		3F44884C2A722C4F00D573AB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44884A2A722C4F00D573AB /* MainViewController.swift */; };
@@ -102,6 +103,7 @@
 		32BE4B602A0A45600014161D /* OldMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OldMainViewController.xib; sourceTree = "<group>"; };
 		3F0246B82ABC1A3A006EA177 /* MissionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionTableViewCell.swift; sourceTree = "<group>"; };
 		3F0246B92ABC1A3A006EA177 /* MissionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MissionTableViewCell.xib; sourceTree = "<group>"; };
+		3F35FA242AE19B0000465D9E /* LogoutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutRequest.swift; sourceTree = "<group>"; };
 		3F44875C2A71553900D573AB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		3F44875E2A71736400D573AB /* RegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
 		3F44884A2A722C4F00D573AB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -255,6 +257,13 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		3F35FA262AE1A9E200465D9E /* AddFriendViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddFriendViewController;
+			sourceTree = "<group>";
+		};
 		3F44875B2A71551400D573AB /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,6 +353,7 @@
 				3FB632302AC947C30015AF8D /* GetFriendListRequest.swift */,
 				3FB6330C2AC9C79C0015AF8D /* GetMissionListRequest.swift */,
 				3F89F8392AE0314D00E8781C /* AuthenticationResponse.swift */,
+				3F35FA242AE19B0000465D9E /* LogoutRequest.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -442,6 +452,7 @@
 		7C4409822A20A85700C68A1E /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				3F35FA262AE1A9E200465D9E /* AddFriendViewController */,
 				3F4488DF2A7508F800D573AB /* EyeExercise */,
 				32BE4B5F2A0A45600014161D /* OldMainViewController.swift */,
 				32BE4B602A0A45600014161D /* OldMainViewController.xib */,
@@ -661,6 +672,7 @@
 				3FB632932AC94E570015AF8D /* UIImage+Extension.swift in Sources */,
 				D8925D202A4D202E00DB9EC9 /* Encodable+Extension.swift in Sources */,
 				32BE4B612A0A45600014161D /* OldMainViewController.swift in Sources */,
+				3F35FA252AE19B0000465D9E /* LogoutRequest.swift in Sources */,
 				3F4488722A72A7B700D573AB /* SocialViewController.swift in Sources */,
 				3FB632102AC46D6E0015AF8D /* FriendListTableViewCell.swift in Sources */,
 				326146172A17691900855A6E /* RecordTableViewCell.swift in Sources */,
