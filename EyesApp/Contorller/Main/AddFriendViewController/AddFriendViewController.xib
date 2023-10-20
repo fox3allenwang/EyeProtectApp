@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddFriendViewController" customModule="EyesApp" customModuleProvider="target">
+            <connections>
+                <outlet property="btnAdd" destination="gbQ-Sc-5xZ" id="4GY-ol-CVs"/>
+                <outlet property="txfEmail" destination="1vh-6d-IXk" id="RJz-lC-3kZ"/>
+                <outlet property="txfName" destination="Qu5-ZK-6W2" id="GNN-gd-ZED"/>
+                <outlet property="vBackground" destination="dFB-eh-CSk" id="h5A-Sg-tHD"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="400"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFB-eh-CSk">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="400"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qu5-ZK-6W2">
+                    <rect key="frame" x="39.333333333333343" y="107" width="314.33333333333326" height="60"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="tintColor" name="ButtomColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbQ-Sc-5xZ">
+                    <rect key="frame" x="59" y="297" width="275" height="73"/>
+                    <color key="backgroundColor" name="ButtomColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="確認">
+                        <color key="titleColor" systemColor="systemBackgroundColor"/>
+                    </state>
+                    <connections>
+                        <action selector="clickAddFriendBtn" destination="-2" eventType="touchUpInside" id="4QE-iS-gyM"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="加入好友" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcC-mg-sft">
+                    <rect key="frame" x="19.666666666666657" y="38" width="353.66666666666674" height="48"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1vh-6d-IXk">
+                    <rect key="frame" x="39.333333333333343" y="187" width="314.33333333333326" height="60"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="tintColor" name="ButtomColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="EcC-mg-sft" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.12" id="1fY-UY-Bjs"/>
+                <constraint firstItem="gbQ-Sc-5xZ" firstAttribute="top" secondItem="1vh-6d-IXk" secondAttribute="bottom" constant="50" id="5sK-C6-bg6"/>
+                <constraint firstItem="dFB-eh-CSk" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="79p-Tg-scq"/>
+                <constraint firstItem="dFB-eh-CSk" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="8a3-iK-cyB"/>
+                <constraint firstItem="1vh-6d-IXk" firstAttribute="height" secondItem="Qu5-ZK-6W2" secondAttribute="height" id="CHG-HE-S6g"/>
+                <constraint firstItem="1vh-6d-IXk" firstAttribute="top" secondItem="Qu5-ZK-6W2" secondAttribute="bottom" constant="20" id="Dgu-Ow-DJY"/>
+                <constraint firstItem="EcC-mg-sft" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="38" id="Egh-9R-B39"/>
+                <constraint firstItem="Qu5-ZK-6W2" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.15" id="Jpj-up-QND"/>
+                <constraint firstItem="EcC-mg-sft" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="JyF-Op-OWo"/>
+                <constraint firstAttribute="bottom" secondItem="gbQ-Sc-5xZ" secondAttribute="bottom" constant="30" id="Jz7-fW-c0f"/>
+                <constraint firstItem="1vh-6d-IXk" firstAttribute="width" secondItem="Qu5-ZK-6W2" secondAttribute="width" id="SaH-Mn-yUa"/>
+                <constraint firstItem="1vh-6d-IXk" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="U0A-AK-Xh6"/>
+                <constraint firstItem="Qu5-ZK-6W2" firstAttribute="top" secondItem="EcC-mg-sft" secondAttribute="bottom" constant="21" id="WjE-g0-yPT"/>
+                <constraint firstItem="gbQ-Sc-5xZ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="XLo-XL-yFp"/>
+                <constraint firstItem="Qu5-ZK-6W2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="nrG-m4-n2a"/>
+                <constraint firstItem="dFB-eh-CSk" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="nxO-l7-B4z"/>
+                <constraint firstItem="EcC-mg-sft" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.9" id="o2x-71-V2r"/>
+                <constraint firstItem="gbQ-Sc-5xZ" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.7" id="uES-MR-pSy"/>
+                <constraint firstItem="dFB-eh-CSk" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="yLy-i5-LFY"/>
+                <constraint firstItem="Qu5-ZK-6W2" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.8" id="zsa-58-EbH"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="71" y="20"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="ButtomColor">
+            <color red="0.23100000619888306" green="0.49399998784065247" blue="0.20399999618530273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

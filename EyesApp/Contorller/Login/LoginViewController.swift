@@ -153,7 +153,8 @@ class LoginViewController: BaseViewController {
         ProgressHUD.colorHUD = .themeColor!
         ProgressHUD.animationType = .multipleCircleScaleRipple
         ProgressHUD.show("登入中...")
-        UserPreferences.shared.userDeviceToken = AppDefine.deviceToken
+        UserPreferences.shared.userDeviceToken = UserPreferences.shared.deviceToken
+        print(UserPreferences.shared.userDeviceToken)
         let request = LoginRequest(email: email,
                                    password: password,
                                    deviceToken: UserPreferences.shared.userDeviceToken)
@@ -196,6 +197,7 @@ class LoginViewController: BaseViewController {
                                     message: "請確認與伺服器的連線",
                                     vc: self,
                                     confirmTitle: "確認")
+                    ProgressHUD.dismiss()
                 }
             }
         }

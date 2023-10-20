@@ -17,8 +17,6 @@ struct AppDefine {
     static var friendList: [String] = []
     
     static var news: [News] = []
-    
-    static var deviceToken = ""
 }
 
 struct News {

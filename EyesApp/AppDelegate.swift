@@ -54,8 +54,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // 將Data轉成String
         let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
-        AppDefine.deviceToken = deviceTokenString
-        print("deviceTokenString: \(AppDefine.deviceToken)")
+        UserPreferences.shared.deviceToken = deviceTokenString
+        print("deviceTokenString: \( UserPreferences.shared.deviceToken)")
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {

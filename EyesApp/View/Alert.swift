@@ -24,5 +24,53 @@ class Alert {
         alertController.addAction(confirmAction)
         vc.present(alertController, animated: true)
     }
+    
+    /// enum Toast 顯示時長
+    enum ToastDisplayInterval {
+        
+        /// 顯示 Toast 1.5 秒後，移除 Toast
+        case short
+        
+        /// 顯示 Toast 3 秒後，移除 Toast
+        case long
+        
+        /// 自定義要顯示 Toast 幾秒後，移除 Toast
+        case custom(Double)
+    }
+    
+    /// 用 UIAlertController 顯示 Toast
+    /// - Parameters:
+    ///   - message: 要顯示在 Toast 上的訊息
+    ///   - vc: 要在哪個畫面跳出來
+    ///   - during: Toast 要顯示多久
+    ///   - present: Toast 顯示出來後要做的事，預設為 nil
+    ///   - dismiss: Toast 顯示消失後要做的事，預設為 nil
+    class func showToastWith(message: String?,
+                             vc: UIViewController,
+                             during: ToastDisplayInterval,
+                             present: (() -> Void)? = nil,
+                             dismiss: (() -> Void)? = nil) {
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: nil,
+                                                    message: message,
+                                                    preferredStyle: .alert)
+            vc.present(alertController, animated: true, completion: present)
+            
+            switch during {
+            case .short:
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    vc.dismiss(animated: true, completion: dismiss)
+                }
+            case .long:
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    vc.dismiss(animated: true, completion: dismiss)
+                }
+            case .custom(let interval):
+                DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
+                    vc.dismiss(animated: true, completion: dismiss)
+                }
+            }
+        }
+    }
 }
 

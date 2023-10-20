@@ -31,6 +31,8 @@ class UserPreferences {
         // 遠端推播裝置的 token
         case userDeviceToken
         
+        case deviceToken
+        
         // 註冊日期
         case dor
         
@@ -38,6 +40,8 @@ class UserPreferences {
         case image
         
         case jwtToken
+        
+        
 
     }
     
@@ -66,6 +70,11 @@ class UserPreferences {
     var userDeviceToken: String {
         get { return userPreferences.string(forKey: UserPreference.userDeviceToken.rawValue) ?? "" }
         set { userPreferences.set(newValue, forKey: UserPreference.userDeviceToken.rawValue)}
+    }
+    
+    var deviceToken: String {
+        get { return userPreferences.string(forKey: UserPreference.deviceToken.rawValue) ?? "" }
+        set { userPreferences.set(newValue, forKey: UserPreference.deviceToken.rawValue)}
     }
     
     var dor: String {

@@ -7,6 +7,7 @@
 
 import UIKit
 import Lottie
+import SwiftEntryKit
 
 class MainViewController: BaseViewController {
     
@@ -50,6 +51,7 @@ class MainViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        NotificationCenter.default.addObserver(self, selector: #selector(dismissAddfriendInviteView), name: .addFriendInviteViewDismiss, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -132,7 +134,7 @@ class MainViewController: BaseViewController {
             navigationItem.rightBarButtonItems = [addFriendButtonItem!, friendNotificationButtonItem!]
         } else {
             cameraMenuButtomItem = UIBarButtonItem(image: UIImage(systemName: "vial.viewfinder"), style: .done, target: self, action: #selector(clickCameraMenu))
-            
+            NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
             navigationItem.rightBarButtonItems = [cameraMenuButtomItem!]
         }
     }
@@ -173,7 +175,39 @@ class MainViewController: BaseViewController {
     }
     
     @objc func clickFriendNotification() {
+        if SwiftEntryKit.isCurrentlyDisplaying(entryNamed: "Center Note") {
+            
+        } else {
+            let addFriendVC = AddFriendViewController()
+            var attributes = EKAttributes()
+            attributes.name = "Center Note"
+            attributes.precedence = .override(priority: .low, dropEnqueuedEntries: false)
+            attributes.entryInteraction = .absorbTouches
+            attributes.screenInteraction = .dismiss
+            attributes.windowLevel = .custom(level: UIWindow.Level.normal)
+            attributes.popBehavior = .animated(animation: .init(translate: .init(duration: 0.3), scale: .init(from: 1, to: 0.7, duration: 0.7)))
+            attributes.shadow = .active(with: .init(color: .black, opacity: 0.2, radius: 10, offset: .zero))
+            attributes.statusBar = .dark
+            attributes.scroll = .enabled(swipeable: true, pullbackAnimation: .jolt)
+            attributes.positionConstraints.maxSize = .init(width: .constant(value: self.view.frame.width * 0.8 ), height: .intrinsic)
+            attributes.position = .center
+            attributes.displayDuration = .infinity
+            attributes.roundCorners = .all(radius: 50)
+            
+            let offset = EKAttributes.PositionConstraints.KeyboardRelation.Offset(bottom: 10, screenEdgeResistance: 20)
+            let keyboardRelation = EKAttributes.PositionConstraints.KeyboardRelation.bind(offset: offset)
+            attributes.positionConstraints.keyboardRelation = keyboardRelation
+            
+            SwiftEntryKit.display(entry: addFriendVC, using: attributes)
+          
+        }
+       
         
+        
+    }
+    
+    @objc func dismissAddfriendInviteView() {
+        SwiftEntryKit.dismiss()
     }
     
     @objc func clickAddFriend() {
