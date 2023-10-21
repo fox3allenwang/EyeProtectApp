@@ -19,6 +19,8 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var cameraManuView: UIView!
     @IBOutlet weak var btnFatigueDetection: UIButton!
     @IBOutlet weak var btnEyeExcrise: UIButton!
+    @IBOutlet weak var vFriendInviteList: UIView!
+    @IBOutlet weak var tbvFriendInviteList: UITableView!
     
     
     // MARK: - Variables
@@ -30,14 +32,24 @@ class MainViewController: BaseViewController {
     var vc: [UIViewController] = []
     let vcTitleArray = ["NEWS", "SOCILA", "CONCENTRATE", "EQUIPMENT", "PERSIONAL"]
     var cameraMenuButtomItem: UIBarButtonItem?
-    var addFriendButtonItem: UIBarButtonItem?
+    var showFriendInviteListButtonItem: UIBarButtonItem?
     var friendNotificationButtonItem: UIBarButtonItem?
     var lastVC: Int? = nil
+    var friendInviteListArray: [friendInviteListInfo] = []
+    var haveFriendInvite = false
+    
     
     var cameraMenuStatus: CameraMenueStatus = .close
     enum CameraMenueStatus {
         case open
         case close
+    }
+    
+    struct friendInviteListInfo {
+        var accountId: String
+        var name: String
+        var email: String
+        var image: String
     }
     
     
@@ -52,6 +64,7 @@ class MainViewController: BaseViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         NotificationCenter.default.addObserver(self, selector: #selector(dismissAddfriendInviteView), name: .addFriendInviteViewDismiss, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeBellStyle), name: .reciveFriendInvite, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,6 +87,7 @@ class MainViewController: BaseViewController {
         setupCustomTabBarView()
         setupAnimate()
         setupCameraMenuView()
+        setupFriendInviteListView()
     }
     
     func setupCameraMenuView() {
@@ -112,6 +126,17 @@ class MainViewController: BaseViewController {
         }
     }
     
+    func setupFriendInviteListView() {
+        vFriendInviteList.layer.cornerRadius = 50
+        vFriendInviteList.layer.shadowOffset = .zero
+        vFriendInviteList.layer.shadowRadius = 10
+        vFriendInviteList.layer.shadowOpacity = 0.2
+        
+        tbvFriendInviteList.register(UINib(nibName: "FriendInviteTableViewCell", bundle: nil), forCellReuseIdentifier: FriendInviteTableViewCell.identified)
+        tbvFriendInviteList.dataSource = self
+        tbvFriendInviteList.delegate = self
+    }
+    
     func updateView(index: Int) {
         // 會逐個掃描，並把 vc 裡 children 沒有的 view 放進 children 裡
         vc = [NewsVC, socialVC, concentrateVC, equipmentVC, personalVC]
@@ -128,15 +153,67 @@ class MainViewController: BaseViewController {
         }
         containerView.addSubview(vc[index].view)
         if index == 1 {
-            friendNotificationButtonItem = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .plain, target: self, action: #selector(clickFriendNotification))
-            addFriendButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.badge.plus"), style: .plain, target: self, action: #selector(clickFriendNotification))
+            callApiFriendInviteList(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
+            if haveFriendInvite == true {
+                friendNotificationButtonItem = UIBarButtonItem(image: UIImage(systemName: "bell.badge.fill"),
+                                                               style: .plain,
+                                                               target: self,
+                                                               action: #selector(clickShowFriendInviteView))
+                friendNotificationButtonItem?.tintColor = .orange
+            } else {
+                friendNotificationButtonItem = UIBarButtonItem(image: UIImage(systemName: "bell"),
+                                                               style: .plain,
+                                                               target: self,
+                                                               action: #selector(clickShowFriendInviteView))
+                friendNotificationButtonItem?.tintColor = .white
+            }
+           
+            showFriendInviteListButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.badge.plus"), style: .plain, target: self, action: #selector(clickFriendNotification))
             
-            navigationItem.rightBarButtonItems = [addFriendButtonItem!, friendNotificationButtonItem!]
+            navigationItem.rightBarButtonItems = [showFriendInviteListButtonItem!, friendNotificationButtonItem!]
         } else {
+            if vFriendInviteList.isHidden == false {
+                clickShowFriendInviteView()
+            }
             cameraMenuButtomItem = UIBarButtonItem(image: UIImage(systemName: "vial.viewfinder"), style: .done, target: self, action: #selector(clickCameraMenu))
             NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
             navigationItem.rightBarButtonItems = [cameraMenuButtomItem!]
         }
+    }
+    
+    // MARK: - CallAPIFriendInviteList
+    
+    func callApiFriendInviteList(accountId: UUID) {
+        friendInviteListArray = []
+        let request = GetFriendInviteListRequest(accountId: accountId)
+        
+        Task {
+            do {
+                let result: GeneralResponse<GetFriendInviteListResponse> = try await NetworkManager().requestData(method: .post,
+                                                                                                         path: .getFriendInviteList,
+                                                                                                         parameters: request,
+                                                                                                         needToken: true)
+                if result.message == "此帳號目前有好友邀請" {
+                    result.data?.friendinviteInfo.forEach({ friendinviteInfo in
+                        friendInviteListArray.append(friendInviteListInfo(accountId: friendinviteInfo.accountId,
+                                                                          name: friendinviteInfo.name,
+                                                                          email: friendinviteInfo.email,
+                                                                          image: friendinviteInfo.image))
+                    })
+                    friendNotificationButtonItem?.tintColor = .yellow
+                    friendNotificationButtonItem?.image = UIImage(systemName: "bell.badge.fill")
+                    haveFriendInvite = true
+                } else if result.message == "此帳號目前沒有好友邀請" {
+                    haveFriendInvite = false
+                } else {
+                    Alert.showAlert(title: "請確認與伺服器的連線", message: "", vc: self, confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "請確認與伺服器的連線", message: "", vc: self, confirmTitle: "確認")
+            }
+        }
+        tbvFriendInviteList.reloadData()
     }
     
     // MARK: - IBAction
@@ -210,8 +287,27 @@ class MainViewController: BaseViewController {
         SwiftEntryKit.dismiss()
     }
     
-    @objc func clickAddFriend() {
-        
+    @objc func clickShowFriendInviteView() {
+        tbvFriendInviteList.reloadData()
+        if vFriendInviteList.isHidden == true {
+            UIView.transition(with: vFriendInviteList,
+                              duration: 0.2,
+                              options: .transitionCrossDissolve) {
+                self.vFriendInviteList.isHidden = false
+            }
+        } else {
+            UIView.transition(with: vFriendInviteList,
+                              duration: 0.2,
+                              options: .transitionCrossDissolve) {
+                self.vFriendInviteList.isHidden = true
+            }
+        }
+    }
+    
+    
+    @objc func changeBellStyle() {
+        friendNotificationButtonItem?.image = UIImage(systemName: "bell.badge.fill")
+        friendNotificationButtonItem?.tintColor = .yellow
     }
     
     @IBAction func clickBtnEyeExercise() {
@@ -221,7 +317,7 @@ class MainViewController: BaseViewController {
     
 }
 
-// MARK: - Extension
+// MARK: - UIPopoverPresentationControllerExtension
 
 extension MainViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -229,5 +325,27 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
     }
 }
 
+// MARK: - FriendInviteListTableViewExtension
+
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return friendInviteListArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FriendInviteTableViewCell.identified, for: indexPath) as! FriendInviteTableViewCell
+        cell.lbName.text = friendInviteListArray[indexPath.row].name
+        cell.lbEmail.text = friendInviteListArray[indexPath.row].email
+        if friendInviteListArray[indexPath.row].image == "未設置" {
+            cell.igvUserImg.image = UIImage(systemName: "person.fill")
+        } else {
+            cell.igvUserImg.image = friendInviteListArray[indexPath.row].image.stringToUIImage()
+        }
+       
+        return cell
+    }
+    
+    
+}
 
 // MARK: - Protocol

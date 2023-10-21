@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="KGk-i7-Jjw" customClass="FriendInviteTableViewCell" customModule="EyesApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sa1-Yd-Btg">
+                        <rect key="frame" x="10" y="9" width="52" height="52"/>
+                        <color key="tintColor" name="Buttom2Color"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Sa1-Yd-Btg" secondAttribute="height" multiplier="1:1" id="ecT-gs-cTX"/>
+                        </constraints>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Hc6-j5-bkW">
+                        <rect key="frame" x="71.999999999999986" y="9" width="175.66666666666663" height="52"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HuA-Vp-sqS">
+                                <rect key="frame" x="0.0" y="0.0" width="175.66666666666666" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Fw-BU-VBo">
+                                <rect key="frame" x="0.0" y="26" width="175.66666666666666" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="HuA-Vp-sqS" firstAttribute="width" secondItem="Hc6-j5-bkW" secondAttribute="width" id="eWG-bp-nhB"/>
+                            <constraint firstItem="3Fw-BU-VBo" firstAttribute="width" secondItem="Hc6-j5-bkW" secondAttribute="width" id="j3t-XV-evG"/>
+                            <constraint firstItem="HuA-Vp-sqS" firstAttribute="height" secondItem="Hc6-j5-bkW" secondAttribute="height" multiplier="0.5" id="uee-qq-VP1"/>
+                        </constraints>
+                    </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0c-od-yez">
+                        <rect key="frame" x="284" y="18" width="26" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="N0c-od-yez" secondAttribute="height" multiplier="1:1.3" id="ao5-k6-htW"/>
+                        </constraints>
+                        <color key="tintColor" systemColor="systemRedColor"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="multiply" catalog="system"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X9b-pm-ObC">
+                        <rect key="frame" x="257.66666666666669" y="18" width="26.333333333333314" height="34"/>
+                        <color key="tintColor" name="ThemeColor"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="checkmark" catalog="system"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="N0c-od-yez" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="98a-8m-bnN"/>
+                    <constraint firstAttribute="bottom" secondItem="N0c-od-yez" secondAttribute="bottom" constant="18" id="9Hf-0o-kN3"/>
+                    <constraint firstAttribute="trailing" secondItem="N0c-od-yez" secondAttribute="trailing" constant="10" id="AB4-fb-BMv"/>
+                    <constraint firstItem="Hc6-j5-bkW" firstAttribute="height" secondItem="Sa1-Yd-Btg" secondAttribute="height" id="KMv-md-KDZ"/>
+                    <constraint firstItem="N0c-od-yez" firstAttribute="leading" secondItem="X9b-pm-ObC" secondAttribute="trailing" id="Kmz-NE-cXU"/>
+                    <constraint firstItem="X9b-pm-ObC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Lrc-9p-6zl"/>
+                    <constraint firstItem="Hc6-j5-bkW" firstAttribute="leading" secondItem="Sa1-Yd-Btg" secondAttribute="trailing" constant="10" id="SSs-4c-g1E"/>
+                    <constraint firstItem="Hc6-j5-bkW" firstAttribute="centerY" secondItem="Sa1-Yd-Btg" secondAttribute="centerY" id="WsE-hE-ZKu"/>
+                    <constraint firstItem="X9b-pm-ObC" firstAttribute="width" secondItem="N0c-od-yez" secondAttribute="width" id="Zkm-nX-Wxs"/>
+                    <constraint firstAttribute="bottom" secondItem="Sa1-Yd-Btg" secondAttribute="bottom" constant="9" id="dGn-K9-gj0"/>
+                    <constraint firstItem="Sa1-Yd-Btg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ejf-Rs-bvQ"/>
+                    <constraint firstItem="Sa1-Yd-Btg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="gQn-ps-qCL"/>
+                    <constraint firstItem="X9b-pm-ObC" firstAttribute="height" secondItem="N0c-od-yez" secondAttribute="height" id="jbg-C8-GTy"/>
+                    <constraint firstItem="Sa1-Yd-Btg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="vDH-ve-hwc"/>
+                    <constraint firstItem="X9b-pm-ObC" firstAttribute="leading" secondItem="Hc6-j5-bkW" secondAttribute="trailing" constant="10" id="yFW-TH-VXA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnAccept" destination="X9b-pm-ObC" id="B5I-Ru-wQp"/>
+                <outlet property="btnReject" destination="N0c-od-yez" id="kXI-J5-1LT"/>
+                <outlet property="igvUserImg" destination="Sa1-Yd-Btg" id="sd3-dX-ivu"/>
+                <outlet property="lbEmail" destination="3Fw-BU-VBo" id="n7f-0F-dxt"/>
+                <outlet property="lbName" destination="HuA-Vp-sqS" id="eF0-qb-ZkA"/>
+            </connections>
+            <point key="canvasLocation" x="70" y="20"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
+        <image name="multiply" catalog="system" width="128" height="111"/>
+        <namedColor name="Buttom2Color">
+            <color red="0.35699999332427979" green="0.7369999885559082" blue="0.31000000238418579" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="ThemeColor">
+            <color red="0.46299999952316284" green="0.9100000262260437" blue="0.51800000667572021" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

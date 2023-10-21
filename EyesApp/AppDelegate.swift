@@ -48,6 +48,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    // MARK: - callFriendInviteListAPI
+    func callApiFriendInviteList(accountId: UUID) {
+        let request = GetFriendInviteListRequest(accountId: accountId)
+        
+        Task {
+            do {
+                let result: GeneralResponse<GetFriendInviteListResponse> = try await NetworkManager().requestData(method: .post,
+                                                                                                         path: .getFriendInviteList,
+                                                                                                         parameters: request,
+                                                                                                         needToken: true)
+                if result.message == "此帳號目前有好友邀請" {
+                    NotificationCenter.default.post(name: .reciveFriendInvite, object: nil)
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -60,7 +80,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
         // 打通知會做的事
-        
+        if notification.request.content.body.contains("傳送了好友邀請給你") {
+            callApiFriendInviteList(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
+        }
         
         return [.banner, .badge, .sound]
     }

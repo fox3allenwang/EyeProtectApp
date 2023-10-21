@@ -19,6 +19,8 @@
                 <outlet property="containerView" destination="YUJ-L0-ZJJ" id="XJ9-lZ-pnt"/>
                 <outlet property="customTabBarView" destination="CCu-ex-B74" id="6hr-Ho-v33"/>
                 <outlet property="shadowView" destination="efF-U5-eip" id="xZv-D5-S3r"/>
+                <outlet property="tbvFriendInviteList" destination="Fj8-eH-lLN" id="1Y4-NQ-yPS"/>
+                <outlet property="vFriendInviteList" destination="Ojj-BB-Voe" id="pTs-bh-ZUL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -68,6 +70,33 @@
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="Button"/>
                 </button>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ojj-BB-Voe">
+                    <rect key="frame" x="18.666666666666657" y="40.666666666666686" width="337.66666666666674" height="649.66666666666652"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="好友邀請" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyM-Fg-RRX">
+                            <rect key="frame" x="25.999999999999986" y="26.000000000000007" width="236.33333333333331" height="65"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Fj8-eH-lLN">
+                            <rect key="frame" x="20" y="101" width="297.66666666666669" height="522.66666666666663"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="hyM-Fg-RRX" firstAttribute="leading" secondItem="Ojj-BB-Voe" secondAttribute="leading" constant="26" id="6oa-gi-V6J"/>
+                        <constraint firstItem="Fj8-eH-lLN" firstAttribute="centerX" secondItem="Ojj-BB-Voe" secondAttribute="centerX" id="AZi-lJ-sek"/>
+                        <constraint firstAttribute="bottom" secondItem="Fj8-eH-lLN" secondAttribute="bottom" constant="26" id="Fdy-GT-zW3"/>
+                        <constraint firstItem="hyM-Fg-RRX" firstAttribute="width" secondItem="Ojj-BB-Voe" secondAttribute="width" multiplier="0.7" id="R9u-ze-lKU"/>
+                        <constraint firstItem="hyM-Fg-RRX" firstAttribute="height" secondItem="Ojj-BB-Voe" secondAttribute="height" multiplier="0.1" id="SMW-lL-5jy"/>
+                        <constraint firstItem="hyM-Fg-RRX" firstAttribute="top" secondItem="Ojj-BB-Voe" secondAttribute="top" constant="26" id="Vse-Rv-Hpr"/>
+                        <constraint firstItem="Fj8-eH-lLN" firstAttribute="top" secondItem="hyM-Fg-RRX" secondAttribute="bottom" constant="10" id="Y2e-qj-17q"/>
+                        <constraint firstAttribute="trailing" secondItem="Fj8-eH-lLN" secondAttribute="trailing" constant="20" id="o8Z-Fa-ww8"/>
+                        <constraint firstItem="Fj8-eH-lLN" firstAttribute="leading" secondItem="Ojj-BB-Voe" secondAttribute="leading" constant="20" id="qiY-LE-LPK"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -77,16 +106,19 @@
                 <constraint firstItem="l7R-AI-ual" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="AxB-sH-WlK"/>
                 <constraint firstItem="CCu-ex-B74" firstAttribute="top" secondItem="YUJ-L0-ZJJ" secondAttribute="bottom" id="DG7-qb-xKd"/>
                 <constraint firstItem="0yJ-Lr-3iJ" firstAttribute="top" secondItem="YUJ-L0-ZJJ" secondAttribute="bottom" id="FgV-Ak-a7s"/>
+                <constraint firstItem="Ojj-BB-Voe" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.9" id="GHO-c1-sIo"/>
                 <constraint firstItem="YWG-3M-a8p" firstAttribute="bottom" secondItem="l7R-AI-ual" secondAttribute="bottom" id="HUs-jq-HdD"/>
                 <constraint firstItem="YWG-3M-a8p" firstAttribute="top" secondItem="OWK-tc-Tto" secondAttribute="bottom" id="Ime-rs-gyq"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0yJ-Lr-3iJ" secondAttribute="trailing" id="L0V-2D-UKT"/>
                 <constraint firstItem="OWK-tc-Tto" firstAttribute="leading" secondItem="l7R-AI-ual" secondAttribute="leading" id="L6W-N5-A53"/>
+                <constraint firstItem="Ojj-BB-Voe" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.8" id="MkA-nq-7ds"/>
                 <constraint firstItem="YUJ-L0-ZJJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="O7A-pS-ZFe"/>
                 <constraint firstItem="efF-U5-eip" firstAttribute="height" secondItem="CCu-ex-B74" secondAttribute="height" id="PxH-2r-yg9"/>
                 <constraint firstItem="CCu-ex-B74" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Qtt-eH-v7y"/>
                 <constraint firstItem="efF-U5-eip" firstAttribute="centerX" secondItem="CCu-ex-B74" secondAttribute="centerX" id="VOU-99-AOK"/>
                 <constraint firstItem="efF-U5-eip" firstAttribute="width" secondItem="CCu-ex-B74" secondAttribute="width" id="ZFY-xK-LXC"/>
                 <constraint firstItem="0yJ-Lr-3iJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bEq-LA-tmM"/>
+                <constraint firstItem="Ojj-BB-Voe" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="byl-8O-7sm"/>
                 <constraint firstItem="l7R-AI-ual" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.2" id="dMo-Nr-RiW"/>
                 <constraint firstItem="OWK-tc-Tto" firstAttribute="top" secondItem="l7R-AI-ual" secondAttribute="top" id="eXY-h7-NEQ"/>
                 <constraint firstItem="YWG-3M-a8p" firstAttribute="height" secondItem="OWK-tc-Tto" secondAttribute="height" id="huI-B7-uqb"/>
@@ -98,6 +130,7 @@
                 <constraint firstItem="YWG-3M-a8p" firstAttribute="leading" secondItem="l7R-AI-ual" secondAttribute="leading" id="qGC-FB-WxY"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="YUJ-L0-ZJJ" secondAttribute="trailing" id="rHY-gM-kOE"/>
                 <constraint firstItem="efF-U5-eip" firstAttribute="bottom" secondItem="CCu-ex-B74" secondAttribute="bottom" id="sLB-Gd-mdA"/>
+                <constraint firstItem="Ojj-BB-Voe" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.9" id="tg8-qc-aL7"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="0yJ-Lr-3iJ" secondAttribute="bottom" id="xTt-WA-sn0"/>
             </constraints>
             <point key="canvasLocation" x="58" y="21"/>

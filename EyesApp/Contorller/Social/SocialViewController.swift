@@ -42,6 +42,8 @@ class SocialViewController: UIViewController {
         ProgressHUD.animationType = .multipleCircleScaleRipple
         ProgressHUD.show("載入中...")
         callApiFriendList()
+        ProgressHUD.dismiss()
+       
         
     }
     
@@ -68,7 +70,6 @@ class SocialViewController: UIViewController {
                                forCellReuseIdentifier: FriendListTableViewCell.identified)
         tbvFriendList.dataSource = self
         tbvFriendList.delegate = self
-        
     }
     
     // MARK: - CallAPIFriendList
@@ -95,7 +96,6 @@ class SocialViewController: UIViewController {
             } catch {
                 print(error)
             }
-            ProgressHUD.dismiss()
         }
     }
     
