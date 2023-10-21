@@ -159,7 +159,7 @@ class MainViewController: BaseViewController {
                                                                style: .plain,
                                                                target: self,
                                                                action: #selector(clickShowFriendInviteView))
-                friendNotificationButtonItem?.tintColor = .orange
+                friendNotificationButtonItem?.tintColor = .yellow
             } else {
                 friendNotificationButtonItem = UIBarButtonItem(image: UIImage(systemName: "bell"),
                                                                style: .plain,
@@ -184,7 +184,6 @@ class MainViewController: BaseViewController {
     // MARK: - CallAPIFriendInviteList
     
     func callApiFriendInviteList(accountId: UUID) {
-        friendInviteListArray = []
         let request = GetFriendInviteListRequest(accountId: accountId)
         
         Task {
@@ -194,6 +193,7 @@ class MainViewController: BaseViewController {
                                                                                                          parameters: request,
                                                                                                          needToken: true)
                 if result.message == "此帳號目前有好友邀請" {
+                    friendInviteListArray = []
                     result.data?.friendinviteInfo.forEach({ friendinviteInfo in
                         friendInviteListArray.append(friendInviteListInfo(accountId: friendinviteInfo.accountId,
                                                                           name: friendinviteInfo.name,
@@ -203,17 +203,82 @@ class MainViewController: BaseViewController {
                     friendNotificationButtonItem?.tintColor = .yellow
                     friendNotificationButtonItem?.image = UIImage(systemName: "bell.badge.fill")
                     haveFriendInvite = true
+                    tbvFriendInviteList.reloadData()
                 } else if result.message == "此帳號目前沒有好友邀請" {
+                    friendInviteListArray = []
+                    friendNotificationButtonItem?.tintColor = .white
+                    friendNotificationButtonItem?.image = UIImage(systemName: "bell")
                     haveFriendInvite = false
+                    tbvFriendInviteList.reloadData()
                 } else {
                     Alert.showAlert(title: "請確認與伺服器的連線", message: "", vc: self, confirmTitle: "確認")
+                    tbvFriendInviteList.reloadData()
                 }
             } catch {
                 print(error)
                 Alert.showAlert(title: "請確認與伺服器的連線", message: "", vc: self, confirmTitle: "確認")
+                tbvFriendInviteList.reloadData()
             }
         }
-        tbvFriendInviteList.reloadData()
+    }
+   
+// MARK: - callAddFriendAPI
+    
+    func callAddFriendApi(reciveAccountId: String, sendAccountId: String) {
+        let request = AcceptOrRejectFriendRequest(reciveAccountId: UUID(uuidString: reciveAccountId)!,
+                                       sendAccountId: UUID(uuidString: sendAccountId)!)
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .addFriend,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if result.message == "新增好友成功" {
+                    Alert.showToastWith(message: "加入好友成功！", vc: self,
+                                        during: .short,
+                                        dismiss:  {
+                        self.callApiFriendInviteList(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
+                        NotificationCenter.default.post(name: .addFriend, object: nil)
+                    })
+                } else {
+                    Alert.showAlert(title: "請確認與伺服器的連線",
+                                    message: "",
+                                    vc: self,
+                                    confirmTitle: "確認") {
+                        self.callApiFriendInviteList(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
+                    }
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "請確認與伺服器的連線",
+                                message: "",
+                                vc: self,
+                                confirmTitle: "確認") {
+                    self.callApiFriendInviteList(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
+                }
+            }
+            
+        }
+    }
+    
+    // MARK: - callRejectFriendInviteAPI
+    
+    func callRejectFriendInviteApi(reciveAccountId: String, sendAccountId: String) {
+        let request = AcceptOrRejectFriendRequest(reciveAccountId: UUID(uuidString: reciveAccountId)!,
+                                       sendAccountId: UUID(uuidString: sendAccountId)!)
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .rejectFriendInvite,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                self.callApiFriendInviteList(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
+            } catch {
+                print(error)
+                self.callApiFriendInviteList(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
+            }
+            
+        }
     }
     
     // MARK: - IBAction
@@ -278,9 +343,6 @@ class MainViewController: BaseViewController {
             SwiftEntryKit.display(entry: addFriendVC, using: attributes)
           
         }
-       
-        
-        
     }
     
     @objc func dismissAddfriendInviteView() {
@@ -288,7 +350,7 @@ class MainViewController: BaseViewController {
     }
     
     @objc func clickShowFriendInviteView() {
-        tbvFriendInviteList.reloadData()
+        callApiFriendInviteList(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
         if vFriendInviteList.isHidden == true {
             UIView.transition(with: vFriendInviteList,
                               duration: 0.2,
@@ -302,6 +364,7 @@ class MainViewController: BaseViewController {
                 self.vFriendInviteList.isHidden = true
             }
         }
+        tbvFriendInviteList.reloadData()
     }
     
     
@@ -313,6 +376,16 @@ class MainViewController: BaseViewController {
     @IBAction func clickBtnEyeExercise() {
         let nextVC = EyeExerciseViewController()
         navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @objc func clickAcceptInviteBtn(_ sender: UIButton) {
+        callAddFriendApi(reciveAccountId: UserPreferences.shared.accountId,
+                         sendAccountId: friendInviteListArray[sender.tag].accountId)
+    }
+    
+    @objc func clickRejectInviteBtn(_ sender: UIButton) {
+        callRejectFriendInviteApi(reciveAccountId: UserPreferences.shared.accountId,
+                                  sendAccountId: friendInviteListArray[sender.tag].accountId)
     }
     
 }
@@ -341,7 +414,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             cell.igvUserImg.image = friendInviteListArray[indexPath.row].image.stringToUIImage()
         }
-       
+        cell.btnAccept.tag = indexPath.row
+        cell.btnAccept.addTarget(self, action: #selector(clickAcceptInviteBtn), for: .touchUpInside)
+        cell.btnReject.tag = indexPath.row
+        cell.btnReject.addTarget(self, action: #selector(clickRejectInviteBtn), for: .touchUpInside)
         return cell
     }
     

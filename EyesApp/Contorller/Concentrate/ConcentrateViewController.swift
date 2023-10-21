@@ -17,6 +17,7 @@ class ConcentrateViewController: UIViewController {
     @IBOutlet weak var missionBackgroundView: UIView?
     @IBOutlet weak var lbEveryDayMission: UILabel?
     @IBOutlet weak var missionTableView: UITableView?
+    @IBOutlet weak var vConcentrateTime: UIView?
     
     // MARK: - Variables
     var progressBar: FlexibleSteppedProgressBar!
@@ -132,6 +133,22 @@ class ConcentrateViewController: UIViewController {
     }
     
     // MARK: - IBAction
+    
+    @IBAction func showConcentrateTimeView() {
+        if vConcentrateTime?.isHidden == true {
+            UIView.transition(with: vConcentrateTime!,
+                              duration: 0.2,
+                              options: .transitionCrossDissolve) {
+                self.vConcentrateTime!.isHidden = false
+            }
+        } else {
+            UIView.transition(with: vConcentrateTime!,
+                              duration: 0.2,
+                              options: .transitionCrossDissolve) {
+                self.vConcentrateTime!.isHidden = true
+            }
+        }
+    }
     
 }
 

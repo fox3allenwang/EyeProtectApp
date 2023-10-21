@@ -84,6 +84,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             callApiFriendInviteList(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
         }
         
+        if notification.request.content.body.contains("和你成為朋友了！") {
+            NotificationCenter.default.post(name: .addFriend, object: nil)
+        }
+        
         return [.banner, .badge, .sound]
     }
     

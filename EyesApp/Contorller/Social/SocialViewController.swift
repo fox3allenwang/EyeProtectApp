@@ -43,6 +43,7 @@ class SocialViewController: UIViewController {
         ProgressHUD.show("載入中...")
         callApiFriendList()
         ProgressHUD.dismiss()
+        NotificationCenter.default.addObserver(self, selector: #selector(addFriend), name: .addFriend, object: nil)
        
         
     }
@@ -72,10 +73,14 @@ class SocialViewController: UIViewController {
         tbvFriendList.delegate = self
     }
     
+    @objc func addFriend() {
+        callApiFriendList()
+    }
+    
     // MARK: - CallAPIFriendList
     
     func callApiFriendList() {
-        friendListArray = []
+        
         Task {
             let request = GetFriendListRequest(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
                                                
@@ -84,6 +89,7 @@ class SocialViewController: UIViewController {
                                                                                   path: .getFriendList,
                                                                                   parameters: request,
                                                                                   needToken: true)
+                friendListArray = []
                 result.data.forEach { friendInfo in
                     if friendInfo.image == "未設置" {
                         friendListArray.append(friendListInfo(accountId: friendInfo.accountId, name: friendInfo.name, email: friendInfo.email, image: friendInfo.image))

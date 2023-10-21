@@ -96,14 +96,20 @@ class AddFriendViewController: UIViewController {
                     Alert.showToastWith(message: "對方已寄邀請給你", vc: self, during: .short) {
                         NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
                     }
+                } else if result.data == "你和對方已經是好友" {
+                    ProgressHUD.dismiss()
+                    Alert.showToastWith(message: "你和對方已經是好友", vc: self, during: .short) {
+                        NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
+                    }
                 } else {
-                    Alert.showToastWith(message: "沒有找到被邀請者帳號出", vc: self, during: .short) {
+                    Alert.showToastWith(message: "沒有找到被邀請者帳號", vc: self, during: .short) {
                         ProgressHUD.dismiss()
                         NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
                     }
                 }
             } catch {
                 print(error)
+                ProgressHUD.dismiss()
                 Alert.showToastWith(message: "寄出失敗,請確認與伺服器的連線", vc: self, during: .short) {
                     NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
                 }
@@ -115,7 +121,9 @@ class AddFriendViewController: UIViewController {
     // MARK: - IBAction
     
     @IBAction func clickAddFriendBtn() {
-        if txfName.text != "" || txfEmail.text != "" {
+        if txfName.text == UserPreferences.shared.name && txfEmail.text == UserPreferences.shared.email {
+            Alert.showToastWith(message: "請勿輸入自己的帳號", vc: self, during: .short)
+        } else  if txfName.text != "" || txfEmail.text != "" {
             callAddFriendInviteApi(accountId: UUID(uuidString: UserPreferences.shared.accountId)!,
                                    name: txfName.text!,
                                    email: txfEmail.text!)
@@ -123,7 +131,6 @@ class AddFriendViewController: UIViewController {
         } else {
             Alert.showToastWith(message: "請輸入完整資訊", vc: self, during: .short)
         }
-       
     }
     
 }

@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,6 +17,7 @@
                 <outlet property="lbEveryDayMission" destination="jEs-YN-3UX" id="Eac-7b-kZU"/>
                 <outlet property="missionBackgroundView" destination="IrU-IL-1cM" id="84o-Nb-OLr"/>
                 <outlet property="missionTableView" destination="EDU-dt-0Wm" id="OpX-ku-xjK"/>
+                <outlet property="vConcentrateTime" destination="nIW-Un-LR6" id="U8k-oC-Epq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -67,6 +69,9 @@
                     <state key="normal" title="00:00">
                         <color key="titleColor" systemColor="secondarySystemBackgroundColor"/>
                     </state>
+                    <connections>
+                        <action selector="showConcentrateTimeView" destination="-2" eventType="touchUpInside" id="EHY-Ra-i0u"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="So5-QS-f3T">
                     <rect key="frame" x="254.33333333333331" y="151" width="152.33333333333331" height="51"/>
@@ -89,6 +94,43 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nIW-Un-LR6">
+                    <rect key="frame" x="43" y="268.66666666666663" width="344" height="419.66666666666663"/>
+                    <subviews>
+                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HQY-Th-tyg">
+                            <rect key="frame" x="10" y="10" width="324" height="331"/>
+                        </pickerView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="udG-hm-8rc">
+                            <rect key="frame" x="5" y="351.66666666666669" width="137.66666666666666" height="63"/>
+                            <color key="backgroundColor" name="Buttom2Color"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Button"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eel-hv-JPM">
+                            <rect key="frame" x="201.33333333333337" y="351.66666666666669" width="137.66666666666663" height="63"/>
+                            <color key="backgroundColor" systemColor="systemRedColor"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="udG-hm-8rc" secondAttribute="bottom" constant="5" id="8Ti-OZ-cPf"/>
+                        <constraint firstItem="udG-hm-8rc" firstAttribute="height" secondItem="nIW-Un-LR6" secondAttribute="height" multiplier="0.15" id="G6z-iX-8R1"/>
+                        <constraint firstItem="udG-hm-8rc" firstAttribute="leading" secondItem="nIW-Un-LR6" secondAttribute="leading" constant="5" id="Gaa-2d-9ll"/>
+                        <constraint firstItem="Eel-hv-JPM" firstAttribute="height" secondItem="udG-hm-8rc" secondAttribute="height" id="LZQ-Pi-rpF"/>
+                        <constraint firstAttribute="trailing" secondItem="HQY-Th-tyg" secondAttribute="trailing" constant="10" id="M1U-P3-wlh"/>
+                        <constraint firstItem="HQY-Th-tyg" firstAttribute="top" secondItem="nIW-Un-LR6" secondAttribute="top" constant="10" id="Pyi-w4-iGo"/>
+                        <constraint firstItem="udG-hm-8rc" firstAttribute="top" secondItem="HQY-Th-tyg" secondAttribute="bottom" constant="10" id="WsK-a7-sqp"/>
+                        <constraint firstAttribute="bottom" secondItem="Eel-hv-JPM" secondAttribute="bottom" constant="5" id="cIb-rZ-Ct6"/>
+                        <constraint firstItem="Eel-hv-JPM" firstAttribute="width" secondItem="udG-hm-8rc" secondAttribute="width" id="f4F-Ml-rj1"/>
+                        <constraint firstItem="HQY-Th-tyg" firstAttribute="leading" secondItem="nIW-Un-LR6" secondAttribute="leading" constant="10" id="p7L-ks-xln"/>
+                        <constraint firstAttribute="trailing" secondItem="Eel-hv-JPM" secondAttribute="trailing" constant="5" id="p7z-s2-uhm"/>
+                        <constraint firstItem="udG-hm-8rc" firstAttribute="width" secondItem="nIW-Un-LR6" secondAttribute="width" multiplier="0.4" id="szJ-zM-ewG"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -97,9 +139,11 @@
                 <constraint firstItem="QFU-3l-nLn" firstAttribute="height" secondItem="67q-XE-0Nr" secondAttribute="height" multiplier="0.9" id="0OU-vH-nu2"/>
                 <constraint firstItem="jEs-YN-3UX" firstAttribute="centerX" secondItem="IrU-IL-1cM" secondAttribute="centerX" id="0cI-s9-ss0"/>
                 <constraint firstItem="jEs-YN-3UX" firstAttribute="top" secondItem="IrU-IL-1cM" secondAttribute="top" constant="10" id="1QI-Ip-QSK"/>
+                <constraint firstItem="nIW-Un-LR6" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="1sd-ka-ADT"/>
                 <constraint firstItem="IrU-IL-1cM" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="3to-gg-xYb"/>
                 <constraint firstItem="N7w-Y5-j0c" firstAttribute="width" secondItem="67q-XE-0Nr" secondAttribute="width" multiplier="0.390935" id="51D-Bl-bHt"/>
                 <constraint firstItem="67q-XE-0Nr" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.3" id="9eq-Du-L9x"/>
+                <constraint firstItem="nIW-Un-LR6" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.8" id="Gfk-YQ-kui"/>
                 <constraint firstItem="67q-XE-0Nr" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="HGq-53-tqv"/>
                 <constraint firstItem="ZRP-AZ-UPA" firstAttribute="bottom" secondItem="67q-XE-0Nr" secondAttribute="bottom" constant="-15" id="HSq-Qn-UcU"/>
                 <constraint firstItem="N7w-Y5-j0c" firstAttribute="height" secondItem="67q-XE-0Nr" secondAttribute="height" multiplier="0.181996" id="Ino-YQ-5Sm"/>
@@ -111,6 +155,7 @@
                 <constraint firstItem="QFU-3l-nLn" firstAttribute="width" secondItem="67q-XE-0Nr" secondAttribute="width" multiplier="0.9" id="ODH-3c-WXZ"/>
                 <constraint firstItem="p7G-aL-vRT" firstAttribute="top" secondItem="67q-XE-0Nr" secondAttribute="top" constant="30" id="Oa4-7d-AVi"/>
                 <constraint firstItem="So5-QS-f3T" firstAttribute="top" secondItem="Js0-QV-8rM" secondAttribute="bottom" constant="7.3333333333333428" id="SSV-j3-uPW"/>
+                <constraint firstItem="nIW-Un-LR6" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.5" id="SVE-To-nUT"/>
                 <constraint firstItem="So5-QS-f3T" firstAttribute="centerX" secondItem="Js0-QV-8rM" secondAttribute="centerX" id="TmS-In-U9p"/>
                 <constraint firstItem="IrU-IL-1cM" firstAttribute="top" secondItem="67q-XE-0Nr" secondAttribute="bottom" constant="10" id="UG2-af-Xh8"/>
                 <constraint firstItem="p7G-aL-vRT" firstAttribute="leading" secondItem="67q-XE-0Nr" secondAttribute="leading" constant="50" id="UxN-eJ-IYx"/>
@@ -121,6 +166,7 @@
                 <constraint firstItem="QFU-3l-nLn" firstAttribute="centerX" secondItem="67q-XE-0Nr" secondAttribute="centerX" id="cZm-xy-AsR"/>
                 <constraint firstItem="jEs-YN-3UX" firstAttribute="height" secondItem="IrU-IL-1cM" secondAttribute="height" multiplier="0.12" id="dDu-he-UvF"/>
                 <constraint firstItem="jEs-YN-3UX" firstAttribute="width" secondItem="IrU-IL-1cM" secondAttribute="width" multiplier="0.5" id="diG-G9-nKs"/>
+                <constraint firstItem="nIW-Un-LR6" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="emt-9p-MKF"/>
                 <constraint firstItem="67q-XE-0Nr" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="hJm-S4-Els"/>
                 <constraint firstItem="QFU-3l-nLn" firstAttribute="centerY" secondItem="67q-XE-0Nr" secondAttribute="centerY" id="lM4-Bv-pZC"/>
                 <constraint firstItem="N7w-Y5-j0c" firstAttribute="top" secondItem="p7G-aL-vRT" secondAttribute="bottom" constant="7.3333333333333428" id="mKx-0O-RPp"/>
@@ -133,8 +179,11 @@
         </view>
     </objects>
     <resources>
+        <namedColor name="Buttom2Color">
+            <color red="0.35699999332427979" green="0.7369999885559082" blue="0.31000000238418579" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -143,7 +192,10 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

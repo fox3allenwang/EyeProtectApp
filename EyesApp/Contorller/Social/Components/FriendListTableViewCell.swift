@@ -37,6 +37,7 @@ class FriendListTableViewCell: UITableViewCell {
 
         vCustomView?.layer.shadowRadius = 10
         vCustomView.alpha = 0.5
+        vCustomView.clipsToBounds = true
         imgvAccountImage.layer.cornerRadius = imgvAccountImage.frame.width / 2
     }
     

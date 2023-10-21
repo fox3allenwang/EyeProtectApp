@@ -65,4 +65,6 @@ enum ApiPathConstants: String {
     case logout = "/api/account/logout"
     case addFriendInvite = "/api/account/addFriendInvite"
     case getFriendInviteList = "/api/account/getFriendInviteList"
+    case addFriend = "/api/account/addFriend"
+    case rejectFriendInvite = "/api/account/rejectFriendInvite"
 }

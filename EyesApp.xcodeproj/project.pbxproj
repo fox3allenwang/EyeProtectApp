@@ -68,6 +68,7 @@
 		3FA2B4EC2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4EB2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift */; };
 		3FA2B4F12AE3D217005D0A16 /* FriendInviteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4EF2AE3D217005D0A16 /* FriendInviteTableViewCell.swift */; };
 		3FA2B4F22AE3D217005D0A16 /* FriendInviteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FA2B4F02AE3D217005D0A16 /* FriendInviteTableViewCell.xib */; };
+		3FA2B4F42AE40E10005D0A16 /* AcceptOrRejectFriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4F32AE40E10005D0A16 /* AcceptOrRejectFriendRequest.swift */; };
 		3FB632102AC46D6E0015AF8D /* FriendListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB6320E2AC46D6E0015AF8D /* FriendListTableViewCell.swift */; };
 		3FB632112AC46D6E0015AF8D /* FriendListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FB6320F2AC46D6E0015AF8D /* FriendListTableViewCell.xib */; };
 		3FB632312AC947C30015AF8D /* GetFriendListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB632302AC947C30015AF8D /* GetFriendListRequest.swift */; };
@@ -155,6 +156,7 @@
 		3FA2B4EB2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendInviteListRequest.swift; sourceTree = "<group>"; };
 		3FA2B4EF2AE3D217005D0A16 /* FriendInviteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendInviteTableViewCell.swift; sourceTree = "<group>"; };
 		3FA2B4F02AE3D217005D0A16 /* FriendInviteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendInviteTableViewCell.xib; sourceTree = "<group>"; };
+		3FA2B4F32AE40E10005D0A16 /* AcceptOrRejectFriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptOrRejectFriendRequest.swift; sourceTree = "<group>"; };
 		3FB6320E2AC46D6E0015AF8D /* FriendListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListTableViewCell.swift; sourceTree = "<group>"; };
 		3FB6320F2AC46D6E0015AF8D /* FriendListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendListTableViewCell.xib; sourceTree = "<group>"; };
 		3FB632302AC947C30015AF8D /* GetFriendListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendListRequest.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				3F35FA242AE19B0000465D9E /* LogoutRequest.swift */,
 				3F35FA2F2AE2E68E00465D9E /* AddFriendInviteRequest.swift */,
 				3FA2B4EB2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift */,
+				3FA2B4F32AE40E10005D0A16 /* AcceptOrRejectFriendRequest.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -714,6 +717,7 @@
 				3F96808A2A909D650031BEFE /* AppDefine.swift in Sources */,
 				3F4488E62A750A0D00D573AB /* EyeExerciseViewController.swift in Sources */,
 				3FB632932AC94E570015AF8D /* UIImage+Extension.swift in Sources */,
+				3FA2B4F42AE40E10005D0A16 /* AcceptOrRejectFriendRequest.swift in Sources */,
 				D8925D202A4D202E00DB9EC9 /* Encodable+Extension.swift in Sources */,
 				32BE4B612A0A45600014161D /* OldMainViewController.swift in Sources */,
 				3F35FA252AE19B0000465D9E /* LogoutRequest.swift in Sources */,
