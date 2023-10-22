@@ -69,6 +69,9 @@
 		3FA2B4F12AE3D217005D0A16 /* FriendInviteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4EF2AE3D217005D0A16 /* FriendInviteTableViewCell.swift */; };
 		3FA2B4F22AE3D217005D0A16 /* FriendInviteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FA2B4F02AE3D217005D0A16 /* FriendInviteTableViewCell.xib */; };
 		3FA2B4F42AE40E10005D0A16 /* AcceptOrRejectFriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4F32AE40E10005D0A16 /* AcceptOrRejectFriendRequest.swift */; };
+		3FA2B4F82AE57115005D0A16 /* StartConcentrateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4F62AE57115005D0A16 /* StartConcentrateViewController.swift */; };
+		3FA2B4F92AE57115005D0A16 /* StartConcentrateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FA2B4F72AE57115005D0A16 /* StartConcentrateViewController.xib */; };
+		3FA2B4FD2AE5825B005D0A16 /* startConcentrate.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FA2B4FC2AE5825B005D0A16 /* startConcentrate.json */; };
 		3FB632102AC46D6E0015AF8D /* FriendListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB6320E2AC46D6E0015AF8D /* FriendListTableViewCell.swift */; };
 		3FB632112AC46D6E0015AF8D /* FriendListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FB6320F2AC46D6E0015AF8D /* FriendListTableViewCell.xib */; };
 		3FB632312AC947C30015AF8D /* GetFriendListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB632302AC947C30015AF8D /* GetFriendListRequest.swift */; };
@@ -157,6 +160,9 @@
 		3FA2B4EF2AE3D217005D0A16 /* FriendInviteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendInviteTableViewCell.swift; sourceTree = "<group>"; };
 		3FA2B4F02AE3D217005D0A16 /* FriendInviteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendInviteTableViewCell.xib; sourceTree = "<group>"; };
 		3FA2B4F32AE40E10005D0A16 /* AcceptOrRejectFriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptOrRejectFriendRequest.swift; sourceTree = "<group>"; };
+		3FA2B4F62AE57115005D0A16 /* StartConcentrateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartConcentrateViewController.swift; sourceTree = "<group>"; };
+		3FA2B4F72AE57115005D0A16 /* StartConcentrateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StartConcentrateViewController.xib; sourceTree = "<group>"; };
+		3FA2B4FC2AE5825B005D0A16 /* startConcentrate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = startConcentrate.json; sourceTree = "<group>"; };
 		3FB6320E2AC46D6E0015AF8D /* FriendListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListTableViewCell.swift; sourceTree = "<group>"; };
 		3FB6320F2AC46D6E0015AF8D /* FriendListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendListTableViewCell.xib; sourceTree = "<group>"; };
 		3FB632302AC947C30015AF8D /* GetFriendListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendListRequest.swift; sourceTree = "<group>"; };
@@ -325,6 +331,7 @@
 		3F44885D2A72A61F00D573AB /* Concentrate */ = {
 			isa = PBXGroup;
 			children = (
+				3FA2B4F52AE570D3005D0A16 /* StartConcentrate */,
 				3F0246B72ABC1A0C006EA177 /* Component */,
 				3F4488682A72A79000D573AB /* ConcentrateViewController.swift */,
 				3F4488692A72A79000D573AB /* ConcentrateViewController.xib */,
@@ -407,6 +414,15 @@
 			path = FriendInviteCell;
 			sourceTree = "<group>";
 		};
+		3FA2B4F52AE570D3005D0A16 /* StartConcentrate */ = {
+			isa = PBXGroup;
+			children = (
+				3FA2B4F62AE57115005D0A16 /* StartConcentrateViewController.swift */,
+				3FA2B4F72AE57115005D0A16 /* StartConcentrateViewController.xib */,
+			);
+			path = StartConcentrate;
+			sourceTree = "<group>";
+		};
 		3FB6320D2AC46D280015AF8D /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,6 +466,7 @@
 		3FE31D552A6D64C400E287A0 /* Animate */ = {
 			isa = PBXGroup;
 			children = (
+				3FA2B4FC2AE5825B005D0A16 /* startConcentrate.json */,
 				3FF44B1E2AD57767007A4ECA /* Check.json */,
 				3FF44B1C2AD57598007A4ECA /* 144251-check.json */,
 				3F4488D82A74C7B400D573AB /* OLas.json */,
@@ -613,9 +630,11 @@
 				326146242A178F9800855A6E /* BlueLightFilterViewController.xib in Resources */,
 				326146202A17808900855A6E /* BaseTabBarController.xib in Resources */,
 				3FB632112AC46D6E0015AF8D /* FriendListTableViewCell.xib in Resources */,
+				3FA2B4F92AE57115005D0A16 /* StartConcentrateViewController.xib in Resources */,
 				3FF44B1B2AD52091007A4ECA /* RobotHead.scn in Resources */,
 				3F4488562A724D1800D573AB /* TabBarItemView.xib in Resources */,
 				3F4488D72A74B9B500D573AB /* NewsViewController.xib in Resources */,
+				3FA2B4FD2AE5825B005D0A16 /* startConcentrate.json in Resources */,
 				3F9681082A920D780031BEFE /* PersonalLabelTableViewCell.xib in Resources */,
 				3F4488D92A74C7B400D573AB /* OLas.json in Resources */,
 				3FF44B1D2AD57598007A4ECA /* 144251-check.json in Resources */,
@@ -702,6 +721,7 @@
 				32BE4B4C2A0A451E0014161D /* AppDelegate.swift in Sources */,
 				3F4489BB2A77FDA700D573AB /* ARkitCount.swift in Sources */,
 				3261461F2A17808900855A6E /* BaseTabBarController.swift in Sources */,
+				3FA2B4F82AE57115005D0A16 /* StartConcentrateViewController.swift in Sources */,
 				3F89F83A2AE0314D00E8781C /* AuthenticationResponse.swift in Sources */,
 				3F4488622A72A75E00D573AB /* PersonalViewController.swift in Sources */,
 				3FDCE2DF2A702DF6004981D7 /* LoginViewController.swift in Sources */,
