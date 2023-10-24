@@ -72,7 +72,9 @@ class NetworkManager {
                                                 _ needToken: Bool) -> URLRequest {
         let baseURL = NetworkConstants.httpBaseUrl + NetworkConstants.server
         let url = URL(string: baseURL + path.rawValue)!
-        var urlRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 50)
+        var urlRequest = URLRequest(url: url,
+                                    cachePolicy: .useProtocolCachePolicy,
+                                    timeoutInterval: 50)
         let httpType = NetworkConstants.ContentType.json.rawValue
         
         if needToken {

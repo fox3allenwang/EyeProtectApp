@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StartConcentrateViewController" customModule="EyesApp" customModuleProvider="target">
             <connections>
+                <outlet property="btnAudioPlay" destination="D2e-dX-7KP" id="MOa-Ya-2MV"/>
+                <outlet property="btnConfirm" destination="tKO-5V-0Jh" id="Lwi-qy-iP2"/>
+                <outlet property="btnGiveUp" destination="8QP-qv-sbz" id="JTS-8q-A4G"/>
+                <outlet property="imgvBackground" destination="nFD-rh-N48" id="I8u-dL-E5z"/>
+                <outlet property="lbStatusTitle" destination="TSf-zI-e8J" id="CAD-97-0G1"/>
                 <outlet property="lbTime" destination="uZb-Ie-nKU" id="j7U-hw-LLb"/>
                 <outlet property="vAnimate" destination="Nx0-Up-7XA" id="Q1i-z1-Voe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -31,6 +36,15 @@
                         <constraint firstAttribute="width" secondItem="Nx0-Up-7XA" secondAttribute="height" multiplier="1:1" id="Hki-e5-jil"/>
                     </constraints>
                 </view>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tKO-5V-0Jh">
+                    <rect key="frame" x="98.333333333333329" y="727.33333333333337" width="196.33333333333337" height="60.666666666666629"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="確認"/>
+                    <connections>
+                        <action selector="clickConfirmButton" destination="-2" eventType="touchUpInside" id="b6I-YL-y5x"/>
+                    </connections>
+                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="開始專注" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSf-zI-e8J">
                     <rect key="frame" x="78.666666666666671" y="133.66666666666666" width="235.66666666666663" height="76"/>
                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -54,6 +68,21 @@
                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="放棄"/>
+                    <connections>
+                        <action selector="clickGiveUp" destination="-2" eventType="touchUpInside" id="srn-wh-0Lg"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2e-dX-7KP">
+                    <rect key="frame" x="333.66666666666669" y="738" width="39.333333333333314" height="39.333333333333371"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="D2e-dX-7KP" secondAttribute="height" multiplier="1:1" id="jAl-Dn-XQp"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="speaker.slash" catalog="system"/>
+                    <connections>
+                        <action selector="clickAudioPlayButton" destination="-2" eventType="touchUpInside" id="Axl-DZ-GNf"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -61,8 +90,10 @@
             <constraints>
                 <constraint firstItem="TSf-zI-e8J" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.1" id="3BE-tH-JE6"/>
                 <constraint firstItem="uZb-Ie-nKU" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.7" id="3bL-HO-TcK"/>
+                <constraint firstItem="D2e-dX-7KP" firstAttribute="width" secondItem="8QP-qv-sbz" secondAttribute="width" multiplier="0.2" id="7XU-AC-Hpy"/>
                 <constraint firstItem="uZb-Ie-nKU" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.1" id="8tn-9q-hfU"/>
                 <constraint firstItem="eZR-62-7aB" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="A2G-j3-Fgo"/>
+                <constraint firstItem="D2e-dX-7KP" firstAttribute="centerY" secondItem="8QP-qv-sbz" secondAttribute="centerY" id="Arg-ph-go2"/>
                 <constraint firstItem="uZb-Ie-nKU" firstAttribute="centerX" secondItem="Nx0-Up-7XA" secondAttribute="centerX" id="DoE-c6-YeB"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="nFD-rh-N48" secondAttribute="top" id="HMz-oC-Aru"/>
                 <constraint firstItem="nFD-rh-N48" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Hzd-4M-VpM"/>
@@ -70,24 +101,30 @@
                 <constraint firstItem="uZb-Ie-nKU" firstAttribute="top" secondItem="eZR-62-7aB" secondAttribute="bottom" id="NUx-re-fir"/>
                 <constraint firstItem="TSf-zI-e8J" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="NjQ-8a-tjV"/>
                 <constraint firstItem="nFD-rh-N48" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="R3y-97-J1k"/>
+                <constraint firstItem="tKO-5V-0Jh" firstAttribute="width" secondItem="8QP-qv-sbz" secondAttribute="width" id="Ssx-gt-IqH"/>
                 <constraint firstItem="eZR-62-7aB" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.699746" id="T4x-5J-ZWz"/>
                 <constraint firstItem="TSf-zI-e8J" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.6" id="XJg-Dq-xZY"/>
                 <constraint firstItem="Nx0-Up-7XA" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="XSL-PI-lLr"/>
                 <constraint firstItem="nFD-rh-N48" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="Yf1-Zv-zBU"/>
+                <constraint firstItem="tKO-5V-0Jh" firstAttribute="centerX" secondItem="8QP-qv-sbz" secondAttribute="centerX" id="ZVo-TJ-RFg"/>
                 <constraint firstItem="TSf-zI-e8J" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="74.666666666666657" id="ZrU-Vu-BB6"/>
+                <constraint firstItem="tKO-5V-0Jh" firstAttribute="height" secondItem="8QP-qv-sbz" secondAttribute="height" id="a0B-BN-WKg"/>
                 <constraint firstItem="eZR-62-7aB" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.0996926" id="aeL-vB-e8h"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8QP-qv-sbz" secondAttribute="bottom" constant="30" id="bhk-TA-jL9"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="D2e-dX-7KP" secondAttribute="trailing" constant="20" id="cM8-LG-1Be"/>
                 <constraint firstItem="8QP-qv-sbz" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.5" id="daW-18-Kf9"/>
                 <constraint firstItem="Nx0-Up-7XA" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="gLA-8e-nfj"/>
                 <constraint firstItem="Nx0-Up-7XA" firstAttribute="width" secondItem="nFD-rh-N48" secondAttribute="width" multiplier="2" id="jvP-Ks-9gT"/>
                 <constraint firstItem="8QP-qv-sbz" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="mTB-aQ-ffX"/>
                 <constraint firstItem="8QP-qv-sbz" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.08" id="rPu-Ze-raI"/>
+                <constraint firstItem="tKO-5V-0Jh" firstAttribute="centerY" secondItem="8QP-qv-sbz" secondAttribute="centerY" id="zN9-dK-Gr4"/>
             </constraints>
             <point key="canvasLocation" x="34" y="21"/>
         </view>
     </objects>
     <resources>
         <image name="Quepal" width="1440" height="900"/>
+        <image name="speaker.slash" catalog="system" width="118" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

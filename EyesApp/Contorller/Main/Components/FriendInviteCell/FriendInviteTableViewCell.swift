@@ -26,7 +26,7 @@ class FriendInviteTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        igvUserImg.layer.cornerRadius = igvUserImg.frame.width * 0.6
+        igvUserImg.layer.cornerRadius = igvUserImg.frame.width * 0.7
         igvUserImg.layer.borderWidth = 3
         igvUserImg.layer.borderColor = UIColor.buttomColor?.cgColor
     }

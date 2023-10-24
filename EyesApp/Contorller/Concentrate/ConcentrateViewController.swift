@@ -27,6 +27,14 @@ class ConcentrateViewController: UIViewController {
     @IBOutlet weak var btnRestCancel: UIButton?
     @IBOutlet weak var btnRestTime: UIButton?
     @IBOutlet weak var vRestTime: UIView?
+    @IBOutlet weak var vAddInvite: UIView?
+    @IBOutlet weak var tbvFriendList: UITableView?
+    @IBOutlet weak var tbvRoomList: UITableView?
+    @IBOutlet weak var btnStartConcentrate: UIButton?
+    @IBOutlet weak var btnCancelConcentrate: UIButton?
+    @IBOutlet weak var btnAddInvite: UIButton?
+    @IBOutlet weak var vInviteRoomSelect: UIView?
+    @IBOutlet weak var scvInviteRoomSelect: UIScrollView?
     
     // MARK: - Variables
     var progressBar: FlexibleSteppedProgressBar!
@@ -37,12 +45,22 @@ class ConcentrateViewController: UIViewController {
     var contrateTimeHour = "00"
     var contrateTimeMin = "50"
     var restTimeMin = "10"
+    var wsInviteRoom: URLSessionWebSocketTask? = nil
+    var inviteRoomId = ""
+    var isInviteRoomConnect = false
+    private var friendListArray: [inviteFriendListInfo] = []
     
     struct MissionList {
         public var missionID: UUID
         public var title: String
         public var progress: Int
         public var progressType: String
+    }
+    
+    private struct inviteFriendListInfo {
+        var accountId: String
+        var name: String
+        var image: String
     }
     
     // MARK: - LifeCycle
@@ -76,11 +94,14 @@ class ConcentrateViewController: UIViewController {
     func setupUI() {
         setupConcentrateView()
         setupProgress()
-        setupTableView()
+        setupMissionTableView()
         setupConcentrateTimePicker()
         setupConcentrateTimeView()
         setupRestTimePicker()
         setupRestTimeView()
+        setupAddInviteView()
+        setupInviteSelectView()
+        setupFriendListTableView()
     }
     
     func setupProgress() {
@@ -123,8 +144,9 @@ class ConcentrateViewController: UIViewController {
         
     }
     
-    func setupTableView() {
+    func setupMissionTableView() {
         missionTableView?.register(UINib(nibName: "MissionTableViewCell", bundle: nil), forCellReuseIdentifier: MissionTableViewCell.identified)
+        missionTableView?.tag = 0
         missionTableView?.dataSource = self
         missionTableView?.delegate = self
     }
@@ -164,6 +186,34 @@ class ConcentrateViewController: UIViewController {
         btnRestConfirm?.layer.cornerRadius = 20
     }
     
+    func setupAddInviteView() {
+        vAddInvite!.layer.cornerRadius = 20
+        vAddInvite!.layer.shadowOffset = CGSize(width: 0, height: 5)
+        vAddInvite!.layer.shadowRadius = 10
+        vAddInvite!.layer.shadowOpacity = 0.4
+        
+        btnStartConcentrate?.layer.cornerRadius = 20
+        btnCancelConcentrate?.layer.cornerRadius = 20
+    }
+    
+    func setupInviteSelectView() {
+        vInviteRoomSelect?.layer.cornerRadius = 20
+        vInviteRoomSelect?.layer.shadowOffset = CGSize(width: 0, height: 5)
+        vInviteRoomSelect?.layer.shadowOpacity = 0.2
+        vInviteRoomSelect?.layer.shadowRadius = 10
+        vInviteRoomSelect?.backgroundColor = .white
+        scvInviteRoomSelect?.delegate = self
+    }
+    
+    func setupFriendListTableView() {
+        tbvFriendList?.tag = 2
+        tbvFriendList?.register(UINib(nibName: "InviteFriendsTableViewCell",
+                                      bundle: nil),
+                                forCellReuseIdentifier: InviteFriendsTableViewCell.identified)
+        tbvFriendList?.delegate = self
+        tbvFriendList?.dataSource = self
+    }
+    
     // MARK: - callAPIGetMissionList
     
     func callApiGetMissionList() {
@@ -182,6 +232,186 @@ class ConcentrateViewController: UIViewController {
             } catch {
                 print(error)
             }
+        }
+    }
+    
+    // MARK: - callWebSocketCreateInviteRoom
+    
+    func creatInviteRoom(path: ApiPathConstants, parameters: String, needToken: Bool) {
+        
+        guard let url = URL(string: NetworkConstants.webSocketBaseUrl + NetworkConstants.server + path.rawValue + parameters) else {
+            print("Error: can not create URL")
+            return
+        }
+        let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+        urlSession.sessionDescription = "InviteRoom"
+        var request = URLRequest(url: url)
+        if needToken == true {
+            request.allHTTPHeaderFields = ["Authorization": "Bearer \(UserPreferences.shared.jwtToken)"]
+        }
+       
+        wsInviteRoom = urlSession.webSocketTask(with: request)
+        wsInviteRoom!.resume()
+    }
+    
+    // MARK: - callAddConcentrateRecordAPI
+    
+    func callAddConcentrateRecordApi(accountId: String,
+                                     startTime: String,
+                                     concentrateTime: String,
+                                     restTime: String,
+                                     friends: [UUID]) {
+        let request = AddConcentrateRecordRequest(accountId: UUID(uuidString: accountId)!,
+                                                  startTime: startTime,
+                                                  concentrateTime: concentrateTime,
+                                                  restTime: restTime,
+                                                  withFriends: friends)
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .addConcentrateRecord, parameters: request,
+                                                                                             needToken: true)
+                
+                if result.message != "已新增紀錄" {
+                    Alert.showAlert(title: "為新增紀錄",
+                                    message: "請確定是否有和伺服器連接",
+                                    vc: self,
+                                    confirmTitle: "確認") {
+                        let nextVC = StartConcentrateViewController()
+                        nextVC.concentrateTime = (self.btnConcentrateTime?.titleLabel?.text)!
+                        nextVC.restTime = String((self.btnRestTime?.titleLabel?.text!.prefix(2))!)
+                        nextVC.isModalInPresentation = true
+                        self.present(nextVC, animated: true)
+                    }
+                } else {
+                    let nextVC = StartConcentrateViewController()
+                    nextVC.concentrateRecordId = result.data!
+                    nextVC.concentrateTime = (btnConcentrateTime?.titleLabel?.text)!
+                    nextVC.restTime = String((btnRestTime?.titleLabel?.text!.prefix(2))!)
+                    nextVC.isModalInPresentation = true
+                    present(nextVC, animated: true)
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "未新增紀錄",
+                                message: "請確定是否有和伺服器連接",
+                                vc: self,
+                                confirmTitle: "確認") {
+                    let nextVC = StartConcentrateViewController()
+                    nextVC.concentrateTime = (self.btnConcentrateTime?.titleLabel?.text)!
+                    nextVC.restTime = String((self.btnRestTime?.titleLabel?.text!.prefix(2))!)
+                    nextVC.isModalInPresentation = true
+                    self.present(nextVC, animated: true)
+                }
+            }
+        }
+    }
+    
+// MARK: - callAPIFriendList
+    
+    func callApiFriendList(accountId: String) {
+        ProgressHUD.colorAnimation = .buttomColor!
+        ProgressHUD.colorHUD = .themeColor!
+        ProgressHUD.animationType = .multipleCircleScaleRipple
+        ProgressHUD.show("載入中...")
+        Task {
+            let request = GetFriendListRequest(accountId: UUID(uuidString: accountId)!)
+                                               
+            do {
+                let result: GetFriendListResponse = try await manager.requestData(method: .post,
+                                                                                  path: .getFriendList,
+                                                                                  parameters: request,
+                                                                                  needToken: true)
+                friendListArray = []
+                result.data.forEach { friendInfo in
+                    if friendInfo.image == "未設置" {
+                        friendListArray.append(inviteFriendListInfo(accountId: friendInfo.accountId,
+                                                                    name: friendInfo.name,
+                                                                    image: friendInfo.image))
+                    } else {
+                        friendListArray.append(inviteFriendListInfo(accountId: friendInfo.accountId,
+                                                                    name: friendInfo.name,
+                                                                    image: friendInfo.image))
+                    }
+                }
+                tbvFriendList!.reloadData()
+                print(friendListArray.count)
+            } catch {
+                print(error)
+            }
+            ProgressHUD.dismiss()
+        }
+    }
+    
+    // MARK: - callAPIFriendList
+    
+    func callApiCreateInviteRoom(sendAccountId: String) {
+        ProgressHUD.colorAnimation = .buttomColor!
+        ProgressHUD.colorHUD = .themeColor!
+        ProgressHUD.animationType = .multipleCircleScaleRipple
+        ProgressHUD.show("載入中...")
+        
+        Task {
+            let request = CreatInviteRoomRequest(sendAccountId: UUID(uuidString: sendAccountId)!)
+            
+            do {
+                let result: GeneralResponse<String> = try await manager.requestData(method: .post,
+                                                                                    path: .createInviteRoom,
+                                                                                    parameters: request,
+                                                                                    needToken: true)
+                
+                if result.message == "建立成功" {
+                    inviteRoomId = result.data!
+                    self.creatInviteRoom(path: .wsInviteRoom,
+                                         parameters: "\(result.data!)&\(UserPreferences.shared.accountId)",
+                                         needToken: true)
+                } else {
+                    Alert.showAlert(title: "建立失敗",
+                                    message: "請確認與伺服器的連線",
+                                    vc: self,
+                                    confirmTitle: "確認")
+                }
+                
+            } catch {
+                print(error)
+                Alert.showAlert(title: "建立失敗",
+                                message: "請確認與伺服器的連線",
+                                vc: self,
+                                confirmTitle: "確認")
+            }
+            ProgressHUD.dismiss()
+        }
+    }
+    
+    // MARK: - callAddFriendToConcentrate
+    
+    func callAddFriendToInviteRoomApi(inviteRoomId: String, reciveAccountId: String) {
+        let request = AddFriendToInviteRoomRequest(inviteRoomId: UUID(uuidString: inviteRoomId)!,
+                                                   reciveAccountId: UUID(uuidString: reciveAccountId)!)
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .addFriendToInviteRoom,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if result.message == "好友已經在你的房間" {
+                    Alert.showToastWith(message: "好友已經在你的房間", vc: self, during: .short)
+                } else if result.message == "已邀請" {
+                    
+                } else {
+                    Alert.showAlert(title: "邀請失敗",
+                                    message: "請確認與伺服器的連線",
+                                    vc: self,
+                                    confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "邀請失敗",
+                                message: "請確認與伺服器的連線",
+                                vc: self,
+                                confirmTitle: "確認")
+            }
+           
         }
     }
     
@@ -247,11 +477,53 @@ class ConcentrateViewController: UIViewController {
     }
     
     @IBAction func startConcentrate() {
-        let nextVC = StartConcentrateViewController()
-        nextVC.concentrateTime = (btnConcentrateTime?.titleLabel?.text)!
-        nextVC.restTime = String((btnRestTime?.titleLabel?.text!.prefix(2))!)
-        nextVC.isModalInPresentation = true
-        present(nextVC, animated: true)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let now = dateFormatter.string(from: Date())
+        callAddConcentrateRecordApi(accountId: UserPreferences.shared.accountId,
+                                    startTime: now,
+                                    concentrateTime: (btnConcentrateTime?.titleLabel?.text)!,
+                                    restTime: "\(restTimeMin) m",
+                                    friends: [])
+    }
+    
+    @IBAction func clickCreateInviteRoom() {
+        if vAddInvite?.isHidden == true {
+            callApiCreateInviteRoom(sendAccountId: UserPreferences.shared.accountId)
+            callApiFriendList(accountId: UserPreferences.shared.accountId)
+            vAddInvite?.isHidden = false
+            
+        } else {
+            vAddInvite?.isHidden = true
+            wsInviteRoom!.cancel(with: .goingAway, reason: nil)
+        }
+    }
+    
+    @IBAction func clickCloseInviteRoom() {
+        vAddInvite?.isHidden = true
+        if isInviteRoomConnect == true {
+            wsInviteRoom!.cancel(with: .goingAway, reason: nil)
+        }
+    }
+    
+    @IBAction func clickRoomSelectButton() {
+        scvInviteRoomSelect?.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        UIView.animate(withDuration: 0.2) { [self] in
+            self.vInviteRoomSelect!.transform = CGAffineTransform(translationX: 0,
+                                                                  y: 0)
+        }
+    }
+    
+    @IBAction func clickFriendListSelectButton() {
+        scvInviteRoomSelect?.setContentOffset(CGPoint(x: (scvInviteRoomSelect?.frame.width)!, y: 0), animated: true)
+        UIView.animate(withDuration: 0.2) { [self] in
+            self.vInviteRoomSelect!.transform = CGAffineTransform(translationX: (vInviteRoomSelect?.frame.width)!,
+                                                                  y:0)
+        }
+    }
+    
+    @objc func clickAddFriendToConcentrateRoom(_ sender: UIButton) {
+        callAddFriendToInviteRoomApi(inviteRoomId: inviteRoomId, reciveAccountId: friendListArray[sender.tag].accountId)
     }
 }
 
@@ -288,18 +560,50 @@ extension ConcentrateViewController: FlexibleSteppedProgressBarDelegate {
 
 extension ConcentrateViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return missionList.count
+        switch tableView.tag {
+        case 0:
+            return missionList.count
+        case 1:
+            return friendListArray.count
+        default:
+            return friendListArray.count
+        }
+        
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MissionTableViewCell.identified, for: indexPath) as! MissionTableViewCell
-        cell.lbTitle.text = missionList[indexPath.row].title
-        cell.lbProgress.text = "\(missionList[indexPath.row].progress) \(missionList[indexPath.row].progressType)"
-        return cell
+        switch tableView.tag {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: MissionTableViewCell.identified, for: indexPath) as! MissionTableViewCell
+            cell.lbTitle.text = missionList[indexPath.row].title
+            cell.lbProgress.text = "\(missionList[indexPath.row].progress) \(missionList[indexPath.row].progressType)"
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: InviteFriendsTableViewCell.identified, for: indexPath) as! InviteFriendsTableViewCell
+            cell.btnAddInvite?.tag = indexPath.row
+            if friendListArray[indexPath.row].image == "未設置" {
+                cell.imgvUser?.image = UIImage(systemName: "person.fill")
+            } else {
+                cell.imgvUser?.image = friendListArray[indexPath.row].image.stringToUIImage()
+            }
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: InviteFriendsTableViewCell.identified, for: indexPath) as! InviteFriendsTableViewCell
+            cell.btnAddInvite?.tag = indexPath.row
+            cell.btnAddInvite?.addTarget(self, action: #selector(clickAddFriendToConcentrateRoom), for: .touchUpInside)
+            if friendListArray[indexPath.row].image == "未設置" {
+                cell.imgvUser?.image = UIImage(systemName: "person.fill")
+            } else {
+                cell.imgvUser?.image = friendListArray[indexPath.row].image.stringToUIImage()
+            }
+            cell.lbName?.text = friendListArray[indexPath.row].name
+            return cell
+        }
+       
     }
 }
 
-// MARK: Extension - PickerView
+// MARK: - PickerViewDelegate
 
 extension ConcentrateViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -420,8 +724,35 @@ extension ConcentrateViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             }
         }
     }
-    
-    
 }
+
+// MARK: - SessionWebSocketDelegate
+
+extension ConcentrateViewController: URLSessionWebSocketDelegate {
+    
+    
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        isInviteRoomConnect = true
+        print("URLSessionWebSocketTask is connected")
+    }
+    
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+        isInviteRoomConnect = false
+        if let reason = reason, let string = String(data: reason, encoding: .utf8) {
+            print(string)
+        } else {
+            print("error")
+        }
+    }
+}
+
+// MARK: - ScrollViewDelegate
+
+//extension ConcentrateViewController: UIScrollViewDelegate {
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let translatedPoint = scrollView.panGestureRecognizer.translation(in: scrollView)
+//        print(Int((scrollView.contentOffset.x + 100) / (scrollView.frame.width)))
+//    }
+//}
 
 // MARK: - Protocol

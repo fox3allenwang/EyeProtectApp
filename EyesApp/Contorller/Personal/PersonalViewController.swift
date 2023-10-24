@@ -99,7 +99,7 @@ class PersonalViewController: UIViewController {
                                                                                                parameters: request,
                                                                                                needToken: true)
                 print(response)
-            
+                callGetPersonInformationApi()
             } catch {
                 print(error)
             }

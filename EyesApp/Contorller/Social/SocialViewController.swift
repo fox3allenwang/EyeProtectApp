@@ -18,9 +18,9 @@ class SocialViewController: UIViewController {
     
     let manager = NetworkManager()
     
-    var friendListArray: [friendListInfo] = []
+    private var friendListArray: [friendListInfo] = []
     
-    struct friendListInfo {
+    private struct friendListInfo {
         var accountId: String
         var name: String
         var email: String
