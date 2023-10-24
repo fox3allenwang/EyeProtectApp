@@ -97,6 +97,7 @@
 		3FF44B1D2AD57598007A4ECA /* 144251-check.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FF44B1C2AD57598007A4ECA /* 144251-check.json */; };
 		3FF44B1F2AD57767007A4ECA /* Check.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FF44B1E2AD57767007A4ECA /* Check.json */; };
 		5364894A85EA3AC094430E85 /* Pods_EyesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BB7DA1F85E5DC44B2FAC5D /* Pods_EyesApp.framework */; };
+		B06B88CC2AE7B97100695C8C /* BluetoothServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06B88CB2AE7B97100695C8C /* BluetoothServices.swift */; };
 		D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */; };
 		D8925D1E2A4D1FAC00DB9EC9 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1D2A4D1FAC00DB9EC9 /* NetworkConstants.swift */; };
 		D8925D202A4D202E00DB9EC9 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1F2A4D202E00DB9EC9 /* Encodable+Extension.swift */; };
@@ -197,6 +198,7 @@
 		3FF44B1C2AD57598007A4ECA /* 144251-check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "144251-check.json"; sourceTree = "<group>"; };
 		3FF44B1E2AD57767007A4ECA /* Check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Check.json; sourceTree = "<group>"; };
 		7676AE22173A08CF302C5B8F /* Pods-EyesApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.release.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.release.xcconfig"; sourceTree = "<group>"; };
+		B06B88CB2AE7B97100695C8C /* BluetoothServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothServices.swift; sourceTree = "<group>"; };
 		B4690A957F43C863D075AD8F /* Pods-EyesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.debug.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.debug.xcconfig"; sourceTree = "<group>"; };
 		D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		D8925D1D2A4D1FAC00DB9EC9 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 		326146192A1770E600855A6E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B06B88CA2AE7B95C00695C8C /* Bluetooth */,
 				D8925D1A2A4D1E7700DB9EC9 /* Network */,
 				3FDCE3062A71042A004981D7 /* Extension */,
 				32593D2E2A1DFBB7005A1A6B /* LocalDatabase.swift */,
@@ -589,6 +592,14 @@
 			path = "BlueLightFilter(old)";
 			sourceTree = "<group>";
 		};
+		B06B88CA2AE7B95C00695C8C /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				B06B88CB2AE7B97100695C8C /* BluetoothServices.swift */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
 		D8925D1A2A4D1E7700DB9EC9 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -807,6 +818,7 @@
 				3F44875D2A71553900D573AB /* Alert.swift in Sources */,
 				3F9681072A920D780031BEFE /* PersonalLabelTableViewCell.swift in Sources */,
 				3F4488D62A74B9B500D573AB /* NewsViewController.swift in Sources */,
+				B06B88CC2AE7B97100695C8C /* BluetoothServices.swift in Sources */,
 				3F96810B2A920E220031BEFE /* PersonalTableViewCell.swift in Sources */,
 				3261460E2A1744A000855A6E /* RecordViewController.swift in Sources */,
 				3F0246BA2ABC1A3A006EA177 /* MissionTableViewCell.swift in Sources */,
