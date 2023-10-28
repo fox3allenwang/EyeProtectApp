@@ -68,11 +68,20 @@
 		3F89F83A2AE0314D00E8781C /* AuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F89F8392AE0314D00E8781C /* AuthenticationResponse.swift */; };
 		3F8ED6682AE81F3600102F40 /* CreatInviteRoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED6672AE81F3600102F40 /* CreatInviteRoomRequest.swift */; };
 		3F8ED66A2AE82DE900102F40 /* AddFriendToInviteRoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED6692AE82DE900102F40 /* AddFriendToInviteRoomRequest.swift */; };
+		3F8ED6722AE8B3BF00102F40 /* AnserConcentrateInviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED6702AE8B3BF00102F40 /* AnserConcentrateInviteViewController.swift */; };
+		3F8ED6732AE8B3BF00102F40 /* AnserConcentrateInviteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F8ED6712AE8B3BF00102F40 /* AnserConcentrateInviteViewController.xib */; };
 		3F96808A2A909D650031BEFE /* AppDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9680892A909D650031BEFE /* AppDefine.swift */; };
 		3F9681072A920D780031BEFE /* PersonalLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9681052A920D780031BEFE /* PersonalLabelTableViewCell.swift */; };
 		3F9681082A920D780031BEFE /* PersonalLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F9681062A920D780031BEFE /* PersonalLabelTableViewCell.xib */; };
 		3F96810B2A920E220031BEFE /* PersonalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9681092A920E220031BEFE /* PersonalTableViewCell.swift */; };
 		3F96810C2A920E220031BEFE /* PersonalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F96810A2A920E220031BEFE /* PersonalTableViewCell.xib */; };
+		3F9B36EA2AECD77F00CDB36A /* AddToInviteRoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B36E92AECD77F00CDB36A /* AddToInviteRoomRequest.swift */; };
+		3F9B36EF2AECF1B200CDB36A /* InviteRoomListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B36ED2AECF1B200CDB36A /* InviteRoomListTableViewCell.swift */; };
+		3F9B36F02AECF1B200CDB36A /* InviteRoomListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B36EE2AECF1B200CDB36A /* InviteRoomListTableViewCell.xib */; };
+		3F9B36F22AED036A00CDB36A /* RefreshInviteRoomMemberListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B36F12AED036A00CDB36A /* RefreshInviteRoomMemberListRequest.swift */; };
+		3F9B36FB2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B36F92AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.swift */; };
+		3F9B36FC2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B36FA2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.xib */; };
+		3F9B38A42AED738A00CDB36A /* RemoveToInviteRoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B38A32AED738A00CDB36A /* RemoveToInviteRoomRequest.swift */; };
 		3FA2B4E92AE2F15C005D0A16 /* NSNotification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4E82AE2F15C005D0A16 /* NSNotification+Extension.swift */; };
 		3FA2B4EC2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4EB2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift */; };
 		3FA2B4F12AE3D217005D0A16 /* FriendInviteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4EF2AE3D217005D0A16 /* FriendInviteTableViewCell.swift */; };
@@ -168,12 +177,21 @@
 		3F89F8392AE0314D00E8781C /* AuthenticationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationResponse.swift; sourceTree = "<group>"; };
 		3F8ED6672AE81F3600102F40 /* CreatInviteRoomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatInviteRoomRequest.swift; sourceTree = "<group>"; };
 		3F8ED6692AE82DE900102F40 /* AddFriendToInviteRoomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendToInviteRoomRequest.swift; sourceTree = "<group>"; };
+		3F8ED6702AE8B3BF00102F40 /* AnserConcentrateInviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnserConcentrateInviteViewController.swift; sourceTree = "<group>"; };
+		3F8ED6712AE8B3BF00102F40 /* AnserConcentrateInviteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnserConcentrateInviteViewController.xib; sourceTree = "<group>"; };
 		3F9680892A909D650031BEFE /* AppDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefine.swift; sourceTree = "<group>"; };
 		3F96808B2A90AB250031BEFE /* EyesApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EyesApp.entitlements; sourceTree = "<group>"; };
 		3F9681052A920D780031BEFE /* PersonalLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLabelTableViewCell.swift; sourceTree = "<group>"; };
 		3F9681062A920D780031BEFE /* PersonalLabelTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalLabelTableViewCell.xib; sourceTree = "<group>"; };
 		3F9681092A920E220031BEFE /* PersonalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalTableViewCell.swift; sourceTree = "<group>"; };
 		3F96810A2A920E220031BEFE /* PersonalTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalTableViewCell.xib; sourceTree = "<group>"; };
+		3F9B36E92AECD77F00CDB36A /* AddToInviteRoomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToInviteRoomRequest.swift; sourceTree = "<group>"; };
+		3F9B36ED2AECF1B200CDB36A /* InviteRoomListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteRoomListTableViewCell.swift; sourceTree = "<group>"; };
+		3F9B36EE2AECF1B200CDB36A /* InviteRoomListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InviteRoomListTableViewCell.xib; sourceTree = "<group>"; };
+		3F9B36F12AED036A00CDB36A /* RefreshInviteRoomMemberListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshInviteRoomMemberListRequest.swift; sourceTree = "<group>"; };
+		3F9B36F92AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteRoomMemberListTableViewCell.swift; sourceTree = "<group>"; };
+		3F9B36FA2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InviteRoomMemberListTableViewCell.xib; sourceTree = "<group>"; };
+		3F9B38A32AED738A00CDB36A /* RemoveToInviteRoomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveToInviteRoomRequest.swift; sourceTree = "<group>"; };
 		3FA2B4E82AE2F15C005D0A16 /* NSNotification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Extension.swift"; sourceTree = "<group>"; };
 		3FA2B4EB2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendInviteListRequest.swift; sourceTree = "<group>"; };
 		3FA2B4EF2AE3D217005D0A16 /* FriendInviteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendInviteTableViewCell.swift; sourceTree = "<group>"; };
@@ -322,6 +340,8 @@
 			children = (
 				3F2956862AE6A2AC00DFD45E /* InviteFriendsTableViewCell.swift */,
 				3F2956872AE6A2AC00DFD45E /* InviteFriendsTableViewCell.xib */,
+				3F9B36ED2AECF1B200CDB36A /* InviteRoomListTableViewCell.swift */,
+				3F9B36EE2AECF1B200CDB36A /* InviteRoomListTableViewCell.xib */,
 			);
 			path = ConcentrateInviteCell;
 			sourceTree = "<group>";
@@ -434,8 +454,20 @@
 				3F2956212AE644F400DFD45E /* CompleteConcentrateRecord.swift */,
 				3F8ED6672AE81F3600102F40 /* CreatInviteRoomRequest.swift */,
 				3F8ED6692AE82DE900102F40 /* AddFriendToInviteRoomRequest.swift */,
+				3F9B36E92AECD77F00CDB36A /* AddToInviteRoomRequest.swift */,
+				3F9B36F12AED036A00CDB36A /* RefreshInviteRoomMemberListRequest.swift */,
+				3F9B38A32AED738A00CDB36A /* RemoveToInviteRoomRequest.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		3F8ED66B2AE8B36100102F40 /* AnserConcentrateInvite */ = {
+			isa = PBXGroup;
+			children = (
+				3F8ED6702AE8B3BF00102F40 /* AnserConcentrateInviteViewController.swift */,
+				3F8ED6712AE8B3BF00102F40 /* AnserConcentrateInviteViewController.xib */,
+			);
+			path = AnserConcentrateInvite;
 			sourceTree = "<group>";
 		};
 		3F9681002A9206EB0031BEFE /* Component */ = {
@@ -449,9 +481,19 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		3F9B36F82AED1D7400CDB36A /* InviteRoomMemberListCell */ = {
+			isa = PBXGroup;
+			children = (
+				3F9B36F92AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.swift */,
+				3F9B36FA2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.xib */,
+			);
+			path = InviteRoomMemberListCell;
+			sourceTree = "<group>";
+		};
 		3FA2B4ED2AE3D1D6005D0A16 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				3F9B36F82AED1D7400CDB36A /* InviteRoomMemberListCell */,
 				3FA2B4EE2AE3D1E9005D0A16 /* FriendInviteCell */,
 			);
 			path = Components;
@@ -562,6 +604,7 @@
 		7C4409822A20A85700C68A1E /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				3F8ED66B2AE8B36100102F40 /* AnserConcentrateInvite */,
 				3FA2B4ED2AE3D1D6005D0A16 /* Components */,
 				3F35FA262AE1A9E200465D9E /* AddFriendViewController */,
 				3F4488DF2A7508F800D573AB /* EyeExercise */,
@@ -690,6 +733,7 @@
 				3F44884D2A722C4F00D573AB /* MainViewController.xib in Resources */,
 				3FE31D572A6D653A00E287A0 /* Logo-Animation - 1690117050344.json in Resources */,
 				3FDCE2E22A702F52004981D7 /* EyeProtect.json in Resources */,
+				3F8ED6732AE8B3BF00102F40 /* AnserConcentrateInviteViewController.xib in Resources */,
 				326146242A178F9800855A6E /* BlueLightFilterViewController.xib in Resources */,
 				326146202A17808900855A6E /* BaseTabBarController.xib in Resources */,
 				3FB632112AC46D6E0015AF8D /* FriendListTableViewCell.xib in Resources */,
@@ -698,8 +742,10 @@
 				3F4488562A724D1800D573AB /* TabBarItemView.xib in Resources */,
 				3F4488D72A74B9B500D573AB /* NewsViewController.xib in Resources */,
 				3FA2B4FD2AE5825B005D0A16 /* startConcentrate.json in Resources */,
+				3F9B36FC2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.xib in Resources */,
 				3F9681082A920D780031BEFE /* PersonalLabelTableViewCell.xib in Resources */,
 				3F4488D92A74C7B400D573AB /* OLas.json in Resources */,
+				3F9B36F02AECF1B200CDB36A /* InviteRoomListTableViewCell.xib in Resources */,
 				3FF44B1D2AD57598007A4ECA /* 144251-check.json in Resources */,
 				3F2956892AE6A2AC00DFD45E /* InviteFriendsTableViewCell.xib in Resources */,
 				3F4488E72A750A0D00D573AB /* EyeExerciseViewController.xib in Resources */,
@@ -769,6 +815,7 @@
 				3F44884C2A722C4F00D573AB /* MainViewController.swift in Sources */,
 				3FA2B4E92AE2F15C005D0A16 /* NSNotification+Extension.swift in Sources */,
 				3F8ED6682AE81F3600102F40 /* CreatInviteRoomRequest.swift in Sources */,
+				3F9B38A42AED738A00CDB36A /* RemoveToInviteRoomRequest.swift in Sources */,
 				D8925D1E2A4D1FAC00DB9EC9 /* NetworkConstants.swift in Sources */,
 				3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */,
 				3FA2B4F12AE3D217005D0A16 /* FriendInviteTableViewCell.swift in Sources */,
@@ -776,12 +823,15 @@
 				3F29561E2AE6301D00DFD45E /* AddConcentrateRecordRequest.swift in Sources */,
 				3FB632312AC947C30015AF8D /* GetFriendListRequest.swift in Sources */,
 				3F4488752A72BD2800D573AB /* BaseViewController.swift in Sources */,
+				3F8ED6722AE8B3BF00102F40 /* AnserConcentrateInviteViewController.swift in Sources */,
 				3F2956202AE6400B00DFD45E /* GiveUpConcentrateRecordRequest.swift in Sources */,
 				3F6DFE262A6E2DA90058CDFB /* LoginRequest.swift in Sources */,
+				3F9B36EF2AECF1B200CDB36A /* InviteRoomListTableViewCell.swift in Sources */,
 				3F44886E2A72A7A500D573AB /* EquipmentViewController.swift in Sources */,
 				3FA2B4EC2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift in Sources */,
 				3F35FA292AE274C700465D9E /* AddFriendViewController.swift in Sources */,
 				3F44886A2A72A79000D573AB /* ConcentrateViewController.swift in Sources */,
+				3F9B36EA2AECD77F00CDB36A /* AddToInviteRoomRequest.swift in Sources */,
 				3F5005472AB0B355007D9DED /* UploadImageRequest.swift in Sources */,
 				3F4488582A724D5100D573AB /* TabBarItemView.swift in Sources */,
 				D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */,
@@ -791,6 +841,7 @@
 				3261461F2A17808900855A6E /* BaseTabBarController.swift in Sources */,
 				3FA2B4F82AE57115005D0A16 /* StartConcentrateViewController.swift in Sources */,
 				3F89F83A2AE0314D00E8781C /* AuthenticationResponse.swift in Sources */,
+				3F9B36F22AED036A00CDB36A /* RefreshInviteRoomMemberListRequest.swift in Sources */,
 				3F4488622A72A75E00D573AB /* PersonalViewController.swift in Sources */,
 				3FDCE2DF2A702DF6004981D7 /* LoginViewController.swift in Sources */,
 				3FB6330D2AC9C79C0015AF8D /* GetMissionListRequest.swift in Sources */,
@@ -823,6 +874,7 @@
 				3261460E2A1744A000855A6E /* RecordViewController.swift in Sources */,
 				3F0246BA2ABC1A3A006EA177 /* MissionTableViewCell.swift in Sources */,
 				3F4488522A723EBF00D573AB /* CustomTabBarView.swift in Sources */,
+				3F9B36FB2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -970,6 +1022,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EyesApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "需要啟用眼睛保健操功能";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -1004,6 +1057,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EyesApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "需要啟用眼睛保健操功能";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;

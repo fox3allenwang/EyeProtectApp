@@ -21,7 +21,10 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var btnEyeExcrise: UIButton!
     @IBOutlet weak var vFriendInviteList: UIView!
     @IBOutlet weak var tbvFriendInviteList: UITableView!
-    
+    @IBOutlet weak var vInviteRoom: UIView!
+    @IBOutlet weak var lbInviteRoomName: UILabel!
+    @IBOutlet weak var tbvInviteRoomMember: UITableView!
+    @IBOutlet weak var btnLeaveInviteRoom: UIButton!
     
     // MARK: - Variables
     let socialVC = SocialViewController()
@@ -37,7 +40,11 @@ class MainViewController: BaseViewController {
     var lastVC: Int? = nil
     var friendInviteListArray: [friendInviteListInfo] = []
     var haveFriendInvite = false
-    
+    var concentrateInviteVCs: [AnserConcentrateInviteViewController] = []
+    var wsInviteRoom: URLSessionWebSocketTask? = nil
+    var isInviteRoomConnect = false
+    var inviteRoomId = ""
+    private var inviteMemberList: [inviteRoomMember] = []
     
     var cameraMenuStatus: CameraMenueStatus = .close
     enum CameraMenueStatus {
@@ -52,6 +59,12 @@ class MainViewController: BaseViewController {
         var image: String
     }
     
+    private struct inviteRoomMember {
+        var accountId: UUID
+        var name: String
+        var image: String
+    }
+    
     
     // MARK: - LifeCycle
     
@@ -63,8 +76,18 @@ class MainViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
-        NotificationCenter.default.addObserver(self, selector: #selector(dismissAddfriendInviteView), name: .addFriendInviteViewDismiss, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeBellStyle), name: .reciveFriendInvite, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(dismissAddfriendInviteView),
+                                               name: .addFriendInviteViewDismiss,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(changeBellStyle),
+                                               name: .reciveFriendInvite,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(showConcentrateInvite(notification:)),
+                                               name: .showConcentrateInvite,
+                                               object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -88,6 +111,8 @@ class MainViewController: BaseViewController {
         setupAnimate()
         setupCameraMenuView()
         setupFriendInviteListView()
+        setupInviteRoomView()
+        setupInviteRoomMemberTableView()
     }
     
     func setupCameraMenuView() {
@@ -133,8 +158,28 @@ class MainViewController: BaseViewController {
         vFriendInviteList.layer.shadowOpacity = 0.2
         
         tbvFriendInviteList.register(UINib(nibName: "FriendInviteTableViewCell", bundle: nil), forCellReuseIdentifier: FriendInviteTableViewCell.identified)
+        tbvFriendInviteList.tag = 0
         tbvFriendInviteList.dataSource = self
         tbvFriendInviteList.delegate = self
+    }
+    
+    func setupInviteRoomView() {
+        vInviteRoom.layer.cornerRadius = 50
+        vInviteRoom.layer.shadowOffset = .zero
+        vInviteRoom.layer.shadowRadius = 10
+        vInviteRoom.layer.shadowOpacity = 0.2
+        
+        btnLeaveInviteRoom.layer.cornerRadius = 20
+        btnLeaveInviteRoom.layer.shadowOffset = .zero
+        btnLeaveInviteRoom.layer.shadowRadius = 10
+        btnLeaveInviteRoom.layer.shadowOpacity = 0.2
+    }
+    
+    func setupInviteRoomMemberTableView() {
+        tbvInviteRoomMember.register(UINib(nibName: "InviteRoomMemberListTableViewCell", bundle: nil), forCellReuseIdentifier: InviteRoomMemberListTableViewCell.identified)
+        tbvInviteRoomMember.tag = 1
+        tbvInviteRoomMember.dataSource = self
+        tbvInviteRoomMember.delegate = self
     }
     
     func updateView(index: Int) {
@@ -179,6 +224,38 @@ class MainViewController: BaseViewController {
             NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
             navigationItem.rightBarButtonItems = [cameraMenuButtomItem!]
         }
+    }
+    
+    func reviceWSMessage() {
+        wsInviteRoom?.receive(completionHandler: { result in
+            switch result {
+            case .success(let message):
+                switch message {
+                case .data(let data):
+                    print("Got Data \(data)")
+                case .string(let string):
+                    print("Got RoomMember \(string)")
+                    
+                    if string.contains("房主") && string.contains("離開了"){
+                        Alert.showAlert(title: "房主已離開房間", message: "房間已關閉", vc: self, confirmTitle: "確認") {
+                            self.vInviteRoom.isHidden = true
+                            self.wsInviteRoom?.cancel()
+                            self.inviteMemberList = []
+                        }
+                    } else {
+                        Task {
+                            await self.callApiRefreshInviteRoomMemberList(inviteRoomId: self.inviteRoomId)
+                        }
+                    }
+                @unknown default:
+                    break
+                }
+            case .failure(let error):
+                print("ws: \(error)")
+                return
+            }
+            self.reviceWSMessage()
+        })
     }
     
     // MARK: - CallAPIFriendInviteList
@@ -261,6 +338,25 @@ class MainViewController: BaseViewController {
         }
     }
     
+    // MARK: - callWebSocketGetInInviteRoom
+    
+    func getInInviteRoom(path: ApiPathConstants, parameters: String, needToken: Bool) async {
+        
+        guard let url = URL(string: NetworkConstants.webSocketBaseUrl + NetworkConstants.server + path.rawValue + parameters) else {
+            print("Error: can not create URL")
+            return
+        }
+        let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+        urlSession.sessionDescription = "InviteRoom"
+        var request = URLRequest(url: url)
+        if needToken == true {
+            request.allHTTPHeaderFields = ["Authorization": "Bearer \(UserPreferences.shared.jwtToken)"]
+        }
+       
+        wsInviteRoom = urlSession.webSocketTask(with: request)
+        wsInviteRoom!.resume()
+    }
+    
     // MARK: - callRejectFriendInviteAPI
     
     func callRejectFriendInviteApi(reciveAccountId: String, sendAccountId: String) {
@@ -279,6 +375,36 @@ class MainViewController: BaseViewController {
             }
             
         }
+    }
+    
+    // MARK: - callAPIRefreshInviteRoomMemberList
+    
+    func callApiRefreshInviteRoomMemberList(inviteRoomId: String) async {
+        Thread.sleep(forTimeInterval: 0.5)
+        let request = RefreshInviteRoomMemberListRequest(inviteRoomId: UUID(uuidString: inviteRoomId)!)
+            
+            do {
+                let result: GeneralResponse<RefreshInviteRoomMemberListResponse> = try await NetworkManager().requestData(method: .post,
+                                                                                                                          path: .refreshInviteRoomMemberList,
+                                                                                                          parameters: request,
+                                                                                                          needToken: true)
+                if result.message == "成功更新此房間的成員" {
+                    inviteMemberList = []
+                    
+                    result.data?.memberList.forEach({ member in
+                        inviteMemberList.append(inviteRoomMember(accountId: member.accountId,
+                                                                 name: member.name,
+                                                                 image: member.image))
+                    })
+                    tbvInviteRoomMember?.reloadData()
+                } else {
+                    Alert.showAlert(title: "發生錯誤", message: result.message, vc: self, confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "發生錯誤", message: "請確認與伺服器的連線", vc: self, confirmTitle: "確認")
+            }
+        
     }
     
     // MARK: - IBAction
@@ -367,6 +493,29 @@ class MainViewController: BaseViewController {
         tbvFriendInviteList.reloadData()
     }
     
+    @objc func showConcentrateInvite(notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let inviteRoomId = userInfo["inviteRoomId"],
+           let sendName = userInfo["sendName"] {
+            let concentrateInviteVC = AnserConcentrateInviteViewController()
+            concentrateInviteVC.message = "\(sendName) 寄送專注邀請給你，要加入嗎？"
+            concentrateInviteVC.inviteRoomId = "\(inviteRoomId)"
+            concentrateInviteVC.sendName = "\(sendName)"
+            concentrateInviteVC.inviteAcceptDelegate = self
+            concentrateInviteVC.inviteCancelDelegate = self
+            
+            concentrateInviteVC.modalTransitionStyle = .crossDissolve
+            concentrateInviteVC.modalPresentationStyle = .overFullScreen
+            concentrateInviteVCs.append(concentrateInviteVC)
+        }
+        if concentrateInviteVCs.count < 2 {
+            pressentConcentrateInviteVC()
+        }
+    }
+    
+    func pressentConcentrateInviteVC() {
+        self.present(concentrateInviteVCs.first!, animated: true)
+    }
     
     @objc func changeBellStyle() {
         friendNotificationButtonItem?.image = UIImage(systemName: "bell.badge.fill")
@@ -388,6 +537,11 @@ class MainViewController: BaseViewController {
                                   sendAccountId: friendInviteListArray[sender.tag].accountId)
     }
     
+    @IBAction func clickLeaveInviteRoomButton() {
+        wsInviteRoom?.cancel()
+        vInviteRoom.isHidden = true
+    }
+    
 }
 
 // MARK: - UIPopoverPresentationControllerExtension
@@ -398,30 +552,94 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
     }
 }
 
-// MARK: - FriendInviteListTableViewExtension
+// MARK: - TableViewExtension
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendInviteListArray.count
+        if tableView.tag == 0 {
+            return friendInviteListArray.count
+        } else {
+            return inviteMemberList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FriendInviteTableViewCell.identified, for: indexPath) as! FriendInviteTableViewCell
-        cell.lbName.text = friendInviteListArray[indexPath.row].name
-        cell.lbEmail.text = friendInviteListArray[indexPath.row].email
-        if friendInviteListArray[indexPath.row].image == "未設置" {
-            cell.igvUserImg.image = UIImage(systemName: "person.fill")
+        if tableView.tag == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: FriendInviteTableViewCell.identified, for: indexPath) as! FriendInviteTableViewCell
+            cell.lbName.text = friendInviteListArray[indexPath.row].name
+            cell.lbEmail.text = friendInviteListArray[indexPath.row].email
+            if friendInviteListArray[indexPath.row].image == "未設置" {
+                cell.igvUserImg.image = UIImage(systemName: "person.fill")
+            } else {
+                cell.igvUserImg.image = friendInviteListArray[indexPath.row].image.stringToUIImage()
+            }
+            cell.btnAccept.tag = indexPath.row
+            cell.btnAccept.addTarget(self, action: #selector(clickAcceptInviteBtn), for: .touchUpInside)
+            cell.btnReject.tag = indexPath.row
+            cell.btnReject.addTarget(self, action: #selector(clickRejectInviteBtn), for: .touchUpInside)
+            return cell
         } else {
-            cell.igvUserImg.image = friendInviteListArray[indexPath.row].image.stringToUIImage()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "InviteRoomMemberListTableViewCell",
+                                                     for: indexPath) as! InviteRoomMemberListTableViewCell
+            if inviteMemberList[indexPath.row].image == "未設置" {
+                cell.imgvUser.image = UIImage(systemName: "person.fill")
+            } else {
+                cell.imgvUser.image = inviteMemberList[indexPath.row].image.stringToUIImage()
+            }
+            cell.name.text = inviteMemberList[indexPath.row].name
+            return cell
         }
-        cell.btnAccept.tag = indexPath.row
-        cell.btnAccept.addTarget(self, action: #selector(clickAcceptInviteBtn), for: .touchUpInside)
-        cell.btnReject.tag = indexPath.row
-        cell.btnReject.addTarget(self, action: #selector(clickRejectInviteBtn), for: .touchUpInside)
-        return cell
     }
-    
-    
 }
 
-// MARK: - Protocol
+// MARK: - InviteViewAcceptOrCancelDelegate
+
+extension MainViewController: InviteAcceptDelegate, InviteCancelDelegate {
+    func inviteAccept() {
+        wsInviteRoom?.cancel()
+        print("Accept")
+        inviteRoomId = concentrateInviteVCs[0].inviteRoomId
+        concentrateInviteVCs[0].dismiss(animated: true)
+       
+        NotificationCenter.default.post(name: .dismissAddInviteView, object: nil)
+        vInviteRoom.isHidden = false
+        lbInviteRoomName.text = "\(concentrateInviteVCs[0].sendName) 的房間"
+        Task {
+            await getInInviteRoom(path: .wsInviteRoom,
+                            parameters: "\(inviteRoomId)&Member:\(UserPreferences.shared.accountId)",
+                            needToken: true)
+            await callApiRefreshInviteRoomMemberList(inviteRoomId: inviteRoomId)
+        }
+        concentrateInviteVCs.removeAll()
+    }
+    
+    func inviteCancel() {
+        print("Cancel")
+        concentrateInviteVCs[0].dismiss(animated: true)
+        concentrateInviteVCs.remove(at: 0)
+        if !concentrateInviteVCs.isEmpty {
+            pressentConcentrateInviteVC()
+        }
+    }
+}
+
+// MARK: - SessionWebSocketDelegate
+
+extension MainViewController: URLSessionWebSocketDelegate {
+    
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        isInviteRoomConnect = true
+        print("URLSessionWebSocketTask is connected")
+        reviceWSMessage()
+    }
+    
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+        isInviteRoomConnect = false
+        if let reason = reason, let string = String(data: reason, encoding: .utf8) {
+            print(string)
+        } else {
+            print("error")
+        }
+    }
+    
+}

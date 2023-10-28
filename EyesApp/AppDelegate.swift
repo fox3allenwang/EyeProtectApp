@@ -88,6 +88,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             NotificationCenter.default.post(name: .addFriend, object: nil)
         }
         
+        if notification.request.content.body.contains("向你傳送專注邀請") {
+            let messageComponents = notification.request.content.body.components(separatedBy: " ")
+            let sendName = messageComponents[0]
+            NotificationCenter.default.post(name: .showConcentrateInvite, object: nil, userInfo: ["inviteRoomId": notification.request.content.body.suffix(36),
+                                                                                                  "sendName": sendName])
+        }
+        
         return [.banner, .badge, .sound]
     }
     

@@ -28,7 +28,8 @@ class StartConcentrateViewController: UIViewController {
     var countConcentrateTimer = Timer()
     var countRestTimer = Timer()
     var concentrateRecordId: String = ""
-    let player = AVPlayer()
+    let player = AVQueuePlayer()
+    var audioLooper: AVPlayerLooper?
     var audioPlayStatus = false
     var restStatus = false
     var giveUpStatus = false
@@ -97,7 +98,7 @@ class StartConcentrateViewController: UIViewController {
     func setupAudio() {
         let url = Bundle.main.url(forResource: "潮汐_Freesound", withExtension: "wav")!
         let playerItem = AVPlayerItem(url: url)
-        player.replaceCurrentItem(with: playerItem)
+        audioLooper = AVPlayerLooper(player: player, templateItem: playerItem)
     }
     
     func pushConcentrateNotification() {

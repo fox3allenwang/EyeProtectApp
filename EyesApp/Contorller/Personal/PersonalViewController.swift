@@ -90,6 +90,10 @@ class PersonalViewController: UIViewController {
     }
     
     func callUploadImageApi(imageString: String) {
+        ProgressHUD.colorAnimation = .buttomColor!
+        ProgressHUD.colorHUD = .themeColor!
+        ProgressHUD.animationType = .multipleCircleScaleRipple
+        ProgressHUD.show("載入中...")
         let request = UploadImageRequest(accountId: UUID(uuidString: UserPreferences.shared.accountId)!, image: imageString)
         
         Task {

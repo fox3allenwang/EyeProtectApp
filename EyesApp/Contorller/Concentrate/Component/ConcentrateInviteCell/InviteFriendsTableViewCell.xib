@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -27,7 +27,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HTo-DV-4Zr">
-                        <rect key="frame" x="61" y="17.666666666666671" width="48" height="35"/>
+                        <rect key="frame" x="61" y="17.666666666666671" width="206" height="35"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -51,6 +51,7 @@
                     <constraint firstItem="N3w-jm-2Ax" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="23s-ka-NmI"/>
                     <constraint firstItem="bWB-rM-9Gj" firstAttribute="centerX" secondItem="GWs-Ya-TNo" secondAttribute="centerX" id="CP6-Qm-pbT"/>
                     <constraint firstItem="bWB-rM-9Gj" firstAttribute="height" secondItem="GWs-Ya-TNo" secondAttribute="height" id="KDe-eF-KHz"/>
+                    <constraint firstItem="bWB-rM-9Gj" firstAttribute="leading" secondItem="HTo-DV-4Zr" secondAttribute="trailing" constant="5" id="PHG-Sl-RwS"/>
                     <constraint firstItem="bWB-rM-9Gj" firstAttribute="width" secondItem="GWs-Ya-TNo" secondAttribute="width" id="PHf-Po-Hah"/>
                     <constraint firstAttribute="trailing" secondItem="GWs-Ya-TNo" secondAttribute="trailing" constant="16" id="QAa-WR-95k"/>
                     <constraint firstItem="HTo-DV-4Zr" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.5" id="R2B-JH-O4v"/>

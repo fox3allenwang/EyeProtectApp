@@ -12,7 +12,7 @@ struct NetworkConstants {
     static let httpBaseUrl = "http://"
     static let httpsBaseUrl = "https://"
     static let webSocketBaseUrl = "ws://"
-    static let server = "192.168.8.156:8080"
+    static let server = "192.168.0.105:8080"
     
     enum HttpHeaderField: String {
         case authentication = "Authorization"
@@ -74,4 +74,7 @@ enum ApiPathConstants: String {
     case wsInviteRoom = "/api/websocket/"
     case createInviteRoom = "/api/inviteConcentrateRoomController/createInviteRoom"
     case addFriendToInviteRoom = "/api/inviteConcentrateRoomController/addFriendToInviteRoom"
+    case addToInviteRoom = "/api/inviteConcentrateRoomController/addToInviteRoom"
+    case refreshInviteRoomMemberList = "/api/inviteConcentrateRoomController/refreshInviteRoomMemberList"
+    case removeToInviteRoom = "/api/inviteConcentrateRoomController/removeToInviteRoom"
 }

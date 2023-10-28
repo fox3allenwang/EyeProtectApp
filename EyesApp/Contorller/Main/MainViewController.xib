@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -15,12 +15,16 @@
                 <outlet property="animateView" destination="0yJ-Lr-3iJ" id="VQ1-1o-1NK"/>
                 <outlet property="btnEyeExcrise" destination="OWK-tc-Tto" id="yDs-8X-lvX"/>
                 <outlet property="btnFatigueDetection" destination="YWG-3M-a8p" id="WcM-Xf-lHX"/>
+                <outlet property="btnLeaveInviteRoom" destination="75U-rH-kzM" id="y5j-kv-Jpy"/>
                 <outlet property="cameraManuView" destination="l7R-AI-ual" id="57y-Fb-7iI"/>
                 <outlet property="containerView" destination="YUJ-L0-ZJJ" id="XJ9-lZ-pnt"/>
                 <outlet property="customTabBarView" destination="CCu-ex-B74" id="6hr-Ho-v33"/>
+                <outlet property="lbInviteRoomName" destination="j1Q-hz-zdN" id="8rH-uE-6t8"/>
                 <outlet property="shadowView" destination="efF-U5-eip" id="xZv-D5-S3r"/>
                 <outlet property="tbvFriendInviteList" destination="Fj8-eH-lLN" id="1Y4-NQ-yPS"/>
+                <outlet property="tbvInviteRoomMember" destination="qNp-6b-vPZ" id="evr-ZG-lGm"/>
                 <outlet property="vFriendInviteList" destination="Ojj-BB-Voe" id="pTs-bh-ZUL"/>
+                <outlet property="vInviteRoom" destination="U1g-o3-ae9" id="Oi6-rX-1bZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -97,6 +101,46 @@
                         <constraint firstItem="Fj8-eH-lLN" firstAttribute="leading" secondItem="Ojj-BB-Voe" secondAttribute="leading" constant="20" id="qiY-LE-LPK"/>
                     </constraints>
                 </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U1g-o3-ae9">
+                    <rect key="frame" x="18.666666666666657" y="119.33333333333334" width="337.66666666666674" height="509.33333333333326"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qNp-6b-vPZ">
+                            <rect key="frame" x="17" y="90.666666666666686" width="303.66666666666669" height="348"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </tableView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1Q-hz-zdN">
+                            <rect key="frame" x="34" y="20.000000000000011" width="270" height="50.666666666666657"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75U-rH-kzM">
+                            <rect key="frame" x="84.333333333333314" y="448.66666666666669" width="169" height="50.666666666666686"/>
+                            <color key="backgroundColor" name="Cancel"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="離開房間"/>
+                            <connections>
+                                <action selector="clickLeaveInviteRoomButton" destination="-2" eventType="touchUpInside" id="S6f-ht-lWf"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="75U-rH-kzM" firstAttribute="centerX" secondItem="U1g-o3-ae9" secondAttribute="centerX" id="2jA-zM-nQR"/>
+                        <constraint firstItem="j1Q-hz-zdN" firstAttribute="centerX" secondItem="U1g-o3-ae9" secondAttribute="centerX" id="BIe-5Y-ULT"/>
+                        <constraint firstItem="75U-rH-kzM" firstAttribute="width" secondItem="U1g-o3-ae9" secondAttribute="width" multiplier="0.5" id="BcO-ev-zgs"/>
+                        <constraint firstItem="j1Q-hz-zdN" firstAttribute="top" secondItem="U1g-o3-ae9" secondAttribute="top" constant="20" id="DlI-1a-4zR"/>
+                        <constraint firstItem="j1Q-hz-zdN" firstAttribute="height" secondItem="U1g-o3-ae9" secondAttribute="height" multiplier="0.1" id="HRR-R9-WFe"/>
+                        <constraint firstItem="75U-rH-kzM" firstAttribute="top" secondItem="qNp-6b-vPZ" secondAttribute="bottom" constant="10" id="Jyw-oj-9bv"/>
+                        <constraint firstItem="qNp-6b-vPZ" firstAttribute="centerX" secondItem="U1g-o3-ae9" secondAttribute="centerX" id="PLw-SI-vpx"/>
+                        <constraint firstItem="qNp-6b-vPZ" firstAttribute="top" secondItem="j1Q-hz-zdN" secondAttribute="bottom" constant="20" id="RLZ-g8-x3W"/>
+                        <constraint firstItem="qNp-6b-vPZ" firstAttribute="width" secondItem="U1g-o3-ae9" secondAttribute="width" multiplier="0.9" id="X5D-2S-9nY"/>
+                        <constraint firstItem="75U-rH-kzM" firstAttribute="height" secondItem="U1g-o3-ae9" secondAttribute="height" multiplier="0.1" id="bWy-08-LuS"/>
+                        <constraint firstAttribute="bottom" secondItem="75U-rH-kzM" secondAttribute="bottom" constant="10" id="w41-g5-3uX"/>
+                        <constraint firstItem="j1Q-hz-zdN" firstAttribute="width" secondItem="U1g-o3-ae9" secondAttribute="width" multiplier="0.8" id="ypO-Jj-Qhl"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -112,15 +156,18 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0yJ-Lr-3iJ" secondAttribute="trailing" id="L0V-2D-UKT"/>
                 <constraint firstItem="OWK-tc-Tto" firstAttribute="leading" secondItem="l7R-AI-ual" secondAttribute="leading" id="L6W-N5-A53"/>
                 <constraint firstItem="Ojj-BB-Voe" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.8" id="MkA-nq-7ds"/>
+                <constraint firstItem="U1g-o3-ae9" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.9" id="N5N-63-QYj"/>
                 <constraint firstItem="YUJ-L0-ZJJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="O7A-pS-ZFe"/>
                 <constraint firstItem="efF-U5-eip" firstAttribute="height" secondItem="CCu-ex-B74" secondAttribute="height" id="PxH-2r-yg9"/>
                 <constraint firstItem="CCu-ex-B74" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Qtt-eH-v7y"/>
+                <constraint firstItem="U1g-o3-ae9" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.7" id="Rca-nI-5Vd"/>
                 <constraint firstItem="efF-U5-eip" firstAttribute="centerX" secondItem="CCu-ex-B74" secondAttribute="centerX" id="VOU-99-AOK"/>
                 <constraint firstItem="efF-U5-eip" firstAttribute="width" secondItem="CCu-ex-B74" secondAttribute="width" id="ZFY-xK-LXC"/>
                 <constraint firstItem="0yJ-Lr-3iJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bEq-LA-tmM"/>
                 <constraint firstItem="Ojj-BB-Voe" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="byl-8O-7sm"/>
                 <constraint firstItem="l7R-AI-ual" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.2" id="dMo-Nr-RiW"/>
                 <constraint firstItem="OWK-tc-Tto" firstAttribute="top" secondItem="l7R-AI-ual" secondAttribute="top" id="eXY-h7-NEQ"/>
+                <constraint firstItem="U1g-o3-ae9" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" constant="-40" id="gpP-VJ-xoU"/>
                 <constraint firstItem="YWG-3M-a8p" firstAttribute="height" secondItem="OWK-tc-Tto" secondAttribute="height" id="huI-B7-uqb"/>
                 <constraint firstItem="YWG-3M-a8p" firstAttribute="width" secondItem="OWK-tc-Tto" secondAttribute="width" id="jNF-cz-ZeA"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="l7R-AI-ual" secondAttribute="leading" id="m9O-dT-C7S"/>
@@ -128,18 +175,22 @@
                 <constraint firstItem="OWK-tc-Tto" firstAttribute="trailing" secondItem="l7R-AI-ual" secondAttribute="trailing" id="nYx-73-qx4"/>
                 <constraint firstItem="CCu-ex-B74" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-10" id="nwo-0k-gwc"/>
                 <constraint firstItem="YWG-3M-a8p" firstAttribute="leading" secondItem="l7R-AI-ual" secondAttribute="leading" id="qGC-FB-WxY"/>
+                <constraint firstItem="U1g-o3-ae9" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="qiw-50-gbN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="YUJ-L0-ZJJ" secondAttribute="trailing" id="rHY-gM-kOE"/>
                 <constraint firstItem="efF-U5-eip" firstAttribute="bottom" secondItem="CCu-ex-B74" secondAttribute="bottom" id="sLB-Gd-mdA"/>
                 <constraint firstItem="Ojj-BB-Voe" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.9" id="tg8-qc-aL7"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="0yJ-Lr-3iJ" secondAttribute="bottom" id="xTt-WA-sn0"/>
             </constraints>
-            <point key="canvasLocation" x="58" y="21"/>
+            <point key="canvasLocation" x="56.799999999999997" y="20.689655172413794"/>
         </view>
     </objects>
     <resources>
         <image name="dot.circle.viewfinder" catalog="system" width="128" height="115"/>
         <namedColor name="ButtomColor">
             <color red="0.23100000619888306" green="0.49399998784065247" blue="0.20399999618530273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="Cancel">
+            <color red="0.76470589639999997" green="0.40784314269999999" blue="0.3686274886" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

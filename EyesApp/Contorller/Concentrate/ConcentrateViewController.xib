@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -30,7 +30,7 @@
                 <outlet property="pkvRestTime" destination="gaU-kE-XOY" id="tJa-Be-g8w"/>
                 <outlet property="scvInviteRoomSelect" destination="mGe-Tc-MdE" id="YWK-uH-3of"/>
                 <outlet property="tbvFriendList" destination="WQZ-nO-Ugu" id="Gtv-Kn-29l"/>
-                <outlet property="tbvRoomList" destination="ufJ-ge-T5B" id="Vhq-rA-rQc"/>
+                <outlet property="tbvInviteRoomList" destination="ufJ-ge-T5B" id="Vhq-rA-rQc"/>
                 <outlet property="vAddInvite" destination="t23-nl-bZL" id="NME-3l-8hr"/>
                 <outlet property="vConcentrateTime" destination="nIW-Un-LR6" id="U8k-oC-Epq"/>
                 <outlet property="vInviteRoomSelect" destination="nhM-AB-9a5" id="OKe-oZ-Wqq"/>
@@ -246,9 +246,9 @@
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGe-Tc-MdE">
                             <rect key="frame" x="20" y="97" width="347" height="477"/>
                             <subviews>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ufJ-ge-T5B">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ufJ-ge-T5B">
                                     <rect key="frame" x="0.0" y="0.0" width="347" height="477"/>
-                                    <color key="backgroundColor" name="ButtomColor"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </tableView>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="WQZ-nO-Ugu">
                                     <rect key="frame" x="347" y="0.0" width="347" height="477"/>
@@ -412,11 +412,8 @@
         <namedColor name="Buttom2Color">
             <color red="0.35699999332427979" green="0.7369999885559082" blue="0.31000000238418579" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="ButtomColor">
-            <color red="0.23100000619888306" green="0.49399998784065247" blue="0.20399999618530273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <namedColor name="Cancel">
-            <color red="0.77300000190734863" green="0.18799999356269836" blue="0.13699999451637268" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.76470589639999997" green="0.40784314269999999" blue="0.3686274886" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

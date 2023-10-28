@@ -29,7 +29,7 @@ class ConcentrateViewController: UIViewController {
     @IBOutlet weak var vRestTime: UIView?
     @IBOutlet weak var vAddInvite: UIView?
     @IBOutlet weak var tbvFriendList: UITableView?
-    @IBOutlet weak var tbvRoomList: UITableView?
+    @IBOutlet weak var tbvInviteRoomList: UITableView?
     @IBOutlet weak var btnStartConcentrate: UIButton?
     @IBOutlet weak var btnCancelConcentrate: UIButton?
     @IBOutlet weak var btnAddInvite: UIButton?
@@ -49,6 +49,7 @@ class ConcentrateViewController: UIViewController {
     var inviteRoomId = ""
     var isInviteRoomConnect = false
     private var friendListArray: [inviteFriendListInfo] = []
+    private var inviteMemberList: [inviteRoomMember] = []
     
     struct MissionList {
         public var missionID: UUID
@@ -63,18 +64,26 @@ class ConcentrateViewController: UIViewController {
         var image: String
     }
     
+    private struct inviteRoomMember {
+        var accountId: UUID
+        var name: String
+        var image: String
+    }
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(dismissAddInviteView),
+                                               name: .dismissAddInviteView, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("ConcentrateViewController")
         callApiGetMissionList()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -102,6 +111,7 @@ class ConcentrateViewController: UIViewController {
         setupAddInviteView()
         setupInviteSelectView()
         setupFriendListTableView()
+        setupInviteRoomListTableView()
     }
     
     func setupProgress() {
@@ -214,6 +224,39 @@ class ConcentrateViewController: UIViewController {
         tbvFriendList?.dataSource = self
     }
     
+    func setupInviteRoomListTableView() {
+        tbvInviteRoomList?.tag = 1
+        tbvInviteRoomList?.register(UINib(nibName: "InviteRoomListTableViewCell", bundle: nil), forCellReuseIdentifier: InviteRoomListTableViewCell.identified)
+        tbvInviteRoomList?.delegate = self
+        tbvInviteRoomList?.dataSource = self
+    }
+    
+    func reviceWSMessage() {
+        wsInviteRoom?.receive(completionHandler: { result in
+            switch result {
+            case .success(let message):
+                switch message {
+                case .data(let data):
+                    print("Got Data \(data)")
+                case .string(let string):
+                    print("Got RoomMember \(string)")
+                    if string.contains("離開了") {
+                        self.callApiRemoveToInviteRoom(removeAccountId: String(string.prefix(36)), inviteRoomId: self.inviteRoomId)
+                    } else {
+                        self.callApiAddToInviteRoom(reciveAccountId: String(string.prefix(36)),
+                                                    inviteRoomId: self.inviteRoomId)
+                    }
+                @unknown default:
+                    break
+                }
+            case .failure(let error):
+                print("ws: \(error)")
+                return
+            }
+            self.reviceWSMessage()
+        })
+    }
+    
     // MARK: - callAPIGetMissionList
     
     func callApiGetMissionList() {
@@ -233,6 +276,12 @@ class ConcentrateViewController: UIViewController {
                 print(error)
             }
         }
+    }
+    
+    @objc func dismissAddInviteView() {
+        vAddInvite?.isHidden = true
+        wsInviteRoom?.cancel()
+        isInviteRoomConnect = false
     }
     
     // MARK: - callWebSocketCreateInviteRoom
@@ -343,7 +392,7 @@ class ConcentrateViewController: UIViewController {
         }
     }
     
-    // MARK: - callAPIFriendList
+    // MARK: - callAPICreateInviteRoom
     
     func callApiCreateInviteRoom(sendAccountId: String) {
         ProgressHUD.colorAnimation = .buttomColor!
@@ -363,7 +412,7 @@ class ConcentrateViewController: UIViewController {
                 if result.message == "建立成功" {
                     inviteRoomId = result.data!
                     self.creatInviteRoom(path: .wsInviteRoom,
-                                         parameters: "\(result.data!)&\(UserPreferences.shared.accountId)",
+                                         parameters: "\(result.data!)&HostAT:\(UserPreferences.shared.accountId)",
                                          needToken: true)
                 } else {
                     Alert.showAlert(title: "建立失敗",
@@ -413,6 +462,85 @@ class ConcentrateViewController: UIViewController {
             }
            
         }
+    }
+    
+    // MARK: - callAPIAddToInviteRoom
+    
+    func callApiAddToInviteRoom(reciveAccountId: String, inviteRoomId: String) {
+        let request = AddToInviteRoomRequest(inviteRoomId: UUID(uuidString: inviteRoomId)!,
+                                             reciveAccountId: UUID(uuidString: reciveAccountId)!)
+        
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .addToInviteRoom,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if result.message.contains("已加入房間") {
+                    await callApiRefreshInviteRoomMemberList(inviteRoomId: inviteRoomId)
+                    
+                } else {
+                    Alert.showAlert(title: "發生錯誤", message: result.message, vc: self, confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "發生錯誤", message: "請確認與伺服器的連線", vc: self, confirmTitle: "確認")
+            }
+        }
+    }
+    
+    // MARK: - callAPIRemoveToInviteRoom
+    
+    func callApiRemoveToInviteRoom(removeAccountId: String, inviteRoomId: String) {
+        let request = RemoveToInviteRoomRequest(inviteRoomId: UUID(uuidString: inviteRoomId)!,
+                                                removeAccountId: UUID(uuidString: removeAccountId)!)
+        
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .removeToInviteRoom,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if result.message.contains("已離開房間") {
+                    await callApiRefreshInviteRoomMemberList(inviteRoomId: inviteRoomId)
+                    
+                } else {
+                    Alert.showAlert(title: "發生錯誤", message: result.message, vc: self, confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "發生錯誤", message: "請確認與伺服器的連線", vc: self, confirmTitle: "確認")
+            }
+        }
+    }
+    
+    // MARK: - callAPIRefreshInviteRoomMemberList
+    
+    func callApiRefreshInviteRoomMemberList(inviteRoomId: String) async {
+        let request = RefreshInviteRoomMemberListRequest(inviteRoomId: UUID(uuidString: inviteRoomId)!)
+            
+            do {
+                let result: GeneralResponse<RefreshInviteRoomMemberListResponse> = try await NetworkManager().requestData(method: .post,
+                                                                                                                          path: .refreshInviteRoomMemberList,
+                                                                                                          parameters: request,
+                                                                                                          needToken: true)
+                if result.message == "成功更新此房間的成員" {
+                    inviteMemberList = []
+                    
+                    result.data?.memberList.forEach({ member in
+                        inviteMemberList.append(inviteRoomMember(accountId: member.accountId,
+                                                                 name: member.name,
+                                                                 image: member.image))
+                    })
+                    tbvInviteRoomList?.reloadData()
+                } else {
+                    Alert.showAlert(title: "發生錯誤", message: result.message, vc: self, confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "發生錯誤", message: "請確認與伺服器的連線", vc: self, confirmTitle: "確認")
+            }
+        
     }
     
     // MARK: - IBAction
@@ -492,10 +620,11 @@ class ConcentrateViewController: UIViewController {
             callApiCreateInviteRoom(sendAccountId: UserPreferences.shared.accountId)
             callApiFriendList(accountId: UserPreferences.shared.accountId)
             vAddInvite?.isHidden = false
-            
+            inviteMemberList = []
         } else {
             vAddInvite?.isHidden = true
             wsInviteRoom!.cancel(with: .goingAway, reason: nil)
+            isInviteRoomConnect = false
         }
     }
     
@@ -503,6 +632,9 @@ class ConcentrateViewController: UIViewController {
         vAddInvite?.isHidden = true
         if isInviteRoomConnect == true {
             wsInviteRoom!.cancel(with: .goingAway, reason: nil)
+            isInviteRoomConnect = false
+            inviteMemberList = []
+            tbvInviteRoomList?.reloadData()
         }
     }
     
@@ -564,7 +696,7 @@ extension ConcentrateViewController: UITableViewDelegate, UITableViewDataSource 
         case 0:
             return missionList.count
         case 1:
-            return friendListArray.count
+            return inviteMemberList.count
         default:
             return friendListArray.count
         }
@@ -579,13 +711,13 @@ extension ConcentrateViewController: UITableViewDelegate, UITableViewDataSource 
             cell.lbProgress.text = "\(missionList[indexPath.row].progress) \(missionList[indexPath.row].progressType)"
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: InviteFriendsTableViewCell.identified, for: indexPath) as! InviteFriendsTableViewCell
-            cell.btnAddInvite?.tag = indexPath.row
-            if friendListArray[indexPath.row].image == "未設置" {
+            let cell = tableView.dequeueReusableCell(withIdentifier: InviteRoomListTableViewCell.identified, for: indexPath) as! InviteRoomListTableViewCell
+            if inviteMemberList[indexPath.row].image == "未設置" {
                 cell.imgvUser?.image = UIImage(systemName: "person.fill")
             } else {
-                cell.imgvUser?.image = friendListArray[indexPath.row].image.stringToUIImage()
+                cell.imgvUser?.image = inviteMemberList[indexPath.row].image.stringToUIImage()
             }
+            cell.name?.text = inviteMemberList[indexPath.row].name
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: InviteFriendsTableViewCell.identified, for: indexPath) as! InviteFriendsTableViewCell
@@ -730,10 +862,10 @@ extension ConcentrateViewController: UIPickerViewDelegate, UIPickerViewDataSourc
 
 extension ConcentrateViewController: URLSessionWebSocketDelegate {
     
-    
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
         isInviteRoomConnect = true
         print("URLSessionWebSocketTask is connected")
+        reviceWSMessage()
     }
     
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
@@ -744,6 +876,7 @@ extension ConcentrateViewController: URLSessionWebSocketDelegate {
             print("error")
         }
     }
+    
 }
 
 // MARK: - ScrollViewDelegate
