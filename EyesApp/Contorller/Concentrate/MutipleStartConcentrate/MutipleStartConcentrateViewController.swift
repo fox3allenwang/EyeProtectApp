@@ -1,15 +1,15 @@
 //
-//  StartConcentrateViewController.swift
+//  MutipleStartConcentrateViewController.swift
 //  EyesApp
 //
-//  Created by imac-3570 on 2023/10/22.
+//  Created by imac-3570 on 2023/10/29.
 //
 
 import UIKit
 import Lottie
 import AVFoundation
 
-class StartConcentrateViewController: UIViewController {
+class MutipleStartConcentrateViewController: UIViewController {
     
     // MARK: - IBOutlet
     
@@ -33,7 +33,6 @@ class StartConcentrateViewController: UIViewController {
     var audioPlayStatus = false
     var restStatus = false
     var giveUpStatus = false
-    var wifiIsConnect = false
     
     // MARK: - LifeCycle
     
@@ -315,13 +314,9 @@ class StartConcentrateViewController: UIViewController {
             }
             restStatus = true
         } else {
-            if wifiIsConnect {
-                Alert.showAlert(title: "是否要拍照紀錄一下你的里程紀錄呢？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
-                    // todo: 拍照功能
-                } cancel: {
-                    self.dismiss(animated: true)
-                }
-            } else {
+            Alert.showAlert(title: "是否要拍照紀錄一下你的里程紀錄呢？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
+                // todo: 拍照功能
+            } cancel: {
                 self.dismiss(animated: true)
             }
         }

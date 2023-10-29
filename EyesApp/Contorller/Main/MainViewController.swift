@@ -226,6 +226,8 @@ class MainViewController: BaseViewController {
         }
     }
     
+    //MARK: - WSAction
+    
     func reviceWSMessage() {
         wsInviteRoom?.receive(completionHandler: { result in
             switch result {
@@ -242,6 +244,10 @@ class MainViewController: BaseViewController {
                             self.wsInviteRoom?.cancel()
                             self.inviteMemberList = []
                         }
+                    } else if string.contains("進入專注模式"){
+                        self.vInviteRoom.isHidden = true
+                        self.inviteMemberList = []
+                        self.wsInviteRoom?.cancel()
                     } else {
                         Task {
                             await self.callApiRefreshInviteRoomMemberList(inviteRoomId: self.inviteRoomId)
@@ -397,6 +403,12 @@ class MainViewController: BaseViewController {
                                                                  image: member.image))
                     })
                     tbvInviteRoomMember?.reloadData()
+                } else if  result.message.contains("找不到房間的Id") {
+                    Alert.showAlert(title: "房間不存在", message: "請向邀請人確定房間是否開啟", vc: self, confirmTitle: "確認") {
+                        self.wsInviteRoom?.cancel()
+                        self.vInviteRoom.isHidden = true
+                        self.inviteMemberList = []
+                    }
                 } else {
                     Alert.showAlert(title: "發生錯誤", message: result.message, vc: self, confirmTitle: "確認")
                 }
@@ -540,6 +552,7 @@ class MainViewController: BaseViewController {
     @IBAction func clickLeaveInviteRoomButton() {
         wsInviteRoom?.cancel()
         vInviteRoom.isHidden = true
+        inviteMemberList = []
     }
     
 }

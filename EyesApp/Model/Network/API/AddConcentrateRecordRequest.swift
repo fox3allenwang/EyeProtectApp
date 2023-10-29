@@ -9,6 +9,7 @@ import Foundation
 
 public struct AddConcentrateRecordRequest: Encodable {
     public let accountId: UUID
+    public let hostAccountId: UUID
     public let startTime: String
     public let concentrateTime: String
     public let restTime: String

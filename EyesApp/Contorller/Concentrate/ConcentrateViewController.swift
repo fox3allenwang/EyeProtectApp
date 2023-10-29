@@ -231,6 +231,8 @@ class ConcentrateViewController: UIViewController {
         tbvInviteRoomList?.dataSource = self
     }
     
+    // MARK: - WSAction
+    
     func reviceWSMessage() {
         wsInviteRoom?.receive(completionHandler: { result in
             switch result {
@@ -254,6 +256,17 @@ class ConcentrateViewController: UIViewController {
                 return
             }
             self.reviceWSMessage()
+        })
+    }
+    
+    func sendWSMessage(message: String,
+                       completionHandler: (() -> Void)? = nil) {
+        wsInviteRoom?.send(.string(message), completionHandler: { error in
+            if error != nil {
+                Alert.showAlert(title: "進入專注模式錯誤", message: "\(error)", vc: self, confirmTitle: "確認")
+            } else {
+                completionHandler?()
+            }
         })
     }
     
@@ -306,11 +319,13 @@ class ConcentrateViewController: UIViewController {
     // MARK: - callAddConcentrateRecordAPI
     
     func callAddConcentrateRecordApi(accountId: String,
+                                     hostAccountId: String,
                                      startTime: String,
                                      concentrateTime: String,
                                      restTime: String,
                                      friends: [UUID]) {
         let request = AddConcentrateRecordRequest(accountId: UUID(uuidString: accountId)!,
+                                                  hostAccountId: UUID(uuidString: hostAccountId)!,
                                                   startTime: startTime,
                                                   concentrateTime: concentrateTime,
                                                   restTime: restTime,
@@ -322,12 +337,13 @@ class ConcentrateViewController: UIViewController {
                                                                                              needToken: true)
                 
                 if result.message != "已新增紀錄" {
-                    Alert.showAlert(title: "為新增紀錄",
+                    Alert.showAlert(title: "未新增紀錄",
                                     message: "請確定是否有和伺服器連接",
                                     vc: self,
                                     confirmTitle: "確認") {
                         let nextVC = StartConcentrateViewController()
-                        nextVC.concentrateTime = (self.btnConcentrateTime?.titleLabel?.text)!
+                        nextVC.wifiIsConnect = false
+                        nextVC.concentrateTime = "\((self.btnConcentrateTime?.titleLabel?.text!)!):00"
                         nextVC.restTime = String((self.btnRestTime?.titleLabel?.text!.prefix(2))!)
                         nextVC.isModalInPresentation = true
                         self.present(nextVC, animated: true)
@@ -335,7 +351,8 @@ class ConcentrateViewController: UIViewController {
                 } else {
                     let nextVC = StartConcentrateViewController()
                     nextVC.concentrateRecordId = result.data!
-                    nextVC.concentrateTime = (btnConcentrateTime?.titleLabel?.text)!
+                    nextVC.wifiIsConnect = true
+                    nextVC.concentrateTime = "\((self.btnConcentrateTime?.titleLabel?.text!)!):00"
                     nextVC.restTime = String((btnRestTime?.titleLabel?.text!.prefix(2))!)
                     nextVC.isModalInPresentation = true
                     present(nextVC, animated: true)
@@ -347,7 +364,8 @@ class ConcentrateViewController: UIViewController {
                                 vc: self,
                                 confirmTitle: "確認") {
                     let nextVC = StartConcentrateViewController()
-                    nextVC.concentrateTime = (self.btnConcentrateTime?.titleLabel?.text)!
+                    nextVC.wifiIsConnect = false
+                    nextVC.concentrateTime = "\((self.btnConcentrateTime?.titleLabel?.text!)!):00"
                     nextVC.restTime = String((self.btnRestTime?.titleLabel?.text!.prefix(2))!)
                     nextVC.isModalInPresentation = true
                     self.present(nextVC, animated: true)
@@ -543,6 +561,56 @@ class ConcentrateViewController: UIViewController {
         
     }
     
+    // MARK: - callAPIRemoveInviteRoom
+    
+    func callApiRemoveInviteRoom(inviteRoomId: String) {
+        let request = RemoveInviteRoomRequest(inviteRoomId: UUID(uuidString: inviteRoomId)!)
+        
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .removeInviteRoom,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if !result.message.contains("刪除成功") {
+                    Alert.showAlert(title: "關閉邀請房間失敗", message: result.message, vc: self, confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "關閉邀請房間失敗", message: "\(error)", vc: self, confirmTitle: "確認")
+            }
+        }
+    }
+    
+    // MARK: - callAPIStartMutipleConcentrate
+    
+    func callApiStartMutipleConcentrate(inviteRoomId: String,
+                                        startTime: String,
+                                        concentrateTime: String,
+                                        restTime: String,
+                                        completionHandler: (() -> Void)? = nil) {
+        let request = StartMutipleConcentrateRequest(inviteRoomId: UUID(uuidString: inviteRoomId)!,
+                                                     startTime: startTime,
+                                                     concentrateTime: concentrateTime,
+                                                     restTime: restTime)
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .startMutipleConcentrate,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if result.message != "進入專注模式成功" {
+                    Alert.showAlert(title: "錯誤", message: result.message, vc: self, confirmTitle: "確認")
+                } else {
+                    completionHandler?()
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤", message: "\(error)", vc: self, confirmTitle: "確認")
+            }
+        }
+    }
+    
     // MARK: - IBAction
     
     @IBAction func showConcentrateTimeView() {
@@ -609,6 +677,7 @@ class ConcentrateViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
         let now = dateFormatter.string(from: Date())
         callAddConcentrateRecordApi(accountId: UserPreferences.shared.accountId,
+                                    hostAccountId: UserPreferences.shared.accountId,
                                     startTime: now,
                                     concentrateTime: (btnConcentrateTime?.titleLabel?.text)!,
                                     restTime: "\(restTimeMin) m",
@@ -636,6 +705,7 @@ class ConcentrateViewController: UIViewController {
             inviteMemberList = []
             tbvInviteRoomList?.reloadData()
         }
+        callApiRemoveInviteRoom(inviteRoomId: inviteRoomId)
     }
     
     @IBAction func clickRoomSelectButton() {
@@ -656,6 +726,25 @@ class ConcentrateViewController: UIViewController {
     
     @objc func clickAddFriendToConcentrateRoom(_ sender: UIButton) {
         callAddFriendToInviteRoomApi(inviteRoomId: inviteRoomId, reciveAccountId: friendListArray[sender.tag].accountId)
+    }
+    
+    @IBAction func clickMultipleConcentrateButton() {
+        sendWSMessage(message: "\(inviteRoomId) 進入專注模式") {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+            let now = dateFormatter.string(from: Date())
+            self.callApiStartMutipleConcentrate(inviteRoomId: self.inviteRoomId,
+                                                startTime: now,
+                                                concentrateTime: (self.btnConcentrateTime?.titleLabel?.text)!,
+                                                restTime: "\(self.restTimeMin) m") {
+                let nextVC = MutipleStartConcentrateViewController()
+                nextVC.concentrateTime = "\((self.btnConcentrateTime?.titleLabel?.text!)!):00"
+                nextVC.restTime = String((self.btnRestTime?.titleLabel?.text!.prefix(2))!)
+                nextVC.isModalInPresentation = true
+                self.present(nextVC, animated: true)
+            }
+//            self.wsInviteRoom?.cancel()
+        }
     }
 }
 

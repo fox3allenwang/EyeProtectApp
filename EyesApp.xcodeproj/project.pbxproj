@@ -82,6 +82,10 @@
 		3F9B36FB2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B36F92AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.swift */; };
 		3F9B36FC2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B36FA2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.xib */; };
 		3F9B38A42AED738A00CDB36A /* RemoveToInviteRoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B38A32AED738A00CDB36A /* RemoveToInviteRoomRequest.swift */; };
+		3F9B38A62AEE6ABF00CDB36A /* RemoveInviteRoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B38A52AEE6ABF00CDB36A /* RemoveInviteRoomRequest.swift */; };
+		3F9B38AA2AEEB30200CDB36A /* MutipleStartConcentrateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B38A82AEEB30200CDB36A /* MutipleStartConcentrateViewController.swift */; };
+		3F9B38AB2AEEB30200CDB36A /* MutipleStartConcentrateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B38A92AEEB30200CDB36A /* MutipleStartConcentrateViewController.xib */; };
+		3F9B38AF2AEEBD8E00CDB36A /* StartMutipleConcentrateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B38AE2AEEBD8E00CDB36A /* StartMutipleConcentrateRequest.swift */; };
 		3FA2B4E92AE2F15C005D0A16 /* NSNotification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4E82AE2F15C005D0A16 /* NSNotification+Extension.swift */; };
 		3FA2B4EC2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4EB2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift */; };
 		3FA2B4F12AE3D217005D0A16 /* FriendInviteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4EF2AE3D217005D0A16 /* FriendInviteTableViewCell.swift */; };
@@ -192,6 +196,10 @@
 		3F9B36F92AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteRoomMemberListTableViewCell.swift; sourceTree = "<group>"; };
 		3F9B36FA2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InviteRoomMemberListTableViewCell.xib; sourceTree = "<group>"; };
 		3F9B38A32AED738A00CDB36A /* RemoveToInviteRoomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveToInviteRoomRequest.swift; sourceTree = "<group>"; };
+		3F9B38A52AEE6ABF00CDB36A /* RemoveInviteRoomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveInviteRoomRequest.swift; sourceTree = "<group>"; };
+		3F9B38A82AEEB30200CDB36A /* MutipleStartConcentrateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutipleStartConcentrateViewController.swift; sourceTree = "<group>"; };
+		3F9B38A92AEEB30200CDB36A /* MutipleStartConcentrateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MutipleStartConcentrateViewController.xib; sourceTree = "<group>"; };
+		3F9B38AE2AEEBD8E00CDB36A /* StartMutipleConcentrateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartMutipleConcentrateRequest.swift; sourceTree = "<group>"; };
 		3FA2B4E82AE2F15C005D0A16 /* NSNotification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Extension.swift"; sourceTree = "<group>"; };
 		3FA2B4EB2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendInviteListRequest.swift; sourceTree = "<group>"; };
 		3FA2B4EF2AE3D217005D0A16 /* FriendInviteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendInviteTableViewCell.swift; sourceTree = "<group>"; };
@@ -398,6 +406,7 @@
 		3F44885D2A72A61F00D573AB /* Concentrate */ = {
 			isa = PBXGroup;
 			children = (
+				3F9B38A72AEEB2BA00CDB36A /* MutipleStartConcentrate */,
 				3FA2B4F52AE570D3005D0A16 /* StartConcentrate */,
 				3F0246B72ABC1A0C006EA177 /* Component */,
 				3F4488682A72A79000D573AB /* ConcentrateViewController.swift */,
@@ -457,6 +466,8 @@
 				3F9B36E92AECD77F00CDB36A /* AddToInviteRoomRequest.swift */,
 				3F9B36F12AED036A00CDB36A /* RefreshInviteRoomMemberListRequest.swift */,
 				3F9B38A32AED738A00CDB36A /* RemoveToInviteRoomRequest.swift */,
+				3F9B38A52AEE6ABF00CDB36A /* RemoveInviteRoomRequest.swift */,
+				3F9B38AE2AEEBD8E00CDB36A /* StartMutipleConcentrateRequest.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -488,6 +499,15 @@
 				3F9B36FA2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.xib */,
 			);
 			path = InviteRoomMemberListCell;
+			sourceTree = "<group>";
+		};
+		3F9B38A72AEEB2BA00CDB36A /* MutipleStartConcentrate */ = {
+			isa = PBXGroup;
+			children = (
+				3F9B38A82AEEB30200CDB36A /* MutipleStartConcentrateViewController.swift */,
+				3F9B38A92AEEB30200CDB36A /* MutipleStartConcentrateViewController.xib */,
+			);
+			path = MutipleStartConcentrate;
 			sourceTree = "<group>";
 		};
 		3FA2B4ED2AE3D1D6005D0A16 /* Components */ = {
@@ -742,6 +762,7 @@
 				3F4488562A724D1800D573AB /* TabBarItemView.xib in Resources */,
 				3F4488D72A74B9B500D573AB /* NewsViewController.xib in Resources */,
 				3FA2B4FD2AE5825B005D0A16 /* startConcentrate.json in Resources */,
+				3F9B38AB2AEEB30200CDB36A /* MutipleStartConcentrateViewController.xib in Resources */,
 				3F9B36FC2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.xib in Resources */,
 				3F9681082A920D780031BEFE /* PersonalLabelTableViewCell.xib in Resources */,
 				3F4488D92A74C7B400D573AB /* OLas.json in Resources */,
@@ -816,6 +837,7 @@
 				3FA2B4E92AE2F15C005D0A16 /* NSNotification+Extension.swift in Sources */,
 				3F8ED6682AE81F3600102F40 /* CreatInviteRoomRequest.swift in Sources */,
 				3F9B38A42AED738A00CDB36A /* RemoveToInviteRoomRequest.swift in Sources */,
+				3F9B38AF2AEEBD8E00CDB36A /* StartMutipleConcentrateRequest.swift in Sources */,
 				D8925D1E2A4D1FAC00DB9EC9 /* NetworkConstants.swift in Sources */,
 				3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */,
 				3FA2B4F12AE3D217005D0A16 /* FriendInviteTableViewCell.swift in Sources */,
@@ -831,6 +853,7 @@
 				3FA2B4EC2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift in Sources */,
 				3F35FA292AE274C700465D9E /* AddFriendViewController.swift in Sources */,
 				3F44886A2A72A79000D573AB /* ConcentrateViewController.swift in Sources */,
+				3F9B38AA2AEEB30200CDB36A /* MutipleStartConcentrateViewController.swift in Sources */,
 				3F9B36EA2AECD77F00CDB36A /* AddToInviteRoomRequest.swift in Sources */,
 				3F5005472AB0B355007D9DED /* UploadImageRequest.swift in Sources */,
 				3F4488582A724D5100D573AB /* TabBarItemView.swift in Sources */,
@@ -839,6 +862,7 @@
 				32BE4B4C2A0A451E0014161D /* AppDelegate.swift in Sources */,
 				3F4489BB2A77FDA700D573AB /* ARkitCount.swift in Sources */,
 				3261461F2A17808900855A6E /* BaseTabBarController.swift in Sources */,
+				3F9B38A62AEE6ABF00CDB36A /* RemoveInviteRoomRequest.swift in Sources */,
 				3FA2B4F82AE57115005D0A16 /* StartConcentrateViewController.swift in Sources */,
 				3F89F83A2AE0314D00E8781C /* AuthenticationResponse.swift in Sources */,
 				3F9B36F22AED036A00CDB36A /* RefreshInviteRoomMemberListRequest.swift in Sources */,
