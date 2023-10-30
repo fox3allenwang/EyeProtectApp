@@ -116,6 +116,7 @@
                     <constraints>
                         <constraint firstAttribute="width" secondItem="N2Q-ue-93P" secondAttribute="height" multiplier="1:1" id="ljD-yc-Yhe"/>
                     </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="person.crop.circle.badge.plus" catalog="system"/>
                     <connections>

@@ -49,7 +49,7 @@ class ConcentrateViewController: UIViewController {
     var inviteRoomId = ""
     var isInviteRoomConnect = false
     private var friendListArray: [inviteFriendListInfo] = []
-    private var inviteMemberList: [inviteRoomMember] = []
+    private var inviteMemberList: [InviteRoomMember] = []
     
     struct MissionList {
         public var missionID: UUID
@@ -60,12 +60,6 @@ class ConcentrateViewController: UIViewController {
     
     private struct inviteFriendListInfo {
         var accountId: String
-        var name: String
-        var image: String
-    }
-    
-    private struct inviteRoomMember {
-        var accountId: UUID
         var name: String
         var image: String
     }
@@ -546,7 +540,7 @@ class ConcentrateViewController: UIViewController {
                     inviteMemberList = []
                     
                     result.data?.memberList.forEach({ member in
-                        inviteMemberList.append(inviteRoomMember(accountId: member.accountId,
+                        inviteMemberList.append(InviteRoomMember(accountId: member.accountId,
                                                                  name: member.name,
                                                                  image: member.image))
                     })
@@ -729,22 +723,27 @@ class ConcentrateViewController: UIViewController {
     }
     
     @IBAction func clickMultipleConcentrateButton() {
-        sendWSMessage(message: "\(inviteRoomId) 進入專注模式") {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-            let now = dateFormatter.string(from: Date())
-            self.callApiStartMutipleConcentrate(inviteRoomId: self.inviteRoomId,
-                                                startTime: now,
-                                                concentrateTime: (self.btnConcentrateTime?.titleLabel?.text)!,
-                                                restTime: "\(self.restTimeMin) m") {
-                let nextVC = MutipleStartConcentrateViewController()
-                nextVC.concentrateTime = "\((self.btnConcentrateTime?.titleLabel?.text!)!):00"
-                nextVC.restTime = String((self.btnRestTime?.titleLabel?.text!.prefix(2))!)
-                nextVC.isModalInPresentation = true
-                self.present(nextVC, animated: true)
-            }
-//            self.wsInviteRoom?.cancel()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let now = dateFormatter.string(from: Date())
+        self.callApiStartMutipleConcentrate(inviteRoomId: self.inviteRoomId,
+                                            startTime: now,
+                                            concentrateTime: (self.btnConcentrateTime?.titleLabel?.text)!,
+                                            restTime: "\(self.restTimeMin) m") {
+            self.sendWSMessage(message: "\(self.inviteRoomId) 進入專注模式")
+            let nextVC = MutipleStartConcentrateViewController()
+            nextVC.concentrateTime = "\((self.btnConcentrateTime?.titleLabel?.text!)!):00"
+            nextVC.restTime = String((self.btnRestTime?.titleLabel?.text!.prefix(2))!)
+            nextVC.inviteRoomId = self.inviteRoomId
+            nextVC.inviteMemberList = self.inviteMemberList
+            self.inviteMemberList = []
+            self.vAddInvite?.isHidden = true
+            nextVC.isModalInPresentation = true
+            self.present(nextVC, animated: true)
+            self.wsInviteRoom?.cancel()
         }
+        
+       
     }
 }
 

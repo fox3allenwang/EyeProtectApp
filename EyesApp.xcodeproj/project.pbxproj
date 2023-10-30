@@ -65,6 +65,7 @@
 		3F6DFE262A6E2DA90058CDFB /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */; };
 		3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */; };
 		3F7C2E402AAED9BE004B71F4 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */; };
+		3F86A99A2AEFFB9400DBC7C5 /* FindByInviteRoomIdForConcentrateAndRestTimeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86A9992AEFFB9400DBC7C5 /* FindByInviteRoomIdForConcentrateAndRestTimeRequest.swift */; };
 		3F89F83A2AE0314D00E8781C /* AuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F89F8392AE0314D00E8781C /* AuthenticationResponse.swift */; };
 		3F8ED6682AE81F3600102F40 /* CreatInviteRoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED6672AE81F3600102F40 /* CreatInviteRoomRequest.swift */; };
 		3F8ED66A2AE82DE900102F40 /* AddFriendToInviteRoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED6692AE82DE900102F40 /* AddFriendToInviteRoomRequest.swift */; };
@@ -86,6 +87,9 @@
 		3F9B38AA2AEEB30200CDB36A /* MutipleStartConcentrateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B38A82AEEB30200CDB36A /* MutipleStartConcentrateViewController.swift */; };
 		3F9B38AB2AEEB30200CDB36A /* MutipleStartConcentrateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B38A92AEEB30200CDB36A /* MutipleStartConcentrateViewController.xib */; };
 		3F9B38AF2AEEBD8E00CDB36A /* StartMutipleConcentrateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B38AE2AEEBD8E00CDB36A /* StartMutipleConcentrateRequest.swift */; };
+		3F9B38B12AEF849B00CDB36A /* InviteMemberListStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B38B02AEF849B00CDB36A /* InviteMemberListStruct.swift */; };
+		3F9B38B52AEF952000CDB36A /* MutipleConcentrateMemberVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B38B32AEF952000CDB36A /* MutipleConcentrateMemberVersionViewController.swift */; };
+		3F9B38B62AEF952000CDB36A /* MutipleConcentrateMemberVersionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B38B42AEF952000CDB36A /* MutipleConcentrateMemberVersionViewController.xib */; };
 		3FA2B4E92AE2F15C005D0A16 /* NSNotification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4E82AE2F15C005D0A16 /* NSNotification+Extension.swift */; };
 		3FA2B4EC2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4EB2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift */; };
 		3FA2B4F12AE3D217005D0A16 /* FriendInviteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2B4EF2AE3D217005D0A16 /* FriendInviteTableViewCell.swift */; };
@@ -109,6 +113,7 @@
 		3FF44B1B2AD52091007A4ECA /* RobotHead.scn in Resources */ = {isa = PBXBuildFile; fileRef = 3FF44B1A2AD52091007A4ECA /* RobotHead.scn */; };
 		3FF44B1D2AD57598007A4ECA /* 144251-check.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FF44B1C2AD57598007A4ECA /* 144251-check.json */; };
 		3FF44B1F2AD57767007A4ECA /* Check.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FF44B1E2AD57767007A4ECA /* Check.json */; };
+		3FFD2B202AF014C500D620B5 /* FindAccountAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD2B1F2AF014C500D620B5 /* FindAccountAPIRequest.swift */; };
 		5364894A85EA3AC094430E85 /* Pods_EyesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BB7DA1F85E5DC44B2FAC5D /* Pods_EyesApp.framework */; };
 		B06B88CC2AE7B97100695C8C /* BluetoothServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06B88CB2AE7B97100695C8C /* BluetoothServices.swift */; };
 		D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */; };
@@ -178,6 +183,7 @@
 		3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
 		3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		3F86A9992AEFFB9400DBC7C5 /* FindByInviteRoomIdForConcentrateAndRestTimeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindByInviteRoomIdForConcentrateAndRestTimeRequest.swift; sourceTree = "<group>"; };
 		3F89F8392AE0314D00E8781C /* AuthenticationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationResponse.swift; sourceTree = "<group>"; };
 		3F8ED6672AE81F3600102F40 /* CreatInviteRoomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatInviteRoomRequest.swift; sourceTree = "<group>"; };
 		3F8ED6692AE82DE900102F40 /* AddFriendToInviteRoomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendToInviteRoomRequest.swift; sourceTree = "<group>"; };
@@ -200,6 +206,9 @@
 		3F9B38A82AEEB30200CDB36A /* MutipleStartConcentrateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutipleStartConcentrateViewController.swift; sourceTree = "<group>"; };
 		3F9B38A92AEEB30200CDB36A /* MutipleStartConcentrateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MutipleStartConcentrateViewController.xib; sourceTree = "<group>"; };
 		3F9B38AE2AEEBD8E00CDB36A /* StartMutipleConcentrateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartMutipleConcentrateRequest.swift; sourceTree = "<group>"; };
+		3F9B38B02AEF849B00CDB36A /* InviteMemberListStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteMemberListStruct.swift; sourceTree = "<group>"; };
+		3F9B38B32AEF952000CDB36A /* MutipleConcentrateMemberVersionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutipleConcentrateMemberVersionViewController.swift; sourceTree = "<group>"; };
+		3F9B38B42AEF952000CDB36A /* MutipleConcentrateMemberVersionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MutipleConcentrateMemberVersionViewController.xib; sourceTree = "<group>"; };
 		3FA2B4E82AE2F15C005D0A16 /* NSNotification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Extension.swift"; sourceTree = "<group>"; };
 		3FA2B4EB2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendInviteListRequest.swift; sourceTree = "<group>"; };
 		3FA2B4EF2AE3D217005D0A16 /* FriendInviteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendInviteTableViewCell.swift; sourceTree = "<group>"; };
@@ -223,6 +232,7 @@
 		3FF44B1A2AD52091007A4ECA /* RobotHead.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = RobotHead.scn; sourceTree = "<group>"; };
 		3FF44B1C2AD57598007A4ECA /* 144251-check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "144251-check.json"; sourceTree = "<group>"; };
 		3FF44B1E2AD57767007A4ECA /* Check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Check.json; sourceTree = "<group>"; };
+		3FFD2B1F2AF014C500D620B5 /* FindAccountAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAccountAPIRequest.swift; sourceTree = "<group>"; };
 		7676AE22173A08CF302C5B8F /* Pods-EyesApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.release.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.release.xcconfig"; sourceTree = "<group>"; };
 		B06B88CB2AE7B97100695C8C /* BluetoothServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothServices.swift; sourceTree = "<group>"; };
 		B4690A957F43C863D075AD8F /* Pods-EyesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.debug.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -261,6 +271,7 @@
 				32593D2E2A1DFBB7005A1A6B /* LocalDatabase.swift */,
 				3F9680892A909D650031BEFE /* AppDefine.swift */,
 				3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */,
+				3F9B38B02AEF849B00CDB36A /* InviteMemberListStruct.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -468,6 +479,8 @@
 				3F9B38A32AED738A00CDB36A /* RemoveToInviteRoomRequest.swift */,
 				3F9B38A52AEE6ABF00CDB36A /* RemoveInviteRoomRequest.swift */,
 				3F9B38AE2AEEBD8E00CDB36A /* StartMutipleConcentrateRequest.swift */,
+				3F86A9992AEFFB9400DBC7C5 /* FindByInviteRoomIdForConcentrateAndRestTimeRequest.swift */,
+				3FFD2B1F2AF014C500D620B5 /* FindAccountAPIRequest.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -508,6 +521,15 @@
 				3F9B38A92AEEB30200CDB36A /* MutipleStartConcentrateViewController.xib */,
 			);
 			path = MutipleStartConcentrate;
+			sourceTree = "<group>";
+		};
+		3F9B38B22AEF94ED00CDB36A /* MutipleConcentrateMemberVersion */ = {
+			isa = PBXGroup;
+			children = (
+				3F9B38B32AEF952000CDB36A /* MutipleConcentrateMemberVersionViewController.swift */,
+				3F9B38B42AEF952000CDB36A /* MutipleConcentrateMemberVersionViewController.xib */,
+			);
+			path = MutipleConcentrateMemberVersion;
 			sourceTree = "<group>";
 		};
 		3FA2B4ED2AE3D1D6005D0A16 /* Components */ = {
@@ -624,6 +646,7 @@
 		7C4409822A20A85700C68A1E /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				3F9B38B22AEF94ED00CDB36A /* MutipleConcentrateMemberVersion */,
 				3F8ED66B2AE8B36100102F40 /* AnserConcentrateInvite */,
 				3FA2B4ED2AE3D1D6005D0A16 /* Components */,
 				3F35FA262AE1A9E200465D9E /* AddFriendViewController */,
@@ -769,6 +792,7 @@
 				3F9B36F02AECF1B200CDB36A /* InviteRoomListTableViewCell.xib in Resources */,
 				3FF44B1D2AD57598007A4ECA /* 144251-check.json in Resources */,
 				3F2956892AE6A2AC00DFD45E /* InviteFriendsTableViewCell.xib in Resources */,
+				3F9B38B62AEF952000CDB36A /* MutipleConcentrateMemberVersionViewController.xib in Resources */,
 				3F4488E72A750A0D00D573AB /* EyeExerciseViewController.xib in Resources */,
 				3FDCE2E02A702DF6004981D7 /* LoginViewController.xib in Resources */,
 				3F96810C2A920E220031BEFE /* PersonalTableViewCell.xib in Resources */,
@@ -869,6 +893,7 @@
 				3F4488622A72A75E00D573AB /* PersonalViewController.swift in Sources */,
 				3FDCE2DF2A702DF6004981D7 /* LoginViewController.swift in Sources */,
 				3FB6330D2AC9C79C0015AF8D /* GetMissionListRequest.swift in Sources */,
+				3FFD2B202AF014C500D620B5 /* FindAccountAPIRequest.swift in Sources */,
 				3FDCE3082A710452004981D7 /* Text+Extension.swift in Sources */,
 				3F2956882AE6A2AC00DFD45E /* InviteFriendsTableViewCell.swift in Sources */,
 				3F35FA302AE2E68E00465D9E /* AddFriendInviteRequest.swift in Sources */,
@@ -881,6 +906,8 @@
 				3F96808A2A909D650031BEFE /* AppDefine.swift in Sources */,
 				3F4488E62A750A0D00D573AB /* EyeExerciseViewController.swift in Sources */,
 				3FB632932AC94E570015AF8D /* UIImage+Extension.swift in Sources */,
+				3F9B38B12AEF849B00CDB36A /* InviteMemberListStruct.swift in Sources */,
+				3F9B38B52AEF952000CDB36A /* MutipleConcentrateMemberVersionViewController.swift in Sources */,
 				3FA2B4F42AE40E10005D0A16 /* AcceptOrRejectFriendRequest.swift in Sources */,
 				3F2956222AE644F400DFD45E /* CompleteConcentrateRecord.swift in Sources */,
 				D8925D202A4D202E00DB9EC9 /* Encodable+Extension.swift in Sources */,
@@ -890,6 +917,7 @@
 				3F8ED66A2AE82DE900102F40 /* AddFriendToInviteRoomRequest.swift in Sources */,
 				3FB632102AC46D6E0015AF8D /* FriendListTableViewCell.swift in Sources */,
 				326146172A17691900855A6E /* RecordTableViewCell.swift in Sources */,
+				3F86A99A2AEFFB9400DBC7C5 /* FindByInviteRoomIdForConcentrateAndRestTimeRequest.swift in Sources */,
 				3F44875D2A71553900D573AB /* Alert.swift in Sources */,
 				3F9681072A920D780031BEFE /* PersonalLabelTableViewCell.swift in Sources */,
 				3F4488D62A74B9B500D573AB /* NewsViewController.swift in Sources */,

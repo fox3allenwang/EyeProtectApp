@@ -1,8 +1,8 @@
 //
-//  MutipleStartConcentrateViewController.swift
+//  MutipleConcentrateMemberVersionViewController.swift
 //  EyesApp
 //
-//  Created by imac-3570 on 2023/10/29.
+//  Created by imac-3570 on 2023/10/30.
 //
 
 import UIKit
@@ -10,17 +10,17 @@ import Lottie
 import AVFoundation
 import ProgressHUD
 
-class MutipleStartConcentrateViewController: UIViewController {
+class MutipleConcentrateMemberVersionViewController: UIViewController {
     
     // MARK: - IBOutlet
     
     @IBOutlet weak var vAnimate: UIView?
     @IBOutlet weak var lbTime: UILabel?
     @IBOutlet weak var btnGiveUp: UIButton?
-    @IBOutlet weak var btnConfirm: UIButton?
     @IBOutlet weak var btnAudioPlay: UIButton?
     @IBOutlet weak var lbStatusTitle: UILabel?
     @IBOutlet weak var imgvBackground: UIImageView?
+
     
     // MARK: - Variables
     
@@ -48,20 +48,19 @@ class MutipleStartConcentrateViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        ProgressHUD.colorAnimation = .buttomColor!
+        ProgressHUD.colorHUD = .themeColor!
+        ProgressHUD.animationType = .lineSpinFade
+        ProgressHUD.show("等待房主開始中...")
         lbTime?.text = concentrateTime
         callWebSocketStartMutipleConcentrate(path: .wsMutipleConcentrate,
-                                             parameters: "\(inviteRoomId)&HostAT:\(UserPreferences.shared.accountId)",
+                                             parameters: "\(inviteRoomId)&Member:\(UserPreferences.shared.accountId)",
                                              needToken: true)
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        ProgressHUD.colorAnimation = .buttomColor!
-        ProgressHUD.colorHUD = .themeColor!
-        ProgressHUD.animationType = .lineSpinFade
-        ProgressHUD.show("等待成員進入中...")
-        sendWSMessage(message: "\(inviteRoomId) 進入專注模式，人數： \(inviteMemberList.count)")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -72,10 +71,10 @@ class MutipleStartConcentrateViewController: UIViewController {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
             let now = dateFormatter.string(from: Date())
+            
         }
         
         wsMutipleConcentrate?.cancel()
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -183,7 +182,6 @@ class MutipleStartConcentrateViewController: UIViewController {
             let now = dateFormatter.string(from: Date())
            
             btnGiveUp?.isHidden = true
-            btnConfirm?.isHidden = false
             UIView.transition(with: vAnimate!,
                               duration: 0.2,
                               options: .transitionCrossDissolve) {
@@ -216,7 +214,6 @@ class MutipleStartConcentrateViewController: UIViewController {
             pushRestNotification()
             countRestTimer.invalidate()
             lbTime?.text = "00:00"
-            btnConfirm?.isHidden = false
             UIView.transition(with: vAnimate!,
                               duration: 0.2,
                               options: .transitionCrossDissolve) {
@@ -258,8 +255,8 @@ class MutipleStartConcentrateViewController: UIViewController {
                     print("Got Data \(data)")
                 case .string(let string):
                     if string.contains("所有成員已進入專注模式") {
-                        ProgressHUD.dismiss()
                         self.setTimer()
+                        ProgressHUD.dismiss()
                     } else if string.contains("有成員沒有進入專注模式"){
                         ProgressHUD.dismiss()
                         self.wsMutipleConcentrate?.cancel()
@@ -267,6 +264,7 @@ class MutipleStartConcentrateViewController: UIViewController {
                     } else if string.contains("離開了") {
                         self.wsMutipleConcentrate?.cancel()
                         let interruptAccountId = string.prefix(36)
+                        print(interruptAccountId)
                         self.callFindAccountApi(accountId: String(interruptAccountId)) { result in
                             Alert.showAlert(title: "\((result.data?.name)!) 中斷專注了", message: "因為 \((result.data?.name)!) 中斷專注，因此這次的專注沒有成功", vc: self, confirmTitle: "確認") {
                                 self.concentrateFaild()
@@ -343,7 +341,7 @@ class MutipleStartConcentrateViewController: UIViewController {
             return
         }
         let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
-        urlSession.sessionDescription = "MutipleConcentrate"
+        urlSession.sessionDescription = "MutipleConcentrateMemberVersion"
         var request = URLRequest(url: url)
         if needToken == true {
             request.allHTTPHeaderFields = ["Authorization": "Bearer \(UserPreferences.shared.jwtToken)"]
@@ -417,12 +415,6 @@ class MutipleStartConcentrateViewController: UIViewController {
                 self.vAnimate?.isHidden = false
             }
             countRestTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countRest), userInfo: nil, repeats: true)
-            UIView.transition(with: btnConfirm!,
-                              duration: 0.2,
-                              options: .transitionCrossDissolve) {
-                self.btnConfirm?.isHidden = true
-                self.btnConfirm?.setTitle("關閉", for: .normal)
-            }
             restStatus = true
         } else {
             Alert.showAlert(title: "是否要拍照紀錄一下你的里程紀錄呢？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
@@ -439,7 +431,7 @@ class MutipleStartConcentrateViewController: UIViewController {
 
 // MARK: - SessionWebSocketDelegate
 
-extension MutipleStartConcentrateViewController: URLSessionWebSocketDelegate {
+extension MutipleConcentrateMemberVersionViewController: URLSessionWebSocketDelegate {
     
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
         print("URLSessionWebSocketTask is connected")

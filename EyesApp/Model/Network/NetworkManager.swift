@@ -49,6 +49,9 @@ class NetworkManager {
                 
                 return result
             } catch {
+                print("=====================ERROR DATA=====================")
+                print(data.base64EncodedString().utf8)
+                print("====================================================")
                 throw RequestError.jsonDecodeFailed(error as! DecodingError)
             }
         } catch {

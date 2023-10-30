@@ -11,13 +11,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MutipleStartConcentrateViewController" customModule="EyesApp" customModuleProvider="target">
             <connections>
-                <outlet property="btnAudioPlay" destination="Rg6-Fe-41V" id="sYL-am-AVL"/>
-                <outlet property="btnConfirm" destination="ENo-dp-8ep" id="bHn-In-ujH"/>
-                <outlet property="btnGiveUp" destination="drj-cx-FZB" id="cX1-bN-jHZ"/>
-                <outlet property="imgvBackground" destination="WcD-Jm-J8X" id="dHk-M3-tjK"/>
-                <outlet property="lbStatusTitle" destination="IoY-RT-7Jg" id="iIi-OR-o80"/>
-                <outlet property="lbTime" destination="bxk-rs-bEE" id="hub-np-Yuh"/>
-                <outlet property="vAnimate" destination="Nke-DN-1dq" id="aFW-TF-qmT"/>
+                <outlet property="btnAudioPlay" destination="Rg6-Fe-41V" id="U6A-Jj-OYs"/>
+                <outlet property="btnConfirm" destination="ENo-dp-8ep" id="NLm-Df-rFE"/>
+                <outlet property="btnGiveUp" destination="drj-cx-FZB" id="EyD-aR-SWb"/>
+                <outlet property="imgvBackground" destination="WcD-Jm-J8X" id="oXn-Av-y9t"/>
+                <outlet property="lbStatusTitle" destination="IoY-RT-7Jg" id="BKk-Km-0NU"/>
+                <outlet property="lbTime" destination="bxk-rs-bEE" id="XAJ-dE-Axv"/>
+                <outlet property="vAnimate" destination="Nke-DN-1dq" id="PQF-d5-eIQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -27,14 +27,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="054 Grown Early" translatesAutoresizingMaskIntoConstraints="NO" id="WcD-Jm-J8X">
-                    <rect key="frame" x="0.0" y="59" width="393" height="793.33333333333337"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="793"/>
                 </imageView>
                 <view alpha="0.20000000298023224" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nke-DN-1dq">
-                    <rect key="frame" x="-196.66666666666666" y="45.333333333333314" width="786.33333333333337" height="786.33333333333348"/>
+                    <rect key="frame" x="-196.66666666666666" y="45.666666666666686" width="786.33333333333337" height="785.66666666666652"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="Nke-DN-1dq" secondAttribute="height" multiplier="1:1" id="PAl-f7-RBm"/>
-                    </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="開始專注" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IoY-RT-7Jg">
                     <rect key="frame" x="78.666666666666671" y="133.66666666666666" width="235.66666666666663" height="76"/>
@@ -55,25 +52,34 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENo-dp-8ep">
-                    <rect key="frame" x="98.333333333333329" y="727.66666666666663" width="196.33333333333337" height="60.666666666666629"/>
+                    <rect key="frame" x="98.333333333333329" y="727.33333333333337" width="196.33333333333337" height="60.666666666666629"/>
                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="確認"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="drj-cx-FZB">
-                    <rect key="frame" x="98.333333333333329" y="727.66666666666663" width="196.33333333333337" height="60.666666666666629"/>
+                    <rect key="frame" x="98.333333333333329" y="727.33333333333337" width="196.33333333333337" height="60.666666666666629"/>
                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="放棄"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rg6-Fe-41V">
-                    <rect key="frame" x="327.66666666666669" y="735.33333333333337" width="45.333333333333314" height="45.333333333333371"/>
+                    <rect key="frame" x="327.66666666666669" y="735" width="45.333333333333314" height="45.333333333333371"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Rg6-Fe-41V" secondAttribute="height" multiplier="1:1" id="9G7-Tz-XQK"/>
                     </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="speaker.slash" catalog="system"/>
+                    <connections>
+                        <action selector="clickAudioPlayButton" destination="-2" eventType="touchUpInside" id="MYN-mC-aba"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="07k-JF-W5d">
+                    <rect key="frame" x="20.000000000000004" y="735" width="45.333333333333343" height="45.333333333333371"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="person.2.fill" catalog="system"/>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -86,6 +92,7 @@
                 <constraint firstItem="Nke-DN-1dq" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="9Ob-4F-fNK"/>
                 <constraint firstItem="IoY-RT-7Jg" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.100088" id="9d7-1x-TY0"/>
                 <constraint firstItem="Nke-DN-1dq" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="2.00085" id="CYn-Wm-kwR"/>
+                <constraint firstItem="07k-JF-W5d" firstAttribute="centerY" secondItem="drj-cx-FZB" secondAttribute="centerY" id="Fa1-dg-yct"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ENo-dp-8ep" secondAttribute="bottom" constant="30" id="ISN-GR-vkz"/>
                 <constraint firstItem="drj-cx-FZB" firstAttribute="centerX" secondItem="ENo-dp-8ep" secondAttribute="centerX" id="JWR-N8-3VH"/>
                 <constraint firstItem="ENo-dp-8ep" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="LFJ-UG-ejg"/>
@@ -97,18 +104,20 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Rg6-Fe-41V" secondAttribute="trailing" constant="20" id="S69-1s-014"/>
                 <constraint firstItem="ENo-dp-8ep" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.0798946" id="SKy-RE-KLk"/>
                 <constraint firstItem="dMw-XH-M7T" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Tg8-Wm-7GZ"/>
+                <constraint firstItem="07k-JF-W5d" firstAttribute="height" secondItem="Rg6-Fe-41V" secondAttribute="height" id="UJ4-6V-Jn7"/>
                 <constraint firstItem="WcD-Jm-J8X" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="XAC-bc-3kn"/>
                 <constraint firstItem="bxk-rs-bEE" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.0996488" id="b9f-dE-hdu"/>
                 <constraint firstItem="Rg6-Fe-41V" firstAttribute="width" secondItem="drj-cx-FZB" secondAttribute="width" multiplier="0.2309" id="e67-SE-hWT"/>
                 <constraint firstItem="drj-cx-FZB" firstAttribute="width" secondItem="ENo-dp-8ep" secondAttribute="width" id="ePO-CW-P2d"/>
                 <constraint firstItem="bxk-rs-bEE" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="gwh-AC-Z97"/>
-                <constraint firstItem="Nke-DN-1dq" firstAttribute="width" secondItem="Nke-DN-1dq" secondAttribute="height" multiplier="1:1" id="iAN-lX-2se"/>
                 <constraint firstAttribute="bottom" secondItem="WcD-Jm-J8X" secondAttribute="bottom" id="iZ0-xa-HBT"/>
                 <constraint firstItem="Nke-DN-1dq" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="jXQ-KO-yWP"/>
                 <constraint firstItem="bxk-rs-bEE" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="lJm-SV-lmY"/>
                 <constraint firstItem="WcD-Jm-J8X" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="pmf-h7-FG8"/>
+                <constraint firstItem="07k-JF-W5d" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="sWK-eb-z32"/>
                 <constraint firstItem="drj-cx-FZB" firstAttribute="height" secondItem="ENo-dp-8ep" secondAttribute="height" id="uMd-Kg-Ykf"/>
                 <constraint firstItem="drj-cx-FZB" firstAttribute="centerY" secondItem="ENo-dp-8ep" secondAttribute="centerY" id="wV8-kQ-Hr0"/>
+                <constraint firstItem="07k-JF-W5d" firstAttribute="width" secondItem="Rg6-Fe-41V" secondAttribute="width" id="xjc-Kh-2mh"/>
                 <constraint firstItem="WcD-Jm-J8X" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="y4k-vJ-1gF"/>
                 <constraint firstItem="dMw-XH-M7T" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.699746" id="y8S-rE-rQb"/>
             </constraints>
@@ -117,6 +126,7 @@
     </objects>
     <resources>
         <image name="054 Grown Early" width="2400" height="2000"/>
+        <image name="person.2.fill" catalog="system" width="128" height="81"/>
         <image name="speaker.slash" catalog="system" width="118" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

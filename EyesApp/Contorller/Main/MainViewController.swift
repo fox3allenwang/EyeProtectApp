@@ -44,7 +44,7 @@ class MainViewController: BaseViewController {
     var wsInviteRoom: URLSessionWebSocketTask? = nil
     var isInviteRoomConnect = false
     var inviteRoomId = ""
-    private var inviteMemberList: [inviteRoomMember] = []
+    private var inviteMemberList: [InviteRoomMember] = []
     
     var cameraMenuStatus: CameraMenueStatus = .close
     enum CameraMenueStatus {
@@ -56,12 +56,6 @@ class MainViewController: BaseViewController {
         var accountId: String
         var name: String
         var email: String
-        var image: String
-    }
-    
-    private struct inviteRoomMember {
-        var accountId: UUID
-        var name: String
         var image: String
     }
     
@@ -246,8 +240,19 @@ class MainViewController: BaseViewController {
                         }
                     } else if string.contains("進入專注模式"){
                         self.vInviteRoom.isHidden = true
-                        self.inviteMemberList = []
                         self.wsInviteRoom?.cancel()
+                        // 寫一個閉包打 API 獲取專注時間和休息時間，並在閉包裡做跳頁並帶值的事情
+                        self.callApiFindByInviteRoomIdForConcentrateAndRestTime(inviteRoomId: self.inviteRoomId) { result in
+                            let nextVC = MutipleConcentrateMemberVersionViewController()
+                            nextVC.inviteRoomId = self.inviteRoomId
+                            nextVC.inviteMemberList = self.inviteMemberList
+                            nextVC.concentrateTime = "\(result.data!.concentrateTime):00"
+                            nextVC.restTime = String(result.data!.restTime.prefix(2))
+                            self.inviteMemberList = []
+                            
+                            nextVC.isModalInPresentation = true
+                            self.present(nextVC, animated: true)
+                        }
                     } else {
                         Task {
                             await self.callApiRefreshInviteRoomMemberList(inviteRoomId: self.inviteRoomId)
@@ -398,7 +403,7 @@ class MainViewController: BaseViewController {
                     inviteMemberList = []
                     
                     result.data?.memberList.forEach({ member in
-                        inviteMemberList.append(inviteRoomMember(accountId: member.accountId,
+                        inviteMemberList.append(InviteRoomMember(accountId: member.accountId,
                                                                  name: member.name,
                                                                  image: member.image))
                     })
@@ -417,6 +422,31 @@ class MainViewController: BaseViewController {
                 Alert.showAlert(title: "發生錯誤", message: "請確認與伺服器的連線", vc: self, confirmTitle: "確認")
             }
         
+    }
+    
+    // MARK: - callAPIFindByInviteRoomIdForConcentrateAndRestTime
+    
+    func callApiFindByInviteRoomIdForConcentrateAndRestTime(inviteRoomId: String,
+                                                            completionHandler: ((GeneralResponse<FindByInviteRoomIdForConcentrateAndRestTimeResponse>) -> Void)? = nil) {
+        let request = FindByInviteRoomIdForConcentrateAndRestTimeRequest(inviteRoomId: UUID(uuidString: inviteRoomId)!)
+        
+        Task {
+            do {
+                let result: GeneralResponse<FindByInviteRoomIdForConcentrateAndRestTimeResponse> = try await NetworkManager().requestData(method: .post,
+                                                                                                                                          path: .findByInviteRoomIdForConcentrateAndRestTime,
+                                                                                                                                          parameters: request,
+                                                                                                                                          needToken: true)
+                
+                if result.message == "找到相關紀錄了" {
+                    completionHandler?(result)
+                } else {
+                    Alert.showAlert(title: "錯誤", message: result.message, vc: self, confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤", message: "\(error)", vc: self, confirmTitle: "確認")
+            }
+        }
     }
     
     // MARK: - IBAction

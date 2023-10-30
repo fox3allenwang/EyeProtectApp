@@ -79,4 +79,7 @@ enum ApiPathConstants: String {
     case removeToInviteRoom = "/api/inviteConcentrateRoomController/removeToInviteRoom"
     case removeInviteRoom = "/api/inviteConcentrateRoomController/removeInviteRoom"
     case startMutipleConcentrate = "/api/inviteConcentrateRoomController/startMutipleConcentrate"
+    case wsMutipleConcentrate = "/api/mutipleConcentrateWebSocketService/"
+    case findByInviteRoomIdForConcentrateAndRestTime = "/api/concentrateRecord/findByInviteRoomIdForConcentrateAndRestTime"
+    case findAccountAPI = "/api/account/findAccount"
 }
