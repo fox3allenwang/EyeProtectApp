@@ -77,6 +77,12 @@ extension BluetoothServices: CBCentralManagerDelegate {
                         didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any],
                         rssi RSSI: NSNumber) {
+        if peripheral.name == "BlueLight" {
+            Bluelight.peripheral = peripheral
+        }
+        if peripheral.name == "Lamp" {
+            Lamp.peripheral = peripheral
+        }
     }
     
     /// 連接裝置
@@ -85,7 +91,13 @@ extension BluetoothServices: CBCentralManagerDelegate {
         peripheral.discoverServices(nil)
     }
     
-    
+    func writeValue(type: CBCharacteristicWriteType, data: Data) {
+        guard let peripheral = Lamp.peripheral,
+              let characteristic = Lamp.characteristic else {
+            return
+        }
+        peripheral.writeValue(data, for: characteristic, type: type)
+    }
 }
 
 // MARK: - CBPeripheralDelegate
@@ -108,7 +120,23 @@ extension BluetoothServices: CBPeripheralDelegate {
     
     /// 發現對應服務的特徵
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-
+        if let characteristics = service.characteristics {
+            for characteristic in characteristics {
+                print(characteristic)
+                if characteristic.uuid.isEqual(CBUUID(string: "FFE1")) {
+                    if peripheral == Bluelight.peripheral {
+                        Bluelight.characteristic = characteristic
+                        peripheral.readValue(for: characteristic)
+                        peripheral.setNotifyValue(true, for: characteristic)
+                    }
+                    if peripheral == Lamp.peripheral {
+                        Lamp.characteristic = characteristic
+                        peripheral.readValue(for: characteristic)
+                        peripheral.setNotifyValue(true, for: characteristic)
+                    }
+                }
+            }
+        }
     }
     
     /// 特徵值變更
