@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 struct AppDefine {
     static var userName = ""
@@ -22,4 +23,14 @@ struct AppDefine {
 struct News {
     let newsTitle: String
     let newsMessage: String
+}
+
+struct Bluelight {
+    var peripheral: CBPeripheral
+    var characteristic: CBCharacteristic
+}
+
+struct Lamp {
+    var peripheral: CBPeripheral
+    var characteristic: CBCharacteristic
 }
