@@ -34,6 +34,7 @@ class StartConcentrateViewController: UIViewController {
     var restStatus = false
     var giveUpStatus = false
     var wifiIsConnect = false
+    let imagePicker = UIImagePickerController()
     
     // MARK: - LifeCycle
     
@@ -44,6 +45,7 @@ class StartConcentrateViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         lbTime?.text = concentrateTime
     }
     
@@ -138,6 +140,10 @@ class StartConcentrateViewController: UIViewController {
         
         var total = h * 3600 + min * 60 + sec
         
+        // 修改
+        total = 1
+        // 修改
+        
         total -= 1
         
         sec = total % 60
@@ -186,6 +192,10 @@ class StartConcentrateViewController: UIViewController {
         var sec = Int((lbTime?.text?.suffix(2))!) ?? 0
         var min = Int((lbTime?.text?.prefix(2))!) ?? 0
         var total = min * 60 + sec
+        
+        // 修改
+        total = 1
+        // 修改
         
         total -= 1
         sec = total % 60
@@ -317,7 +327,11 @@ class StartConcentrateViewController: UIViewController {
         } else {
             if wifiIsConnect {
                 Alert.showAlert(title: "是否要拍照紀錄一下你的里程紀錄呢？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
-                    // todo: 拍照功能
+                    self.imagePicker.sourceType = .camera
+                    self.imagePicker.allowsEditing = true
+                    self.imagePicker.delegate = self
+                    self.present(self.imagePicker, animated: true)
+                  
                 } cancel: {
                     self.dismiss(animated: true)
                 }
@@ -330,6 +344,20 @@ class StartConcentrateViewController: UIViewController {
 }
 
 // MARK: - Extension
+
+extension StartConcentrateViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        self.dismiss(animated: true) {
+            let nextVC = TakePhotoToConcentrateRecordViewController()
+            let image = info[.originalImage] as? UIImage
+            print(image!)
+            nextVC.pictureImage = image
+            nextVC.concentrateType = .along
+            nextVC.recordId = self.concentrateRecordId
+            self.present(nextVC, animated: true)
+        }
+    }
+}
 
 // MARK: - Protocol
 
