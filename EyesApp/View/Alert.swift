@@ -36,12 +36,12 @@ class Alert {
                                                 message: message,
                                                 preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: confirmTitle,
-                                          style: .cancel) { action in
+                                          style: .default) { action in
             confirm?()
         }
         
         let cancelAction = UIAlertAction(title: cancelTitle,
-                                         style: .default) { action in
+                                         style: .destructive) { action in
             cancel?()
         }
         confirmAction.setValue(UIColor.buttomColor, forKey: "titleTextColor")

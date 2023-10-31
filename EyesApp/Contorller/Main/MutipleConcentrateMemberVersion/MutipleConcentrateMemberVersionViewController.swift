@@ -251,16 +251,15 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
     }
     
     func completeConcentrate() {
-            lbStatusTitle?.text = "休息模式"
-            lbTime?.text = "\(restTime):00"
-            UIView.transition(with: vAnimate!,
-                              duration: 0.2,
-                              options: .transitionCrossDissolve) {
-                self.vAnimate?.isHidden = false
-            }
-            countRestTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countRest), userInfo: nil, repeats: true)
-            restStatus = true
-        
+        lbStatusTitle?.text = "休息模式"
+        lbTime?.text = "\(restTime):00"
+        UIView.transition(with: vAnimate!,
+                          duration: 0.2,
+                          options: .transitionCrossDissolve) {
+            self.vAnimate?.isHidden = false
+        }
+        countRestTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countRest), userInfo: nil, repeats: true)
+        restStatus = true
     }
     
     // MARK: - WSAction
@@ -398,6 +397,30 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
         }
     }
     
+    // MARK: - callCompleteMutipleConcentrateAPI
+    
+    func callCompleteMutipleConcentrateApi(accountId: String,
+                                           inviteRoomId: String,
+                                           endTime: String) {
+        let request = CompleteMutipleConcentrateRequest(accountId: UUID(uuidString: accountId)!,
+                                                        inviteRoomId: UUID(uuidString: inviteRoomId)!,
+                                                        endTime: endTime)
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .completeMutipleConcentrate,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if !result.message.contains("已更新成功") {
+                    Alert.showAlert(title: "錯誤", message: "\(result.message)", vc: self, confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤", message: "\(error)", vc: self, confirmTitle: "確認")
+            }
+        }
+    }
+    
     // MARK: - IBAction
     
     @IBAction func clickGiveUp() {
@@ -408,6 +431,7 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
                             vc: self,
                             confirmTitle: "確定" ,cancelTitle: "取消", confirm: {
                 self.concentrateFaild()
+                self.wsMutipleConcentrate?.cancel()
             })
             
         } else {

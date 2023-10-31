@@ -181,6 +181,11 @@ class MutipleStartConcentrateViewController: UIViewController {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
             let now = dateFormatter.string(from: Date())
+            
+            //打 API 更新 Concentrate Record
+            callCompleteMutipleConcentrateApi(accountId: UserPreferences.shared.accountId,
+                                              inviteRoomId: inviteRoomId,
+                                              endTime: now)
            
             btnGiveUp?.isHidden = true
             btnConfirm?.isHidden = false
@@ -378,6 +383,30 @@ class MutipleStartConcentrateViewController: UIViewController {
         }
     }
     
+    // MARK: - callCompleteMutipleConcentrateAPI
+    
+    func callCompleteMutipleConcentrateApi(accountId: String,
+                                           inviteRoomId: String,
+                                           endTime: String) {
+        let request = CompleteMutipleConcentrateRequest(accountId: UUID(uuidString: accountId)!,
+                                                        inviteRoomId: UUID(uuidString: inviteRoomId)!,
+                                                        endTime: endTime)
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .completeMutipleConcentrate,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if !result.message.contains("已更新成功") {
+                    Alert.showAlert(title: "錯誤", message: "\(result.message)", vc: self, confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤", message: "\(error)", vc: self, confirmTitle: "確認")
+            }
+        }
+    }
+    
     // MARK: - IBAction
     
     @IBAction func clickGiveUp() {
@@ -388,6 +417,7 @@ class MutipleStartConcentrateViewController: UIViewController {
                             vc: self,
                             confirmTitle: "確定" ,cancelTitle: "取消", confirm: {
                 self.concentrateFaild()
+                self.wsMutipleConcentrate?.cancel()
             })
             
         } else {
@@ -411,7 +441,6 @@ class MutipleStartConcentrateViewController: UIViewController {
         if restStatus == false {
             sendWSMessage(message: "\(inviteRoomId) 已完成專注模式") {
                 self.wsMutipleConcentrate?.cancel()
-                // todo 更新專注紀錄
             }
             lbStatusTitle?.text = "休息模式"
             lbTime?.text = "\(restTime):00"

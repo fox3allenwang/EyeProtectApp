@@ -114,6 +114,7 @@
 		3FF44B1D2AD57598007A4ECA /* 144251-check.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FF44B1C2AD57598007A4ECA /* 144251-check.json */; };
 		3FF44B1F2AD57767007A4ECA /* Check.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FF44B1E2AD57767007A4ECA /* Check.json */; };
 		3FFD2B202AF014C500D620B5 /* FindAccountAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD2B1F2AF014C500D620B5 /* FindAccountAPIRequest.swift */; };
+		3FFD2B242AF0F04200D620B5 /* CompleteMutipleConcentrateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD2B232AF0F04200D620B5 /* CompleteMutipleConcentrateRequest.swift */; };
 		5364894A85EA3AC094430E85 /* Pods_EyesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BB7DA1F85E5DC44B2FAC5D /* Pods_EyesApp.framework */; };
 		B06B88CC2AE7B97100695C8C /* BluetoothServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06B88CB2AE7B97100695C8C /* BluetoothServices.swift */; };
 		D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */; };
@@ -233,6 +234,7 @@
 		3FF44B1C2AD57598007A4ECA /* 144251-check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "144251-check.json"; sourceTree = "<group>"; };
 		3FF44B1E2AD57767007A4ECA /* Check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Check.json; sourceTree = "<group>"; };
 		3FFD2B1F2AF014C500D620B5 /* FindAccountAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAccountAPIRequest.swift; sourceTree = "<group>"; };
+		3FFD2B232AF0F04200D620B5 /* CompleteMutipleConcentrateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteMutipleConcentrateRequest.swift; sourceTree = "<group>"; };
 		7676AE22173A08CF302C5B8F /* Pods-EyesApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.release.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.release.xcconfig"; sourceTree = "<group>"; };
 		B06B88CB2AE7B97100695C8C /* BluetoothServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothServices.swift; sourceTree = "<group>"; };
 		B4690A957F43C863D075AD8F /* Pods-EyesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.debug.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -481,6 +483,7 @@
 				3F9B38AE2AEEBD8E00CDB36A /* StartMutipleConcentrateRequest.swift */,
 				3F86A9992AEFFB9400DBC7C5 /* FindByInviteRoomIdForConcentrateAndRestTimeRequest.swift */,
 				3FFD2B1F2AF014C500D620B5 /* FindAccountAPIRequest.swift */,
+				3FFD2B232AF0F04200D620B5 /* CompleteMutipleConcentrateRequest.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -901,6 +904,7 @@
 				326146232A178F9800855A6E /* BlueLightFilterViewController.swift in Sources */,
 				32BE4B4E2A0A451E0014161D /* SceneDelegate.swift in Sources */,
 				32593D2F2A1DFBB7005A1A6B /* LocalDatabase.swift in Sources */,
+				3FFD2B242AF0F04200D620B5 /* CompleteMutipleConcentrateRequest.swift in Sources */,
 				3F6DFBDF2A6D76750058CDFB /* Color+Extnesion.swift in Sources */,
 				3F5005A72AB0D87B007D9DED /* GetPersonInfromationRequest.swift in Sources */,
 				3F96808A2A909D650031BEFE /* AppDefine.swift in Sources */,

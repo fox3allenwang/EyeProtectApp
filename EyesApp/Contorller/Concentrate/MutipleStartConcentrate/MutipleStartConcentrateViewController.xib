@@ -52,22 +52,25 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENo-dp-8ep">
-                    <rect key="frame" x="98.333333333333329" y="727.33333333333337" width="196.33333333333337" height="60.666666666666629"/>
+                    <rect key="frame" x="78.666666666666671" y="727.33333333333337" width="235.66666666666663" height="60.666666666666629"/>
                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="確認"/>
+                    <state key="normal" title="開始休息階段"/>
                     <connections>
                         <action selector="clickConfirmButton" destination="-2" eventType="touchUpInside" id="rYW-Zf-JQ5"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="drj-cx-FZB">
-                    <rect key="frame" x="98.333333333333329" y="727.33333333333337" width="196.33333333333337" height="60.666666666666629"/>
+                    <rect key="frame" x="78.666666666666671" y="727.33333333333337" width="235.66666666666663" height="60.666666666666629"/>
                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="放棄"/>
+                    <connections>
+                        <action selector="clickGiveUp" destination="-2" eventType="touchUpInside" id="8hZ-Yr-5EB"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rg6-Fe-41V">
-                    <rect key="frame" x="327.66666666666669" y="735" width="45.333333333333314" height="45.333333333333371"/>
+                    <rect key="frame" x="318.66666666666669" y="730.33333333333337" width="54.333333333333314" height="54.666666666666629"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Rg6-Fe-41V" secondAttribute="height" multiplier="1:1" id="9G7-Tz-XQK"/>
                     </constraints>
@@ -79,7 +82,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="07k-JF-W5d">
-                    <rect key="frame" x="20.000000000000004" y="735" width="45.333333333333343" height="45.333333333333371"/>
+                    <rect key="frame" x="20.000000000000004" y="730.33333333333337" width="54.333333333333343" height="54.666666666666629"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="person.2.fill" catalog="system"/>
@@ -100,7 +103,7 @@
                 <constraint firstItem="drj-cx-FZB" firstAttribute="centerX" secondItem="ENo-dp-8ep" secondAttribute="centerX" id="JWR-N8-3VH"/>
                 <constraint firstItem="ENo-dp-8ep" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="LFJ-UG-ejg"/>
                 <constraint firstItem="bxk-rs-bEE" firstAttribute="top" secondItem="dMw-XH-M7T" secondAttribute="bottom" id="Oiq-7K-zrf"/>
-                <constraint firstItem="ENo-dp-8ep" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.499576" id="OmG-Mp-Qla"/>
+                <constraint firstItem="ENo-dp-8ep" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.6" id="OmG-Mp-Qla"/>
                 <constraint firstItem="IoY-RT-7Jg" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="74.670000000000002" id="PAz-G8-Vir"/>
                 <constraint firstItem="Rg6-Fe-41V" firstAttribute="centerY" secondItem="drj-cx-FZB" secondAttribute="centerY" id="PwM-Tq-Ixw"/>
                 <constraint firstItem="bxk-rs-bEE" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.699746" id="R7y-Bd-ec7"/>
