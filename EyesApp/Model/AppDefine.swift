@@ -26,11 +26,11 @@ struct News {
 }
 
 struct Bluelight {
-    var peripheral: CBPeripheral
-    var characteristic: CBCharacteristic
+    static var peripheral: CBPeripheral?
+    static var characteristic: CBCharacteristic?
 }
 
 struct Lamp {
-    var peripheral: CBPeripheral
-    var characteristic: CBCharacteristic
+    static var peripheral: CBPeripheral?
+    static var characteristic: CBCharacteristic?
 }

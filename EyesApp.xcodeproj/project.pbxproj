@@ -1073,6 +1073,7 @@
 				DEVELOPMENT_TEAM = S8FBP4YLUA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EyesApp/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "需要啟用眼睛保健操功能";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1108,6 +1109,7 @@
 				DEVELOPMENT_TEAM = S8FBP4YLUA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EyesApp/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "需要啟用眼睛保健操功能";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

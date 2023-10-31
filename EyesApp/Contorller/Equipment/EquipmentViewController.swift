@@ -23,7 +23,7 @@ class EquipmentViewController: UIViewController {
     var changeImageValueG :CGFloat?
     var changeImageValueB :CGFloat?
     
-    
+    let bluetooth = BluetoothServices.shared
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -51,7 +51,16 @@ class EquipmentViewController: UIViewController {
     // MARK: - UI Settings
     
     func setupUI() {
+        setupImageView()
         setupEquipmentView()
+    }
+    
+    func setupImageView() {
+        if #available(iOS 16.0, *) {
+            ivgLight.image = UIImage(systemName: "lamp.desk")
+        } else {
+            ivgLight.image = UIImage(systemName: "lightbulb")
+        }
     }
     
     func setupEquipmentView() {
@@ -60,12 +69,10 @@ class EquipmentViewController: UIViewController {
         lightView.layer.shadowOpacity = 0.1
         lightView.layer.shadowRadius = 20
         
-        
         blueDetectionView.layer.cornerRadius = 20
         blueDetectionView.layer.shadowOffset = CGSize(width: 5, height: 5)
         blueDetectionView.layer.shadowOpacity = 0.1
         blueDetectionView.layer.shadowRadius = 20
-        
     }
     
     func changeColor() {
@@ -79,7 +86,10 @@ class EquipmentViewController: UIViewController {
     
     // 電燈開關放這裡
     @IBAction func clickbtnLight() {
-        print("有按")
+        bluetooth.connectPeripheral(peripheral: Lamp.peripheral!)
+        
+        let data = "0".data(using: .utf8)
+        bluetooth.writeValue(type: .withoutResponse, data: data!)
     }
     
     // 調亮度放這裡
@@ -95,16 +105,41 @@ class EquipmentViewController: UIViewController {
     }
     
     @IBAction func clickLightBtn() {
-        if lightSlider.isHidden == false {
-            lightSlider.isHidden = true
-            ivgLight.image = UIImage(systemName: "lamp.desk")
-            lightView.backgroundColor = UIColor.buttomColor
-            ivgLight.tintColor = .white
+        bluetooth.connectPeripheral(peripheral: Lamp.peripheral!)
+        
+        if #available(iOS 16.0, *) {
+            if lightSlider.isHidden == false {
+                let data = "F".data(using: .utf8)
+                bluetooth.writeValue(type: .withoutResponse, data: data!)
+                
+                lightSlider.isHidden = true
+                ivgLight.image = UIImage(systemName: "lamp.desk")
+                lightView.backgroundColor = UIColor.buttomColor
+                ivgLight.tintColor = .white
+            } else {
+                let data = "O".data(using: .utf8)
+                bluetooth.writeValue(type: .withoutResponse, data: data!)
+                
+                lightSlider.isHidden = false
+                ivgLight.image = UIImage(systemName: "lamp.desk.fill")
+            }
         } else {
-            lightSlider.isHidden = false
-            ivgLight.image = UIImage(systemName: "lamp.desk.fill")
+            if lightSlider.isHidden == false {
+                let data = "F".data(using: .utf8)
+                bluetooth.writeValue(type: .withoutResponse, data: data!)
+                
+                lightSlider.isHidden = true
+                ivgLight.image = UIImage(systemName: "lightbulb")
+                lightView.backgroundColor = UIColor.buttomColor
+                ivgLight.tintColor = .white
+            } else {
+                let data = "O".data(using: .utf8)
+                bluetooth.writeValue(type: .withoutResponse, data: data!)
+                
+                lightSlider.isHidden = false
+                ivgLight.image = UIImage(systemName: "lightbulb.fill")
+            }
         }
-       
     }
     
 }
