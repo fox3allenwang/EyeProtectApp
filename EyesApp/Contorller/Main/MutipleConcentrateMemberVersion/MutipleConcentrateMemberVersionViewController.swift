@@ -20,7 +20,7 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
     @IBOutlet weak var btnAudioPlay: UIButton?
     @IBOutlet weak var lbStatusTitle: UILabel?
     @IBOutlet weak var imgvBackground: UIImageView?
-
+    @IBOutlet weak var btnCompleteRest: UIButton?
     
     // MARK: - Variables
     
@@ -180,7 +180,7 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
             let now = dateFormatter.string(from: Date())
-           
+            lbStatusTitle?.text = "等待房主完成專注模式"
             btnGiveUp?.isHidden = true
             UIView.transition(with: vAnimate!,
                               duration: 0.2,
@@ -214,6 +214,12 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
             pushRestNotification()
             countRestTimer.invalidate()
             lbTime?.text = "00:00"
+            UIView.transition(with: btnCompleteRest!,
+                              duration: 0.2,
+                              options: .transitionCrossDissolve) {
+                self.btnCompleteRest?.isHidden = false
+            }
+            
             UIView.transition(with: vAnimate!,
                               duration: 0.2,
                               options: .transitionCrossDissolve) {
@@ -244,6 +250,19 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
         }
     }
     
+    func completeConcentrate() {
+            lbStatusTitle?.text = "休息模式"
+            lbTime?.text = "\(restTime):00"
+            UIView.transition(with: vAnimate!,
+                              duration: 0.2,
+                              options: .transitionCrossDissolve) {
+                self.vAnimate?.isHidden = false
+            }
+            countRestTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countRest), userInfo: nil, repeats: true)
+            restStatus = true
+        
+    }
+    
     // MARK: - WSAction
     
     func reviceWSMessage() {
@@ -270,6 +289,9 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
                                 self.concentrateFaild()
                             }
                         }
+                    } else if string.contains("已完成專注模式") {
+                        self.wsMutipleConcentrate?.cancel()
+                        self.completeConcentrate()
                     }
                    
                 @unknown default:
@@ -405,26 +427,13 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
         }
     }
     
-    @IBAction func clickConfirmButton() {
-        if restStatus == false {
-            lbStatusTitle?.text = "休息模式"
-            lbTime?.text = "\(restTime):00"
-            UIView.transition(with: vAnimate!,
-                              duration: 0.2,
-                              options: .transitionCrossDissolve) {
-                self.vAnimate?.isHidden = false
-            }
-            countRestTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countRest), userInfo: nil, repeats: true)
-            restStatus = true
-        } else {
-            Alert.showAlert(title: "是否要拍照紀錄一下你的里程紀錄呢？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
-                // todo: 拍照功能
-            } cancel: {
-                self.dismiss(animated: true)
-            }
+    @IBAction func clickCompleteAndBackToMain() {
+        Alert.showAlert(title: "是否要拍照紀錄一下你的里程紀錄呢？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
+            // todo: 拍照功能
+        } cancel: {
+            self.dismiss(animated: true)
         }
     }
-    
 }
 
 // MARK: - Extension

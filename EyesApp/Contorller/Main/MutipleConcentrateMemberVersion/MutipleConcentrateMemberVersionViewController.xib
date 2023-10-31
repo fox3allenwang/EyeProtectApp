@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MutipleConcentrateMemberVersionViewController" customModule="EyesApp" customModuleProvider="target">
             <connections>
                 <outlet property="btnAudioPlay" destination="W3Z-SM-Pau" id="kE6-Vx-ngq"/>
+                <outlet property="btnCompleteRest" destination="Vut-5L-dw2" id="QkE-bl-Ahn"/>
                 <outlet property="btnGiveUp" destination="3Uo-wk-EH2" id="4zv-dV-tIR"/>
                 <outlet property="imgvBackground" destination="psy-Fr-0ZI" id="APO-eA-AmF"/>
                 <outlet property="lbStatusTitle" destination="8k2-9d-9V5" id="j1J-is-HfS"/>
@@ -41,8 +42,17 @@
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="放棄"/>
                 </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vut-5L-dw2">
+                    <rect key="frame" x="98.333333333333329" y="740.33333333333337" width="196.33333333333337" height="35"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="完成休息模式"/>
+                    <connections>
+                        <action selector="clickCompleteAndBackToMain" destination="-2" eventType="touchUpInside" id="B41-fg-Qe2"/>
+                    </connections>
+                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="開始專注" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8k2-9d-9V5">
-                    <rect key="frame" x="78.666666666666671" y="133.66666666666666" width="235.66666666666663" height="76"/>
+                    <rect key="frame" x="19.666666666666657" y="133.66666666666666" width="353.66666666666674" height="76"/>
                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -81,6 +91,7 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="Vut-5L-dw2" firstAttribute="height" secondItem="3Uo-wk-EH2" secondAttribute="height" multiplier="0.576923" id="0wH-Ok-Atq"/>
                 <constraint firstItem="3Uo-wk-EH2" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="13z-QA-vFm"/>
                 <constraint firstItem="W3Z-SM-Pau" firstAttribute="width" secondItem="W3Z-SM-Pau" secondAttribute="height" multiplier="1:1" id="2kB-kr-4Kf"/>
                 <constraint firstItem="pCl-Bh-ikP" firstAttribute="width" secondItem="pCl-Bh-ikP" secondAttribute="height" multiplier="1:1" id="5Jt-M6-FHx"/>
@@ -93,8 +104,10 @@
                 <constraint firstItem="v11-xb-CxR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="HtS-8P-TVT"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="psy-Fr-0ZI" secondAttribute="top" id="Lun-1x-cUN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="psy-Fr-0ZI" secondAttribute="trailing" id="NvP-uu-0Kz"/>
-                <constraint firstItem="8k2-9d-9V5" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.599661" id="OqI-Id-PwF"/>
+                <constraint firstItem="8k2-9d-9V5" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.9" id="OqI-Id-PwF"/>
                 <constraint firstItem="pCl-Bh-ikP" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="1.03601" id="PAv-yr-j6O"/>
+                <constraint firstItem="Vut-5L-dw2" firstAttribute="centerX" secondItem="3Uo-wk-EH2" secondAttribute="centerX" id="Qw8-6j-YLy"/>
+                <constraint firstItem="Vut-5L-dw2" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.5" id="UAr-LE-VMA"/>
                 <constraint firstItem="W3Z-SM-Pau" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.0597277" id="VUq-n3-kcq"/>
                 <constraint firstItem="h0X-Ye-nsA" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="Wlg-s3-BtA"/>
                 <constraint firstItem="3Uo-wk-EH2" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.499576" id="Xwx-ym-kHl"/>
@@ -110,6 +123,7 @@
                 <constraint firstItem="h0X-Ye-nsA" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.0996926" id="o70-0Y-B8j"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="W3Z-SM-Pau" secondAttribute="trailing" constant="20" id="o8o-P7-1Cf"/>
                 <constraint firstItem="v11-xb-CxR" firstAttribute="centerY" secondItem="3Uo-wk-EH2" secondAttribute="centerY" id="oI2-Zu-jsT"/>
+                <constraint firstItem="Vut-5L-dw2" firstAttribute="centerY" secondItem="3Uo-wk-EH2" secondAttribute="centerY" id="sD6-Xq-ed1"/>
                 <constraint firstItem="h0X-Ye-nsA" firstAttribute="top" secondItem="nbR-3D-2bb" secondAttribute="bottom" id="vo8-pW-vYx"/>
                 <constraint firstItem="nbR-3D-2bb" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.0395257" id="wRQ-1Z-2te"/>
                 <constraint firstItem="W3Z-SM-Pau" firstAttribute="centerY" secondItem="3Uo-wk-EH2" secondAttribute="centerY" id="xBq-wp-dvm"/>

@@ -409,6 +409,10 @@ class MutipleStartConcentrateViewController: UIViewController {
     
     @IBAction func clickConfirmButton() {
         if restStatus == false {
+            sendWSMessage(message: "\(inviteRoomId) 已完成專注模式") {
+                self.wsMutipleConcentrate?.cancel()
+                // todo 更新專注紀錄
+            }
             lbStatusTitle?.text = "休息模式"
             lbTime?.text = "\(restTime):00"
             UIView.transition(with: vAnimate!,
