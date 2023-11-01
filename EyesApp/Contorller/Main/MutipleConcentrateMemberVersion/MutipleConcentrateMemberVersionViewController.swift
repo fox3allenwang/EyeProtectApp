@@ -36,6 +36,8 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
     var giveUpStatus = false
     var wsMutipleConcentrate: URLSessionWebSocketTask? = nil
     var inviteMemberList: [InviteRoomMember] = []
+    let imagePicker = UIImagePickerController()
+    var isDoneForConcentrate = false
     
     
     
@@ -48,15 +50,16 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ProgressHUD.colorAnimation = .buttomColor!
-        ProgressHUD.colorHUD = .themeColor!
-        ProgressHUD.animationType = .lineSpinFade
-        ProgressHUD.show("等待房主開始中...")
-        lbTime?.text = concentrateTime
-        callWebSocketStartMutipleConcentrate(path: .wsMutipleConcentrate,
-                                             parameters: "\(inviteRoomId)&Member:\(UserPreferences.shared.accountId)",
-                                             needToken: true)
-        
+        if isDoneForConcentrate == false {
+            ProgressHUD.colorAnimation = .buttomColor!
+            ProgressHUD.colorHUD = .themeColor!
+            ProgressHUD.animationType = .lineSpinFade
+            ProgressHUD.show("等待房主開始中...")
+            lbTime?.text = concentrateTime
+            callWebSocketStartMutipleConcentrate(path: .wsMutipleConcentrate,
+                                                 parameters: "\(inviteRoomId)&Member:\(UserPreferences.shared.accountId)",
+                                                 needToken: true)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -291,6 +294,7 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
                     } else if string.contains("已完成專注模式") {
                         self.wsMutipleConcentrate?.cancel()
                         self.completeConcentrate()
+                        self.isDoneForConcentrate = true
                     }
                    
                 @unknown default:
@@ -453,9 +457,17 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
     
     @IBAction func clickCompleteAndBackToMain() {
         Alert.showAlert(title: "是否要拍照紀錄一下你的里程紀錄呢？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
-            // todo: 拍照功能
+            self.imagePicker.sourceType = .camera
+            self.imagePicker.allowsEditing = true
+            self.imagePicker.delegate = self
+            self.present(self.imagePicker, animated: true)
+          
         } cancel: {
-            self.dismiss(animated: true)
+            Alert.showAlert(title: "要分享到朋友圈嗎？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
+                //存到 News
+            } cancel: {
+                self.dismiss(animated: true)
+            }
         }
     }
 }
@@ -479,6 +491,22 @@ extension MutipleConcentrateMemberVersionViewController: URLSessionWebSocketDele
         }
     }
     
+}
+
+// MARK: - ImagePickerControllerDelegate
+
+extension MutipleConcentrateMemberVersionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        self.dismiss(animated: true) {
+            let nextVC = TakePhotoToConcentrateRecordViewController()
+            let image = info[.originalImage] as? UIImage
+            print(image!)
+            nextVC.pictureImage = image
+            nextVC.concentrateType = .mutiple
+            nextVC.inviteRoomId = self.inviteRoomId
+            self.present(nextVC, animated: true)
+        }
+    }
 }
 
 // MARK: - Protocol

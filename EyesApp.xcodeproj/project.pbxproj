@@ -119,6 +119,9 @@
 		3FFD2B292AF106BE00D620B5 /* TakePhotoToConcentrateRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FFD2B272AF106BE00D620B5 /* TakePhotoToConcentrateRecordViewController.xib */; };
 		3FFD2B2D2AF15B2700D620B5 /* dotsBackground.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FFD2B2C2AF15B2700D620B5 /* dotsBackground.json */; };
 		3FFD2B2F2AF160C600D620B5 /* UploadAlongRecordImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD2B2E2AF160C600D620B5 /* UploadAlongRecordImageRequest.swift */; };
+		3FFD2B312AF238C200D620B5 /* UploadMtipleRecordImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD2B302AF238C200D620B5 /* UploadMtipleRecordImageRequest.swift */; };
+		3FFD2B352AF24A9000D620B5 /* HasPictureNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD2B332AF24A9000D620B5 /* HasPictureNewsTableViewCell.swift */; };
+		3FFD2B362AF24A9000D620B5 /* HasPictureNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FFD2B342AF24A9000D620B5 /* HasPictureNewsTableViewCell.xib */; };
 		5364894A85EA3AC094430E85 /* Pods_EyesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BB7DA1F85E5DC44B2FAC5D /* Pods_EyesApp.framework */; };
 		B06B88CC2AE7B97100695C8C /* BluetoothServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06B88CB2AE7B97100695C8C /* BluetoothServices.swift */; };
 		D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */; };
@@ -243,6 +246,9 @@
 		3FFD2B272AF106BE00D620B5 /* TakePhotoToConcentrateRecordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TakePhotoToConcentrateRecordViewController.xib; sourceTree = "<group>"; };
 		3FFD2B2C2AF15B2700D620B5 /* dotsBackground.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dotsBackground.json; sourceTree = "<group>"; };
 		3FFD2B2E2AF160C600D620B5 /* UploadAlongRecordImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadAlongRecordImageRequest.swift; sourceTree = "<group>"; };
+		3FFD2B302AF238C200D620B5 /* UploadMtipleRecordImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadMtipleRecordImageRequest.swift; sourceTree = "<group>"; };
+		3FFD2B332AF24A9000D620B5 /* HasPictureNewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasPictureNewsTableViewCell.swift; sourceTree = "<group>"; };
+		3FFD2B342AF24A9000D620B5 /* HasPictureNewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HasPictureNewsTableViewCell.xib; sourceTree = "<group>"; };
 		7676AE22173A08CF302C5B8F /* Pods-EyesApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.release.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.release.xcconfig"; sourceTree = "<group>"; };
 		B06B88CB2AE7B97100695C8C /* BluetoothServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothServices.swift; sourceTree = "<group>"; };
 		B4690A957F43C863D075AD8F /* Pods-EyesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.debug.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -440,6 +446,7 @@
 		3F44885E2A72A68000D573AB /* News */ = {
 			isa = PBXGroup;
 			children = (
+				3FFD2B322AF2499A00D620B5 /* Components */,
 				3F4488D42A74B9B500D573AB /* NewsViewController.swift */,
 				3F4488D52A74B9B500D573AB /* NewsViewController.xib */,
 			);
@@ -494,6 +501,7 @@
 				3FFD2B1F2AF014C500D620B5 /* FindAccountAPIRequest.swift */,
 				3FFD2B232AF0F04200D620B5 /* CompleteMutipleConcentrateRequest.swift */,
 				3FFD2B2E2AF160C600D620B5 /* UploadAlongRecordImageRequest.swift */,
+				3FFD2B302AF238C200D620B5 /* UploadMtipleRecordImageRequest.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -643,6 +651,15 @@
 				3FFD2B272AF106BE00D620B5 /* TakePhotoToConcentrateRecordViewController.xib */,
 			);
 			path = TakePhotoToConcentrateRecord;
+			sourceTree = "<group>";
+		};
+		3FFD2B322AF2499A00D620B5 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3FFD2B332AF24A9000D620B5 /* HasPictureNewsTableViewCell.swift */,
+				3FFD2B342AF24A9000D620B5 /* HasPictureNewsTableViewCell.xib */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		45B2180F3F537D6E8999AA74 /* Pods */ = {
@@ -815,6 +832,7 @@
 				3FFD2B292AF106BE00D620B5 /* TakePhotoToConcentrateRecordViewController.xib in Resources */,
 				3F9B36F02AECF1B200CDB36A /* InviteRoomListTableViewCell.xib in Resources */,
 				3FF44B1D2AD57598007A4ECA /* 144251-check.json in Resources */,
+				3FFD2B362AF24A9000D620B5 /* HasPictureNewsTableViewCell.xib in Resources */,
 				3FFD2B2D2AF15B2700D620B5 /* dotsBackground.json in Resources */,
 				3F2956892AE6A2AC00DFD45E /* InviteFriendsTableViewCell.xib in Resources */,
 				3F9B38B62AEF952000CDB36A /* MutipleConcentrateMemberVersionViewController.xib in Resources */,
@@ -890,6 +908,7 @@
 				D8925D1E2A4D1FAC00DB9EC9 /* NetworkConstants.swift in Sources */,
 				3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */,
 				3FA2B4F12AE3D217005D0A16 /* FriendInviteTableViewCell.swift in Sources */,
+				3FFD2B312AF238C200D620B5 /* UploadMtipleRecordImageRequest.swift in Sources */,
 				3F44875F2A71736400D573AB /* RegisterRequest.swift in Sources */,
 				3F29561E2AE6301D00DFD45E /* AddConcentrateRecordRequest.swift in Sources */,
 				3FB632312AC947C30015AF8D /* GetFriendListRequest.swift in Sources */,
@@ -902,6 +921,7 @@
 				3FA2B4EC2AE3BDD7005D0A16 /* GetFriendInviteListRequest.swift in Sources */,
 				3F35FA292AE274C700465D9E /* AddFriendViewController.swift in Sources */,
 				3F44886A2A72A79000D573AB /* ConcentrateViewController.swift in Sources */,
+				3FFD2B352AF24A9000D620B5 /* HasPictureNewsTableViewCell.swift in Sources */,
 				3F9B38AA2AEEB30200CDB36A /* MutipleStartConcentrateViewController.swift in Sources */,
 				3F9B36EA2AECD77F00CDB36A /* AddToInviteRoomRequest.swift in Sources */,
 				3F5005472AB0B355007D9DED /* UploadImageRequest.swift in Sources */,

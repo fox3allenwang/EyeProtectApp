@@ -12,6 +12,7 @@ class NewsViewController: UIViewController {
     // MARK: - IBOutlet
     
     
+    
     // MARK: - Variables
     
     

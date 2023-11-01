@@ -321,7 +321,7 @@ class StartConcentrateViewController: UIViewController {
                               duration: 0.2,
                               options: .transitionCrossDissolve) {
                 self.btnConfirm?.isHidden = true
-                self.btnConfirm?.setTitle("關閉", for: .normal)
+                self.btnConfirm?.setTitle("完成專注", for: .normal)
             }
             restStatus = true
         } else {
@@ -333,7 +333,11 @@ class StartConcentrateViewController: UIViewController {
                     self.present(self.imagePicker, animated: true)
                   
                 } cancel: {
-                    self.dismiss(animated: true)
+                    Alert.showAlert(title: "要分享到朋友圈嗎？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
+                        //存到 News
+                    } cancel: {
+                        self.dismiss(animated: true)
+                    }
                 }
             } else {
                 self.dismiss(animated: true)
@@ -343,7 +347,7 @@ class StartConcentrateViewController: UIViewController {
     
 }
 
-// MARK: - Extension
+// MARK: - ImagePickerControllerDelegate
 
 extension StartConcentrateViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

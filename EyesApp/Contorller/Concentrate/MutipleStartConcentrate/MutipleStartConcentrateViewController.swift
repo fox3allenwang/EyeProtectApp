@@ -36,7 +36,8 @@ class MutipleStartConcentrateViewController: UIViewController {
     var giveUpStatus = false
     var wsMutipleConcentrate: URLSessionWebSocketTask? = nil
     var inviteMemberList: [InviteRoomMember] = []
-    
+    let imagePicker = UIImagePickerController()
+    var isDoneForConcentrate = false
     
     
     // MARK: - LifeCycle
@@ -49,19 +50,22 @@ class MutipleStartConcentrateViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         lbTime?.text = concentrateTime
-        callWebSocketStartMutipleConcentrate(path: .wsMutipleConcentrate,
-                                             parameters: "\(inviteRoomId)&HostAT:\(UserPreferences.shared.accountId)",
-                                             needToken: true)
-        
+        if isDoneForConcentrate == false {
+            callWebSocketStartMutipleConcentrate(path: .wsMutipleConcentrate,
+                                                 parameters: "\(inviteRoomId)&HostAT:\(UserPreferences.shared.accountId)",
+                                                 needToken: true)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        ProgressHUD.colorAnimation = .buttomColor!
-        ProgressHUD.colorHUD = .themeColor!
-        ProgressHUD.animationType = .lineSpinFade
-        ProgressHUD.show("等待成員進入中...")
-        sendWSMessage(message: "\(inviteRoomId) 進入專注模式，人數： \(inviteMemberList.count)")
+        if isDoneForConcentrate == false {
+            ProgressHUD.colorAnimation = .buttomColor!
+            ProgressHUD.colorHUD = .themeColor!
+            ProgressHUD.animationType = .lineSpinFade
+            ProgressHUD.show("等待成員進入中...")
+            sendWSMessage(message: "\(inviteRoomId) 進入專注模式，人數： \(inviteMemberList.count)")
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -175,6 +179,7 @@ class MutipleStartConcentrateViewController: UIViewController {
         }
         
         if total == 0 {
+            isDoneForConcentrate = true
             pushConcentrateNotification()
             countConcentrateTimer.invalidate()
             lbTime?.text = "00:00:00"
@@ -454,14 +459,22 @@ class MutipleStartConcentrateViewController: UIViewController {
                               duration: 0.2,
                               options: .transitionCrossDissolve) {
                 self.btnConfirm?.isHidden = true
-                self.btnConfirm?.setTitle("關閉", for: .normal)
+                self.btnConfirm?.setTitle("完成專注", for: .normal)
             }
             restStatus = true
         } else {
             Alert.showAlert(title: "是否要拍照紀錄一下你的里程紀錄呢？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
-                // todo: 拍照功能
+                self.imagePicker.sourceType = .camera
+                self.imagePicker.allowsEditing = true
+                self.imagePicker.delegate = self
+                self.present(self.imagePicker, animated: true)
+              
             } cancel: {
-                self.dismiss(animated: true)
+                Alert.showAlert(title: "要分享到朋友圈嗎？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
+                    //存到 News
+                } cancel: {
+                    self.dismiss(animated: true)
+                }
             }
         }
     }
@@ -486,7 +499,22 @@ extension MutipleStartConcentrateViewController: URLSessionWebSocketDelegate {
             print("error")
         }
     }
-    
+}
+
+// MARK: - ImagePickerControllerDelegate
+
+extension MutipleStartConcentrateViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        self.dismiss(animated: true) {
+            let nextVC = TakePhotoToConcentrateRecordViewController()
+            let image = info[.originalImage] as? UIImage
+            print(image!)
+            nextVC.pictureImage = image
+            nextVC.concentrateType = .mutiple
+            nextVC.inviteRoomId = self.inviteRoomId
+            self.present(nextVC, animated: true)
+        }
+    }
 }
 
 // MARK: - Protocol

@@ -146,6 +146,36 @@ class TakePhotoToConcentrateRecordViewController: UIViewController {
         }
     }
     
+    // MARK: - callAPIUploadMtipleRecordImageRequest
+    
+    func callAPIUploadMtipleRecordImageRequest(inviteRoomId: String,
+                                               accountId: String,
+                                               image: String,
+                                               description: String,
+                                               completionHandler: (() -> Void)? = nil) {
+        let request = UploadMtipleRecordImageRequest(inviteRoomId: UUID(uuidString: inviteRoomId)!,
+                                                     accountId: UUID(uuidString: accountId)!,
+                                                     image: image,
+                                                     description: description)
+        
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .uploadMtipleRecordImage,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if result.message == "更新成功" {
+                    completionHandler?()
+                } else {
+                    Alert.showAlert(title: "錯誤", message: result.message, vc: self, confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤", message: "\(error)", vc: self, confirmTitle: "確認")
+            }
+        }
+    }
+    
     // MARK: - IBAction
     
     @IBAction func clickCancelButton() {
@@ -160,18 +190,42 @@ class TakePhotoToConcentrateRecordViewController: UIViewController {
     }
     
     @IBAction func clickConfirm() {
+        
+        var description = ""
+        
+        if txvNote?.textColor == UIColor.black {
+            description = (txvNote?.text)!
+        }
+        
         if concentrateType == .along {
-            var description = ""
-            
-            if txvNote?.textColor == UIColor.black {
-                description = (txvNote?.text)!
-            }
-            
             callApiUploadAlongRecordImage(recordId: recordId,
                                           image: (imgvPicture?.image?.imageToBase64())!,
                                           description: description) {
                 Alert.showAlert(title: "上傳成功", message: "", vc: self, confirmTitle: "確認") {
+                    Alert.showAlert(title: "要分享到朋友圈嗎？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
+                        // 存資料到朋友圈
+                        
+                        
                         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    } cancel: {
+                        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    }
+                }
+            }
+        } else {
+            callAPIUploadMtipleRecordImageRequest(inviteRoomId: inviteRoomId,
+                                                  accountId: UserPreferences.shared.accountId,
+                                                  image: (imgvPicture?.image?.imageToBase64())!,
+                                                  description: description) {
+                Alert.showAlert(title: "上傳成功", message: "", vc: self, confirmTitle: "確認") {
+                    Alert.showAlert(title: "要分享到朋友圈嗎？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
+                        // 存資料到朋友圈
+                        
+                        
+                        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    } cancel: {
+                        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    }
                 }
             }
         }
