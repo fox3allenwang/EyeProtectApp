@@ -15,6 +15,8 @@ class BluetoothServices: NSObject {
     var central: CBCentralManager?
     var peripheral: CBPeripheralManager?
     
+    weak var delegate: BluetoothServicesDelegate?
+    
     ///  初始化：副線程
     private override init() {
         super.init()
@@ -96,7 +98,10 @@ extension BluetoothServices: CBCentralManagerDelegate {
               let characteristic = Lamp.characteristic else {
             return
         }
-        peripheral.writeValue(data, for: characteristic, type: type)
+        for _ in 0...19 {
+            peripheral.writeValue(data, for: characteristic, type: type)
+            Thread.sleep(forTimeInterval: 0.01)
+        }
     }
 }
 
@@ -143,6 +148,15 @@ extension BluetoothServices: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral,
                     didUpdateValueFor characteristic: CBCharacteristic,
                     error: Error?) {
+        guard characteristic == Bluelight.characteristic,
+              let characteristicValue = characteristic.value,
+              let ASCIIstring = String(data: characteristicValue,
+                                       encoding: String.Encoding.utf8) else {
+            return
+        }
+        let characteristicASCIIValue = Character(ASCIIstring)
+        
+//        delegate?.getBlEPeripheralValue(value: characteristicASCIIValue.asciiValue!)
     }
 }
 
@@ -167,4 +181,8 @@ extension BluetoothServices: CBPeripheralManagerDelegate {
             print("藍芽裝置未知狀態")
         }
     }
+}
+
+protocol BluetoothServicesDelegate: NSObjectProtocol {
+    func getBlEPeripheralValue(value: UInt8)
 }

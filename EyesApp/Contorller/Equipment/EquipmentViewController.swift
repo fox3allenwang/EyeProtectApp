@@ -52,7 +52,12 @@ class EquipmentViewController: UIViewController {
     
     func setupUI() {
         setupImageView()
+        setupBlueServices()
         setupEquipmentView()
+    }
+    
+    func setupBlueServices() {
+        bluetooth.delegate = self
     }
     
     func setupImageView() {
@@ -88,8 +93,13 @@ class EquipmentViewController: UIViewController {
     @IBAction func clickbtnLight() {
         bluetooth.connectPeripheral(peripheral: Lamp.peripheral!)
         
-        let data = "0".data(using: .utf8)
-        bluetooth.writeValue(type: .withoutResponse, data: data!)
+        if lightSlider.isHidden == false {
+            let data = "B".data(using: .utf8)
+            bluetooth.writeValue(type: .withoutResponse, data: data!)
+        } else {
+            let data = "A".data(using: .utf8)
+            bluetooth.writeValue(type: .withoutResponse, data: data!)
+        }
     }
     
     // 調亮度放這裡
@@ -102,48 +112,59 @@ class EquipmentViewController: UIViewController {
                                      blue: changeImageValueB!, alpha: 1)
         let step: Float = 20
         lightSlider.value = (lightSlider.value / step).rounded() * step
+        switch lightSlider.value {
+        case 100:
+            let data = "5".data(using: .utf8)
+            bluetooth.writeValue(type: .withoutResponse, data: data!)
+        case 80:
+            let data = "4".data(using: .utf8)
+            bluetooth.writeValue(type: .withoutResponse, data: data!)
+        case 60:
+            let data = "3".data(using: .utf8)
+            bluetooth.writeValue(type: .withoutResponse, data: data!)
+        case 40:
+            let data = "2".data(using: .utf8)
+            bluetooth.writeValue(type: .withoutResponse, data: data!)
+        case 20:
+            let data = "1".data(using: .utf8)
+            bluetooth.writeValue(type: .withoutResponse, data: data!)
+        case 0:
+            let data = "0".data(using: .utf8)
+            bluetooth.writeValue(type: .withoutResponse, data: data!)
+        default:
+            break
+        }
     }
     
     @IBAction func clickLightBtn() {
-        bluetooth.connectPeripheral(peripheral: Lamp.peripheral!)
-        
         if #available(iOS 16.0, *) {
             if lightSlider.isHidden == false {
-                let data = "F".data(using: .utf8)
-                bluetooth.writeValue(type: .withoutResponse, data: data!)
-                
                 lightSlider.isHidden = true
                 ivgLight.image = UIImage(systemName: "lamp.desk")
                 lightView.backgroundColor = UIColor.buttomColor
                 ivgLight.tintColor = .white
             } else {
-                let data = "O".data(using: .utf8)
-                bluetooth.writeValue(type: .withoutResponse, data: data!)
-                
                 lightSlider.isHidden = false
                 ivgLight.image = UIImage(systemName: "lamp.desk.fill")
             }
         } else {
             if lightSlider.isHidden == false {
-                let data = "F".data(using: .utf8)
-                bluetooth.writeValue(type: .withoutResponse, data: data!)
-                
                 lightSlider.isHidden = true
                 ivgLight.image = UIImage(systemName: "lightbulb")
                 lightView.backgroundColor = UIColor.buttomColor
                 ivgLight.tintColor = .white
             } else {
-                let data = "O".data(using: .utf8)
-                bluetooth.writeValue(type: .withoutResponse, data: data!)
-                
                 lightSlider.isHidden = false
                 ivgLight.image = UIImage(systemName: "lightbulb.fill")
             }
         }
     }
-    
 }
 
 // MARK: - Extension
 
+extension EquipmentViewController: BluetoothServicesDelegate {
+    func getBlEPeripheralValue(value: UInt8) {
+    }
+}
 // MARK: - Protocol
