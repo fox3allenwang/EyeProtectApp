@@ -122,6 +122,8 @@
 		3FFD2B312AF238C200D620B5 /* UploadMtipleRecordImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD2B302AF238C200D620B5 /* UploadMtipleRecordImageRequest.swift */; };
 		3FFD2B352AF24A9000D620B5 /* HasPictureNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD2B332AF24A9000D620B5 /* HasPictureNewsTableViewCell.swift */; };
 		3FFD2B362AF24A9000D620B5 /* HasPictureNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FFD2B342AF24A9000D620B5 /* HasPictureNewsTableViewCell.xib */; };
+		3FFD2B3A2AF29D8F00D620B5 /* AddConcentrateToNewsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD2B392AF29D8F00D620B5 /* AddConcentrateToNewsRequest.swift */; };
+		3FFD2B3C2AF2C62600D620B5 /* UseInviteRoomIdAndAccountIdTofindConcentrateRecordIdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD2B3B2AF2C62600D620B5 /* UseInviteRoomIdAndAccountIdTofindConcentrateRecordIdRequest.swift */; };
 		5364894A85EA3AC094430E85 /* Pods_EyesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BB7DA1F85E5DC44B2FAC5D /* Pods_EyesApp.framework */; };
 		B06B88CC2AE7B97100695C8C /* BluetoothServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06B88CB2AE7B97100695C8C /* BluetoothServices.swift */; };
 		D8925D1C2A4D1F3C00DB9EC9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8925D1B2A4D1F3C00DB9EC9 /* NetworkManager.swift */; };
@@ -249,6 +251,8 @@
 		3FFD2B302AF238C200D620B5 /* UploadMtipleRecordImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadMtipleRecordImageRequest.swift; sourceTree = "<group>"; };
 		3FFD2B332AF24A9000D620B5 /* HasPictureNewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasPictureNewsTableViewCell.swift; sourceTree = "<group>"; };
 		3FFD2B342AF24A9000D620B5 /* HasPictureNewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HasPictureNewsTableViewCell.xib; sourceTree = "<group>"; };
+		3FFD2B392AF29D8F00D620B5 /* AddConcentrateToNewsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddConcentrateToNewsRequest.swift; sourceTree = "<group>"; };
+		3FFD2B3B2AF2C62600D620B5 /* UseInviteRoomIdAndAccountIdTofindConcentrateRecordIdRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseInviteRoomIdAndAccountIdTofindConcentrateRecordIdRequest.swift; sourceTree = "<group>"; };
 		7676AE22173A08CF302C5B8F /* Pods-EyesApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.release.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.release.xcconfig"; sourceTree = "<group>"; };
 		B06B88CB2AE7B97100695C8C /* BluetoothServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothServices.swift; sourceTree = "<group>"; };
 		B4690A957F43C863D075AD8F /* Pods-EyesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyesApp.debug.xcconfig"; path = "Target Support Files/Pods-EyesApp/Pods-EyesApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -502,6 +506,8 @@
 				3FFD2B232AF0F04200D620B5 /* CompleteMutipleConcentrateRequest.swift */,
 				3FFD2B2E2AF160C600D620B5 /* UploadAlongRecordImageRequest.swift */,
 				3FFD2B302AF238C200D620B5 /* UploadMtipleRecordImageRequest.swift */,
+				3FFD2B392AF29D8F00D620B5 /* AddConcentrateToNewsRequest.swift */,
+				3FFD2B3B2AF2C62600D620B5 /* UseInviteRoomIdAndAccountIdTofindConcentrateRecordIdRequest.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -904,6 +910,7 @@
 				3FA2B4E92AE2F15C005D0A16 /* NSNotification+Extension.swift in Sources */,
 				3F8ED6682AE81F3600102F40 /* CreatInviteRoomRequest.swift in Sources */,
 				3F9B38A42AED738A00CDB36A /* RemoveToInviteRoomRequest.swift in Sources */,
+				3FFD2B3C2AF2C62600D620B5 /* UseInviteRoomIdAndAccountIdTofindConcentrateRecordIdRequest.swift in Sources */,
 				3F9B38AF2AEEBD8E00CDB36A /* StartMutipleConcentrateRequest.swift in Sources */,
 				D8925D1E2A4D1FAC00DB9EC9 /* NetworkConstants.swift in Sources */,
 				3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */,
@@ -932,6 +939,7 @@
 				3F4489BB2A77FDA700D573AB /* ARkitCount.swift in Sources */,
 				3261461F2A17808900855A6E /* BaseTabBarController.swift in Sources */,
 				3FFD2B2F2AF160C600D620B5 /* UploadAlongRecordImageRequest.swift in Sources */,
+				3FFD2B3A2AF29D8F00D620B5 /* AddConcentrateToNewsRequest.swift in Sources */,
 				3F9B38A62AEE6ABF00CDB36A /* RemoveInviteRoomRequest.swift in Sources */,
 				3FA2B4F82AE57115005D0A16 /* StartConcentrateViewController.swift in Sources */,
 				3F89F83A2AE0314D00E8781C /* AuthenticationResponse.swift in Sources */,

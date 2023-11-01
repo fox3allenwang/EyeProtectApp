@@ -11,7 +11,7 @@ class NewsViewController: UIViewController {
     
     // MARK: - IBOutlet
     
-    
+    @IBOutlet weak var tbvNews: UITableView?
     
     // MARK: - Variables
     
@@ -20,6 +20,7 @@ class NewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +43,15 @@ class NewsViewController: UIViewController {
     // MARK: - UI Settings
     
     func setupUI() {
-        
+        setupNewsTableView()
+    }
+    
+    func setupNewsTableView() {
+        tbvNews?.register(UINib(nibName: "HasPictureNewsTableViewCell", bundle: nil), forCellReuseIdentifier: HasPictureNewsTableViewCell.identified)
+        tbvNews!.estimatedRowHeight = 100
+        tbvNews!.rowHeight = UITableView.automaticDimension
+        tbvNews?.dataSource = self
+        tbvNews?.delegate = self
     }
     
     // MARK: - IBAction
@@ -50,5 +59,20 @@ class NewsViewController: UIViewController {
 }
 
 // MARK: - Extension
+
+extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tbvNews?.dequeueReusableCell(withIdentifier: HasPictureNewsTableViewCell.identified,
+                                                for: indexPath) as! HasPictureNewsTableViewCell
+        cell.imgvPicture?.image = UIImage(systemName: "person.fill")
+        return cell
+    }
+    
+    
+}
 
 // MARK: - Protocol

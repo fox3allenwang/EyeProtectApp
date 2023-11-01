@@ -237,6 +237,7 @@ class MainViewController: BaseViewController {
                             self.vInviteRoom.isHidden = true
                             self.wsInviteRoom?.cancel()
                             self.inviteMemberList = []
+                            self.tbvInviteRoomMember.reloadData()
                         }
                     } else if string.contains("進入專注模式"){
                         self.vInviteRoom.isHidden = true

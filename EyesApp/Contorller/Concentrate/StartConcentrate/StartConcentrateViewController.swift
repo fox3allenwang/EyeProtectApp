@@ -140,10 +140,6 @@ class StartConcentrateViewController: UIViewController {
         
         var total = h * 3600 + min * 60 + sec
         
-        // 修改
-        total = 1
-        // 修改
-        
         total -= 1
         
         sec = total % 60
@@ -192,10 +188,6 @@ class StartConcentrateViewController: UIViewController {
         var sec = Int((lbTime?.text?.suffix(2))!) ?? 0
         var min = Int((lbTime?.text?.prefix(2))!) ?? 0
         var total = min * 60 + sec
-        
-        // 修改
-        total = 1
-        // 修改
         
         total -= 1
         sec = total % 60
@@ -259,6 +251,36 @@ class StartConcentrateViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: - callAPIAddConcentrateToNews
+    
+    func callApiAddConcentrateToNews(concentrateRecordId: String,
+                                     completionHandler: (() -> Void)? = nil) {
+        let request = AddConcentrateToNewsRequest(concentrateRecordId: UUID(uuidString: concentrateRecordId)!)
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .addConcentrateToNews,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if result.message == "發送成功" {
+                    completionHandler?()
+                } else {
+                    Alert.showAlert(title: "錯誤",
+                                    message: result.message,
+                                    vc: self,
+                                    confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤",
+                                message: "\(error)",
+                                vc: self,
+                                confirmTitle: "確認")
+            }
+        }
+    }
+    
     
     // MARK: - IBAction
     
@@ -334,7 +356,14 @@ class StartConcentrateViewController: UIViewController {
                   
                 } cancel: {
                     Alert.showAlert(title: "要分享到朋友圈嗎？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
-                        //存到 News
+                        self.callApiAddConcentrateToNews(concentrateRecordId: self.concentrateRecordId) {
+                            Alert.showAlert(title: "分享成功",
+                                            message: "",
+                                            vc: self,
+                                            confirmTitle: "確認") {
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                        }
                     } cancel: {
                         self.dismiss(animated: true)
                     }

@@ -424,6 +424,65 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
             }
         }
     }
+    // MARK: - callAPIUseInviteRoomIdAndAccountIdTofindConcentrateRecordId
+    
+    func callApiUseInviteRoomIdAndAccountIdTofindConcentrateRecordId(inviteRoomId: String,
+                                                                     accountId: String,
+                                                                     completionHandler: ((String) -> Void)? = nil) {
+        let request = UseInviteRoomIdAndAccountIdTofindConcentrateRecordIdRequest(inviteRoomId: UUID(uuidString: inviteRoomId)!,
+                                                                                  accountId: UUID(uuidString: accountId)!)
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .useInviteRoomIdAndAccountIdTofindConcentrateRecordId,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if result.message == "查詢成功" {
+                    completionHandler?(result.data!)
+                } else {
+                    Alert.showAlert(title: "錯誤",
+                                    message: result.message,
+                                    vc: self,
+                                    confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤",
+                                message: "\(error)",
+                                vc: self,
+                                confirmTitle: "確認")
+            }
+        }
+    }
+    
+    // MARK: - callAPIAddConcentrateToNews
+    
+    func callApiAddConcentrateToNews(concentrateRecordId: String,
+                                     completionHandler: (() -> Void)? = nil) {
+        let request = AddConcentrateToNewsRequest(concentrateRecordId: UUID(uuidString: concentrateRecordId)!)
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .addConcentrateToNews,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if result.message == "發送成功" {
+                    completionHandler?()
+                } else {
+                    Alert.showAlert(title: "錯誤",
+                                    message: result.message,
+                                    vc: self,
+                                    confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤",
+                                message: "\(error)",
+                                vc: self,
+                                confirmTitle: "確認")
+            }
+        }
+    }
     
     // MARK: - IBAction
     
@@ -464,7 +523,17 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
           
         } cancel: {
             Alert.showAlert(title: "要分享到朋友圈嗎？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
-                //存到 News
+                self.callApiUseInviteRoomIdAndAccountIdTofindConcentrateRecordId(inviteRoomId: self.inviteRoomId,
+                                                                                 accountId: UserPreferences.shared.accountId) { recordId in
+                    self.callApiAddConcentrateToNews(concentrateRecordId: recordId) {
+                        Alert.showAlert(title: "分享成功",
+                                        message: "",
+                                        vc: self,
+                                        confirmTitle: "確認") {
+                            self.dismiss(animated: true)
+                        }
+                    }
+                }
             } cancel: {
                 self.dismiss(animated: true)
             }

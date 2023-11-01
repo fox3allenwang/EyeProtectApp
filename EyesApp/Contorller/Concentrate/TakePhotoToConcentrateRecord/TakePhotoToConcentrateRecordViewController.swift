@@ -26,6 +26,7 @@ class TakePhotoToConcentrateRecordViewController: UIViewController {
     var inviteRoomId = ""
     var recordId = ""
     var concentrateType: alongOrMutiple = .along
+    var concentrateRecordId: String? = nil
     
     enum alongOrMutiple {
         case along
@@ -118,7 +119,7 @@ class TakePhotoToConcentrateRecordViewController: UIViewController {
     func callApiUploadAlongRecordImage(recordId: String,
                                        image: String,
                                        description: String,
-                                       completionHandler: (() -> Void)? = nil) {
+                                       completionHandler: ((String) -> Void)? = nil) {
         let request = UploadAlongRecordImageRequest(recordId: UUID(uuidString: recordId)!,
                                                     image: image,
                                                     description: description)
@@ -129,7 +130,7 @@ class TakePhotoToConcentrateRecordViewController: UIViewController {
                                                                                              parameters: request,
                                                                                              needToken: true)
                 if result.message == "更新成功" {
-                    completionHandler?()
+                    completionHandler?(result.data!)
                 } else {
                     Alert.showAlert(title: "錯誤",
                                     message: result.message,
@@ -152,7 +153,7 @@ class TakePhotoToConcentrateRecordViewController: UIViewController {
                                                accountId: String,
                                                image: String,
                                                description: String,
-                                               completionHandler: (() -> Void)? = nil) {
+                                               completionHandler: ((String) -> Void)? = nil) {
         let request = UploadMtipleRecordImageRequest(inviteRoomId: UUID(uuidString: inviteRoomId)!,
                                                      accountId: UUID(uuidString: accountId)!,
                                                      image: image,
@@ -165,13 +166,42 @@ class TakePhotoToConcentrateRecordViewController: UIViewController {
                                                                                              parameters: request,
                                                                                              needToken: true)
                 if result.message == "更新成功" {
-                    completionHandler?()
+                    completionHandler?(result.data!)
                 } else {
                     Alert.showAlert(title: "錯誤", message: result.message, vc: self, confirmTitle: "確認")
                 }
             } catch {
                 print(error)
                 Alert.showAlert(title: "錯誤", message: "\(error)", vc: self, confirmTitle: "確認")
+            }
+        }
+    }
+    
+    // MARK: - callAPIAddConcentrateToNews
+    
+    func callApiAddConcentrateToNews(concentrateRecordId: String,
+                                     completionHandler: (() -> Void)? = nil) {
+        let request = AddConcentrateToNewsRequest(concentrateRecordId: UUID(uuidString: concentrateRecordId)!)
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                             path: .addConcentrateToNews,
+                                                                                             parameters: request,
+                                                                                             needToken: true)
+                if result.message == "發送成功" {
+                    completionHandler?()
+                } else {
+                    Alert.showAlert(title: "錯誤",
+                                    message: result.message,
+                                    vc: self,
+                                    confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤",
+                                message: "\(error)",
+                                vc: self,
+                                confirmTitle: "確認")
             }
         }
     }
@@ -200,13 +230,19 @@ class TakePhotoToConcentrateRecordViewController: UIViewController {
         if concentrateType == .along {
             callApiUploadAlongRecordImage(recordId: recordId,
                                           image: (imgvPicture?.image?.imageToBase64())!,
-                                          description: description) {
+                                          description: description) { recordId in
                 Alert.showAlert(title: "上傳成功", message: "", vc: self, confirmTitle: "確認") {
                     Alert.showAlert(title: "要分享到朋友圈嗎？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
                         // 存資料到朋友圈
-                        
-                        
-                        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                        self.concentrateRecordId = recordId
+                        self.callApiAddConcentrateToNews(concentrateRecordId: self.concentrateRecordId!) {
+                            Alert.showAlert(title: "分享成功",
+                                            message: "",
+                                            vc: self,
+                                            confirmTitle: "確認") {
+                                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                            }
+                        }
                     } cancel: {
                         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                     }
@@ -216,13 +252,19 @@ class TakePhotoToConcentrateRecordViewController: UIViewController {
             callAPIUploadMtipleRecordImageRequest(inviteRoomId: inviteRoomId,
                                                   accountId: UserPreferences.shared.accountId,
                                                   image: (imgvPicture?.image?.imageToBase64())!,
-                                                  description: description) {
+                                                  description: description) { recordId in
                 Alert.showAlert(title: "上傳成功", message: "", vc: self, confirmTitle: "確認") {
                     Alert.showAlert(title: "要分享到朋友圈嗎？", message: "", vc: self, confirmTitle: "要", cancelTitle: "不要") {
                         // 存資料到朋友圈
-                        
-                        
-                        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                        self.concentrateRecordId = recordId
+                        self.callApiAddConcentrateToNews(concentrateRecordId: self.concentrateRecordId!) {
+                            Alert.showAlert(title: "分享成功",
+                                            message: "",
+                                            vc: self,
+                                            confirmTitle: "確認") {
+                                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                            }
+                        }
                     } cancel: {
                         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                     }

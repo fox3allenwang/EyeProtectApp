@@ -737,6 +737,7 @@ class ConcentrateViewController: UIViewController {
             nextVC.inviteRoomId = self.inviteRoomId
             nextVC.inviteMemberList = self.inviteMemberList
             self.inviteMemberList = []
+            self.tbvInviteRoomList?.reloadData()
             self.vAddInvite?.isHidden = true
             nextVC.isModalInPresentation = true
             self.present(nextVC, animated: true)

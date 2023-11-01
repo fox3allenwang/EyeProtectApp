@@ -12,7 +12,7 @@ struct NetworkConstants {
     static let httpBaseUrl = "http://"
     static let httpsBaseUrl = "https://"
     static let webSocketBaseUrl = "ws://"
-    static let server = "192.168.1.223:8080"
+    static let server = "192.168.8.156:8080"
     
     enum HttpHeaderField: String {
         case authentication = "Authorization"
@@ -85,4 +85,6 @@ enum ApiPathConstants: String {
     case completeMutipleConcentrate = "/api/concentrateRecord/completeMutipleConcentrate"
     case uploadAlongRecordImage = "/api/concentrateRecord/uploadAlongRecordImage"
     case uploadMtipleRecordImage = "/api/concentrateRecord/uploadMtipleRecordImage"
+    case addConcentrateToNews = "/api/news/addConcentrateToNews"
+    case useInviteRoomIdAndAccountIdTofindConcentrateRecordId = "/api/concentrateRecord/useInviteRoomIdAndAccountIdTofindConcentrateRecordId"
 }
