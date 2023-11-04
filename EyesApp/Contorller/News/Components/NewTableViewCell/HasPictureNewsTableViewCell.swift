@@ -12,8 +12,8 @@ class HasPictureNewsTableViewCell: UITableViewCell {
     // MARK: - IBOutlet
     
     @IBOutlet weak var imgvUser: UIImageView?
-    @IBOutlet weak var titleLabel: UILabel?
-    @IBOutlet weak var descriptionLabel: UILabel?
+    @IBOutlet weak var lbTitle: UILabel?
+    @IBOutlet weak var lbDescription: UILabel?
     @IBOutlet weak var imgvPicture: UIImageView?
     @IBOutlet weak var vPictureBackground: UIView?
     @IBOutlet weak var btnShowReply: UIButton?
@@ -27,6 +27,14 @@ class HasPictureNewsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        imgvUser!.layer.cornerRadius = imgvUser!.frame.width / 2
+        imgvUser!.layer.borderWidth = 1
+        imgvUser!.layer.borderColor = UIColor.buttomColor?.cgColor
+        
+        vPictureBackground!.layer.cornerRadius = 20
+        vPictureBackground!.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
+        vPictureBackground!.layer.shadowOpacity = 0.1
+        vPictureBackground!.layer.shadowRadius = 20
         
     }
     

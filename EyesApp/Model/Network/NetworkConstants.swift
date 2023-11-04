@@ -87,4 +87,9 @@ enum ApiPathConstants: String {
     case uploadMtipleRecordImage = "/api/concentrateRecord/uploadMtipleRecordImage"
     case addConcentrateToNews = "/api/news/addConcentrateToNews"
     case useInviteRoomIdAndAccountIdTofindConcentrateRecordId = "/api/concentrateRecord/useInviteRoomIdAndAccountIdTofindConcentrateRecordId"
+    case loadNews = "/api/news/loadNews"
+    case addNewsReply = "/api/newsReply/addNewsReply"
+    case loadNewsReply = "/api/newsReply/loadNewsReply"
+    case deleteReply = "/api/newsReply/deleteReply"
+    case editReply = "/api/newsReply/editReply"
 }

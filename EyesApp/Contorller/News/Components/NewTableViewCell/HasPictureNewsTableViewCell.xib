@@ -31,9 +31,9 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="wqJ-R4-yoZ">
-                        <rect key="frame" x="58" y="9" width="224" height="42"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="wqJ-R4-yoZ">
+                        <rect key="frame" x="58" y="9" width="252" height="42"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -47,13 +47,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="moK-sV-lUc" firstAttribute="height" secondItem="NTg-D1-5fx" secondAttribute="height" multiplier="0.9" id="4B1-d9-9mu"/>
+                            <constraint firstAttribute="height" constant="271" id="86n-Md-abn"/>
                             <constraint firstItem="moK-sV-lUc" firstAttribute="centerY" secondItem="NTg-D1-5fx" secondAttribute="centerY" id="mhT-XY-hOf"/>
                             <constraint firstItem="moK-sV-lUc" firstAttribute="width" secondItem="NTg-D1-5fx" secondAttribute="width" multiplier="0.9" id="sWw-Tm-Nzv"/>
                             <constraint firstItem="moK-sV-lUc" firstAttribute="centerX" secondItem="NTg-D1-5fx" secondAttribute="centerX" id="zrN-3y-hwJ"/>
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYj-gA-f3Q">
-                        <rect key="frame" x="10" y="360" width="224" height="30"/>
+                        <rect key="frame" x="10" y="360" width="160" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" title="Button">
@@ -63,7 +64,6 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="NMO-5F-P4D" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="1yS-Cx-uUd"/>
-                    <constraint firstItem="wqJ-R4-yoZ" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.7" id="2VN-Hw-os9"/>
                     <constraint firstItem="NMO-5F-P4D" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="8BZ-xy-3CD"/>
                     <constraint firstAttribute="trailing" secondItem="zTg-7p-yVA" secondAttribute="trailing" constant="10" id="NLH-pV-pAE"/>
                     <constraint firstItem="zTg-7p-yVA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="hSL-Iz-uwO"/>
@@ -75,20 +75,21 @@
                     <constraint firstItem="NTg-D1-5fx" firstAttribute="top" secondItem="zTg-7p-yVA" secondAttribute="bottom" constant="8" symbolic="YES" id="nrt-z6-0ML"/>
                     <constraint firstAttribute="trailing" secondItem="NTg-D1-5fx" secondAttribute="trailing" constant="10" id="rlj-OF-zaf"/>
                     <constraint firstItem="wqJ-R4-yoZ" firstAttribute="leading" secondItem="NMO-5F-P4D" secondAttribute="trailing" constant="8" symbolic="YES" id="rpK-Ii-ShT"/>
+                    <constraint firstAttribute="trailing" secondItem="wqJ-R4-yoZ" secondAttribute="trailing" constant="10" id="wXy-rN-NgH"/>
                     <constraint firstItem="NTg-D1-5fx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="xRM-tl-dwP"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <constraints>
-                <constraint firstItem="eYj-gA-f3Q" firstAttribute="width" secondItem="njF-e1-oar" secondAttribute="width" multiplier="0.7" id="XnC-u8-vWG"/>
+                <constraint firstItem="eYj-gA-f3Q" firstAttribute="width" secondItem="njF-e1-oar" secondAttribute="width" multiplier="0.5" id="XnC-u8-vWG"/>
                 <constraint firstItem="eYj-gA-f3Q" firstAttribute="leading" secondItem="njF-e1-oar" secondAttribute="leading" constant="10" id="YfS-Wv-csx"/>
             </constraints>
             <connections>
                 <outlet property="btnShowReply" destination="eYj-gA-f3Q" id="ptw-UM-kaY"/>
-                <outlet property="descriptionLabel" destination="zTg-7p-yVA" id="auf-wY-Hfr"/>
                 <outlet property="imgvPicture" destination="moK-sV-lUc" id="jNZ-7L-USs"/>
                 <outlet property="imgvUser" destination="NMO-5F-P4D" id="lOL-eu-bXZ"/>
-                <outlet property="titleLabel" destination="wqJ-R4-yoZ" id="Rhj-cd-hgv"/>
+                <outlet property="lbDescription" destination="zTg-7p-yVA" id="auf-wY-Hfr"/>
+                <outlet property="lbTitle" destination="wqJ-R4-yoZ" id="Rhj-cd-hgv"/>
                 <outlet property="vPictureBackground" destination="NTg-D1-5fx" id="9DZ-MF-amU"/>
             </connections>
             <point key="canvasLocation" x="70" y="20"/>

@@ -37,12 +37,7 @@ class SocialViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("SocialViewController")
-        ProgressHUD.colorAnimation = .buttomColor!
-        ProgressHUD.colorHUD = .themeColor!
-        ProgressHUD.animationType = .multipleCircleScaleRipple
-        ProgressHUD.show("載入中...")
         callApiFriendList()
-        ProgressHUD.dismiss()
         NotificationCenter.default.addObserver(self, selector: #selector(addFriend), name: .addFriend, object: nil)
        
         
@@ -80,6 +75,10 @@ class SocialViewController: UIViewController {
     // MARK: - CallAPIFriendList
     
     func callApiFriendList() {
+        ProgressHUD.colorAnimation = .buttomColor!
+        ProgressHUD.colorHUD = .themeColor!
+        ProgressHUD.animationType = .multipleCircleScaleRipple
+        ProgressHUD.show("載入中...")
         
         Task {
             let request = GetFriendListRequest(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
@@ -98,9 +97,11 @@ class SocialViewController: UIViewController {
                     }
                 }
                 tbvFriendList.reloadData()
+                ProgressHUD.dismiss()
                 print(friendListArray.count)
             } catch {
                 print(error)
+                ProgressHUD.dismiss()
             }
         }
     }

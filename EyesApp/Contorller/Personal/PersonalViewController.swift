@@ -19,7 +19,7 @@ class PersonalViewController: UIViewController {
     
     
     // MARK: - Variables
-    let tvTitleArry = ["電子信箱", "註冊日期", "成就", "通知設定", "修改密碼"]
+    let tvTitleArry = ["電子信箱", "註冊日期", "專注歷程紀錄", "成就", "通知設定", "修改密碼"]
     
     // MARK: - LifeCycle
     
@@ -186,7 +186,7 @@ class PersonalViewController: UIViewController {
 
 extension PersonalViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -213,11 +213,22 @@ extension PersonalViewController: UITableViewDelegate, UITableViewDataSource {
                                                       for: indexPath) as! PersonalTableViewCell
             cell.title.text = tvTitleArry[indexPath.row]
             return cell
+        case 4:
+            let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
+                                                      for: indexPath) as! PersonalTableViewCell
+            cell.title.text = tvTitleArry[indexPath.row]
+            return cell
         default:
             let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
                                                       for: indexPath) as! PersonalTableViewCell
             cell.title.text = tvTitleArry[indexPath.row]
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 2 {
+            print("專注紀錄")
         }
     }
     
