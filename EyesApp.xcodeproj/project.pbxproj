@@ -67,6 +67,8 @@
 		3F7C2E402AAED9BE004B71F4 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */; };
 		3F823B3A2AF6B1510086262F /* DeleteReplyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F823B392AF6B1510086262F /* DeleteReplyRequest.swift */; };
 		3F823B3C2AF6B1930086262F /* EditNewsReplyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F823B3B2AF6B1930086262F /* EditNewsReplyRequest.swift */; };
+		3F823B452AF751C30086262F /* ConcentrateRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F823B432AF751C30086262F /* ConcentrateRecordTableViewCell.swift */; };
+		3F823B462AF751C30086262F /* ConcentrateRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F823B442AF751C30086262F /* ConcentrateRecordTableViewCell.xib */; };
 		3F86A99A2AEFFB9400DBC7C5 /* FindByInviteRoomIdForConcentrateAndRestTimeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86A9992AEFFB9400DBC7C5 /* FindByInviteRoomIdForConcentrateAndRestTimeRequest.swift */; };
 		3F89F83A2AE0314D00E8781C /* AuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F89F8392AE0314D00E8781C /* AuthenticationResponse.swift */; };
 		3F8ED6682AE81F3600102F40 /* CreatInviteRoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED6672AE81F3600102F40 /* CreatInviteRoomRequest.swift */; };
@@ -112,6 +114,12 @@
 		3FDCE2E52A70BECD004981D7 /* AstroSpace-eZ2Bg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FDCE2E42A70B8D2004981D7 /* AstroSpace-eZ2Bg.ttf */; };
 		3FDCE3082A710452004981D7 /* Text+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDCE3072A710452004981D7 /* Text+Extension.swift */; };
 		3FE31D572A6D653A00E287A0 /* Logo-Animation - 1690117050344.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FE31D562A6D653A00E287A0 /* Logo-Animation - 1690117050344.json */; };
+		3FE816132AF78595002608A6 /* FindSelfConcentrateRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE816122AF78595002608A6 /* FindSelfConcentrateRecordRequest.swift */; };
+		3FE816162AF793C5002608A6 /* FirstConcentrateRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE816142AF793C5002608A6 /* FirstConcentrateRecordTableViewCell.swift */; };
+		3FE816172AF793C5002608A6 /* FirstConcentrateRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FE816152AF793C5002608A6 /* FirstConcentrateRecordTableViewCell.xib */; };
+		3FE8161C2AF7A60B002608A6 /* ConcentrateRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE8161A2AF7A60B002608A6 /* ConcentrateRecordViewController.swift */; };
+		3FE8161D2AF7A60B002608A6 /* ConcentrateRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FE8161B2AF7A60B002608A6 /* ConcentrateRecordViewController.xib */; };
+		3FE8161F2AF7B0C7002608A6 /* FindConcentrateRecordByRecordIdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE8161E2AF7B0C7002608A6 /* FindConcentrateRecordByRecordIdRequest.swift */; };
 		3FF44B1B2AD52091007A4ECA /* RobotHead.scn in Resources */ = {isa = PBXBuildFile; fileRef = 3FF44B1A2AD52091007A4ECA /* RobotHead.scn */; };
 		3FF44B1D2AD57598007A4ECA /* 144251-check.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FF44B1C2AD57598007A4ECA /* 144251-check.json */; };
 		3FF44B1F2AD57767007A4ECA /* Check.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FF44B1E2AD57767007A4ECA /* Check.json */; };
@@ -206,6 +214,8 @@
 		3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		3F823B392AF6B1510086262F /* DeleteReplyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteReplyRequest.swift; sourceTree = "<group>"; };
 		3F823B3B2AF6B1930086262F /* EditNewsReplyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNewsReplyRequest.swift; sourceTree = "<group>"; };
+		3F823B432AF751C30086262F /* ConcentrateRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcentrateRecordTableViewCell.swift; sourceTree = "<group>"; };
+		3F823B442AF751C30086262F /* ConcentrateRecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConcentrateRecordTableViewCell.xib; sourceTree = "<group>"; };
 		3F86A9992AEFFB9400DBC7C5 /* FindByInviteRoomIdForConcentrateAndRestTimeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindByInviteRoomIdForConcentrateAndRestTimeRequest.swift; sourceTree = "<group>"; };
 		3F89F8392AE0314D00E8781C /* AuthenticationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationResponse.swift; sourceTree = "<group>"; };
 		3F8ED6672AE81F3600102F40 /* CreatInviteRoomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatInviteRoomRequest.swift; sourceTree = "<group>"; };
@@ -252,6 +262,12 @@
 		3FDCE2E42A70B8D2004981D7 /* AstroSpace-eZ2Bg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AstroSpace-eZ2Bg.ttf"; sourceTree = "<group>"; };
 		3FDCE3072A710452004981D7 /* Text+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Extension.swift"; sourceTree = "<group>"; };
 		3FE31D562A6D653A00E287A0 /* Logo-Animation - 1690117050344.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Logo-Animation - 1690117050344.json"; sourceTree = "<group>"; };
+		3FE816122AF78595002608A6 /* FindSelfConcentrateRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindSelfConcentrateRecordRequest.swift; sourceTree = "<group>"; };
+		3FE816142AF793C5002608A6 /* FirstConcentrateRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstConcentrateRecordTableViewCell.swift; sourceTree = "<group>"; };
+		3FE816152AF793C5002608A6 /* FirstConcentrateRecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstConcentrateRecordTableViewCell.xib; sourceTree = "<group>"; };
+		3FE8161A2AF7A60B002608A6 /* ConcentrateRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcentrateRecordViewController.swift; sourceTree = "<group>"; };
+		3FE8161B2AF7A60B002608A6 /* ConcentrateRecordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConcentrateRecordViewController.xib; sourceTree = "<group>"; };
+		3FE8161E2AF7B0C7002608A6 /* FindConcentrateRecordByRecordIdRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindConcentrateRecordByRecordIdRequest.swift; sourceTree = "<group>"; };
 		3FF44B1A2AD52091007A4ECA /* RobotHead.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = RobotHead.scn; sourceTree = "<group>"; };
 		3FF44B1C2AD57598007A4ECA /* 144251-check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "144251-check.json"; sourceTree = "<group>"; };
 		3FF44B1E2AD57767007A4ECA /* Check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Check.json; sourceTree = "<group>"; };
@@ -482,9 +498,10 @@
 		3F44885F2A72A6BE00D573AB /* Personal */ = {
 			isa = PBXGroup;
 			children = (
+				3FE816192AF7A5DF002608A6 /* ConcentrateRecord */,
+				3F823B422AF751960086262F /* Components */,
 				3F4488602A72A75E00D573AB /* PersonalViewController.swift */,
 				3F4488612A72A75E00D573AB /* PersonalViewController.xib */,
-				3F9681002A9206EB0031BEFE /* Component */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -535,8 +552,19 @@
 				3FFD2B4B2AF693C300D620B5 /* LoadNewsReplyRequest.swift */,
 				3F823B392AF6B1510086262F /* DeleteReplyRequest.swift */,
 				3F823B3B2AF6B1930086262F /* EditNewsReplyRequest.swift */,
+				3FE816122AF78595002608A6 /* FindSelfConcentrateRecordRequest.swift */,
+				3FE8161E2AF7B0C7002608A6 /* FindConcentrateRecordByRecordIdRequest.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		3F823B422AF751960086262F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3F9681002A9206EB0031BEFE /* Personal */,
+				3FE816182AF7A3EA002608A6 /* ConcentrateRecord */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		3F8ED66B2AE8B36100102F40 /* AnserConcentrateInvite */ = {
@@ -548,7 +576,7 @@
 			path = AnserConcentrateInvite;
 			sourceTree = "<group>";
 		};
-		3F9681002A9206EB0031BEFE /* Component */ = {
+		3F9681002A9206EB0031BEFE /* Personal */ = {
 			isa = PBXGroup;
 			children = (
 				3F9681052A920D780031BEFE /* PersonalLabelTableViewCell.swift */,
@@ -556,7 +584,7 @@
 				3F9681092A920E220031BEFE /* PersonalTableViewCell.swift */,
 				3F96810A2A920E220031BEFE /* PersonalTableViewCell.xib */,
 			);
-			path = Component;
+			path = Personal;
 			sourceTree = "<group>";
 		};
 		3F9B36F82AED1D7400CDB36A /* InviteRoomMemberListCell */ = {
@@ -667,6 +695,26 @@
 				3FFD2B2C2AF15B2700D620B5 /* dotsBackground.json */,
 			);
 			path = Animate;
+			sourceTree = "<group>";
+		};
+		3FE816182AF7A3EA002608A6 /* ConcentrateRecord */ = {
+			isa = PBXGroup;
+			children = (
+				3F823B432AF751C30086262F /* ConcentrateRecordTableViewCell.swift */,
+				3F823B442AF751C30086262F /* ConcentrateRecordTableViewCell.xib */,
+				3FE816142AF793C5002608A6 /* FirstConcentrateRecordTableViewCell.swift */,
+				3FE816152AF793C5002608A6 /* FirstConcentrateRecordTableViewCell.xib */,
+			);
+			path = ConcentrateRecord;
+			sourceTree = "<group>";
+		};
+		3FE816192AF7A5DF002608A6 /* ConcentrateRecord */ = {
+			isa = PBXGroup;
+			children = (
+				3FE8161A2AF7A60B002608A6 /* ConcentrateRecordViewController.swift */,
+				3FE8161B2AF7A60B002608A6 /* ConcentrateRecordViewController.xib */,
+			);
+			path = ConcentrateRecord;
 			sourceTree = "<group>";
 		};
 		3FF44B192AD52076007A4ECA /* ScenceFile */ = {
@@ -876,6 +924,7 @@
 				3FDCE2E52A70BECD004981D7 /* AstroSpace-eZ2Bg.ttf in Resources */,
 				3F4488732A72A7B700D573AB /* SocialViewController.xib in Resources */,
 				3FF44B1F2AD57767007A4ECA /* Check.json in Resources */,
+				3FE816172AF793C5002608A6 /* FirstConcentrateRecordTableViewCell.xib in Resources */,
 				32BE4B622A0A45600014161D /* OldMainViewController.xib in Resources */,
 				3F44884D2A722C4F00D573AB /* MainViewController.xib in Resources */,
 				3FE31D572A6D653A00E287A0 /* Logo-Animation - 1690117050344.json in Resources */,
@@ -888,6 +937,7 @@
 				3FF44B1B2AD52091007A4ECA /* RobotHead.scn in Resources */,
 				3F4488562A724D1800D573AB /* TabBarItemView.xib in Resources */,
 				3F4488D72A74B9B500D573AB /* NewsViewController.xib in Resources */,
+				3FE8161D2AF7A60B002608A6 /* ConcentrateRecordViewController.xib in Resources */,
 				3FA2B4FD2AE5825B005D0A16 /* startConcentrate.json in Resources */,
 				3F9B38AB2AEEB30200CDB36A /* MutipleStartConcentrateViewController.xib in Resources */,
 				3F9B36FC2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.xib in Resources */,
@@ -897,6 +947,7 @@
 				3F9B36F02AECF1B200CDB36A /* InviteRoomListTableViewCell.xib in Resources */,
 				3FF44B1D2AD57598007A4ECA /* 144251-check.json in Resources */,
 				3FFD2B362AF24A9000D620B5 /* HasPictureNewsTableViewCell.xib in Resources */,
+				3F823B462AF751C30086262F /* ConcentrateRecordTableViewCell.xib in Resources */,
 				3FFD2B2D2AF15B2700D620B5 /* dotsBackground.json in Resources */,
 				3F2956892AE6A2AC00DFD45E /* InviteFriendsTableViewCell.xib in Resources */,
 				3F9B38B62AEF952000CDB36A /* MutipleConcentrateMemberVersionViewController.xib in Resources */,
@@ -970,6 +1021,7 @@
 				3FFD2B4C2AF693C300D620B5 /* LoadNewsReplyRequest.swift in Sources */,
 				3FA2B4E92AE2F15C005D0A16 /* NSNotification+Extension.swift in Sources */,
 				3F8ED6682AE81F3600102F40 /* CreatInviteRoomRequest.swift in Sources */,
+				3F823B452AF751C30086262F /* ConcentrateRecordTableViewCell.swift in Sources */,
 				3F9B38A42AED738A00CDB36A /* RemoveToInviteRoomRequest.swift in Sources */,
 				3FFD2B3C2AF2C62600D620B5 /* UseInviteRoomIdAndAccountIdTofindConcentrateRecordIdRequest.swift in Sources */,
 				3F9B38AF2AEEBD8E00CDB36A /* StartMutipleConcentrateRequest.swift in Sources */,
@@ -992,6 +1044,7 @@
 				3F35FA292AE274C700465D9E /* AddFriendViewController.swift in Sources */,
 				3F44886A2A72A79000D573AB /* ConcentrateViewController.swift in Sources */,
 				3FFD2B352AF24A9000D620B5 /* HasPictureNewsTableViewCell.swift in Sources */,
+				3FE8161F2AF7B0C7002608A6 /* FindConcentrateRecordByRecordIdRequest.swift in Sources */,
 				3F9B38AA2AEEB30200CDB36A /* MutipleStartConcentrateViewController.swift in Sources */,
 				3F9B36EA2AECD77F00CDB36A /* AddToInviteRoomRequest.swift in Sources */,
 				3F5005472AB0B355007D9DED /* UploadImageRequest.swift in Sources */,
@@ -1006,6 +1059,7 @@
 				3FFD2B2F2AF160C600D620B5 /* UploadAlongRecordImageRequest.swift in Sources */,
 				3FFD2B3A2AF29D8F00D620B5 /* AddConcentrateToNewsRequest.swift in Sources */,
 				3F9B38A62AEE6ABF00CDB36A /* RemoveInviteRoomRequest.swift in Sources */,
+				3FE816132AF78595002608A6 /* FindSelfConcentrateRecordRequest.swift in Sources */,
 				3FA2B4F82AE57115005D0A16 /* StartConcentrateViewController.swift in Sources */,
 				3F89F83A2AE0314D00E8781C /* AuthenticationResponse.swift in Sources */,
 				3F9B36F22AED036A00CDB36A /* RefreshInviteRoomMemberListRequest.swift in Sources */,
@@ -1019,11 +1073,13 @@
 				3F35FA302AE2E68E00465D9E /* AddFriendInviteRequest.swift in Sources */,
 				3FB632912AC94D990015AF8D /* String+Extension.swift in Sources */,
 				326146232A178F9800855A6E /* BlueLightFilterViewController.swift in Sources */,
+				3FE8161C2AF7A60B002608A6 /* ConcentrateRecordViewController.swift in Sources */,
 				32BE4B4E2A0A451E0014161D /* SceneDelegate.swift in Sources */,
 				32593D2F2A1DFBB7005A1A6B /* LocalDatabase.swift in Sources */,
 				3FFD2B242AF0F04200D620B5 /* CompleteMutipleConcentrateRequest.swift in Sources */,
 				3FFD2B4A2AF68CE300D620B5 /* AddNewsReplyRequest.swift in Sources */,
 				3F6DFBDF2A6D76750058CDFB /* Color+Extnesion.swift in Sources */,
+				3FE816162AF793C5002608A6 /* FirstConcentrateRecordTableViewCell.swift in Sources */,
 				3F5005A72AB0D87B007D9DED /* GetPersonInfromationRequest.swift in Sources */,
 				3F96808A2A909D650031BEFE /* AppDefine.swift in Sources */,
 				3F4488E62A750A0D00D573AB /* EyeExerciseViewController.swift in Sources */,

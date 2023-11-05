@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConcentrateRecordViewController" customModule="EyesApp" customModuleProvider="target">
+            <connections>
+                <outlet property="imgvPicture" destination="gas-Fw-1cC" id="fzj-eo-Ijn"/>
+                <outlet property="lbTitle" destination="HCk-Dj-h5w" id="2hQ-tg-SGP"/>
+                <outlet property="txvNote" destination="CKP-km-2Yc" id="toS-FL-qEf"/>
+                <outlet property="vBlackStrip" destination="ool-2p-db2" id="hUy-AX-wQq"/>
+                <outlet property="vImageBaclground" destination="VvU-WX-qO8" id="vPM-wu-4wN"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ool-2p-db2">
+                    <rect key="frame" x="137.66666666666666" y="75" width="117.66666666666666" height="3.6666666666666714"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XXXX/XX/XX XX:XX 的專注歷程" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCk-Dj-h5w">
+                    <rect key="frame" x="19.666666666666657" y="93.333333333333329" width="353.66666666666674" height="45.666666666666671"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="無任何描述" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CKP-km-2Yc">
+                    <rect key="frame" x="44" y="543" width="314.33333333333331" height="202.33333333333337"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VvU-WX-qO8">
+                    <rect key="frame" x="44" y="162.33333333333334" width="314.33333333333331" height="340.66666666666663"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gas-Fw-1cC">
+                    <rect key="frame" x="59.666666666666657" y="179.33333333333334" width="283" height="306.66666666666663"/>
+                    <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </imageView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="gas-Fw-1cC" firstAttribute="height" secondItem="VvU-WX-qO8" secondAttribute="height" multiplier="0.900196" id="4EK-9M-pNL"/>
+                <constraint firstItem="HCk-Dj-h5w" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.9" id="7AM-hy-Da8"/>
+                <constraint firstItem="ool-2p-db2" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.005" id="7Fe-nq-SV7"/>
+                <constraint firstItem="CKP-km-2Yc" firstAttribute="top" secondItem="VvU-WX-qO8" secondAttribute="bottom" constant="40" id="BEe-mE-kfZ"/>
+                <constraint firstItem="VvU-WX-qO8" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.448836" id="BKy-5q-WAo"/>
+                <constraint firstItem="VvU-WX-qO8" firstAttribute="top" secondItem="HCk-Dj-h5w" secondAttribute="bottom" constant="23.333333333333343" id="MWd-V7-TtQ"/>
+                <constraint firstItem="gas-Fw-1cC" firstAttribute="width" secondItem="VvU-WX-qO8" secondAttribute="width" multiplier="0.900318" id="UJ4-Pe-txG"/>
+                <constraint firstItem="HCk-Dj-h5w" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="WU7-jJ-pKD"/>
+                <constraint firstItem="gas-Fw-1cC" firstAttribute="centerY" secondItem="VvU-WX-qO8" secondAttribute="centerY" id="X65-8M-bGd"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="VvU-WX-qO8" secondAttribute="trailing" constant="34.666666666666742" id="ePT-96-g05"/>
+                <constraint firstItem="gas-Fw-1cC" firstAttribute="centerX" secondItem="VvU-WX-qO8" secondAttribute="centerX" id="hE4-nJ-laT"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="CKP-km-2Yc" secondAttribute="bottom" constant="72.666666666666742" id="i0u-yX-TZW"/>
+                <constraint firstItem="HCk-Dj-h5w" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.06" id="i5i-Kh-reY"/>
+                <constraint firstItem="CKP-km-2Yc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="44" id="ila-eD-baT"/>
+                <constraint firstItem="ool-2p-db2" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="jjd-qt-4DW"/>
+                <constraint firstItem="HCk-Dj-h5w" firstAttribute="top" secondItem="ool-2p-db2" secondAttribute="bottom" constant="14.666666666666671" id="okP-tP-Lrw"/>
+                <constraint firstItem="ool-2p-db2" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="rAn-Dz-lUA"/>
+                <constraint firstItem="VvU-WX-qO8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="44" id="rZS-S6-CPY"/>
+                <constraint firstItem="ool-2p-db2" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.3" id="sK1-jW-hmA"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="CKP-km-2Yc" secondAttribute="trailing" constant="34.666666666666742" id="vcj-2E-Hkx"/>
+            </constraints>
+            <point key="canvasLocation" x="34" y="21"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

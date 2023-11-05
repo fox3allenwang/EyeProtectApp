@@ -57,13 +57,13 @@ class StartConcentrateViewController: UIViewController {
         super.viewWillDisappear(animated)
         player.pause()
         
-        if btnGiveUp?.isHidden == true {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-            let now = dateFormatter.string(from: Date())
-            callGiveUpConcentrateRecordApi(recordId: concentrateRecordId,
-                                           endTime: now)
-        }
+//        if btnGiveUp?.isHidden == true {
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+//            let now = dateFormatter.string(from: Date())
+//            callGiveUpConcentrateRecordApi(recordId: concentrateRecordId,
+//                                           endTime: now)
+//        }
         
     }
     

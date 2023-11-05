@@ -16,10 +16,12 @@ class PersonalViewController: UIViewController {
     @IBOutlet weak var lbUserName: UILabel!
     @IBOutlet weak var btnLogout: UIButton!
     @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var tbvConcentrateRecord: UITableView!
     
     
     // MARK: - Variables
     let tvTitleArry = ["電子信箱", "註冊日期", "專注歷程紀錄", "成就", "通知設定", "修改密碼"]
+    var concentrateRecordList: [SelfConcentrateRecordItem] = []
     
     // MARK: - LifeCycle
     
@@ -36,6 +38,9 @@ class PersonalViewController: UIViewController {
         ProgressHUD.animationType = .multipleCircleScaleRipple
         ProgressHUD.show("載入中...")
         callGetPersonInformationApi()
+        callAPIFindSelfConcentrateRecord(accountId: UserPreferences.shared.accountId) {
+            ProgressHUD.dismiss()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -68,6 +73,17 @@ class PersonalViewController: UIViewController {
                             forCellReuseIdentifier: PersonalTableViewCell.identified)
         tvPersonal.dataSource = self
         tvPersonal.delegate = self
+        tvPersonal.tag = 0
+        
+        tbvConcentrateRecord.register(UINib(nibName: "ConcentrateRecordTableViewCell",
+                                            bundle: nil),
+                                      forCellReuseIdentifier: ConcentrateRecordTableViewCell.identified)
+        tbvConcentrateRecord.register(UINib(nibName: "FirstConcentrateRecordTableViewCell",
+                                            bundle: nil),
+                                      forCellReuseIdentifier: FirstConcentrateRecordTableViewCell.identified)
+        tbvConcentrateRecord.delegate = self
+        tbvConcentrateRecord.dataSource = self
+        tbvConcentrateRecord.tag = 1
     }
     
     func setupIgvUser() {
@@ -89,6 +105,8 @@ class PersonalViewController: UIViewController {
         backgroundView.alpha = 0.2
     }
     
+    //MARK: - callUploadImageAPI
+    
     func callUploadImageApi(imageString: String) {
         ProgressHUD.colorAnimation = .buttomColor!
         ProgressHUD.colorHUD = .themeColor!
@@ -103,7 +121,9 @@ class PersonalViewController: UIViewController {
                                                                                                parameters: request,
                                                                                                needToken: true)
                 print(response)
-                callGetPersonInformationApi()
+                callGetPersonInformationApi {
+                    ProgressHUD.dismiss()
+                }
             } catch {
                 print(error)
             }
@@ -111,7 +131,9 @@ class PersonalViewController: UIViewController {
         
     }
     
-    func callGetPersonInformationApi() {
+    //MARK: - callGetPersonInformationAPI
+    
+    func callGetPersonInformationApi(completionHandler: (() -> Void)? = nil) {
         let request = GetPersonInfromationRequest(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
         
         Task{
@@ -128,12 +150,13 @@ class PersonalViewController: UIViewController {
                     let imageString = response.data!.image
                     let image = imageString.stringToUIImage()
                     igvUser.image = image
-                    ProgressHUD.dismiss()
+                    completionHandler?()
                     return
                 }
-                ProgressHUD.dismiss()
+                completionHandler?()
             } catch {
                 print(error)
+                completionHandler?()
             }
         }
     }
@@ -164,6 +187,40 @@ class PersonalViewController: UIViewController {
         }
     }
     
+    // MARK: - callAPIFindSelfConcentrateRecord
+    
+    func callAPIFindSelfConcentrateRecord(accountId: String,
+                                          completionHandler: (() -> Void)? = nil) {
+        let request = FindSelfConcentrateRecordRequest(accountId: UUID(uuidString: accountId)!)
+        
+        Task {
+            do {
+                let result: GeneralResponse<FindSelfConcentrateRecordResponse> = try await NetworkManager().requestData(method: .post, path: .findSelfConcentrateRecord, parameters: request, needToken: true)
+                
+                if result.message == "ConcentrateRecord 是空的" ||
+                    result.message == "找到 ConcentrateRecord 了" {
+                    concentrateRecordList = result.data!.concentrateRecordList
+                    concentrateRecordList.sort { firstItem, secondItem in
+                        if firstItem.startTime < secondItem.startTime {
+                            return false
+                        } else {
+                            return true
+                        }
+                    }
+                    tbvConcentrateRecord.reloadData()
+                    completionHandler?()
+                } else {
+                    completionHandler?()
+                    Alert.showAlert(title: "錯誤", message: result.message, vc: self, confirmTitle: "確認")
+                }
+            } catch {
+                completionHandler?()
+                print(error)
+                Alert.showAlert(title: "錯誤", message: "\(error)", vc: self, confirmTitle: "確認")
+            }
+        }
+    }
+    
     // MARK: - IBAction
     @IBAction func clickBtnLogout() {
         callLogoutApi()
@@ -186,49 +243,121 @@ class PersonalViewController: UIViewController {
 
 extension PersonalViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        if tableView.tag == 0 {
+            return 6
+        } else {
+            return concentrateRecordList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-        case 0:
-            let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalLabelTableViewCell.identified,
-                                                      for: indexPath) as! PersonalLabelTableViewCell
-            cell.title.text = tvTitleArry[indexPath.row]
-            cell.value.text = UserPreferences.shared.email
-            return cell
-        case 1:
-            let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalLabelTableViewCell.identified,
-                                                      for: indexPath) as! PersonalLabelTableViewCell
-            cell.title.text = tvTitleArry[indexPath.row]
-            cell.value.text = UserPreferences.shared.dor
-            return cell
-        case 2:
-            let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
-                                                      for: indexPath) as! PersonalTableViewCell
-            cell.title.text = tvTitleArry[indexPath.row]
-            return cell
-        case 3:
-            let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
-                                                      for: indexPath) as! PersonalTableViewCell
-            cell.title.text = tvTitleArry[indexPath.row]
-            return cell
-        case 4:
-            let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
-                                                      for: indexPath) as! PersonalTableViewCell
-            cell.title.text = tvTitleArry[indexPath.row]
-            return cell
-        default:
-            let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
-                                                      for: indexPath) as! PersonalTableViewCell
-            cell.title.text = tvTitleArry[indexPath.row]
-            return cell
+        if tableView.tag == 0 {
+            switch indexPath.row {
+            case 0:
+                let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalLabelTableViewCell.identified,
+                                                          for: indexPath) as! PersonalLabelTableViewCell
+                cell.title.text = tvTitleArry[indexPath.row]
+                cell.value.text = UserPreferences.shared.email
+                return cell
+            case 1:
+                let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalLabelTableViewCell.identified,
+                                                          for: indexPath) as! PersonalLabelTableViewCell
+                cell.title.text = tvTitleArry[indexPath.row]
+                cell.value.text = UserPreferences.shared.dor
+                return cell
+            case 2:
+                let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
+                                                          for: indexPath) as! PersonalTableViewCell
+                cell.title.text = tvTitleArry[indexPath.row]
+                return cell
+            case 3:
+                let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
+                                                          for: indexPath) as! PersonalTableViewCell
+                cell.title.text = tvTitleArry[indexPath.row]
+                return cell
+            case 4:
+                let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
+                                                          for: indexPath) as! PersonalTableViewCell
+                cell.title.text = tvTitleArry[indexPath.row]
+                return cell
+            default:
+                let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
+                                                          for: indexPath) as! PersonalTableViewCell
+                cell.title.text = tvTitleArry[indexPath.row]
+                return cell
+            }
+        } else {
+            if indexPath.row == concentrateRecordList.count - 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: FirstConcentrateRecordTableViewCell.identified, for: indexPath) as! FirstConcentrateRecordTableViewCell
+                if concentrateRecordList[indexPath.row].isFinished == true {
+                    cell.imgvStatus?.image = UIImage(systemName: "checkmark")
+                    cell.vStatusCircle?.backgroundColor = UIColor.buttom2Color
+                    cell.vStatusStrip?.backgroundColor = UIColor.buttom2Color
+                } else {
+                    cell.imgvStatus?.image = UIImage(systemName: "multiply")
+                    cell.vStatusCircle?.backgroundColor = UIColor.cancel
+                    cell.vStatusStrip?.backgroundColor = UIColor.cancel
+                }
+                
+                var withFriends: String = "好友： "
+                if concentrateRecordList[indexPath.row].accountId != concentrateRecordList[indexPath.row].hostAccountId {
+                    withFriends.append("\(concentrateRecordList[indexPath.row].hostAccountId), ")
+                }
+                for i in 0 ..< concentrateRecordList[indexPath.row].withFriends.count {
+                    if i == concentrateRecordList[indexPath.row].withFriends.count - 1{
+                        withFriends.append("\(concentrateRecordList[indexPath.row].withFriends[i])")
+                    } else {
+                        withFriends.append("\(concentrateRecordList[indexPath.row].withFriends[i]), ")
+                    }
+                }
+                cell.lbConcentrateTime?.text = "\(concentrateRecordList[indexPath.row].startTime)"
+                cell.lbConcentrateRecord?.text = "專注時間： \(concentrateRecordList[indexPath.row].concentrateTime)   休息時間：\(concentrateRecordList[indexPath.row].restTime)"
+                if withFriends == "好友： " {
+                    withFriends = "單人模式"
+                }
+                cell.lbConcentrateWith?.text = withFriends
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: ConcentrateRecordTableViewCell.identified, for: indexPath) as! ConcentrateRecordTableViewCell
+                if concentrateRecordList[indexPath.row].isFinished == true {
+                    cell.imgvStatus?.image = UIImage(systemName: "checkmark")
+                    cell.vStatusCircle?.backgroundColor = UIColor.buttom2Color
+                    cell.vStatusStrip?.backgroundColor = UIColor.buttom2Color
+                } else {
+                    cell.imgvStatus?.image = UIImage(systemName: "multiply")
+                    cell.vStatusCircle?.backgroundColor = UIColor.cancel
+                    cell.vStatusStrip?.backgroundColor = UIColor.cancel
+                }
+                
+                var withFriends: String = "好友： "
+                if concentrateRecordList[indexPath.row].accountId != concentrateRecordList[indexPath.row].hostAccountId {
+                    withFriends.append("\(concentrateRecordList[indexPath.row].hostAccountId), ")
+                }
+                for i in 0 ..< concentrateRecordList[indexPath.row].withFriends.count {
+                    if i == concentrateRecordList[indexPath.row].withFriends.count - 1{
+                        withFriends.append("\(concentrateRecordList[indexPath.row].withFriends[i])")
+                    } else {
+                        withFriends.append("\(concentrateRecordList[indexPath.row].withFriends[i]), ")
+                    }
+                    
+                }
+                cell.lbConcentrateTime?.text = "\(concentrateRecordList[indexPath.row].startTime)"
+                cell.lbConcentrateRecord?.text = "專注時間： \(concentrateRecordList[indexPath.row].concentrateTime)   休息時間：\(concentrateRecordList[indexPath.row].restTime)"
+                if withFriends == "好友： " {
+                    withFriends = "單人模式"
+                }
+                cell.lbConcentrateWith?.text = withFriends
+                return cell
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 2 {
-            print("專注紀錄")
+        if tableView.tag == 1 {
+            let nextVC = ConcentrateRecordViewController()
+            nextVC.timeTitle = "\(concentrateRecordList[indexPath.row].startTime) 的專注歷程"
+            nextVC.recordId = concentrateRecordList[indexPath.row].recordId.uuidString
+            self.present(nextVC, animated: true)
         }
     }
     
