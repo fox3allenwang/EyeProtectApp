@@ -1,27 +1,29 @@
 //
-//  PersonalViewController.swift
+//  FriendPersonalViewController.swift
 //  EyesApp
 //
-//  Created by imac-3570 on 2023/7/27.
+//  Created by imac-3570 on 2023/11/5.
 //
 
 import UIKit
 import ProgressHUD
 
-class PersonalViewController: UIViewController {
+class FriendPersonalViewController: UIViewController {
     
     // MARK: - IBOutlet
-    @IBOutlet weak var tvPersonal: UITableView!
+    
     @IBOutlet weak var igvUser: UIImageView!
-    @IBOutlet weak var lbUserName: UILabel!
-    @IBOutlet weak var btnLogout: UIButton!
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var tbvConcentrateRecord: UITableView!
-    
+    @IBOutlet weak var tbvPost: UITableView!
     
     // MARK: - Variables
-    let tvTitleArry = ["電子信箱", "註冊日期", "我的貼文", "成就", "通知設定", "修改密碼"]
+    
     var concentrateRecordList: [SelfConcentrateRecordItem] = []
+    var postList: [NewsItem] = []
+    var friendAccountId = ""
+    var userImage: UIImage?
+    var userName = ""
     
     // MARK: - LifeCycle
     
@@ -32,13 +34,13 @@ class PersonalViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("PersonalViewController")
         ProgressHUD.colorAnimation = .buttomColor!
         ProgressHUD.colorHUD = .themeColor!
         ProgressHUD.animationType = .multipleCircleScaleRipple
         ProgressHUD.show("載入中...")
-        callGetPersonInformationApi()
-        callAPIFindSelfConcentrateRecord(accountId: UserPreferences.shared.accountId) {
+        igvUser.image = userImage
+        callAPIFindSelfConcentrateRecord(accountId: friendAccountId)
+        callApiLoadNews(accountId: friendAccountId) {
             ProgressHUD.dismiss()
         }
     }
@@ -58,22 +60,19 @@ class PersonalViewController: UIViewController {
     // MARK: - UI Settings
     
     func setupUI() {
-        setupIgvUser()
-        setupBtnLogout()
-        setupBackgroundView()
         setupTableView()
+        setupIgvUser()
+        setupBackgroundView()
     }
     
     func setupTableView() {
-        tvPersonal.register(UINib(nibName: "PersonalLabelTableViewCell",
-                                  bundle: nil),
-                            forCellReuseIdentifier: PersonalLabelTableViewCell.identified)
-        tvPersonal.register(UINib(nibName: "PersonalTableViewCell",
-                                  bundle: nil),
-                            forCellReuseIdentifier: PersonalTableViewCell.identified)
-        tvPersonal.dataSource = self
-        tvPersonal.delegate = self
-        tvPersonal.tag = 0
+        tbvPost?.register(UINib(nibName: "HasPictureNewsTableViewCell", bundle: nil), forCellReuseIdentifier: HasPictureNewsTableViewCell.identified)
+        tbvPost?.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: NewsTableViewCell.identified)
+        tbvPost!.estimatedRowHeight = 100
+        tbvPost!.rowHeight = UITableView.automaticDimension
+        tbvPost?.dataSource = self
+        tbvPost?.delegate = self
+        tbvPost.tag = 0
         
         tbvConcentrateRecord.register(UINib(nibName: "ConcentrateRecordTableViewCell",
                                             bundle: nil),
@@ -91,12 +90,6 @@ class PersonalViewController: UIViewController {
         igvUser.layer.borderWidth = 3
         igvUser.layer.borderColor = UIColor.buttomColor?.cgColor
     }
-    
-    func setupBtnLogout() {
-        btnLogout.layer.cornerRadius = 20
-        btnLogout.alpha = 0.8
-    }
-    
     func setupBackgroundView() {
         backgroundView.layer.cornerRadius = 20
         backgroundView.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
@@ -104,88 +97,6 @@ class PersonalViewController: UIViewController {
         backgroundView.layer.shadowRadius = 20
         backgroundView.alpha = 0.2
     }
-    
-    //MARK: - callUploadImageAPI
-    
-    func callUploadImageApi(imageString: String) {
-        ProgressHUD.colorAnimation = .buttomColor!
-        ProgressHUD.colorHUD = .themeColor!
-        ProgressHUD.animationType = .multipleCircleScaleRipple
-        ProgressHUD.show("載入中...")
-        let request = UploadImageRequest(accountId: UUID(uuidString: UserPreferences.shared.accountId)!, image: imageString)
-        
-        Task {
-            do {
-                let response: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
-                                                                                               path: .uploadImage,
-                                                                                               parameters: request,
-                                                                                               needToken: true)
-                print(response)
-                callGetPersonInformationApi {
-                    ProgressHUD.dismiss()
-                }
-            } catch {
-                print(error)
-            }
-        }
-    }
-    
-    //MARK: - callGetPersonInformationAPI
-    
-    func callGetPersonInformationApi(completionHandler: (() -> Void)? = nil) {
-        let request = GetPersonInfromationRequest(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
-        
-        Task{
-            do {
-                let response: GeneralResponse<GetPersonInfromationResponse> = try await NetworkManager().requestData(method: .post,
-                                                                                                                     path: .getPersonInformation,
-                                                                                                                     parameters: request,
-                                                                                                                     needToken: true)
-                UserPreferences.shared.dor = response.data!.dor
-                UserPreferences.shared.email = response.data!.email
-                UserPreferences.shared.name = response.data!.name
-                lbUserName.text = UserPreferences.shared.name
-                guard response.data?.image == "未設置" else {
-                    let imageString = response.data!.image
-                    let image = imageString.stringToUIImage()
-                    igvUser.image = image
-                    completionHandler?()
-                    return
-                }
-                completionHandler?()
-            } catch {
-                print(error)
-                completionHandler?()
-            }
-        }
-    }
-    
-// MARK: - callLogoutAPI
-    
-    func callLogoutApi() {
-        let request = LogoutRequest(accountId: UserPreferences.shared.accountId)
-        
-        Task {
-            do {
-                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
-                                                                                             path: .logout,
-                                                                                             parameters: request,
-                                                                                             needToken: true)
-                if result.data == "登出成功" {
-                    UserPreferences.shared.resetInitialFlowVarables()
-                    let nextVC = LoginViewController()
-                    navigationController?.pushViewController(nextVC, animated: true)
-                } else {
-                    Alert.showAlert(title: "登出失敗", message: "帳號資訊有誤", vc: self, confirmTitle: "確認")
-                }
-            } catch {
-                print(error)
-                Alert.showAlert(title: "登出失敗", message: "請確認與伺服器的連線", vc: self, confirmTitle: "確認")
-            }
-           
-        }
-    }
-    
     // MARK: - callAPIFindSelfConcentrateRecord
     
     func callAPIFindSelfConcentrateRecord(accountId: String,
@@ -220,30 +131,67 @@ class PersonalViewController: UIViewController {
         }
     }
     
-    // MARK: - IBAction
-    @IBAction func clickBtnLogout() {
-        callLogoutApi()
+    // MARK: - callAPILoadNews
+    
+    func callApiLoadNews(accountId: String,
+                         completionHandler: (() -> Void)? = nil) {
+        let request = LoadNewsRequest(accountId: UUID(uuidString: accountId)!)
+        Task {
+            do {
+                let result: GeneralResponse<LoadNewsResponse> = try await NetworkManager().requestData(method: .post,
+                                                                                                       path: .loadOnePersonNews,
+                                                                                                       parameters: request,
+                                                                                                       needToken: true)
+                if result.message == "已搜尋所有的 News" {
+                    postList = []
+                    postList = result.data!.newsItems
+                    postList.sort { FirstNewItem, SecondNewItem in
+                        if FirstNewItem.time > SecondNewItem.time {
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+                    tbvPost?.reloadData()
+                    completionHandler?()
+                } else {
+                    completionHandler?()
+                    Alert.showAlert(title: "錯誤",
+                                    message: result.message,
+                                    vc: self,
+                                    confirmTitle: "確認")
+                }
+            } catch {
+                completionHandler?()
+                print(error)
+                Alert.showAlert(title: "錯誤",
+                                message: "\(error)",
+                                vc: self,
+                                confirmTitle: "確認")
+            }
+        }
     }
     
-    @IBAction func uploadAndSetImage() {
-        
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.modalPresentationStyle = .fullScreen
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true)
-        
+    // MARK: - IBAction
+    
+    @objc func clickShowReply(_ sender: UIButton) {
+        let replyVC = ReplyViewController()
+        replyVC.loadNewsDelegate = self
+        replyVC.newsId = postList[sender.tag].newsId.uuidString
+        if let presentationController = replyVC.presentationController as? UISheetPresentationController {
+            presentationController.detents = [.medium()]
+        }
+        self.present(replyVC, animated: true)
     }
     
 }
 
-// MARK: - PersonalTableViewExtension
+// MARK: - TableViewExtension
 
-extension PersonalViewController: UITableViewDelegate, UITableViewDataSource {
+extension FriendPersonalViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == 0 {
-            return 6
+            return postList.count
         } else {
             return concentrateRecordList.count
         }
@@ -251,38 +199,34 @@ extension PersonalViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView.tag == 0 {
-            switch indexPath.row {
-            case 0:
-                let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalLabelTableViewCell.identified,
-                                                          for: indexPath) as! PersonalLabelTableViewCell
-                cell.title.text = tvTitleArry[indexPath.row]
-                cell.value.text = UserPreferences.shared.email
+            if postList[indexPath.row].newsPicture == "未上傳" {
+                let cell = tbvPost?.dequeueReusableCell(withIdentifier: NewsTableViewCell.identified, for: indexPath) as! NewsTableViewCell
+                if postList[indexPath.row].sendAccountImage == "未設置" {
+                    cell.imgvUser?.image = UIImage(systemName: "person.fill")
+                } else {
+                    cell.imgvUser?.image = postList[indexPath.row].sendAccountImage.stringToUIImage()
+                }
+                cell.lbDescription?.text = postList[indexPath.row].description
+                cell.lbTitle?.text = postList[indexPath.row].title
+                cell.btnShowReply!.tag = indexPath.row
+                cell.btnShowReply?.setTitle("查看全部 \(postList[indexPath.row].replyCount) 則留言", for: .normal)
+                cell.btnShowReply?.addTarget(self, action: #selector(clickShowReply), for: .touchUpInside)
                 return cell
-            case 1:
-                let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalLabelTableViewCell.identified,
-                                                          for: indexPath) as! PersonalLabelTableViewCell
-                cell.title.text = tvTitleArry[indexPath.row]
-                cell.value.text = UserPreferences.shared.dor
-                return cell
-            case 2:
-                let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
-                                                          for: indexPath) as! PersonalTableViewCell
-                cell.title.text = tvTitleArry[indexPath.row]
-                return cell
-            case 3:
-                let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
-                                                          for: indexPath) as! PersonalTableViewCell
-                cell.title.text = tvTitleArry[indexPath.row]
-                return cell
-            case 4:
-                let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
-                                                          for: indexPath) as! PersonalTableViewCell
-                cell.title.text = tvTitleArry[indexPath.row]
-                return cell
-            default:
-                let cell = tvPersonal.dequeueReusableCell(withIdentifier: PersonalTableViewCell.identified,
-                                                          for: indexPath) as! PersonalTableViewCell
-                cell.title.text = tvTitleArry[indexPath.row]
+                
+            } else {
+                let cell = tbvPost?.dequeueReusableCell(withIdentifier: HasPictureNewsTableViewCell.identified,
+                                                        for: indexPath) as! HasPictureNewsTableViewCell
+                if postList[indexPath.row].sendAccountImage == "未設置" {
+                    cell.imgvUser?.image = UIImage(systemName: "person.fill")
+                } else {
+                    cell.imgvUser?.image = postList[indexPath.row].sendAccountImage.stringToUIImage()
+                }
+                cell.imgvPicture?.image = postList[indexPath.row].newsPicture.stringToUIImage()
+                cell.lbDescription?.text = postList[indexPath.row].description
+                cell.lbTitle?.text = postList[indexPath.row].title
+                cell.btnShowReply!.tag = indexPath.row
+                cell.btnShowReply?.setTitle("查看全部 \(postList[indexPath.row].replyCount) 則留言", for: .normal)
+                cell.btnShowReply?.addTarget(self, action: #selector(clickShowReply), for: .touchUpInside)
                 return cell
             }
         } else {
@@ -357,42 +301,17 @@ extension PersonalViewController: UITableViewDelegate, UITableViewDataSource {
             nextVC.timeTitle = "\(concentrateRecordList[indexPath.row].startTime) 的專注歷程"
             nextVC.recordId = concentrateRecordList[indexPath.row].recordId.uuidString
             self.present(nextVC, animated: true)
-        } else {
-            if indexPath.row == 2 {
-                let nextVC = MyPostViewController()
-                var btn = UIBarButtonItem()
-                self.navigationController?.navigationBar.topItem?.backBarButtonItem = btn
-                self.navigationController?.pushViewController(nextVC, animated: true)
-            }
         }
     }
-    
-    
 }
 
-// MARK: - UIImagePickerControllerExtension
+// MARK: - LoadNewsDelegate
 
-extension PersonalViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        print("取消選擇圖片")
-        picker.dismiss(animated: true)
+extension FriendPersonalViewController: LoadNewsDelegate {
+    func loadNews() {
+        callApiLoadNews(accountId: UserPreferences.shared.accountId)
     }
-    
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print("選擇圖片")
-        let image = info[.editedImage] as? UIImage
-        igvUser.image = image
-        let imageString = image?.imageToBase64()
-        print("=================================")
-        print("\(imageString)")
-        print("=================================")
-        callUploadImageApi(imageString: imageString!)
-        picker.dismiss(animated: true)
-    }
-   
 }
-
 
 // MARK: - Protocol
+

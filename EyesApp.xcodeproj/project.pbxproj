@@ -65,6 +65,10 @@
 		3F6DFE262A6E2DA90058CDFB /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */; };
 		3F6DFE282A6E4D490058CDFB /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */; };
 		3F7C2E402AAED9BE004B71F4 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */; };
+		3F7F34D82AF7BE9000FD3CDC /* FriendPersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7F34D62AF7BE9000FD3CDC /* FriendPersonalViewController.swift */; };
+		3F7F34D92AF7BE9000FD3CDC /* FriendPersonalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F7F34D72AF7BE9000FD3CDC /* FriendPersonalViewController.xib */; };
+		3F7F34DD2AF7E7BC00FD3CDC /* MyPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7F34DB2AF7E7BC00FD3CDC /* MyPostViewController.swift */; };
+		3F7F34DE2AF7E7BC00FD3CDC /* MyPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F7F34DC2AF7E7BC00FD3CDC /* MyPostViewController.xib */; };
 		3F823B3A2AF6B1510086262F /* DeleteReplyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F823B392AF6B1510086262F /* DeleteReplyRequest.swift */; };
 		3F823B3C2AF6B1930086262F /* EditNewsReplyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F823B3B2AF6B1930086262F /* EditNewsReplyRequest.swift */; };
 		3F823B452AF751C30086262F /* ConcentrateRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F823B432AF751C30086262F /* ConcentrateRecordTableViewCell.swift */; };
@@ -212,6 +216,10 @@
 		3F6DFE252A6E2DA90058CDFB /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		3F6DFE272A6E4D490058CDFB /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
 		3F7C2E3F2AAED9BE004B71F4 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		3F7F34D62AF7BE9000FD3CDC /* FriendPersonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPersonalViewController.swift; sourceTree = "<group>"; };
+		3F7F34D72AF7BE9000FD3CDC /* FriendPersonalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendPersonalViewController.xib; sourceTree = "<group>"; };
+		3F7F34DB2AF7E7BC00FD3CDC /* MyPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostViewController.swift; sourceTree = "<group>"; };
+		3F7F34DC2AF7E7BC00FD3CDC /* MyPostViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPostViewController.xib; sourceTree = "<group>"; };
 		3F823B392AF6B1510086262F /* DeleteReplyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteReplyRequest.swift; sourceTree = "<group>"; };
 		3F823B3B2AF6B1930086262F /* EditNewsReplyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNewsReplyRequest.swift; sourceTree = "<group>"; };
 		3F823B432AF751C30086262F /* ConcentrateRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcentrateRecordTableViewCell.swift; sourceTree = "<group>"; };
@@ -456,6 +464,7 @@
 		3F44885B2A72A5DE00D573AB /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				3F7F34D52AF7BE5200FD3CDC /* FriendPersonal */,
 				3FB6320D2AC46D280015AF8D /* Components */,
 				3F4488702A72A7B700D573AB /* SocialViewController.swift */,
 				3F4488712A72A7B700D573AB /* SocialViewController.xib */,
@@ -498,6 +507,7 @@
 		3F44885F2A72A6BE00D573AB /* Personal */ = {
 			isa = PBXGroup;
 			children = (
+				3F7F34DA2AF7E7A000FD3CDC /* MyPost */,
 				3FE816192AF7A5DF002608A6 /* ConcentrateRecord */,
 				3F823B422AF751960086262F /* Components */,
 				3F4488602A72A75E00D573AB /* PersonalViewController.swift */,
@@ -556,6 +566,24 @@
 				3FE8161E2AF7B0C7002608A6 /* FindConcentrateRecordByRecordIdRequest.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		3F7F34D52AF7BE5200FD3CDC /* FriendPersonal */ = {
+			isa = PBXGroup;
+			children = (
+				3F7F34D62AF7BE9000FD3CDC /* FriendPersonalViewController.swift */,
+				3F7F34D72AF7BE9000FD3CDC /* FriendPersonalViewController.xib */,
+			);
+			path = FriendPersonal;
+			sourceTree = "<group>";
+		};
+		3F7F34DA2AF7E7A000FD3CDC /* MyPost */ = {
+			isa = PBXGroup;
+			children = (
+				3F7F34DB2AF7E7BC00FD3CDC /* MyPostViewController.swift */,
+				3F7F34DC2AF7E7BC00FD3CDC /* MyPostViewController.xib */,
+			);
+			path = MyPost;
 			sourceTree = "<group>";
 		};
 		3F823B422AF751960086262F /* Components */ = {
@@ -915,6 +943,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F7F34DE2AF7E7BC00FD3CDC /* MyPostViewController.xib in Resources */,
 				32BE4B582A0A45210014161D /* LaunchScreen.storyboard in Resources */,
 				3F44885A2A725B7F00D573AB /* tabTap.json in Resources */,
 				3FA2B4F22AE3D217005D0A16 /* FriendInviteTableViewCell.xib in Resources */,
@@ -954,6 +983,7 @@
 				3F4488E72A750A0D00D573AB /* EyeExerciseViewController.xib in Resources */,
 				3FDCE2E02A702DF6004981D7 /* LoginViewController.xib in Resources */,
 				3F96810C2A920E220031BEFE /* PersonalTableViewCell.xib in Resources */,
+				3F7F34D92AF7BE9000FD3CDC /* FriendPersonalViewController.xib in Resources */,
 				3F29568B2AE6A66A00DFD45E /* loadingInvite.json in Resources */,
 				3F44886B2A72A79000D573AB /* ConcentrateViewController.xib in Resources */,
 				3F44886F2A72A7A500D573AB /* EquipmentViewController.xib in Resources */,
@@ -1037,6 +1067,7 @@
 				3F8ED6722AE8B3BF00102F40 /* AnserConcentrateInviteViewController.swift in Sources */,
 				3F2956202AE6400B00DFD45E /* GiveUpConcentrateRecordRequest.swift in Sources */,
 				3FFD2B412AF5560F00D620B5 /* NewsTableViewCell.swift in Sources */,
+				3F7F34DD2AF7E7BC00FD3CDC /* MyPostViewController.swift in Sources */,
 				3F6DFE262A6E2DA90058CDFB /* LoginRequest.swift in Sources */,
 				3F9B36EF2AECF1B200CDB36A /* InviteRoomListTableViewCell.swift in Sources */,
 				3F44886E2A72A7A500D573AB /* EquipmentViewController.swift in Sources */,
@@ -1093,6 +1124,7 @@
 				32BE4B612A0A45600014161D /* OldMainViewController.swift in Sources */,
 				3F35FA252AE19B0000465D9E /* LogoutRequest.swift in Sources */,
 				3F4488722A72A7B700D573AB /* SocialViewController.swift in Sources */,
+				3F7F34D82AF7BE9000FD3CDC /* FriendPersonalViewController.swift in Sources */,
 				3F8ED66A2AE82DE900102F40 /* AddFriendToInviteRoomRequest.swift in Sources */,
 				3FB632102AC46D6E0015AF8D /* FriendListTableViewCell.swift in Sources */,
 				326146172A17691900855A6E /* RecordTableViewCell.swift in Sources */,

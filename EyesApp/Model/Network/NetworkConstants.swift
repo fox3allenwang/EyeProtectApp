@@ -94,4 +94,5 @@ enum ApiPathConstants: String {
     case editReply = "/api/newsReply/editReply"
     case findSelfConcentrateRecord = "/api/concentrateRecord/findSelfConcentrateRecord"
     case findConcentrateRecordByRecordId = "/api/concentrateRecord/findConcentrateRecordByRecordId"
+    case loadOnePersonNews = "/api/news/loadOnePersonNews"
 }

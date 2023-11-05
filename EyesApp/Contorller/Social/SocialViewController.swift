@@ -131,7 +131,20 @@ extension SocialViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let nextView = FriendPersonalViewController()
+        nextView.userName = friendListArray[indexPath.row].name
+        nextView.title = friendListArray[indexPath.row].name
+        nextView.friendAccountId = friendListArray[indexPath.row].accountId
+        if friendListArray[indexPath.row].image == "未設置" {
+            nextView.userImage = UIImage(systemName: "person.fill")
+        } else {
+            nextView.userImage = friendListArray[indexPath.row].image.stringToUIImage()
+        }
+        var btn = UIBarButtonItem()
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = btn
+        navigationController?.pushViewController(nextView, animated: true)
+    }
 }
 
 // MARK: - Protocol
