@@ -13,10 +13,13 @@ import Lottie
 class EyeExerciseViewController: UIViewController {
     
     // MARK: - IBOutlet
+    
     @IBOutlet weak var faceTrackerView: ARSCNView!
     @IBOutlet weak var eyePositionIndicatorView: UIView!
     @IBOutlet weak var eyeDistance: UILabel!
     @IBOutlet weak var vAnimate: UIView!
+    @IBOutlet weak var vfaceFram: UIView!
+    
     // MARK: - Variables
     var lookAtTargetEyeLNode: SCNNode = SCNNode()
     var lookAtTargetEyeRNode: SCNNode = SCNNode()
@@ -59,6 +62,9 @@ class EyeExerciseViewController: UIViewController {
     
     var lookAtPointX:CGFloat = 0.0
     var lookAtPointy:CGFloat = 0.0
+    
+    var showLookAtPointX: CGFloat = 0.0
+    var showLookAtPointY: CGFloat = 0.0
     
     var distance = 0
     
@@ -119,6 +125,8 @@ class EyeExerciseViewController: UIViewController {
         phoneScreenSize = getScreenSize()
         print("\(phoneScreenSize.width), \(phoneScreenSize.height)")
         correctionTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(correctionTimerAction), userInfo: nil, repeats: true)
+        eyeDistance.layer.cornerRadius = 20
+        eyeDistance.clipsToBounds = true
     }
     
     func correctionRectOfInterest() {
@@ -193,8 +201,20 @@ class EyeExerciseViewController: UIViewController {
         var eyeLLookAt = CGPoint()
         var eyeRLookAt = CGPoint()
         
-        let heightCompensation: CGFloat = -50
-        let widthCompensation: CGFloat = 0
+        var heightCompensation: CGFloat = 0.0
+        var widthCompensation: CGFloat = 0.0
+        heightCompensation = -200
+        widthCompensation = -100
+        
+//        if UIScreen.main.bounds.width >= 428.0 {
+//            // iphone 12
+//            heightCompensation = -250
+//            widthCompensation = -300
+//        } else {
+//            // iphone 14
+//            heightCompensation = -100
+//            widthCompensation = -200
+//        }
         
         DispatchQueue.main.async {
             
@@ -241,6 +261,9 @@ class EyeExerciseViewController: UIViewController {
             self.lookAtPointX = smoothEyeLookAtPositionX
             self.lookAtPointy = smoothEyeLookAtPositionY
             
+            self.showLookAtPointY = smoothEyeLookAtPositionY + self.phoneScreenPointSize.height / 2
+            self.showLookAtPointX = smoothEyeLookAtPositionX + self.phoneScreenPointSize.width / 2
+            
             // Calculate distance of the eyes to the camera
             let distanceL = self.eyeLNode.worldPosition - SCNVector3Zero
             let distanceR = self.eyeRNode.worldPosition - SCNVector3Zero
@@ -270,9 +293,12 @@ class EyeExerciseViewController: UIViewController {
     
     // MARK: - IBAction
     @objc func correctionTimerAction() {
-        if lookAtPointX < self.view.center.x + 8 && lookAtPointX > self.view.center.x - 50 &&
-            lookAtPointy < self.view.center.y + 60 && lookAtPointy > self.view.center.y - 60 &&
-            distance == 45
+        if showLookAtPointX >= ((UIScreen.main.bounds.width / 1.13) - 50) &&
+            showLookAtPointX <= ((UIScreen.main.bounds.width / 1.13) + 50) &&
+            showLookAtPointY >= (UIScreen.main.bounds.height / 1.22) - 50 &&
+            showLookAtPointY <= (UIScreen.main.bounds.height / 1.22) + 50 &&
+            distance <= 35 &&
+            distance >= 30
         {
             AudioServicesPlaySystemSound(soundShort)
             correctionCount += 1
@@ -288,6 +314,9 @@ class EyeExerciseViewController: UIViewController {
                 self.blackBackgroundView.isHidden = true
                 self.eyePositionIndicatorView.isHidden = true
                 Alert.showAlert(title: "校正完成", message: "請與眼睛保持一樣角度以及距離來進行後續的眼睛保健操", vc: self, confirmTitle: "確認")
+                UIView.transition(with: self.vfaceFram, duration: 0.5, options: .transitionCrossDissolve) {
+                    self.vfaceFram.isHidden = true
+                }
             }
         }
     }
