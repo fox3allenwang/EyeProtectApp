@@ -570,6 +570,11 @@ class MainViewController: BaseViewController {
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
+    @IBAction func clickBtnFatigueDetection() {
+        let nextVC = FatigueDetectionViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
     @objc func clickAcceptInviteBtn(_ sender: UIButton) {
         callAddFriendApi(reciveAccountId: UserPreferences.shared.accountId,
                          sendAccountId: friendInviteListArray[sender.tag].accountId)
