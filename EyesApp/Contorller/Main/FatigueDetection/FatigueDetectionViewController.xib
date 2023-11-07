@@ -11,7 +11,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FatigueDetectionViewController" customModule="EyesApp" customModuleProvider="target">
             <connections>
-                <outlet property="lbFatigueDetection" destination="fro-Qb-lLp" id="q5c-rB-e38"/>
                 <outlet property="vARSCN" destination="OoE-Gy-j5J" id="nXg-W9-CrW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,22 +23,12 @@
                 <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OoE-Gy-j5J">
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                 </arscnView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fro-Qb-lLp">
-                    <rect key="frame" x="59" y="415.66666666666669" width="275" height="45.666666666666686"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fro-Qb-lLp" firstAttribute="centerX" secondItem="OoE-Gy-j5J" secondAttribute="centerX" id="P0g-Dq-nRw"/>
                 <constraint firstItem="OoE-Gy-j5J" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" id="PGx-dt-weJ"/>
                 <constraint firstItem="OoE-Gy-j5J" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" id="UT9-qP-fpN"/>
-                <constraint firstItem="fro-Qb-lLp" firstAttribute="centerY" secondItem="OoE-Gy-j5J" secondAttribute="centerY" id="ZOc-Qw-MvV"/>
-                <constraint firstItem="fro-Qb-lLp" firstAttribute="width" secondItem="OoE-Gy-j5J" secondAttribute="width" multiplier="0.7" id="iCu-H9-8aD"/>
-                <constraint firstItem="fro-Qb-lLp" firstAttribute="height" secondItem="OoE-Gy-j5J" secondAttribute="height" multiplier="0.06" id="qJ1-Dv-cLD"/>
                 <constraint firstItem="OoE-Gy-j5J" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="qdm-g6-uQr"/>
                 <constraint firstItem="OoE-Gy-j5J" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="zMK-4b-f8J"/>
             </constraints>

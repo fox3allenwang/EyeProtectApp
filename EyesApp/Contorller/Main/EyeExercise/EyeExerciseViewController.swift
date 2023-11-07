@@ -312,7 +312,6 @@ class EyeExerciseViewController: UIViewController {
                 self.correctionMode = false
                 self.eyePositionIndicatorView.isHidden = true
                 self.blackBackgroundView.isHidden = true
-                self.eyePositionIndicatorView.isHidden = true
                 Alert.showAlert(title: "校正完成", message: "請與眼睛保持一樣角度以及距離來進行後續的眼睛保健操", vc: self, confirmTitle: "確認")
                 UIView.transition(with: self.vfaceFram, duration: 0.5, options: .transitionCrossDissolve) {
                     self.vfaceFram.isHidden = true

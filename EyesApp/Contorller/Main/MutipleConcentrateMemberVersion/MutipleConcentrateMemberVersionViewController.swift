@@ -287,7 +287,7 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
                         let interruptAccountId = string.prefix(36)
                         print(interruptAccountId)
                         self.callFindAccountApi(accountId: String(interruptAccountId)) { result in
-                            Alert.showAlert(title: "\((result.data?.name)!) 中斷專注了", message: "因為 \((result.data?.name)!) 中斷專注，因此這次的專注沒有成功", vc: self, confirmTitle: "確認") {
+                            Alert.showAlert(title: "\((result.data?.name)!) 中斷專注了", message: "因為 \((result.data?.name)!) 中斷專注，所以這次的專注沒有成功", vc: self, confirmTitle: "確認") {
                                 self.concentrateFaild()
                             }
                         }
