@@ -100,7 +100,7 @@ extension BluetoothServices: CBCentralManagerDelegate {
         }
         for _ in 0...19 {
             peripheral.writeValue(data, for: characteristic, type: type)
-            Thread.sleep(forTimeInterval: 0.01)
+            Thread.sleep(forTimeInterval: 0.001)
         }
     }
 }
@@ -156,7 +156,7 @@ extension BluetoothServices: CBPeripheralDelegate {
         }
         let characteristicASCIIValue = Character(ASCIIstring)
         
-//        delegate?.getBlEPeripheralValue(value: characteristicASCIIValue.asciiValue!)
+        delegate?.getBlEPeripheralValue(value: characteristicASCIIValue.asciiValue!)
     }
 }
 

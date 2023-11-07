@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class EquipmentViewController: UIViewController {
     
@@ -23,17 +24,25 @@ class EquipmentViewController: UIViewController {
     var changeImageValueG :CGFloat?
     var changeImageValueB :CGFloat?
     
-    let bluetooth = BluetoothServices.shared
+    private let bluetooth = BluetoothServices.shared
+    
+    private let captureSession = AVCaptureSession()
+    private let frontCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupCamera()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("EquipmentViewController")
+        Alert.showAlert(title: "提示",
+                        message: "使用前請先確認檯燈藍牙狀態燈亮起，以及藍光感測器已通電",
+                        vc: self,
+                        confirmTitle: "確認")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -58,6 +67,9 @@ class EquipmentViewController: UIViewController {
     
     func setupBlueServices() {
         bluetooth.delegate = self
+        if Bluelight.peripheral != nil {
+            bluetooth.connectPeripheral(peripheral: Bluelight.peripheral!)
+        }
     }
     
     func setupImageView() {
@@ -80,6 +92,20 @@ class EquipmentViewController: UIViewController {
         blueDetectionView.layer.shadowRadius = 20
     }
     
+    func setupCamera() {
+        guard let frontCamera = frontCamera,
+              let frontCameraInput = try? AVCaptureDeviceInput(device: frontCamera) else { return
+        }
+        let captureVideoOutput = AVCaptureVideoDataOutput()
+        let quene = DispatchQueue(label: "sample buffer delegate")
+        
+        captureVideoOutput.setSampleBufferDelegate(self, queue: quene)
+        
+        captureSession.addInput(frontCameraInput)
+        captureSession.addOutput(captureVideoOutput)
+        captureSession.startRunning()
+    }
+    
     func changeColor() {
         changeBackgroundValue = CGFloat(lightSlider.value / 100) * 0.5
         changeImageValueR = 0.23137 / CGFloat(lightSlider.value / 100)
@@ -91,7 +117,14 @@ class EquipmentViewController: UIViewController {
     
     // 電燈開關放這裡
     @IBAction func clickbtnLight() {
-        bluetooth.connectPeripheral(peripheral: Lamp.peripheral!)
+        if Lamp.peripheral == nil {
+            Alert.showAlert(title: "裝置",
+                            message: "未搜尋到對應裝置，請確認裝置狀態或重新啟動",
+                            vc: self,
+                            confirmTitle: "確認")
+        } else {
+            bluetooth.connectPeripheral(peripheral: Lamp.peripheral!)
+        }
         
         if lightSlider.isHidden == false {
             let data = "B".data(using: .utf8)
@@ -110,8 +143,10 @@ class EquipmentViewController: UIViewController {
         ivgLight.tintColor = UIColor(red: changeImageValueR!,
                                      green: changeImageValueG!,
                                      blue: changeImageValueB!, alpha: 1)
+        
         let step: Float = 20
         lightSlider.value = (lightSlider.value / step).rounded() * step
+        
         switch lightSlider.value {
         case 100:
             let data = "5".data(using: .utf8)
@@ -165,6 +200,19 @@ class EquipmentViewController: UIViewController {
 
 extension EquipmentViewController: BluetoothServicesDelegate {
     func getBlEPeripheralValue(value: UInt8) {
+        DispatchQueue.main.async {
+            self.lbBlueLightValue.text = "藍光度數：\(value)"
+        }
+    }
+}
+
+extension EquipmentViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(_ output: AVCaptureOutput, 
+                       didOutput sampleBuffer: CMSampleBuffer,
+                       from connection: AVCaptureConnection) {
+        DispatchQueue.main.async {
+            print("ISO:\(self.frontCamera?.iso ?? 0)")
+        }
     }
 }
 // MARK: - Protocol
