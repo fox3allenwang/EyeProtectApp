@@ -19,6 +19,14 @@ class EyeExerciseViewController: UIViewController {
     @IBOutlet weak var eyeDistance: UILabel!
     @IBOutlet weak var vAnimate: UIView!
     @IBOutlet weak var vfaceFram: UIView!
+    @IBOutlet weak var rightEyeIcon: UIView!
+    @IBOutlet weak var leftEyeIcon: UIView!
+    @IBOutlet weak var vIconFace: UIView!
+    @IBOutlet weak var vIconLeftEyeWhite: UIView!
+    @IBOutlet weak var vIconRightEyeWhite: UIView!
+    @IBOutlet weak var vIconLeftEyeClose: UIView!
+    @IBOutlet weak var vIconRightEyeClose: UIView!
+    @IBOutlet weak var vIconBackground: UIView!
     
     // MARK: - Variables
     var lookAtTargetEyeLNode: SCNNode = SCNNode()
@@ -27,6 +35,7 @@ class EyeExerciseViewController: UIViewController {
     var phoneScreenSize: CGSize = CGSize()
     var phoneScreenPointSize = UIScreen.main.bounds.size
     var faceNode: SCNNode?
+    
     
     var eyeLNode: SCNNode = SCNNode()
     
@@ -121,12 +130,41 @@ class EyeExerciseViewController: UIViewController {
     // MARK: - UI Settings
     
     func setupUI() {
-        setFaceTrackerView()
+        Alert.showToastWith(message: "Step1: 請將手機與眼睛的距離保持在 30~35 cm ", vc: self, during: .long) {
+            
+            Alert.showToastWith(message: "Step2: 將臉放在中間的臉模中", vc: self, during: .long) {
+                Alert.showToastWith(message: "Step3: 將綠色目標框框維持在中間的透明框框等到出現綠色勾勾", vc: self, during: .long) {
+                    self.setFaceTrackerView()
+                }
+            }
+        }
         phoneScreenSize = getScreenSize()
         print("\(phoneScreenSize.width), \(phoneScreenSize.height)")
         correctionTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(correctionTimerAction), userInfo: nil, repeats: true)
         eyeDistance.layer.cornerRadius = 20
         eyeDistance.clipsToBounds = true
+        setupIconFaceAndEye()
+    }
+    
+    func setupIconFaceAndEye() {
+        vIconBackground.layer.cornerRadius = 20
+        
+        vIconFace.backgroundColor = .clear
+        vIconFace.layer.cornerRadius = 20
+        vIconFace.layer.borderColor = UIColor.buttom2Color?.cgColor
+        vIconFace.layer.borderWidth = 4
+        
+        vIconLeftEyeWhite.layer.cornerRadius = 23
+        vIconLeftEyeWhite.backgroundColor = UIColor.clear
+        vIconLeftEyeWhite.layer.borderWidth = 4
+        vIconLeftEyeWhite.layer.borderColor = UIColor.buttom2Color?.cgColor
+        vIconRightEyeWhite.layer.cornerRadius = 23
+        vIconRightEyeWhite.backgroundColor = UIColor.clear
+        vIconRightEyeWhite.layer.borderColor = UIColor.buttom2Color?.cgColor
+        vIconRightEyeWhite.layer.borderWidth = 4
+        
+        rightEyeIcon.layer.cornerRadius = 12
+        leftEyeIcon.layer.cornerRadius = 12
     }
     
     func correctionRectOfInterest() {
@@ -177,6 +215,7 @@ class EyeExerciseViewController: UIViewController {
         
         eyePositionIndicatorView.alpha = 0.4
         eyePositionIndicatorView.layer.cornerRadius = 20
+        faceTrackerView.showsStatistics = false
     }
     
     func getScreenSize() -> CGSize {
@@ -245,14 +284,20 @@ class EyeExerciseViewController: UIViewController {
             let smoothEyeLookAtPositionX = self.eyeLookAtPositionXs.average!
             let smoothEyeLookAtPositionY = self.eyeLookAtPositionYs.average!
             
+            // 設定小人動畫
+            self.leftEyeIcon.transform = CGAffineTransform(translationX: (eyeLLookAt.x / 100) + 8,
+                                                           y:  -(eyeLLookAt.y / 100) + 8)
+            self.rightEyeIcon.transform = CGAffineTransform(translationX: (eyeRLookAt.x / 100) + 14,
+                                                            y: -(eyeRLookAt.y / 100) + 8)
+            
+            // 校正模式完成與否要做的事
             if self.correctionMode == false {
                 self.eyePositionIndicatorView.isHidden = true
             } else {
                 self.eyePositionIndicatorView.isHidden = false
-                self.eyePositionIndicatorView.transform = CGAffineTransform(translationX: smoothEyeLookAtPositionX, y: smoothEyeLookAtPositionY)
+                self.eyePositionIndicatorView.transform = CGAffineTransform(translationX: smoothEyeLookAtPositionX,
+                                                                            y: smoothEyeLookAtPositionY)
             }
-            
-            
             
             var lookAtPositionXLabel = "\(Int(round(smoothEyeLookAtPositionX + self.phoneScreenPointSize.width / 2)))"
            
@@ -272,8 +317,8 @@ class EyeExerciseViewController: UIViewController {
             self.distance = Int(round(((distanceL.length() + distanceR.length()) / 2) * 100))
             
             
-            // 最維持在 45 cm
-            self.eyeDistance.text = "\(self.distance)"
+            // 最好維持在 30~35 cm 之間
+            self.eyeDistance.text = "\(self.distance)cm"
             
         }
     }
@@ -308,14 +353,15 @@ class EyeExerciseViewController: UIViewController {
         
         if correctionCount == 10 {
             correctionTimer.invalidate()
+            UIView.transition(with: self.vfaceFram, duration: 0.5, options: .transitionCrossDissolve) {
+                self.vfaceFram.isHidden = true
+            }
             setupAnimate {
                 self.correctionMode = false
                 self.eyePositionIndicatorView.isHidden = true
                 self.blackBackgroundView.isHidden = true
                 Alert.showAlert(title: "校正完成", message: "請與眼睛保持一樣角度以及距離來進行後續的眼睛保健操", vc: self, confirmTitle: "確認")
-                UIView.transition(with: self.vfaceFram, duration: 0.5, options: .transitionCrossDissolve) {
-                    self.vfaceFram.isHidden = true
-                }
+               
             }
         }
     }
@@ -361,9 +407,37 @@ extension EyeExerciseViewController: ARSCNViewDelegate, ARSessionDelegate {
         // 計算扎眼機率，如果皆大於 50% 則隱藏專注點
         if leftEyeDazzing.decimalValue >= 0.5 && rightEyeDazzing.decimalValue >= 0.5 ||
             correctionMode == false {
-            eyePositionIndicatorView.isHidden = true
+            DispatchQueue.main.async {
+                self.eyePositionIndicatorView.isHidden = true
+            }
         } else {
-            eyePositionIndicatorView.isHidden = false
+            DispatchQueue.main.async {
+                self.eyePositionIndicatorView.isHidden = false
+            }
+        }
+        
+        if rightEyeDazzing.decimalValue >= 0.7 {
+            DispatchQueue.main.async {
+                self.vIconLeftEyeClose.isHidden = false
+                self.vIconLeftEyeWhite.isHidden = true
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.vIconLeftEyeClose.isHidden = true
+                self.vIconLeftEyeWhite.isHidden = false
+            }
+        }
+        
+        if leftEyeDazzing.decimalValue >= 0.7 {
+            DispatchQueue.main.async {
+                self.vIconRightEyeClose.isHidden = false
+                self.vIconRightEyeWhite.isHidden = true
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.vIconRightEyeClose.isHidden = true
+                self.vIconRightEyeWhite.isHidden = false
+            }
         }
         
         update(withFaceAnchor: faceAnchor)
