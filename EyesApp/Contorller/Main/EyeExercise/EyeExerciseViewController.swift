@@ -27,6 +27,9 @@ class EyeExerciseViewController: UIViewController {
     @IBOutlet weak var vIconLeftEyeClose: UIView!
     @IBOutlet weak var vIconRightEyeClose: UIView!
     @IBOutlet weak var vIconBackground: UIView!
+    @IBOutlet weak var lbExerciseGuide: UILabel!
+    @IBOutlet weak var imgvSmileLeftEye: UIImageView!
+    @IBOutlet weak var imgvSmileRightEye: UIImageView!
     
     // MARK: - Variables
     var lookAtTargetEyeLNode: SCNNode = SCNNode()
@@ -99,6 +102,8 @@ class EyeExerciseViewController: UIViewController {
     var correctionErrorsTimer = Timer()
     
     var correctionMode = true
+    
+    var completeStatus = false
     
     // MARK: - LifeCycle
     
@@ -336,6 +341,32 @@ class EyeExerciseViewController: UIViewController {
         }
     }
     
+    func completeStep() {
+        // 使用動畫延遲 1 秒的方式，切換到下一個步驟
+        completeStatus = true
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {
+            // 在动画块中，将视图的透明度设置为 1.0（完全可见）
+            DispatchQueue.main.async {
+                self.vIconLeftEyeWhite.isHidden = true
+                self.vIconRightEyeWhite.isHidden = true
+                self.imgvSmileLeftEye.isHidden = false
+                self.imgvSmileRightEye.isHidden = false
+            }
+        }, completion: { _ in
+            // 在動畫結束後執行
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.vIconLeftEyeWhite.isHidden = false
+                    self.vIconRightEyeWhite.isHidden = false
+                    self.imgvSmileLeftEye.isHidden = true
+                    self.imgvSmileRightEye.isHidden = true
+                })
+                self.completeStatus = false
+            }
+        })
+        
+    }
+    
     // MARK: - IBAction
     @objc func correctionTimerAction() {
         if showLookAtPointX >= ((UIScreen.main.bounds.width / 1.13) - 50) &&
@@ -356,12 +387,12 @@ class EyeExerciseViewController: UIViewController {
             UIView.transition(with: self.vfaceFram, duration: 0.5, options: .transitionCrossDissolve) {
                 self.vfaceFram.isHidden = true
             }
+            self.completeStep()
             setupAnimate {
                 self.correctionMode = false
                 self.eyePositionIndicatorView.isHidden = true
                 self.blackBackgroundView.isHidden = true
                 Alert.showAlert(title: "校正完成", message: "請與眼睛保持一樣角度以及距離來進行後續的眼睛保健操", vc: self, confirmTitle: "確認")
-               
             }
         }
     }
@@ -416,24 +447,24 @@ extension EyeExerciseViewController: ARSCNViewDelegate, ARSessionDelegate {
             }
         }
         
-        if rightEyeDazzing.decimalValue >= 0.7 {
+        if rightEyeDazzing.decimalValue >= 0.7 && completeStatus == false {
             DispatchQueue.main.async {
                 self.vIconLeftEyeClose.isHidden = false
                 self.vIconLeftEyeWhite.isHidden = true
             }
-        } else {
+        } else if completeStatus == false {
             DispatchQueue.main.async {
                 self.vIconLeftEyeClose.isHidden = true
                 self.vIconLeftEyeWhite.isHidden = false
             }
         }
         
-        if leftEyeDazzing.decimalValue >= 0.7 {
+        if leftEyeDazzing.decimalValue >= 0.7  && completeStatus == false {
             DispatchQueue.main.async {
                 self.vIconRightEyeClose.isHidden = false
                 self.vIconRightEyeWhite.isHidden = true
             }
-        } else {
+        } else if completeStatus == false {
             DispatchQueue.main.async {
                 self.vIconRightEyeClose.isHidden = true
                 self.vIconRightEyeWhite.isHidden = false
