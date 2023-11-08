@@ -233,7 +233,19 @@ class MainViewController: BaseViewController {
             if vFriendInviteList.isHidden == false {
                 clickShowFriendInviteView()
             }
-            cameraMenuButtomItem = UIBarButtonItem(image: UIImage(systemName: "vial.viewfinder"), style: .done, target: self, action: #selector(clickCameraMenu))
+            if #available(iOS 16.0, *) {
+                cameraMenuButtomItem = UIBarButtonItem(image: UIImage(systemName: "vial.viewfinder"),
+                                                       style: .done,
+                                                       target: self,
+                                                       action: #selector(clickCameraMenu))
+            } else {
+                // 改這裡
+                cameraMenuButtomItem = UIBarButtonItem(image: UIImage(systemName: "vial.viewfinder"),
+                                                       style: .done,
+                                                       target: self,
+                                                       action: #selector(clickCameraMenu))
+            }
+            
             NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
             navigationItem.rightBarButtonItems = [cameraMenuButtomItem!]
         }
@@ -718,7 +730,7 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                        didOutput sampleBuffer: CMSampleBuffer,
                        from connection: AVCaptureConnection) {
         DispatchQueue.main.async {
-            var isoValue = self.frontCamera?.iso ?? 0
+            let isoValue = self.frontCamera?.iso ?? 0
             print("ISO:\(isoValue)")
             
             if isoValue > 750 {
@@ -727,8 +739,10 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                                 vc: self,
                                 confirmTitle: "確認",
                                 cancelTitle: "取消", confirm: {
+                    UserPreferences.shared.isoLowValue = true
                     self.updateView(index: 3)
                 }, cancel: {
+                    UserPreferences.shared.isoLowValue = false
                 })
             }
         }

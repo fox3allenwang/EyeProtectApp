@@ -41,7 +41,7 @@ class UserPreferences {
         
         case jwtToken
         
-        
+        case isoLowValue
 
     }
     
@@ -95,6 +95,11 @@ class UserPreferences {
     var jwtToken: String {
         get { return userPreferences.string(forKey: UserPreference.jwtToken.rawValue) ?? "" }
         set { userPreferences.set(newValue, forKey: UserPreference.jwtToken.rawValue)}
+    }
+    
+    var isoLowValue: Bool {
+        get { return userPreferences.bool(forKey: UserPreference.isoLowValue.rawValue)}
+        set { userPreferences.set(newValue, forKey: UserPreference.isoLowValue.rawValue)}
     }
     
     // MARK: - Reset Initial Flow Variables

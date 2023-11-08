@@ -43,6 +43,18 @@ class EquipmentViewController: UIViewController {
                         message: "使用前請先確認檯燈藍牙狀態燈亮起，以及藍光感測器已通電",
                         vc: self,
                         confirmTitle: "確認")
+        if UserPreferences.shared.isoLowValue == true {
+            if Lamp.peripheral == nil {
+                Alert.showAlert(title: "裝置",
+                                message: "未搜尋到對應裝置，請確認裝置狀態或重新啟動",
+                                vc: self,
+                                confirmTitle: "確認")
+            } else {
+                bluetooth.connectPeripheral(peripheral: Lamp.peripheral!)
+            }
+            let data = "C".data(using: .utf8)
+            bluetooth.writeValue(type: .withoutResponse, data: data!)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
