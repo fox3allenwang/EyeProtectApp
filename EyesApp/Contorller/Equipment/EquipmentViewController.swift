@@ -33,7 +33,7 @@ class EquipmentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupCamera()
+//        setupCamera()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,19 +92,19 @@ class EquipmentViewController: UIViewController {
         blueDetectionView.layer.shadowRadius = 20
     }
     
-    func setupCamera() {
-        guard let frontCamera = frontCamera,
-              let frontCameraInput = try? AVCaptureDeviceInput(device: frontCamera) else { return
-        }
-        let captureVideoOutput = AVCaptureVideoDataOutput()
-        let quene = DispatchQueue(label: "sample buffer delegate")
-        
-        captureVideoOutput.setSampleBufferDelegate(self, queue: quene)
-        
-        captureSession.addInput(frontCameraInput)
-        captureSession.addOutput(captureVideoOutput)
-        captureSession.startRunning()
-    }
+//    func setupCamera() {
+//        guard let frontCamera = frontCamera,
+//              let frontCameraInput = try? AVCaptureDeviceInput(device: frontCamera) else { return
+//        }
+//        let captureVideoOutput = AVCaptureVideoDataOutput()
+//        let quene = DispatchQueue(label: "sample buffer delegate")
+//        
+//        captureVideoOutput.setSampleBufferDelegate(self, queue: quene)
+//        
+//        captureSession.addInput(frontCameraInput)
+//        captureSession.addOutput(captureVideoOutput)
+//        captureSession.startRunning()
+//    }
     
     func changeColor() {
         changeBackgroundValue = CGFloat(lightSlider.value / 100) * 0.5
@@ -206,13 +206,13 @@ extension EquipmentViewController: BluetoothServicesDelegate {
     }
 }
 
-extension EquipmentViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
-    func captureOutput(_ output: AVCaptureOutput, 
-                       didOutput sampleBuffer: CMSampleBuffer,
-                       from connection: AVCaptureConnection) {
-        DispatchQueue.main.async {
-            print("ISO:\(self.frontCamera?.iso ?? 0)")
-        }
-    }
-}
+//extension EquipmentViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+//    func captureOutput(_ output: AVCaptureOutput, 
+//                       didOutput sampleBuffer: CMSampleBuffer,
+//                       from connection: AVCaptureConnection) {
+//        DispatchQueue.main.async {
+//            print("ISO:\(self.frontCamera?.iso ?? 0)")
+//        }
+//    }
+//}
 // MARK: - Protocol

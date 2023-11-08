@@ -8,6 +8,7 @@
 import UIKit
 import Lottie
 import SwiftEntryKit
+import AVFoundation
 
 class MainViewController: BaseViewController {
     
@@ -46,6 +47,9 @@ class MainViewController: BaseViewController {
     var inviteRoomId = ""
     private var inviteMemberList: [InviteRoomMember] = []
     
+    private let captureSession = AVCaptureSession()
+    private let frontCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
+    
     var cameraMenuStatus: CameraMenueStatus = .close
     enum CameraMenueStatus {
         case open
@@ -65,6 +69,7 @@ class MainViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupCamera()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -174,6 +179,20 @@ class MainViewController: BaseViewController {
         tbvInviteRoomMember.tag = 1
         tbvInviteRoomMember.dataSource = self
         tbvInviteRoomMember.delegate = self
+    }
+    
+    func setupCamera() {
+        guard let frontCamera = frontCamera,
+              let frontCameraInput = try? AVCaptureDeviceInput(device: frontCamera) else { return
+        }
+        let captureVideoOutput = AVCaptureVideoDataOutput()
+        let quene = DispatchQueue(label: "sample buffer delegate")
+        
+        captureVideoOutput.setSampleBufferDelegate(self, queue: quene)
+        
+        captureSession.addInput(frontCameraInput)
+        captureSession.addOutput(captureVideoOutput)
+        captureSession.startRunning()
     }
     
     func updateView(index: Int) {
@@ -690,5 +709,28 @@ extension MainViewController: URLSessionWebSocketDelegate {
             print("error")
         }
     }
-    
+}
+
+// MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
+
+extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(_ output: AVCaptureOutput,
+                       didOutput sampleBuffer: CMSampleBuffer,
+                       from connection: AVCaptureConnection) {
+        DispatchQueue.main.async {
+            var isoValue = self.frontCamera?.iso ?? 0
+            print("ISO:\(isoValue)")
+            
+            if isoValue > 750 {
+                Alert.showAlert(title: "警示",
+                                message: "環境亮度低，即將自動啟用檯燈",
+                                vc: self,
+                                confirmTitle: "確認",
+                                cancelTitle: "取消", confirm: {
+                    self.updateView(index: 3)
+                }, cancel: {
+                })
+            }
+        }
+    }
 }
