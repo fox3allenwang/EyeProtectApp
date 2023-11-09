@@ -192,7 +192,10 @@ class MainViewController: BaseViewController {
         
         captureSession.addInput(frontCameraInput)
         captureSession.addOutput(captureVideoOutput)
-        captureSession.startRunning()
+        
+        DispatchQueue.global().async {
+            self.captureSession.startRunning()
+        }
     }
     
     func updateView(index: Int) {

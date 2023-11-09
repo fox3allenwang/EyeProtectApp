@@ -38,23 +38,13 @@ class EquipmentViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        isoValue()
         print("EquipmentViewController")
         Alert.showAlert(title: "提示",
                         message: "使用前請先確認檯燈藍牙狀態燈亮起，以及藍光感測器已通電",
                         vc: self,
                         confirmTitle: "確認")
-        if UserPreferences.shared.isoLowValue == true {
-            if Lamp.peripheral == nil {
-                Alert.showAlert(title: "裝置",
-                                message: "未搜尋到對應裝置，請確認裝置狀態或重新啟動",
-                                vc: self,
-                                confirmTitle: "確認")
-            } else {
-                bluetooth.connectPeripheral(peripheral: Lamp.peripheral!)
-            }
-            let data = "C".data(using: .utf8)
-            bluetooth.writeValue(type: .withoutResponse, data: data!)
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -104,25 +94,26 @@ class EquipmentViewController: UIViewController {
         blueDetectionView.layer.shadowRadius = 20
     }
     
-//    func setupCamera() {
-//        guard let frontCamera = frontCamera,
-//              let frontCameraInput = try? AVCaptureDeviceInput(device: frontCamera) else { return
-//        }
-//        let captureVideoOutput = AVCaptureVideoDataOutput()
-//        let quene = DispatchQueue(label: "sample buffer delegate")
-//        
-//        captureVideoOutput.setSampleBufferDelegate(self, queue: quene)
-//        
-//        captureSession.addInput(frontCameraInput)
-//        captureSession.addOutput(captureVideoOutput)
-//        captureSession.startRunning()
-//    }
-    
     func changeColor() {
         changeBackgroundValue = CGFloat(lightSlider.value / 100) * 0.5
         changeImageValueR = 0.23137 / CGFloat(lightSlider.value / 100)
         changeImageValueG = 0.49411 / CGFloat(lightSlider.value / 100)
         changeImageValueB = 0.203921 / CGFloat(lightSlider.value / 100)
+    }
+    
+    func isoValue() {
+        if UserPreferences.shared.isoLowValue == true {
+            if Lamp.peripheral == nil {
+                Alert.showAlert(title: "裝置",
+                                message: "未搜尋到對應裝置，請確認裝置狀態或重新啟動",
+                                vc: self,
+                                confirmTitle: "確認")
+            } else {
+                bluetooth.connectPeripheral(peripheral: Lamp.peripheral!)
+            }
+            let data = "C".data(using: .utf8)
+            bluetooth.writeValue(type: .withoutResponse, data: data!)
+        }
     }
     
     // MARK: - IBAction
@@ -218,13 +209,4 @@ extension EquipmentViewController: BluetoothServicesDelegate {
     }
 }
 
-//extension EquipmentViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
-//    func captureOutput(_ output: AVCaptureOutput, 
-//                       didOutput sampleBuffer: CMSampleBuffer,
-//                       from connection: AVCaptureConnection) {
-//        DispatchQueue.main.async {
-//            print("ISO:\(self.frontCamera?.iso ?? 0)")
-//        }
-//    }
-//}
 // MARK: - Protocol
