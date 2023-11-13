@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,13 +19,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYb-YJ-VQx">
-                        <rect key="frame" x="0.0" y="15" width="224" height="70"/>
+                        <rect key="frame" x="0.0" y="15" width="256" height="70"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zhs-Ro-3tc">
-                        <rect key="frame" x="270" y="25" width="50" height="50"/>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Zhs-Ro-3tc">
+                        <rect key="frame" x="280" y="32.333333333333329" width="40" height="36"/>
+                        <color key="tintColor" name="Buttom2Color"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="Zhs-Ro-3tc" secondAttribute="height" multiplier="1:1" id="BWI-Ri-H5C"/>
                         </constraints>
@@ -45,9 +47,9 @@
                     <constraint firstItem="hYb-YJ-VQx" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aWi-CE-BEz"/>
                     <constraint firstItem="ISc-pa-jwv" firstAttribute="trailing" secondItem="Zhs-Ro-3tc" secondAttribute="trailing" id="ew2-AT-XDP"/>
                     <constraint firstItem="hYb-YJ-VQx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="hEX-QE-YsX"/>
-                    <constraint firstItem="Zhs-Ro-3tc" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.5" id="og8-sH-4q8"/>
+                    <constraint firstItem="Zhs-Ro-3tc" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.4" id="og8-sH-4q8"/>
                     <constraint firstItem="ISc-pa-jwv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rX1-YV-ac6"/>
-                    <constraint firstItem="hYb-YJ-VQx" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.7" id="sgC-Xz-tJe"/>
+                    <constraint firstItem="hYb-YJ-VQx" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.8" id="sgC-Xz-tJe"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -59,4 +61,10 @@
             <point key="canvasLocation" x="49" y="20"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
+        <namedColor name="Buttom2Color">
+            <color red="0.35699999332427979" green="0.7369999885559082" blue="0.31000000238418579" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
 </document>

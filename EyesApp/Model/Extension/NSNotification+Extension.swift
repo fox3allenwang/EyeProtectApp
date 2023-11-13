@@ -13,4 +13,6 @@ extension NSNotification.Name {
     static let addFriend = Notification.Name("addFriend")
     static let showConcentrateInvite = Notification.Name("showConcentrateInvite")
     static let dismissAddInviteView = Notification.Name("dismissAddInviteView")
+    static let goToConcentrate = Notification.Name("goToConcentrate")
+    static let reloadMissionStatus = Notification.Name("reloadMissionStatus")
 }

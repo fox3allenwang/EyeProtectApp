@@ -31,6 +31,10 @@ class FatigueDetectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let now = dateFormatter.string(from: Date())
+        callAPIAddMissionComplete(missionId: UserPreferences.shared.fatigueMissionId, accountId: UserPreferences.shared.accountId, date: now)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +73,37 @@ class FatigueDetectionViewController: UIViewController {
     
     func judgeFace(anchor: ARFaceAnchor) {
        
+    }
+    
+    // MARK: - callAPIAddMissionComplete
+    
+    func callAPIAddMissionComplete(missionId: String,
+                                   accountId: String,
+                                   date: String) {
+        let request = AddMissionCompleteRequest(missionId: UUID(uuidString: missionId)!,
+                                                accountId: UUID(uuidString: accountId)!,
+                                                date: date)
+        
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                     path: .addMissionComplete,
+                                                                                     parameters: request,
+                                                                                     needToken: true)
+                if result.message == "沒有此任務" {
+                    Alert.showAlert(title: "錯誤",
+                                    message: result.message,
+                                    vc: self,
+                                    confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤",
+                                message: "\(error)",
+                                vc: self,
+                                confirmTitle: "確認")
+            }
+        }
     }
     
     // MARK: - IBAction

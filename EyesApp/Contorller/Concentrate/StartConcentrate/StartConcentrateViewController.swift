@@ -41,6 +41,7 @@ class StartConcentrateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        NotificationCenter.default.post(name: .goToConcentrate, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,11 +65,11 @@ class StartConcentrateViewController: UIViewController {
 //            callGiveUpConcentrateRecordApi(recordId: concentrateRecordId,
 //                                           endTime: now)
 //        }
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        NotificationCenter.default.post(name: .reloadMissionStatus, object: nil)
     }
     
     // MARK: - UI Settings

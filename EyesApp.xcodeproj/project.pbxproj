@@ -24,6 +24,9 @@
 		32BE4B622A0A45600014161D /* OldMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32BE4B602A0A45600014161D /* OldMainViewController.xib */; };
 		3F0246BA2ABC1A3A006EA177 /* MissionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0246B82ABC1A3A006EA177 /* MissionTableViewCell.swift */; };
 		3F0246BB2ABC1A3A006EA177 /* MissionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F0246B92ABC1A3A006EA177 /* MissionTableViewCell.xib */; };
+		3F24B5DC2B028A2D009E087F /* MissionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24B5DB2B028A2D009E087F /* MissionList.swift */; };
+		3F24B5DE2B029063009E087F /* FindTodayMissionCompleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24B5DD2B029063009E087F /* FindTodayMissionCompleteRequest.swift */; };
+		3F24B5E22B0299D8009E087F /* AddMissionCompleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24B5E12B0299D8009E087F /* AddMissionCompleteRequest.swift */; };
 		3F29561E2AE6301D00DFD45E /* AddConcentrateRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F29561D2AE6301D00DFD45E /* AddConcentrateRecordRequest.swift */; };
 		3F2956202AE6400B00DFD45E /* GiveUpConcentrateRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F29561F2AE6400B00DFD45E /* GiveUpConcentrateRecordRequest.swift */; };
 		3F2956222AE644F400DFD45E /* CompleteConcentrateRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2956212AE644F400DFD45E /* CompleteConcentrateRecord.swift */; };
@@ -180,6 +183,9 @@
 		32BE4B602A0A45600014161D /* OldMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OldMainViewController.xib; sourceTree = "<group>"; };
 		3F0246B82ABC1A3A006EA177 /* MissionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionTableViewCell.swift; sourceTree = "<group>"; };
 		3F0246B92ABC1A3A006EA177 /* MissionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MissionTableViewCell.xib; sourceTree = "<group>"; };
+		3F24B5DB2B028A2D009E087F /* MissionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionList.swift; sourceTree = "<group>"; };
+		3F24B5DD2B029063009E087F /* FindTodayMissionCompleteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTodayMissionCompleteRequest.swift; sourceTree = "<group>"; };
+		3F24B5E12B0299D8009E087F /* AddMissionCompleteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionCompleteRequest.swift; sourceTree = "<group>"; };
 		3F29561D2AE6301D00DFD45E /* AddConcentrateRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddConcentrateRecordRequest.swift; sourceTree = "<group>"; };
 		3F29561F2AE6400B00DFD45E /* GiveUpConcentrateRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveUpConcentrateRecordRequest.swift; sourceTree = "<group>"; };
 		3F2956212AE644F400DFD45E /* CompleteConcentrateRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteConcentrateRecord.swift; sourceTree = "<group>"; };
@@ -341,6 +347,7 @@
 		326146192A1770E600855A6E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3F24B5DA2B028A16009E087F /* PublicStruct */,
 				B06B88CA2AE7B95C00695C8C /* Bluetooth */,
 				D8925D1A2A4D1E7700DB9EC9 /* Network */,
 				3FDCE3062A71042A004981D7 /* Extension */,
@@ -411,6 +418,14 @@
 				3F2956842AE6A27100DFD45E /* MissionCell */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		3F24B5DA2B028A16009E087F /* PublicStruct */ = {
+			isa = PBXGroup;
+			children = (
+				3F24B5DB2B028A2D009E087F /* MissionList.swift */,
+			);
+			path = PublicStruct;
 			sourceTree = "<group>";
 		};
 		3F2956232AE64A3800DFD45E /* Sound */ = {
@@ -593,6 +608,8 @@
 				3F823B3B2AF6B1930086262F /* EditNewsReplyRequest.swift */,
 				3FE816122AF78595002608A6 /* FindSelfConcentrateRecordRequest.swift */,
 				3FE8161E2AF7B0C7002608A6 /* FindConcentrateRecordByRecordIdRequest.swift */,
+				3F24B5DD2B029063009E087F /* FindTodayMissionCompleteRequest.swift */,
+				3F24B5E12B0299D8009E087F /* AddMissionCompleteRequest.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1145,13 +1162,16 @@
 				3FFD2B242AF0F04200D620B5 /* CompleteMutipleConcentrateRequest.swift in Sources */,
 				3FFD2B4A2AF68CE300D620B5 /* AddNewsReplyRequest.swift in Sources */,
 				3F6DFBDF2A6D76750058CDFB /* Color+Extnesion.swift in Sources */,
+				3F24B5E22B0299D8009E087F /* AddMissionCompleteRequest.swift in Sources */,
 				3FE816162AF793C5002608A6 /* FirstConcentrateRecordTableViewCell.swift in Sources */,
 				3F5005A72AB0D87B007D9DED /* GetPersonInfromationRequest.swift in Sources */,
 				3F96808A2A909D650031BEFE /* AppDefine.swift in Sources */,
 				3F4488E62A750A0D00D573AB /* EyeExerciseViewController.swift in Sources */,
 				3FFD2B282AF106BE00D620B5 /* TakePhotoToConcentrateRecordViewController.swift in Sources */,
 				3FB632932AC94E570015AF8D /* UIImage+Extension.swift in Sources */,
+				3F24B5DC2B028A2D009E087F /* MissionList.swift in Sources */,
 				3F9B38B12AEF849B00CDB36A /* InviteMemberListStruct.swift in Sources */,
+				3F24B5DE2B029063009E087F /* FindTodayMissionCompleteRequest.swift in Sources */,
 				3F9B38B52AEF952000CDB36A /* MutipleConcentrateMemberVersionViewController.swift in Sources */,
 				3FA2B4F42AE40E10005D0A16 /* AcceptOrRejectFriendRequest.swift in Sources */,
 				3F2956222AE644F400DFD45E /* CompleteConcentrateRecord.swift in Sources */,

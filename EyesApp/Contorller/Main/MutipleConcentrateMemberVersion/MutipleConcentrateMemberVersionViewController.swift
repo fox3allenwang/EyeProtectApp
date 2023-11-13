@@ -82,6 +82,7 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        NotificationCenter.default.post(name: .reloadMissionStatus, object: nil)
     }
     
     // MARK: - UI Settings
@@ -107,6 +108,7 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
     }
     
     func setTimer() {
+        NotificationCenter.default.post(name: .goToConcentrate, object: nil)
         countConcentrateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countConcentrate), userInfo: nil, repeats: true)
     }
     

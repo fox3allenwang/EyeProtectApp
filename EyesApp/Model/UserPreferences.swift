@@ -42,6 +42,21 @@ class UserPreferences {
         case jwtToken
         
         case isoLowValue
+        
+        // 使用專注模式任務的 id
+        case concentrateMissionId
+        
+        // 使用護眼操任務的 id
+        case eyeExerciseMissionId
+        
+        // 使用光線充足使用專注模式任務的 id
+        case lightEnvironmentConcentrateMissionId
+        
+        // 使用睡意偵測任務的 id
+        case fatigueMissionId
+        
+        // 使用使用藍光檢測器並低於限制值任務的 id
+        case blueLightMissionId
 
     }
     
@@ -102,6 +117,31 @@ class UserPreferences {
         set { userPreferences.set(newValue, forKey: UserPreference.isoLowValue.rawValue)}
     }
     
+    var concentrateMissionId: String {
+        get { return userPreferences.string(forKey: UserPreference.concentrateMissionId.rawValue) ?? "" }
+        set { userPreferences.set(newValue, forKey: UserPreference.concentrateMissionId.rawValue)}
+    }
+    
+    var eyeExerciseMissionId: String {
+        get { return userPreferences.string(forKey: UserPreference.eyeExerciseMissionId.rawValue) ?? "" }
+        set { userPreferences.set(newValue, forKey: UserPreference.eyeExerciseMissionId.rawValue)}
+    }
+    
+    var lightEnvironmentConcentrateMissionId: String {
+        get { return userPreferences.string(forKey: UserPreference.lightEnvironmentConcentrateMissionId.rawValue) ?? "" }
+        set { userPreferences.set(newValue, forKey: UserPreference.lightEnvironmentConcentrateMissionId.rawValue)}
+    }
+    
+    var fatigueMissionId: String {
+        get { return userPreferences.string(forKey: UserPreference.fatigueMissionId.rawValue) ?? "" }
+        set { userPreferences.set(newValue, forKey: UserPreference.fatigueMissionId.rawValue)}
+    }
+    
+    var blueLightMissionId: String {
+        get { return userPreferences.string(forKey: UserPreference.blueLightMissionId.rawValue) ?? "" }
+        set { userPreferences.set(newValue, forKey: UserPreference.blueLightMissionId.rawValue)}
+    }
+    
     // MARK: - Reset Initial Flow Variables
     
     func resetInitialFlowVarables() {
@@ -114,5 +154,10 @@ class UserPreferences {
         UserPreferences.shared.friendList = []
         UserPreferences.shared.image = ""
         UserPreferences.shared.jwtToken = ""
+        UserPreferences.shared.concentrateMissionId = ""
+        UserPreferences.shared.eyeExerciseMissionId = ""
+        UserPreferences.shared.lightEnvironmentConcentrateMissionId = ""
+        UserPreferences.shared.fatigueMissionId = ""
+        UserPreferences.shared.blueLightMissionId = ""
     }
 }

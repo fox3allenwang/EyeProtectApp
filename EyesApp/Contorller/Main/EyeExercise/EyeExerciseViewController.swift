@@ -149,6 +149,12 @@ class EyeExerciseViewController: UIViewController {
         eyeDistance.layer.cornerRadius = 20
         eyeDistance.clipsToBounds = true
         setupIconFaceAndEye()
+        setupRefreshBarButtonItem()
+    }
+    
+    func setupRefreshBarButtonItem() {
+        let refreshBarButtonItem = UIBarButtonItem(title: "重整", style: .plain, target: self, action: #selector(refreshBarButtonItemAction))
+        navigationItem.rightBarButtonItem = refreshBarButtonItem
     }
     
     func setupIconFaceAndEye() {
@@ -382,7 +388,7 @@ class EyeExerciseViewController: UIViewController {
             correctionCount = 0
         }
         
-        if correctionCount == 10 {
+        if correctionCount == 5 {
             correctionTimer.invalidate()
             UIView.transition(with: self.vfaceFram, duration: 0.5, options: .transitionCrossDissolve) {
                 self.vfaceFram.isHidden = true
@@ -395,6 +401,14 @@ class EyeExerciseViewController: UIViewController {
                 Alert.showAlert(title: "校正完成", message: "請與眼睛保持一樣角度以及距離來進行後續的眼睛保健操", vc: self, confirmTitle: "確認")
             }
         }
+    }
+    
+    @objc func refreshBarButtonItemAction() {
+        faceTrackerView.session.pause()
+        let configuration = ARFaceTrackingConfiguration()
+        configuration.isLightEstimationEnabled = true
+        faceTrackerView.automaticallyUpdatesLighting = true
+        faceTrackerView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
 }
 

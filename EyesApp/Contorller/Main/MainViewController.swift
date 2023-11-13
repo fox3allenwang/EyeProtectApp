@@ -45,6 +45,7 @@ class MainViewController: BaseViewController {
     var wsInviteRoom: URLSessionWebSocketTask? = nil
     var isInviteRoomConnect = false
     var inviteRoomId = ""
+    var isoValue: Float = 0.0
     private var inviteMemberList: [InviteRoomMember] = []
     
     private let captureSession = AVCaptureSession()
@@ -254,6 +255,16 @@ class MainViewController: BaseViewController {
         }
     }
     
+    @objc func uploadLightEnoughToGoConentrateMission() {
+        if isoValue <= 500 {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+            let now = dateFormatter.string(from: Date())
+            callAPIAddMissionComplete(missionId: UserPreferences.shared.lightEnvironmentConcentrateMissionId,
+                                      accountId: UserPreferences.shared.accountId, date: now)
+        }
+    }
+    
     //MARK: - WSAction
     
     func reviceWSMessage() {
@@ -302,6 +313,37 @@ class MainViewController: BaseViewController {
             }
             self.reviceWSMessage()
         })
+    }
+    
+    // MARK: - callAPIAddMissionComplete
+    
+    func callAPIAddMissionComplete(missionId: String,
+                                   accountId: String,
+                                   date: String) {
+        let request = AddMissionCompleteRequest(missionId: UUID(uuidString: missionId)!,
+                                                accountId: UUID(uuidString: accountId)!,
+                                                date: date)
+        
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                     path: .addMissionComplete,
+                                                                                     parameters: request,
+                                                                                     needToken: true)
+                if result.message == "沒有此任務" {
+                    Alert.showAlert(title: "錯誤",
+                                    message: result.message,
+                                    vc: self,
+                                    confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤",
+                                message: "\(error)",
+                                vc: self,
+                                confirmTitle: "確認")
+            }
+        }
     }
     
     // MARK: - CallAPIFriendInviteList
@@ -733,10 +775,10 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                        didOutput sampleBuffer: CMSampleBuffer,
                        from connection: AVCaptureConnection) {
         DispatchQueue.main.async {
-            let isoValue = self.frontCamera?.iso ?? 0
-            print("ISO:\(isoValue)")
+            self.isoValue = self.frontCamera?.iso ?? 0
+            print("ISO:\(self.isoValue)")
             
-            if isoValue > 750 {
+            if self.isoValue > 750 {
                 Alert.showAlert(title: "警示",
                                 message: "環境亮度低，即將自動啟用檯燈",
                                 vc: self,
@@ -748,6 +790,11 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                     UserPreferences.shared.isoLowValue = false
                 })
             }
+            
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(self.uploadLightEnoughToGoConentrateMission),
+                                                   name: .goToConcentrate,
+                                                   object: nil)
         }
     }
 }

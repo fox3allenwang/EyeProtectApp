@@ -48,15 +48,9 @@ class ConcentrateViewController: UIViewController {
     var wsInviteRoom: URLSessionWebSocketTask? = nil
     var inviteRoomId = ""
     var isInviteRoomConnect = false
+    var concentrateTimeCount = 0
     private var friendListArray: [inviteFriendListInfo] = []
     private var inviteMemberList: [InviteRoomMember] = []
-    
-    struct MissionList {
-        public var missionID: UUID
-        public var title: String
-        public var progress: Int
-        public var progressType: String
-    }
     
     private struct inviteFriendListInfo {
         var accountId: String
@@ -72,12 +66,30 @@ class ConcentrateViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(dismissAddInviteView),
                                                name: .dismissAddInviteView, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reloadMissionStatus),
+                                               name: .reloadMissionStatus,
+                                               object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("ConcentrateViewController")
-        callApiGetMissionList()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let now = dateFormatter.string(from: Date())
+        callApiGetMissionList {
+            self.callFindTodayMissionCompleteApi(accountId: UserPreferences.shared.accountId,
+                                                 date: now) {
+                var countProgress = 0
+                self.missionList.forEach { mission in
+                    if mission.status == true {
+                        countProgress += 1
+                    }
+                }
+                self.progressBar.currentIndex = countProgress
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -123,7 +135,7 @@ class ConcentrateViewController: UIViewController {
         NSLayoutConstraint.activate([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
         
         // Customise the progress bar here
-        progressBar.numberOfPoints = 5
+        progressBar.numberOfPoints = 6
         progressBar.lineHeight = 9
         progressBar.radius = 15
         progressBar.progressRadius = 25
@@ -225,6 +237,24 @@ class ConcentrateViewController: UIViewController {
         tbvInviteRoomList?.dataSource = self
     }
     
+    @objc func reloadMissionStatus() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let now = dateFormatter.string(from: Date())
+        callApiGetMissionList {
+            self.callFindTodayMissionCompleteApi(accountId: UserPreferences.shared.accountId,
+                                                 date: now) {
+                var countProgress = 0
+                self.missionList.forEach { mission in
+                    if mission.status == true {
+                        countProgress += 1
+                    }
+                }
+                self.progressBar.currentIndex = countProgress
+            }
+        }
+    }
+    
     // MARK: - WSAction
     
     func reviceWSMessage() {
@@ -266,7 +296,7 @@ class ConcentrateViewController: UIViewController {
     
     // MARK: - callAPIGetMissionList
     
-    func callApiGetMissionList() {
+    func callApiGetMissionList(completionHandler: (() -> Void)? = nil) {
         let request = GetMissionListRequest()
         Task {
             do {
@@ -276,8 +306,23 @@ class ConcentrateViewController: UIViewController {
                                                                                                       needToken: true)
                 missionList = []
                 result.data?.forEach({ mission in
-                    missionList.append(MissionList(missionID: mission.missionID, title: mission.title, progress: mission.progress, progressType: mission.progressType))
+                    missionList.append(MissionList(missionID: mission.missionID, title: mission.title, progress: mission.progress, progressType: mission.progressType, status: false))
+                    switch mission.title {
+                    case "使用專注模式":
+                        UserPreferences.shared.concentrateMissionId = mission.missionID.uuidString
+                    case "使用眼睛保健操":
+                        UserPreferences.shared.eyeExerciseMissionId = mission.missionID.uuidString
+                    case "在光線充足的地方使用專注模式":
+                        UserPreferences.shared.lightEnvironmentConcentrateMissionId = mission.missionID.uuidString
+                    case "使用藍光檢測器，並低於限制值":
+                        UserPreferences.shared.blueLightMissionId = mission.missionID.uuidString
+                    case "使用睡意檢測":
+                        UserPreferences.shared.fatigueMissionId = mission.missionID.uuidString
+                    default:
+                        return
+                    }
                 })
+                completionHandler?()
                 missionTableView?.reloadData()
             } catch {
                 print(error)
@@ -289,6 +334,41 @@ class ConcentrateViewController: UIViewController {
         vAddInvite?.isHidden = true
         wsInviteRoom?.cancel()
         isInviteRoomConnect = false
+    }
+    
+    // MARK: - callFindTodayMissionCompleteAPI
+    
+    func callFindTodayMissionCompleteApi(accountId: String,
+                                         date: String,
+                                         completionHandler: (() -> Void)? = nil) {
+        let request = FindTodayMissionCompleteRequest(accountId: UUID(uuidString: accountId)!,
+                                                      date: date)
+        Task {
+            do {
+                let result: GeneralResponse<FindTodayMissionCompleteResponse> = try await manager.requestData(method: .post,
+                                                                                                              path: .findTodayMissionComplete,
+                                                                                                      parameters: request,
+                                                                                                      needToken: true)
+                if result.result == 0 {
+                    concentrateTimeCount = result.data!.concentrateTime
+                    result.data?.missionId.forEach({ completeMissionId in
+                        for i in 0 ..< missionList.count {
+                            if missionList[i].missionID == completeMissionId {
+                                missionList[i].status = true
+                            }
+                        }
+                    })
+                }
+                missionTableView?.reloadData()
+                completionHandler?()
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤",
+                                message: "\(error)",
+                                vc: self,
+                                confirmTitle: "確認")
+            }
+        }
     }
     
     // MARK: - callWebSocketCreateInviteRoom
@@ -797,7 +877,18 @@ extension ConcentrateViewController: UITableViewDelegate, UITableViewDataSource 
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: MissionTableViewCell.identified, for: indexPath) as! MissionTableViewCell
             cell.lbTitle.text = missionList[indexPath.row].title
-            cell.lbProgress.text = "\(missionList[indexPath.row].progress) \(missionList[indexPath.row].progressType)"
+            if missionList[indexPath.row].status == true {
+                cell.lbProgress.isHidden = true
+                cell.imgvCheck.isHidden = false
+            } else {
+                cell.lbProgress.isHidden = false
+                cell.imgvCheck.isHidden = true
+                if missionList[indexPath.row].progressType == "分鐘" {
+                    cell.lbProgress.text = "\(concentrateTimeCount) / \(missionList[indexPath.row].progress) \(missionList[indexPath.row].progressType)"
+                } else {
+                    cell.lbProgress.text = "\(missionList[indexPath.row].progress) \(missionList[indexPath.row].progressType)"
+                }
+            }
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: InviteRoomListTableViewCell.identified, for: indexPath) as! InviteRoomListTableViewCell
