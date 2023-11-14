@@ -15,6 +15,8 @@ class FatigueDetectionViewController: UIViewController {
     // MARK: - IBOutlet
     
     @IBOutlet weak var vARSCN: ARSCNView!
+    @IBOutlet weak var vAlertBackground: UIView!
+    @IBOutlet weak var swAlert: UISwitch!
     
     // MARK: - Variables
     
@@ -60,12 +62,18 @@ class FatigueDetectionViewController: UIViewController {
     
     func setupUI() {
         setupARSCNView()
+        setupAlertBackgroun()
     }
     
     func setupARSCNView() {
         vARSCN.delegate = self
         let config = ARFaceTrackingConfiguration()
         vARSCN.session.run(config)
+    }
+    
+    func setupAlertBackgroun() {
+        vAlertBackground.layer.cornerRadius = 20
+        vAlertBackground.clipsToBounds = true
     }
     
     func addText() {
@@ -110,6 +118,17 @@ class FatigueDetectionViewController: UIViewController {
     }
     
     // MARK: - IBAction
+    
+    @IBAction func switchAlertStatus() {
+        if swAlert.isOn == true {
+            Alert.showAlert(title: "啟用警示音", message: "在使用前請確保靜音模式已關閉，打開以後睡意值在 70% 以上會響鈴並警告", vc: self, confirmTitle: "啟用", cancelTitle: "取消") {
+                //
+            } cancel: {
+                self.swAlert.isOn = false
+            }
+
+        }
+    }
     
 }
 
@@ -181,6 +200,11 @@ extension FatigueDetectionViewController: ARSCNViewDelegate {
                             result = 1
                         }
                         let newText = "Faigue: \(round((1 - result) * 100)) %"
+                        
+                        if (round((1 - result) * 100)) > 70 && self.swAlert.isOn == true {
+                            AudioServicesPlaySystemSound(1005)
+                        }
+                        
                         self.ARText.string = newText
                     }
                     fatigueArray = []

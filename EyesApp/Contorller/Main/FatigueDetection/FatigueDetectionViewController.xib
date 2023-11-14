@@ -12,7 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FatigueDetectionViewController" customModule="EyesApp" customModuleProvider="target">
             <connections>
+                <outlet property="swAlert" destination="OYS-ZS-MhB" id="Tol-05-PUM"/>
                 <outlet property="vARSCN" destination="OoE-Gy-j5J" id="nXg-W9-CrW"/>
+                <outlet property="vAlertBackground" destination="uQC-6L-hll" id="YdM-ds-xMD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -28,20 +30,51 @@
                     <rect key="frame" x="0.0" y="818" width="393" height="34"/>
                     <color key="backgroundColor" name="Buttom2Color"/>
                 </view>
+                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQC-6L-hll">
+                    <rect key="frame" x="265" y="69" width="118" height="45.666666666666657"/>
+                    <subviews>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="OYS-ZS-MhB">
+                            <rect key="frame" x="59" y="6" width="51" height="33.666666666666664"/>
+                            <connections>
+                                <action selector="switchAlertStatus" destination="-2" eventType="touchUpInside" id="AxP-Gt-TeL"/>
+                            </connections>
+                        </switch>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="OYS-ZS-MhB" secondAttribute="bottom" constant="6" id="Ea1-bs-O2P"/>
+                        <constraint firstItem="OYS-ZS-MhB" firstAttribute="top" secondItem="uQC-6L-hll" secondAttribute="top" constant="6" id="RbY-bD-9jf"/>
+                        <constraint firstAttribute="trailing" secondItem="OYS-ZS-MhB" secondAttribute="trailing" constant="10" id="dKc-QL-6ht"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="警示" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzI-cp-0hs">
+                    <rect key="frame" x="275" y="81.333333333333329" width="39" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="uQC-6L-hll" firstAttribute="top" secondItem="OoE-Gy-j5J" secondAttribute="top" constant="10" id="2dj-EE-aZl"/>
                 <constraint firstItem="Tys-8l-pAf" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="3CI-I3-MTd"/>
                 <constraint firstItem="Tys-8l-pAf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="IF3-pc-g63"/>
+                <constraint firstItem="KzI-cp-0hs" firstAttribute="height" secondItem="uQC-6L-hll" secondAttribute="height" multiplier="0.459854" id="Noh-3w-HR0"/>
+                <constraint firstItem="KzI-cp-0hs" firstAttribute="leading" secondItem="uQC-6L-hll" secondAttribute="leading" constant="10" id="PFU-Oh-1Lv"/>
                 <constraint firstItem="OoE-Gy-j5J" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" id="PGx-dt-weJ"/>
+                <constraint firstItem="OoE-Gy-j5J" firstAttribute="trailing" secondItem="uQC-6L-hll" secondAttribute="trailing" constant="10" id="QyZ-Gp-CVf"/>
+                <constraint firstItem="OYS-ZS-MhB" firstAttribute="leading" secondItem="KzI-cp-0hs" secondAttribute="trailing" constant="10" id="TBi-vS-7ZN"/>
+                <constraint firstItem="KzI-cp-0hs" firstAttribute="centerY" secondItem="uQC-6L-hll" secondAttribute="centerY" id="TSW-MK-f0h"/>
                 <constraint firstItem="OoE-Gy-j5J" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" id="UT9-qP-fpN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Tys-8l-pAf" secondAttribute="trailing" id="VY7-BJ-3wf"/>
+                <constraint firstItem="uQC-6L-hll" firstAttribute="width" secondItem="OoE-Gy-j5J" secondAttribute="width" multiplier="0.3" id="ZMp-sj-pKq"/>
                 <constraint firstItem="OoE-Gy-j5J" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="qdm-g6-uQr"/>
                 <constraint firstItem="Tys-8l-pAf" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="tZj-gv-M9a"/>
+                <constraint firstItem="uQC-6L-hll" firstAttribute="height" secondItem="OoE-Gy-j5J" secondAttribute="height" multiplier="0.06" id="uYV-ci-ZWJ"/>
                 <constraint firstItem="OoE-Gy-j5J" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="zMK-4b-f8J"/>
             </constraints>
-            <point key="canvasLocation" x="-1" y="20"/>
+            <point key="canvasLocation" x="-2.2900763358778624" y="19.718309859154932"/>
         </view>
     </objects>
     <resources>
