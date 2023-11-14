@@ -71,6 +71,10 @@ class MainViewController: BaseViewController {
         super.viewDidLoad()
         setupUI()
         setupCamera()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.uploadLightEnoughToGoConentrateMission),
+                                               name: .goToConcentrate,
+                                               object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -243,8 +247,7 @@ class MainViewController: BaseViewController {
                                                        target: self,
                                                        action: #selector(clickCameraMenu))
             } else {
-                // 改這裡
-                cameraMenuButtomItem = UIBarButtonItem(image: UIImage(systemName: "vial.viewfinder"),
+                cameraMenuButtomItem = UIBarButtonItem(image: UIImage(systemName: "camera.metering.center.weighted"),
                                                        style: .done,
                                                        target: self,
                                                        action: #selector(clickCameraMenu))
@@ -643,11 +646,15 @@ class MainViewController: BaseViewController {
     
     @IBAction func clickBtnEyeExercise() {
         let nextVC = EyeExerciseViewController()
+        var btn = UIBarButtonItem()
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = btn
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @IBAction func clickBtnFatigueDetection() {
         let nextVC = FatigueDetectionViewController()
+        var btn = UIBarButtonItem()
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = btn
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -776,7 +783,7 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                        from connection: AVCaptureConnection) {
         DispatchQueue.main.async {
             self.isoValue = self.frontCamera?.iso ?? 0
-            print("ISO:\(self.isoValue)")
+//            print("ISO:\(self.isoValue)")
             
             if self.isoValue > 750 {
                 Alert.showAlert(title: "警示",
@@ -790,11 +797,6 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                     UserPreferences.shared.isoLowValue = false
                 })
             }
-            
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(self.uploadLightEnoughToGoConentrateMission),
-                                                   name: .goToConcentrate,
-                                                   object: nil)
         }
     }
 }

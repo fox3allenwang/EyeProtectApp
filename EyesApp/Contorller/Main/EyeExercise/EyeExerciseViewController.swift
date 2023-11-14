@@ -30,6 +30,8 @@ class EyeExerciseViewController: UIViewController {
     @IBOutlet weak var lbExerciseGuide: UILabel!
     @IBOutlet weak var imgvSmileLeftEye: UIImageView!
     @IBOutlet weak var imgvSmileRightEye: UIImageView!
+    @IBOutlet weak var imgvDazzingHardLeftEye: UIImageView!
+    @IBOutlet weak var imgvDazzingHardRightEye: UIImageView!
     
     // MARK: - Variables
     var lookAtTargetEyeLNode: SCNNode = SCNNode()
@@ -38,7 +40,7 @@ class EyeExerciseViewController: UIViewController {
     var phoneScreenSize: CGSize = CGSize()
     var phoneScreenPointSize = UIScreen.main.bounds.size
     var faceNode: SCNNode?
-    
+    var eyeExerciseStepStatus: [Bool] = [false, false, false, false, false]
     
     var eyeLNode: SCNNode = SCNNode()
     
@@ -81,8 +83,13 @@ class EyeExerciseViewController: UIViewController {
     var distance = 0
     
     var leftEyeDazzing: NSNumber = 0
-    
     var rightEyeDazzing:NSNumber = 0
+    
+    var leftEyeSquinting: NSNumber = 0
+    var leftEyeSquintingStatus = false
+    
+    var rightEyeSquinting: NSNumber = 0
+    var rightEyeSquintingStatus = false
     
     // 黑色透明遮罩
     var blackBackgroundView = UIView()
@@ -92,12 +99,31 @@ class EyeExerciseViewController: UIViewController {
 //    var correctionBoxView = UIView()
     
     var correctionCount: Int = 0
+    var stepOneCount = 0
+    var stepTwoCount = 0
+    var stepThreeCount = 0
+    var stepFourCount = 0
+    var stepFiveCount = 0
+    var stepSixCount = 0
+    var stepSevenCount = 0
+    var stepEightCount = 0
     
     // 短震動
     let soundShort = SystemSoundID(1519)
+    // 短震動
+    let soundHeavy = SystemSoundID(1520);
     
     // 校正 Timer
     var correctionTimer = Timer()
+    
+    var stepOneTimer = Timer()
+    var stepTwoTimer = Timer()
+    var stepThreeTimer = Timer()
+    var stepFourTimer = Timer()
+    var stepFiveTimer = Timer()
+    var stepSixTimer = Timer()
+    var stepSevenTimer = Timer()
+    var stepEightTimer = Timer()
     
     var correctionErrorsTimer = Timer()
     
@@ -114,7 +140,6 @@ class EyeExerciseViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
         correctionRectOfInterest()
         correctionBlackView()
     }
@@ -135,6 +160,7 @@ class EyeExerciseViewController: UIViewController {
     // MARK: - UI Settings
     
     func setupUI() {
+        self.title = "Eye Exercise"
         Alert.showToastWith(message: "Step1: 請將手機與眼睛的距離保持在 30~35 cm ", vc: self, during: .long) {
             
             Alert.showToastWith(message: "Step2: 將臉放在中間的臉模中", vc: self, during: .long) {
@@ -150,6 +176,8 @@ class EyeExerciseViewController: UIViewController {
         eyeDistance.clipsToBounds = true
         setupIconFaceAndEye()
         setupRefreshBarButtonItem()
+        lbExerciseGuide.layer.cornerRadius = 20
+        lbExerciseGuide.clipsToBounds = true
     }
     
     func setupRefreshBarButtonItem() {
@@ -334,7 +362,7 @@ class EyeExerciseViewController: UIViewController {
         }
     }
     
-    func setupAnimate(complete: (() -> Void)?) {
+    func setupAnimate(complete: (() -> Void)? = nil) {
         let animationView = LottieAnimationView(name: "Check")
         animationView.contentMode = .scaleAspectFit
         animationView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
@@ -343,7 +371,7 @@ class EyeExerciseViewController: UIViewController {
         animationView.animationSpeed = 1.2
         vAnimate.addSubview(animationView)
         animationView.play { animate in
-            complete!()
+            complete?()
         }
     }
     
@@ -355,6 +383,10 @@ class EyeExerciseViewController: UIViewController {
             DispatchQueue.main.async {
                 self.vIconLeftEyeWhite.isHidden = true
                 self.vIconRightEyeWhite.isHidden = true
+                self.vIconRightEyeClose.isHidden = true
+                self.vIconLeftEyeClose.isHidden = true
+                self.imgvDazzingHardLeftEye.isHidden = true
+                self.imgvDazzingHardRightEye.isHidden = true
                 self.imgvSmileLeftEye.isHidden = false
                 self.imgvSmileRightEye.isHidden = false
             }
@@ -390,7 +422,8 @@ class EyeExerciseViewController: UIViewController {
         
         if correctionCount == 5 {
             correctionTimer.invalidate()
-            UIView.transition(with: self.vfaceFram, duration: 0.5, options: .transitionCrossDissolve) {
+            AudioServicesPlaySystemSound(1000)
+            UIView.transition(with: self.vfaceFram, duration: 3, options: .transitionCrossDissolve) {
                 self.vfaceFram.isHidden = true
             }
             self.completeStep()
@@ -398,7 +431,236 @@ class EyeExerciseViewController: UIViewController {
                 self.correctionMode = false
                 self.eyePositionIndicatorView.isHidden = true
                 self.blackBackgroundView.isHidden = true
-                Alert.showAlert(title: "校正完成", message: "請與眼睛保持一樣角度以及距離來進行後續的眼睛保健操", vc: self, confirmTitle: "確認")
+                Alert.showAlert(title: "校正完成", message: "請與眼睛保持一樣角度以及距離來進行後續的眼睛保健操", vc: self, confirmTitle: "確認") {
+                    self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(3 - self.stepOneCount) 秒"
+                    self.lbExerciseGuide.isHidden = false
+                    self.stepOneTimer = Timer.scheduledTimer(timeInterval: 1,
+                                                                target: self,
+                                                                selector: #selector(self.exerciseStep1),
+                                                                userInfo: nil,
+                                                                repeats: true)
+                }
+            }
+        }
+    }
+    
+    @objc func exerciseStep1() {
+        if leftEyeSquintingStatus == true &&
+            rightEyeSquintingStatus == true &&
+            distance <= 35 &&
+            distance >= 30 {
+            AudioServicesPlaySystemSound(soundShort)
+            stepOneCount += 1
+            self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(3 - stepOneCount) 秒"
+        } else {
+            stepOneCount = 0
+            self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(3 - stepOneCount) 秒"
+        }
+        if stepOneCount == 3 {
+            AudioServicesPlaySystemSound(soundHeavy)
+            AudioServicesPlaySystemSound(1000)
+            stepOneTimer.invalidate()
+            self.completeStep()
+            setupAnimate {
+                self.stepTwoTimer = Timer.scheduledTimer(timeInterval: 1,
+                                                            target: self,
+                                                            selector: #selector(self.exerciseStep2),
+                                                            userInfo: nil,
+                                                            repeats: true)
+            }
+        }
+    }
+    
+    @objc func exerciseStep2() {
+        if showLookAtPointX >= ((UIScreen.main.bounds.width / 1.13) - 500) &&
+            showLookAtPointX <= ((UIScreen.main.bounds.width / 1.13) + 500) &&
+            showLookAtPointY <= -500 &&
+            distance <= 35 &&
+            distance >= 30  {
+            AudioServicesPlaySystemSound(soundShort)
+            stepTwoCount += 1
+            self.lbExerciseGuide.text = "請往上看並維持 \(5 - stepTwoCount) 秒"
+        } else {
+            stepTwoCount = 0
+            self.lbExerciseGuide.text = "請往上看並維持 \(5 - stepTwoCount) 秒"
+        }
+        if stepTwoCount == 5 {
+            AudioServicesPlaySystemSound(soundHeavy)
+            AudioServicesPlaySystemSound(1000)
+            stepTwoTimer.invalidate()
+            self.completeStep()
+            setupAnimate {
+                self.stepThreeTimer = Timer.scheduledTimer(timeInterval: 1,
+                                                            target: self,
+                                                            selector: #selector(self.exerciseStep3),
+                                                            userInfo: nil,
+                                                            repeats: true)
+            }
+        }
+    }
+    
+    @objc func exerciseStep3() {
+        if leftEyeSquintingStatus == true &&
+            rightEyeSquintingStatus == true &&
+            distance <= 35 &&
+            distance >= 30 {
+            AudioServicesPlaySystemSound(soundShort)
+            stepThreeCount += 1
+            self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(3 - stepThreeCount) 秒"
+        } else {
+            stepThreeCount = 0
+            self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(3 - stepThreeCount) 秒"
+        }
+        if stepThreeCount == 3 {
+            AudioServicesPlaySystemSound(soundHeavy)
+            AudioServicesPlaySystemSound(1000)
+            stepThreeTimer.invalidate()
+            self.completeStep()
+            setupAnimate {
+                self.stepFourTimer = Timer.scheduledTimer(timeInterval: 1,
+                                                            target: self,
+                                                            selector: #selector(self.exerciseStep4),
+                                                            userInfo: nil,
+                                                            repeats: true)
+            }
+        }
+    }
+    
+    @objc func exerciseStep4() {
+        if showLookAtPointY >= ((UIScreen.main.bounds.height / 1.22) - 500) &&
+            showLookAtPointY <= ((UIScreen.main.bounds.height / 1.22) + 500) &&
+            showLookAtPointX <= -600 &&
+            distance <= 35 &&
+            distance >= 30  {
+            AudioServicesPlaySystemSound(soundShort)
+            stepFourCount += 1
+            self.lbExerciseGuide.text = "請往左看並維持 \(5 - stepFourCount) 秒"
+        } else {
+            stepFourCount = 0
+            self.lbExerciseGuide.text = "請往左看並維持 \(5 - stepFourCount) 秒"
+        }
+        if stepFourCount == 5 {
+            AudioServicesPlaySystemSound(soundHeavy)
+            AudioServicesPlaySystemSound(1000)
+            stepFourTimer.invalidate()
+            self.completeStep()
+            setupAnimate {
+                self.stepFiveTimer = Timer.scheduledTimer(timeInterval: 1,
+                                                          target: self,
+                                                          selector: #selector(self.exerciseStep5),
+                                                          userInfo: nil,
+                                                          repeats: true)
+            }
+        }
+    }
+    
+    @objc func exerciseStep5() {
+        if leftEyeSquintingStatus == true &&
+            rightEyeSquintingStatus == true &&
+            distance <= 35 &&
+            distance >= 30 {
+            AudioServicesPlaySystemSound(soundShort)
+            stepFiveCount += 1
+            self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(3 - stepFiveCount) 秒"
+        } else {
+            stepFiveCount = 0
+            self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(3 - stepFiveCount) 秒"
+        }
+        if stepFiveCount == 3 {
+            AudioServicesPlaySystemSound(soundHeavy)
+            AudioServicesPlaySystemSound(1000)
+            stepFiveTimer.invalidate()
+            self.completeStep()
+            setupAnimate {
+                self.stepSixTimer = Timer.scheduledTimer(timeInterval: 1,
+                                                         target: self,
+                                                         selector: #selector(self.exerciseStep6),
+                                                         userInfo: nil,
+                                                         repeats: true)
+            }
+        }
+    }
+    
+    @objc func exerciseStep6() {
+        if showLookAtPointX >= ((UIScreen.main.bounds.width / 1.13) - 500) &&
+            showLookAtPointX <= ((UIScreen.main.bounds.width / 1.13) + 500) &&
+            showLookAtPointY >= 1400 &&
+            distance <= 35 &&
+            distance >= 30 {
+            AudioServicesPlaySystemSound(soundShort)
+            stepSixCount += 1
+            self.lbExerciseGuide.text = "請往下看並維持 \(5 - stepSixCount) 秒"
+        } else {
+            stepSixCount = 0
+            self.lbExerciseGuide.text = "請往下看並維持 \(5 - stepSixCount) 秒"
+        }
+        if stepSixCount == 5 {
+            AudioServicesPlaySystemSound(soundHeavy)
+            AudioServicesPlaySystemSound(1000)
+            stepSixTimer.invalidate()
+            self.completeStep()
+            setupAnimate {
+                self.stepSevenTimer = Timer.scheduledTimer(timeInterval: 1,
+                                                           target: self,
+                                                           selector: #selector(self.exerciseStep7),
+                                                           userInfo: nil,
+                                                           repeats: true)
+            }
+        }
+    }
+    
+    @objc func exerciseStep7() {
+        if leftEyeSquintingStatus == true &&
+            rightEyeSquintingStatus == true &&
+            distance <= 35 &&
+            distance >= 30 {
+            AudioServicesPlaySystemSound(soundShort)
+            stepSevenCount += 1
+            self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(3 - stepSevenCount) 秒"
+        } else {
+            stepSevenCount = 0
+            self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(3 - stepSevenCount) 秒"
+        }
+        if stepSevenCount == 3 {
+            AudioServicesPlaySystemSound(soundHeavy)
+            AudioServicesPlaySystemSound(1000)
+            stepSevenTimer.invalidate()
+            self.completeStep()
+            setupAnimate {
+                self.stepEightTimer = Timer.scheduledTimer(timeInterval: 1,
+                                                           target: self,
+                                                           selector: #selector(self.exerciseStep8),
+                                                           userInfo: nil,
+                                                           repeats: true)
+            }
+        }
+    }
+    
+    @objc func exerciseStep8() {
+        if showLookAtPointY >= ((UIScreen.main.bounds.height / 1.22) - 500) &&
+            showLookAtPointY <= ((UIScreen.main.bounds.height / 1.22) + 500) &&
+            showLookAtPointX >= 1200 &&
+            distance <= 35 &&
+            distance >= 30  {
+            AudioServicesPlaySystemSound(soundShort)
+            stepEightCount += 1
+            self.lbExerciseGuide.text = "請往右看並維持 \(5 - stepEightCount) 秒"
+        } else {
+            stepEightCount = 0
+            self.lbExerciseGuide.text = "請往右看並維持 \(5 - stepEightCount) 秒"
+        }
+        if stepEightCount == 5 {
+            AudioServicesPlaySystemSound(soundHeavy)
+            AudioServicesPlaySystemSound(1000)
+            stepEightTimer.invalidate()
+            self.completeStep()
+            setupAnimate {
+                self.lbExerciseGuide.text = "護眼操已完成"
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+                let now = dateFormatter.string(from: Date())
+                self.callAPIAddMissionComplete(missionId: UserPreferences.shared.eyeExerciseMissionId, accountId: UserPreferences.shared.accountId, date: now)
+                
             }
         }
     }
@@ -409,6 +671,37 @@ class EyeExerciseViewController: UIViewController {
         configuration.isLightEstimationEnabled = true
         faceTrackerView.automaticallyUpdatesLighting = true
         faceTrackerView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    
+    // MARK: - callAPIAddMissionComplete
+    
+    func callAPIAddMissionComplete(missionId: String,
+                                   accountId: String,
+                                   date: String) {
+        let request = AddMissionCompleteRequest(missionId: UUID(uuidString: missionId)!,
+                                                accountId: UUID(uuidString: accountId)!,
+                                                date: date)
+        
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                     path: .addMissionComplete,
+                                                                                     parameters: request,
+                                                                                     needToken: true)
+                if result.message == "沒有此任務" {
+                    Alert.showAlert(title: "錯誤",
+                                    message: result.message,
+                                    vc: self,
+                                    confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤",
+                                message: "\(error)",
+                                vc: self,
+                                confirmTitle: "確認")
+            }
+        }
     }
 }
 
@@ -449,6 +742,11 @@ extension EyeExerciseViewController: ARSCNViewDelegate, ARSessionDelegate {
         leftEyeDazzing = faceAnchor.blendShapes[.eyeBlinkLeft]!
         rightEyeDazzing = faceAnchor.blendShapes[.eyeBlinkRight]!
         
+        // 新增眼睛周圍收縮判斷
+        leftEyeSquinting = faceAnchor.blendShapes[.eyeSquintLeft]!
+        rightEyeSquinting = faceAnchor.blendShapes[.eyeSquintRight]!
+        
+        
         // 計算扎眼機率，如果皆大於 50% 則隱藏專注點
         if leftEyeDazzing.decimalValue >= 0.5 && rightEyeDazzing.decimalValue >= 0.5 ||
             correctionMode == false {
@@ -462,26 +760,52 @@ extension EyeExerciseViewController: ARSCNViewDelegate, ARSessionDelegate {
         }
         
         if rightEyeDazzing.decimalValue >= 0.7 && completeStatus == false {
-            DispatchQueue.main.async {
-                self.vIconLeftEyeClose.isHidden = false
-                self.vIconLeftEyeWhite.isHidden = true
+            if rightEyeSquinting.decimalValue >= 0.2 {
+                DispatchQueue.main.async {
+                    self.imgvDazzingHardLeftEye.isHidden = false
+                    self.vIconLeftEyeWhite.isHidden = true
+                    self.vIconLeftEyeClose.isHidden = true
+                    self.rightEyeSquintingStatus = true
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.vIconLeftEyeClose.isHidden = false
+                    self.vIconLeftEyeWhite.isHidden = true
+                    self.imgvDazzingHardLeftEye.isHidden = true
+                    self.rightEyeSquintingStatus = false
+                }
             }
         } else if completeStatus == false {
             DispatchQueue.main.async {
                 self.vIconLeftEyeClose.isHidden = true
                 self.vIconLeftEyeWhite.isHidden = false
+                self.imgvDazzingHardLeftEye.isHidden = true
+                self.rightEyeSquintingStatus = false
             }
         }
         
         if leftEyeDazzing.decimalValue >= 0.7  && completeStatus == false {
-            DispatchQueue.main.async {
-                self.vIconRightEyeClose.isHidden = false
-                self.vIconRightEyeWhite.isHidden = true
+            if leftEyeSquinting.decimalValue >= 0.2 {
+                DispatchQueue.main.async {
+                    self.imgvDazzingHardRightEye.isHidden = false
+                    self.vIconRightEyeWhite.isHidden = true
+                    self.vIconRightEyeClose.isHidden = true
+                    self.leftEyeSquintingStatus = true
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.vIconRightEyeClose.isHidden = false
+                    self.vIconRightEyeWhite.isHidden = true
+                    self.imgvDazzingHardRightEye.isHidden = true
+                    self.leftEyeSquintingStatus = false
+                }
             }
         } else if completeStatus == false {
             DispatchQueue.main.async {
                 self.vIconRightEyeClose.isHidden = true
                 self.vIconRightEyeWhite.isHidden = false
+                self.imgvDazzingHardRightEye.isHidden = true
+                self.leftEyeSquintingStatus = false
             }
         }
         

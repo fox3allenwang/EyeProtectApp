@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,19 +24,30 @@
                 <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OoE-Gy-j5J">
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                 </arscnView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tys-8l-pAf">
+                    <rect key="frame" x="0.0" y="818" width="393" height="34"/>
+                    <color key="backgroundColor" name="Buttom2Color"/>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="Tys-8l-pAf" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="3CI-I3-MTd"/>
+                <constraint firstItem="Tys-8l-pAf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="IF3-pc-g63"/>
                 <constraint firstItem="OoE-Gy-j5J" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" id="PGx-dt-weJ"/>
                 <constraint firstItem="OoE-Gy-j5J" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" id="UT9-qP-fpN"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Tys-8l-pAf" secondAttribute="trailing" id="VY7-BJ-3wf"/>
                 <constraint firstItem="OoE-Gy-j5J" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="qdm-g6-uQr"/>
+                <constraint firstItem="Tys-8l-pAf" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="tZj-gv-M9a"/>
                 <constraint firstItem="OoE-Gy-j5J" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="zMK-4b-f8J"/>
             </constraints>
             <point key="canvasLocation" x="-1" y="20"/>
         </view>
     </objects>
     <resources>
+        <namedColor name="Buttom2Color">
+            <color red="0.35699999332427979" green="0.7369999885559082" blue="0.31000000238418579" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
