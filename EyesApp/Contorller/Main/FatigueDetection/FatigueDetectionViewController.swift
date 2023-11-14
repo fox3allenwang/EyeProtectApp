@@ -24,6 +24,7 @@ class FatigueDetectionViewController: UIViewController {
     var noneFatigue = 0
     var fatigueArray: [Float] = []
     var ARText = SCNText(string: "", extrusionDepth: 2)
+    var delegate: FatigueDetectionBackToStartConcentrateVCDelegate?
     
     
     // MARK: - LifeCycle
@@ -48,6 +49,7 @@ class FatigueDetectionViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        delegate?.transformUI()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -210,4 +212,8 @@ extension Array where Element: FloatingPoint {
 }
 
 // MARK: - Protocol
+
+protocol FatigueDetectionBackToStartConcentrateVCDelegate {
+    func transformUI()
+}
 

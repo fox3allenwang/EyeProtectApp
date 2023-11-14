@@ -20,6 +20,9 @@ class StartConcentrateViewController: UIViewController {
     @IBOutlet weak var btnAudioPlay: UIButton?
     @IBOutlet weak var lbStatusTitle: UILabel?
     @IBOutlet weak var imgvBackground: UIImageView?
+    @IBOutlet weak var btnEyeExercise: UIButton?
+    @IBOutlet weak var btnFatigueDetection: UIButton?
+    @IBOutlet weak var lbLaveTime: UILabel?
     
     // MARK: - Variables
     
@@ -96,6 +99,7 @@ class StartConcentrateViewController: UIViewController {
     }
     
     func setTimer() {
+        btnFatigueDetection?.isHidden = false
         countConcentrateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countConcentrate), userInfo: nil, repeats: true)
     }
     
@@ -332,6 +336,8 @@ class StartConcentrateViewController: UIViewController {
     
     @IBAction func clickConfirmButton() {
         if restStatus == false {
+            btnFatigueDetection?.isHidden = true
+            btnEyeExercise?.isHidden = false
             lbStatusTitle?.text = "休息模式"
             lbTime?.text = "\(restTime):00"
             UIView.transition(with: vAnimate!,
@@ -375,6 +381,43 @@ class StartConcentrateViewController: UIViewController {
         }
     }
     
+    @IBAction func goToEyeExercise() {
+        let nextVC = EyeExerciseViewController()
+        self.present(nextVC, animated: true)
+    }
+    
+    @IBAction func goToFatigueDetection() {
+        var transformValue = (lbLaveTime?.frame.height)!
+        UIView.animate(withDuration: 0.3) {
+            self.lbLaveTime!.transform = CGAffineTransform(translationX: 0,
+                                                          y: -transformValue)
+        }
+        
+        transformValue = (lbTime?.frame.height)! + 10
+        UIView.animate(withDuration: 0.3) {
+            self.lbTime!.transform = CGAffineTransform(translationX: 0,
+                                                          y: -transformValue)
+        }
+        
+        transformValue = (lbTime?.frame.height)! + 10
+        UIView.animate(withDuration: 0.3) {
+            self.vAnimate!.transform = CGAffineTransform(translationX: 0,
+                                                          y: -transformValue)
+        }
+        
+        transformValue = (lbStatusTitle?.frame.height)!
+        UIView.animate(withDuration: 0.3) {
+            self.lbStatusTitle!.transform = CGAffineTransform(translationX: 0,
+                                                          y: -transformValue)
+        }
+        
+        let nextVC = FatigueDetectionViewController()
+        nextVC.delegate = self
+        if let presentationController = nextVC.presentationController as? UISheetPresentationController {
+            presentationController.detents = [.medium()]
+        }
+        self.present(nextVC, animated: true)
+    }
 }
 
 // MARK: - ImagePickerControllerDelegate
@@ -389,6 +432,32 @@ extension StartConcentrateViewController: UIImagePickerControllerDelegate, UINav
             nextVC.concentrateType = .along
             nextVC.recordId = self.concentrateRecordId
             self.present(nextVC, animated: true)
+        }
+    }
+}
+
+// MARK: - FatigueDetectionBackToStartConcentrateVCDelegate
+
+extension StartConcentrateViewController: FatigueDetectionBackToStartConcentrateVCDelegate {
+    func transformUI() {
+        UIView.animate(withDuration: 0.3) {
+            self.lbLaveTime!.transform = CGAffineTransform(translationX: 0,
+                                                           y: 0)
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.lbTime!.transform = CGAffineTransform(translationX: 0,
+                                                       y: 0)
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.vAnimate!.transform = CGAffineTransform(translationX: 0,
+                                                         y: 0)
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.lbStatusTitle!.transform = CGAffineTransform(translationX: 0,
+                                                              y: 0)
         }
     }
 }

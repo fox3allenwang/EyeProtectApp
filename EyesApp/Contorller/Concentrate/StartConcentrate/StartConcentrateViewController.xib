@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,8 +13,11 @@
             <connections>
                 <outlet property="btnAudioPlay" destination="D2e-dX-7KP" id="MOa-Ya-2MV"/>
                 <outlet property="btnConfirm" destination="tKO-5V-0Jh" id="Lwi-qy-iP2"/>
+                <outlet property="btnEyeExercise" destination="oZr-R5-YfE" id="kkr-Xw-fNb"/>
+                <outlet property="btnFatigueDetection" destination="RjN-uq-do9" id="N2g-54-Tz6"/>
                 <outlet property="btnGiveUp" destination="8QP-qv-sbz" id="JTS-8q-A4G"/>
                 <outlet property="imgvBackground" destination="nFD-rh-N48" id="I8u-dL-E5z"/>
+                <outlet property="lbLaveTime" destination="eZR-62-7aB" id="Sx0-Qf-PhD"/>
                 <outlet property="lbStatusTitle" destination="TSf-zI-e8J" id="CAD-97-0G1"/>
                 <outlet property="lbTime" destination="uZb-Ie-nKU" id="j7U-hw-LLb"/>
                 <outlet property="vAnimate" destination="Nx0-Up-7XA" id="Q1i-z1-Voe"/>
@@ -84,6 +87,27 @@
                         <action selector="clickAudioPlayButton" destination="-2" eventType="touchUpInside" id="Axl-DZ-GNf"/>
                     </connections>
                 </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZr-R5-YfE">
+                    <rect key="frame" x="20.000000000000004" y="738" width="39.333333333333343" height="39.333333333333371"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="oZr-R5-YfE" secondAttribute="height" multiplier="1:1" id="m0x-iZ-e3p"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="dot.circle.viewfinder" catalog="system"/>
+                    <connections>
+                        <action selector="goToEyeExercise" destination="-2" eventType="touchUpInside" id="ed0-su-ppu"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RjN-uq-do9">
+                    <rect key="frame" x="20.000000000000004" y="738" width="39.333333333333343" height="39.333333333333371"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="person.fill.viewfinder" catalog="system"/>
+                    <connections>
+                        <action selector="goToFatigueDetection" destination="-2" eventType="touchUpInside" id="6fY-Qb-3FQ"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -92,14 +116,18 @@
                 <constraint firstItem="uZb-Ie-nKU" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.7" id="3bL-HO-TcK"/>
                 <constraint firstItem="D2e-dX-7KP" firstAttribute="width" secondItem="8QP-qv-sbz" secondAttribute="width" multiplier="0.2" id="7XU-AC-Hpy"/>
                 <constraint firstItem="uZb-Ie-nKU" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.1" id="8tn-9q-hfU"/>
+                <constraint firstItem="oZr-R5-YfE" firstAttribute="centerY" secondItem="D2e-dX-7KP" secondAttribute="centerY" id="9CX-dS-Qn8"/>
+                <constraint firstItem="RjN-uq-do9" firstAttribute="centerY" secondItem="oZr-R5-YfE" secondAttribute="centerY" id="A0i-ld-e36"/>
                 <constraint firstItem="eZR-62-7aB" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="A2G-j3-Fgo"/>
                 <constraint firstItem="D2e-dX-7KP" firstAttribute="centerY" secondItem="8QP-qv-sbz" secondAttribute="centerY" id="Arg-ph-go2"/>
                 <constraint firstItem="uZb-Ie-nKU" firstAttribute="centerX" secondItem="Nx0-Up-7XA" secondAttribute="centerX" id="DoE-c6-YeB"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="nFD-rh-N48" secondAttribute="top" id="HMz-oC-Aru"/>
                 <constraint firstItem="nFD-rh-N48" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Hzd-4M-VpM"/>
+                <constraint firstItem="RjN-uq-do9" firstAttribute="width" secondItem="oZr-R5-YfE" secondAttribute="width" id="K4m-Yy-o9F"/>
                 <constraint firstItem="uZb-Ie-nKU" firstAttribute="centerY" secondItem="Nx0-Up-7XA" secondAttribute="centerY" id="LXr-6R-97q"/>
                 <constraint firstItem="uZb-Ie-nKU" firstAttribute="top" secondItem="eZR-62-7aB" secondAttribute="bottom" id="NUx-re-fir"/>
                 <constraint firstItem="TSf-zI-e8J" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="NjQ-8a-tjV"/>
+                <constraint firstItem="oZr-R5-YfE" firstAttribute="width" secondItem="D2e-dX-7KP" secondAttribute="width" id="Q0p-0w-Rxg"/>
                 <constraint firstItem="nFD-rh-N48" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="R3y-97-J1k"/>
                 <constraint firstItem="tKO-5V-0Jh" firstAttribute="width" secondItem="8QP-qv-sbz" secondAttribute="width" id="Ssx-gt-IqH"/>
                 <constraint firstItem="eZR-62-7aB" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.699746" id="T4x-5J-ZWz"/>
@@ -110,13 +138,16 @@
                 <constraint firstItem="TSf-zI-e8J" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="74.666666666666657" id="ZrU-Vu-BB6"/>
                 <constraint firstItem="tKO-5V-0Jh" firstAttribute="height" secondItem="8QP-qv-sbz" secondAttribute="height" id="a0B-BN-WKg"/>
                 <constraint firstItem="eZR-62-7aB" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.0996926" id="aeL-vB-e8h"/>
+                <constraint firstItem="oZr-R5-YfE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="b7j-ig-US8"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8QP-qv-sbz" secondAttribute="bottom" constant="30" id="bhk-TA-jL9"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="D2e-dX-7KP" secondAttribute="trailing" constant="20" id="cM8-LG-1Be"/>
                 <constraint firstItem="8QP-qv-sbz" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.5" id="daW-18-Kf9"/>
                 <constraint firstItem="Nx0-Up-7XA" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="gLA-8e-nfj"/>
                 <constraint firstItem="Nx0-Up-7XA" firstAttribute="width" secondItem="nFD-rh-N48" secondAttribute="width" multiplier="2" id="jvP-Ks-9gT"/>
+                <constraint firstItem="RjN-uq-do9" firstAttribute="centerX" secondItem="oZr-R5-YfE" secondAttribute="centerX" id="kF2-DF-qEe"/>
                 <constraint firstItem="8QP-qv-sbz" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="mTB-aQ-ffX"/>
                 <constraint firstItem="8QP-qv-sbz" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.08" id="rPu-Ze-raI"/>
+                <constraint firstItem="RjN-uq-do9" firstAttribute="height" secondItem="oZr-R5-YfE" secondAttribute="height" id="tbD-ca-69s"/>
                 <constraint firstItem="tKO-5V-0Jh" firstAttribute="centerY" secondItem="8QP-qv-sbz" secondAttribute="centerY" id="zN9-dK-Gr4"/>
             </constraints>
             <point key="canvasLocation" x="34" y="21"/>
@@ -124,7 +155,9 @@
     </objects>
     <resources>
         <image name="Quepal" width="1440" height="900"/>
-        <image name="speaker.slash" catalog="system" width="118" height="128"/>
+        <image name="dot.circle.viewfinder" catalog="system" width="128" height="115"/>
+        <image name="person.fill.viewfinder" catalog="system" width="128" height="115"/>
+        <image name="speaker.slash" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
