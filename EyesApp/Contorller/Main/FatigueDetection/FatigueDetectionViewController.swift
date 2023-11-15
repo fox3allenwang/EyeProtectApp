@@ -201,11 +201,21 @@ extension FatigueDetectionViewController: ARSCNViewDelegate {
                         }
                         let newText = "Faigue: \(round((1 - result) * 100)) %"
                         
+                        var material = SCNMaterial()
+                        if (round((1 - result) * 100)) >= 70 && (round((1 - result) * 100)) < 90 {
+                            material.diffuse.contents = UIColor.yellow // 設置文字顏色
+                        } else if (round((1 - result) * 100)) >= 90 {
+                            material.diffuse.contents = UIColor.red // 設置文字顏色
+                        } else {
+                            material.diffuse.contents = UIColor.buttom2Color // 設置文字顏色
+                        }
+                        
                         if (round((1 - result) * 100)) > 70 && self.swAlert.isOn == true {
                             AudioServicesPlaySystemSound(1005)
                         }
                         
                         self.ARText.string = newText
+                        self.ARText.materials = [material]
                     }
                     fatigueArray = []
                    count = 0

@@ -529,7 +529,7 @@ class EyeExerciseViewController: UIViewController {
     @objc func exerciseStep4() {
         if showLookAtPointY >= ((UIScreen.main.bounds.height / 1.22) - 500) &&
             showLookAtPointY <= ((UIScreen.main.bounds.height / 1.22) + 500) &&
-            showLookAtPointX <= -600 &&
+            showLookAtPointX <= -400 &&
             distance <= 35 &&
             distance >= 30  {
             AudioServicesPlaySystemSound(soundShort)
