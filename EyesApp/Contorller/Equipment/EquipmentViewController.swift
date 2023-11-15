@@ -33,14 +33,11 @@ class EquipmentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-//        setupCamera()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        isoValue()
-        print("EquipmentViewController")
+        setupBlueServices()
         Alert.showAlert(title: "提示",
                         message: "使用前請先確認檯燈藍牙狀態燈亮起，以及藍光感測器已通電",
                         vc: self,
@@ -63,7 +60,6 @@ class EquipmentViewController: UIViewController {
     
     func setupUI() {
         setupImageView()
-        setupBlueServices()
         setupEquipmentView()
     }
     
@@ -101,18 +97,18 @@ class EquipmentViewController: UIViewController {
         changeImageValueB = 0.203921 / CGFloat(lightSlider.value / 100)
     }
     
-    func isoValue() {
-        if UserPreferences.shared.isoLowValue == true {
-            if Lamp.peripheral == nil {
-                Alert.showAlert(title: "裝置",
-                                message: "未搜尋到對應裝置，請確認裝置狀態或重新啟動",
-                                vc: self,
-                                confirmTitle: "確認")
-            } else {
-                bluetooth.connectPeripheral(peripheral: Lamp.peripheral!)
-            }
+    func isoValue(vc: UIViewController) {
+        if Lamp.peripheral == nil {
+            Alert.showAlert(title: "裝置",
+                            message: "未搜尋到對應裝置，請確認裝置狀態或重新啟動",
+                            vc: vc,
+                            confirmTitle: "確認")
+        } else {
+            bluetooth.connectPeripheral(peripheral: Lamp.peripheral!)
+            
             let data = "C".data(using: .utf8)
             bluetooth.writeValue(type: .withoutResponse, data: data!)
+            print("C")
         }
     }
     
@@ -135,7 +131,7 @@ class EquipmentViewController: UIViewController {
         } else {
             let data = "A".data(using: .utf8)
             bluetooth.writeValue(type: .withoutResponse, data: data!)
-        }
+        } 
     }
     
     // 調亮度放這裡
@@ -202,9 +198,9 @@ class EquipmentViewController: UIViewController {
 // MARK: - Extension
 
 extension EquipmentViewController: BluetoothServicesDelegate {
-    func getBlEPeripheralValue(value: UInt8) {
+    func getBlEPeripheralValue(value: Int) {
         DispatchQueue.main.async {
-            self.lbBlueLightValue.text = "藍光度數：\(value)"
+            self.lbBlueLightValue.text = "藍光度數：\(value) %"
         }
     }
 }
