@@ -12,6 +12,8 @@ class BluetoothServices: NSObject {
     
     static let shared = BluetoothServices()
     
+    let bluelightRange = 60
+    
     var central: CBCentralManager?
     var peripheral: CBPeripheralManager?
     
@@ -155,8 +157,10 @@ extension BluetoothServices: CBPeripheralDelegate {
             return
         }
         let characteristicASCIIValue = Character(ASCIIstring)
+        let value = Double(characteristicASCIIValue.asciiValue!)
+        let finalValue: Double = 100 - (value - 60) * 1.5
         
-        delegate?.getBlEPeripheralValue(value: characteristicASCIIValue.asciiValue!)
+        delegate?.getBlEPeripheralValue(value: Int(finalValue))
     }
 }
 
@@ -184,5 +188,5 @@ extension BluetoothServices: CBPeripheralManagerDelegate {
 }
 
 protocol BluetoothServicesDelegate: NSObjectProtocol {
-    func getBlEPeripheralValue(value: UInt8)
+    func getBlEPeripheralValue(value: Int)
 }

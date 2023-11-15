@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -65,7 +65,7 @@
                     </connections>
                 </slider>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="藍光度數：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rld-75-E6V">
-                    <rect key="frame" x="34.999999999999986" y="749" width="211.66666666666663" height="34"/>
+                    <rect key="frame" x="35" y="749" width="282.33333333333331" height="34"/>
                     <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="27"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -75,7 +75,7 @@
             <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="7ks-JS-EAS" firstAttribute="top" secondItem="5PL-uy-4hZ" secondAttribute="bottom" constant="30" id="2fS-sr-3qh"/>
-                <constraint firstItem="rld-75-E6V" firstAttribute="width" secondItem="7ks-JS-EAS" secondAttribute="width" multiplier="0.6" id="3U7-zY-2SX"/>
+                <constraint firstItem="rld-75-E6V" firstAttribute="width" secondItem="7ks-JS-EAS" secondAttribute="width" multiplier="0.8" id="3U7-zY-2SX"/>
                 <constraint firstItem="0ht-1m-5HB" firstAttribute="centerY" secondItem="5PL-uy-4hZ" secondAttribute="centerY" id="3cL-V4-CN0"/>
                 <constraint firstItem="iGF-EB-iWo" firstAttribute="centerX" secondItem="5PL-uy-4hZ" secondAttribute="centerX" id="43z-hm-kaG"/>
                 <constraint firstItem="iGF-EB-iWo" firstAttribute="centerY" secondItem="5PL-uy-4hZ" secondAttribute="centerY" id="9Uv-cC-9sd"/>
@@ -103,7 +103,7 @@
                 <constraint firstItem="rld-75-E6V" firstAttribute="leading" secondItem="7ks-JS-EAS" secondAttribute="leading" constant="15" id="wlz-UU-cT3"/>
                 <constraint firstItem="gPQ-yN-Xc5" firstAttribute="width" secondItem="5PL-uy-4hZ" secondAttribute="width" multiplier="0.7" id="zHS-B8-oq2"/>
             </constraints>
-            <point key="canvasLocation" x="117" y="20"/>
+            <point key="canvasLocation" x="116.79389312977099" y="19.718309859154932"/>
         </view>
     </objects>
     <resources>

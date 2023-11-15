@@ -783,7 +783,6 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                        from connection: AVCaptureConnection) {
         DispatchQueue.main.async {
             self.isoValue = self.frontCamera?.iso ?? 0
-//            print("ISO:\(self.isoValue)")
             
             if self.isoValue > 750 {
                 Alert.showAlert(title: "警示",
@@ -792,7 +791,7 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                                 confirmTitle: "確認",
                                 cancelTitle: "取消", confirm: {
                     UserPreferences.shared.isoLowValue = true
-                    self.updateView(index: 3)
+                    EquipmentViewController().isoValue(vc: self)
                 }, cancel: {
                     UserPreferences.shared.isoLowValue = false
                 })
