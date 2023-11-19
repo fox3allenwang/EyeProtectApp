@@ -214,6 +214,10 @@ extension FatigueDetectionViewController: ARSCNViewDelegate {
                             AudioServicesPlaySystemSound(1005)
                         }
                         
+                        if (round((1 - result) * 100)) > 70 {
+                            Alert.showAlert(title: "警告", message: "系統檢測到您很想睡覺，建議你進行適度休息", vc: self, confirmTitle: "確認")
+                        }
+                        
                         self.ARText.string = newText
                         self.ARText.materials = [material]
                     }

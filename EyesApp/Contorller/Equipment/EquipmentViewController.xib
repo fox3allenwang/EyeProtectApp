@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EquipmentViewController" customModule="EyesApp" customModuleProvider="target">
             <connections>
                 <outlet property="blueDetectionView" destination="7ks-JS-EAS" id="LTJ-oe-zFR"/>
+                <outlet property="btnBlueLightDetection" destination="fQx-fx-BYa" id="xay-nb-4vk"/>
                 <outlet property="ivgBlueDetection" destination="U5p-AP-BTu" id="jYP-Lg-8Xb"/>
                 <outlet property="ivgLight" destination="0ht-1m-5HB" id="q0I-kM-hXC"/>
                 <outlet property="lbBlueLightValue" destination="rld-75-E6V" id="gDk-pV-6qG"/>
@@ -34,6 +35,14 @@
                     <rect key="frame" x="20" y="458.66666666666674" width="353" height="339.33333333333326"/>
                     <color key="backgroundColor" name="ButtomColor"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fQx-fx-BYa">
+                    <rect key="frame" x="20" y="458.66666666666674" width="353" height="339.33333333333326"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain"/>
+                    <connections>
+                        <action selector="blueLightBtnClick" destination="-2" eventType="touchUpInside" id="EME-Pg-HGG"/>
+                    </connections>
+                </button>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lamp.desk" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0ht-1m-5HB">
                     <rect key="frame" x="108.33333333333333" y="170" width="176.33333333333337" height="178"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -64,7 +73,7 @@
                         <action selector="slideLight" destination="-2" eventType="valueChanged" id="EnS-nz-OuC"/>
                     </connections>
                 </slider>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="藍光度數：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rld-75-E6V">
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="藍光度數：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rld-75-E6V">
                     <rect key="frame" x="35" y="749" width="282.33333333333331" height="34"/>
                     <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="27"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -92,7 +101,10 @@
                 <constraint firstItem="5PL-uy-4hZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="fcc-Hu-nmM"/>
                 <constraint firstItem="U5p-AP-BTu" firstAttribute="centerY" secondItem="7ks-JS-EAS" secondAttribute="centerY" id="fuX-8z-rLw"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="5PL-uy-4hZ" secondAttribute="trailing" constant="20" id="ge5-mZ-d1U"/>
+                <constraint firstItem="fQx-fx-BYa" firstAttribute="height" secondItem="7ks-JS-EAS" secondAttribute="height" id="ix0-Ae-2Dy"/>
+                <constraint firstItem="fQx-fx-BYa" firstAttribute="centerY" secondItem="7ks-JS-EAS" secondAttribute="centerY" id="jIp-40-i6L"/>
                 <constraint firstItem="7ks-JS-EAS" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="jYT-sV-YJl"/>
+                <constraint firstItem="fQx-fx-BYa" firstAttribute="centerX" secondItem="7ks-JS-EAS" secondAttribute="centerX" id="je0-PG-GDH"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7ks-JS-EAS" secondAttribute="trailing" constant="20" id="khN-kZ-f2O"/>
                 <constraint firstItem="7ks-JS-EAS" firstAttribute="height" secondItem="5PL-uy-4hZ" secondAttribute="height" id="qKs-m7-Cle"/>
                 <constraint firstItem="7ks-JS-EAS" firstAttribute="width" secondItem="5PL-uy-4hZ" secondAttribute="width" id="r4w-sg-NDx"/>
@@ -102,6 +114,7 @@
                 <constraint firstItem="gPQ-yN-Xc5" firstAttribute="bottom" secondItem="5PL-uy-4hZ" secondAttribute="bottom" constant="-10" id="wUS-Xg-tTW"/>
                 <constraint firstItem="rld-75-E6V" firstAttribute="leading" secondItem="7ks-JS-EAS" secondAttribute="leading" constant="15" id="wlz-UU-cT3"/>
                 <constraint firstItem="gPQ-yN-Xc5" firstAttribute="width" secondItem="5PL-uy-4hZ" secondAttribute="width" multiplier="0.7" id="zHS-B8-oq2"/>
+                <constraint firstItem="fQx-fx-BYa" firstAttribute="width" secondItem="7ks-JS-EAS" secondAttribute="width" id="zOB-tx-cX4"/>
             </constraints>
             <point key="canvasLocation" x="116.79389312977099" y="19.718309859154932"/>
         </view>

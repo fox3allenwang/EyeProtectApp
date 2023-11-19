@@ -17,12 +17,14 @@ class EquipmentViewController: UIViewController {
     @IBOutlet weak var ivgBlueDetection: UIView!
     @IBOutlet weak var lightSlider: UISlider!
     @IBOutlet weak var lbBlueLightValue: UILabel!
+    @IBOutlet weak var btnBlueLightDetection: UIButton!
     
     // MARK: - Variables
     var changeBackgroundValue :CGFloat?
     var changeImageValueR :CGFloat?
     var changeImageValueG :CGFloat?
     var changeImageValueB :CGFloat?
+    var blueLightStatus = false
     
     private let bluetooth = BluetoothServices.shared
     
@@ -97,6 +99,40 @@ class EquipmentViewController: UIViewController {
         changeImageValueB = 0.203921 / CGFloat(lightSlider.value / 100)
     }
     
+    // MARK: - callAPIAddMissionComplete
+    
+    func callAPIAddMissionComplete(missionId: String,
+                                   accountId: String,
+                                   date: String,
+                                   completion: (() -> Void)? = nil) {
+        let request = AddMissionCompleteRequest(missionId: UUID(uuidString: missionId)!,
+                                                accountId: UUID(uuidString: accountId)!,
+                                                date: date)
+        
+        Task {
+            do {
+                let result: GeneralResponse<String> = try await NetworkManager().requestData(method: .post,
+                                                                                     path: .addMissionComplete,
+                                                                                     parameters: request,
+                                                                                     needToken: true)
+                completion?()
+                if result.message == "沒有此任務" {
+                    Alert.showAlert(title: "錯誤",
+                                    message: result.message,
+                                    vc: self,
+                                    confirmTitle: "確認")
+                }
+            } catch {
+                print(error)
+                Alert.showAlert(title: "錯誤",
+                                message: "\(error)",
+                                vc: self,
+                                confirmTitle: "確認")
+            }
+        }
+    }
+    
+    
     func isoValue(vc: UIViewController) {
         if Lamp.peripheral == nil {
             Alert.showAlert(title: "裝置",
@@ -131,7 +167,7 @@ class EquipmentViewController: UIViewController {
         } else {
             let data = "A".data(using: .utf8)
             bluetooth.writeValue(type: .withoutResponse, data: data!)
-        } 
+        }
     }
     
     // 調亮度放這裡
@@ -193,6 +229,17 @@ class EquipmentViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func blueLightBtnClick() {
+        blueLightStatus.toggle()
+        if blueLightStatus == true {
+            lbBlueLightValue.isHidden = false
+            blueDetectionView.backgroundColor = .buttom2Color
+        } else {
+            lbBlueLightValue.isHidden = true
+            blueDetectionView.backgroundColor = .buttomColor
+        }
+    }
 }
 
 // MARK: - Extension
@@ -201,6 +248,23 @@ extension EquipmentViewController: BluetoothServicesDelegate {
     func getBlEPeripheralValue(value: Int) {
         DispatchQueue.main.async {
             self.lbBlueLightValue.text = "藍光度數：\(value) %"
+            if self.blueLightStatus == true {
+                if value >= 70 {
+                    Alert.showAlert(title: "藍光",
+                                    message: "藍光過高，請注意眼睛健康",
+                                    vc: self,
+                                    confirmTitle: "確認")
+                } else {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    let now = dateFormatter.string(from: Date())
+                    self.callAPIAddMissionComplete(missionId: UserPreferences.shared.blueLightMissionId,
+                                              accountId: UserPreferences.shared.accountId,
+                                                   date: now) {
+                        Thread.sleep(forTimeInterval: 0.5)
+                    }
+                }
+            }
         }
     }
 }
