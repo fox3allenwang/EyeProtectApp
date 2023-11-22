@@ -38,6 +38,8 @@
 		3F35FA292AE274C700465D9E /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F35FA272AE274C700465D9E /* AddFriendViewController.swift */; };
 		3F35FA2A2AE274C700465D9E /* AddFriendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F35FA282AE274C700465D9E /* AddFriendViewController.xib */; };
 		3F35FA302AE2E68E00465D9E /* AddFriendInviteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F35FA2F2AE2E68E00465D9E /* AddFriendInviteRequest.swift */; };
+		3F3A328B2B0A79C300E56912 /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3A32892B0A79C300E56912 /* MemberTableViewCell.swift */; };
+		3F3A328C2B0A79C300E56912 /* MemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F3A328A2B0A79C300E56912 /* MemberTableViewCell.xib */; };
 		3F44875D2A71553900D573AB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44875C2A71553900D573AB /* Alert.swift */; };
 		3F44875F2A71736400D573AB /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44875E2A71736400D573AB /* RegisterRequest.swift */; };
 		3F44884C2A722C4F00D573AB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44884A2A722C4F00D573AB /* MainViewController.swift */; };
@@ -197,6 +199,8 @@
 		3F35FA272AE274C700465D9E /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		3F35FA282AE274C700465D9E /* AddFriendViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddFriendViewController.xib; sourceTree = "<group>"; };
 		3F35FA2F2AE2E68E00465D9E /* AddFriendInviteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendInviteRequest.swift; sourceTree = "<group>"; };
+		3F3A32892B0A79C300E56912 /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
+		3F3A328A2B0A79C300E56912 /* MemberTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberTableViewCell.xib; sourceTree = "<group>"; };
 		3F44875C2A71553900D573AB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		3F44875E2A71736400D573AB /* RegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
 		3F44884A2A722C4F00D573AB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -465,6 +469,15 @@
 			path = AddFriendViewController;
 			sourceTree = "<group>";
 		};
+		3F3A32882B0A799900E56912 /* Compenents */ = {
+			isa = PBXGroup;
+			children = (
+				3F3A32892B0A79C300E56912 /* MemberTableViewCell.swift */,
+				3F3A328A2B0A79C300E56912 /* MemberTableViewCell.xib */,
+			);
+			path = Compenents;
+			sourceTree = "<group>";
+		};
 		3F44875B2A71551400D573AB /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -673,6 +686,7 @@
 		3F9B38A72AEEB2BA00CDB36A /* MutipleStartConcentrate */ = {
 			isa = PBXGroup;
 			children = (
+				3F3A32882B0A799900E56912 /* Compenents */,
 				3F9B38A82AEEB30200CDB36A /* MutipleStartConcentrateViewController.swift */,
 				3F9B38A92AEEB30200CDB36A /* MutipleStartConcentrateViewController.xib */,
 			);
@@ -1016,6 +1030,7 @@
 				3F4488562A724D1800D573AB /* TabBarItemView.xib in Resources */,
 				3F4488D72A74B9B500D573AB /* NewsViewController.xib in Resources */,
 				3FE8161D2AF7A60B002608A6 /* ConcentrateRecordViewController.xib in Resources */,
+				3F3A328C2B0A79C300E56912 /* MemberTableViewCell.xib in Resources */,
 				3FA2B4FD2AE5825B005D0A16 /* startConcentrate.json in Resources */,
 				3F9B38AB2AEEB30200CDB36A /* MutipleStartConcentrateViewController.xib in Resources */,
 				3F9B36FC2AED1DB700CDB36A /* InviteRoomMemberListTableViewCell.xib in Resources */,
@@ -1111,6 +1126,7 @@
 				3F44875F2A71736400D573AB /* RegisterRequest.swift in Sources */,
 				3F29561E2AE6301D00DFD45E /* AddConcentrateRecordRequest.swift in Sources */,
 				3FFD2B3E2AF54F7000D620B5 /* loadNewsRequest.swift in Sources */,
+				3F3A328B2B0A79C300E56912 /* MemberTableViewCell.swift in Sources */,
 				3FB632312AC947C30015AF8D /* GetFriendListRequest.swift in Sources */,
 				3F4488752A72BD2800D573AB /* BaseViewController.swift in Sources */,
 				3F65158A2AF949530096C6D7 /* Fatigue Detection 90%.mlmodel in Sources */,

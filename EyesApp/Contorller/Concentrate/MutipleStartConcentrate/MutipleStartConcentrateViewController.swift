@@ -21,6 +21,8 @@ class MutipleStartConcentrateViewController: UIViewController {
     @IBOutlet weak var btnAudioPlay: UIButton?
     @IBOutlet weak var lbStatusTitle: UILabel?
     @IBOutlet weak var imgvBackground: UIImageView?
+    @IBOutlet weak var vMember: UIView?
+    @IBOutlet weak var tbvMemberList: UITableView?
     
     // MARK: - Variables
     
@@ -38,6 +40,8 @@ class MutipleStartConcentrateViewController: UIViewController {
     var inviteMemberList: [InviteRoomMember] = []
     let imagePicker = UIImagePickerController()
     var isDoneForConcentrate = false
+    var memberImage: [UIImage] = []
+    var memberName: [String] = []
     
     
     // MARK: - LifeCycle
@@ -92,6 +96,15 @@ class MutipleStartConcentrateViewController: UIViewController {
     func setupUI() {
         setupConcentrateAnimate()
         setupAudio()
+        setupMemberTableView()
+    }
+    
+    func setupMemberTableView() {
+        tbvMemberList?.delegate = self
+        tbvMemberList?.dataSource = self
+        tbvMemberList?.register(UINib(nibName: "MemberTableViewCell", bundle: nil),
+                                forCellReuseIdentifier: MemberTableViewCell.identified)
+        vMember?.layer.cornerRadius = 20
     }
     
     func setupConcentrateAnimate() {
@@ -552,6 +565,18 @@ class MutipleStartConcentrateViewController: UIViewController {
         }
     }
     
+    @IBAction func showMemberClick() {
+        if vMember?.isHidden == true {
+            UIView.transition(with: vMember!, duration: 0.5, options: .transitionCrossDissolve) {
+                self.vMember?.isHidden = false
+            }
+        } else {
+            UIView.transition(with: vMember!, duration: 0.5, options: .transitionCrossDissolve) {
+                self.vMember?.isHidden = true
+            }
+        }
+    }
+    
 }
 
 // MARK: - Extension
@@ -587,6 +612,26 @@ extension MutipleStartConcentrateViewController: UIImagePickerControllerDelegate
             nextVC.inviteRoomId = self.inviteRoomId
             self.present(nextVC, animated: true)
         }
+    }
+}
+
+// MARK: - TableViewDelegate
+
+extension MutipleStartConcentrateViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        inviteMemberList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: MemberTableViewCell.identified,
+                                                 for: indexPath) as! MemberTableViewCell
+        if inviteMemberList[indexPath.row].image == "未設置" {
+            cell.imgvUser?.image = UIImage(systemName: "person.fill")
+        } else {
+            cell.imgvUser?.image = inviteMemberList[indexPath.row].image.stringToUIImage()
+        }
+        cell.lbName.text = inviteMemberList[indexPath.row].name
+        return cell
     }
 }
 
