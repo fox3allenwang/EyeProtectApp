@@ -84,12 +84,6 @@
                         <action selector="clickAudioPlayButton" destination="-2" eventType="touchUpInside" id="r7Z-we-yLG"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v11-xb-CxR">
-                    <rect key="frame" x="20.000000000000004" y="735" width="45.333333333333343" height="45.333333333333371"/>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" image="person.2.fill" catalog="system"/>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -104,7 +98,6 @@
                 <constraint firstItem="psy-Fr-0ZI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="EVO-lc-KJI"/>
                 <constraint firstItem="W3Z-SM-Pau" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.115352" id="FM2-5R-bRR"/>
                 <constraint firstItem="nbR-3D-2bb" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="FPk-mm-Gdg"/>
-                <constraint firstItem="v11-xb-CxR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="HtS-8P-TVT"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="psy-Fr-0ZI" secondAttribute="top" id="Lun-1x-cUN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="psy-Fr-0ZI" secondAttribute="trailing" id="NvP-uu-0Kz"/>
                 <constraint firstItem="8k2-9d-9V5" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.9" id="OqI-Id-PwF"/>
@@ -122,24 +115,20 @@
                 <constraint firstItem="pCl-Bh-ikP" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="2.00085" id="gbN-FV-LI6"/>
                 <constraint firstItem="pCl-Bh-ikP" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="h2V-qY-n2f"/>
                 <constraint firstItem="h0X-Ye-nsA" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.699746" id="j4A-U4-M7N"/>
-                <constraint firstItem="v11-xb-CxR" firstAttribute="height" secondItem="W3Z-SM-Pau" secondAttribute="height" id="nKk-AM-KyH"/>
                 <constraint firstItem="h0X-Ye-nsA" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.0996926" id="o70-0Y-B8j"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="W3Z-SM-Pau" secondAttribute="trailing" constant="20" id="o8o-P7-1Cf"/>
-                <constraint firstItem="v11-xb-CxR" firstAttribute="centerY" secondItem="3Uo-wk-EH2" secondAttribute="centerY" id="oI2-Zu-jsT"/>
                 <constraint firstItem="Vut-5L-dw2" firstAttribute="centerY" secondItem="3Uo-wk-EH2" secondAttribute="centerY" id="sD6-Xq-ed1"/>
                 <constraint firstItem="h0X-Ye-nsA" firstAttribute="top" secondItem="nbR-3D-2bb" secondAttribute="bottom" id="vo8-pW-vYx"/>
                 <constraint firstItem="nbR-3D-2bb" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.0395257" id="wRQ-1Z-2te"/>
                 <constraint firstItem="W3Z-SM-Pau" firstAttribute="centerY" secondItem="3Uo-wk-EH2" secondAttribute="centerY" id="xBq-wp-dvm"/>
                 <constraint firstItem="pCl-Bh-ikP" firstAttribute="width" secondItem="pCl-Bh-ikP" secondAttribute="height" multiplier="1:1" id="xP9-kk-3I3"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="3Uo-wk-EH2" secondAttribute="bottom" constant="30" id="y7h-Nv-vTM"/>
-                <constraint firstItem="v11-xb-CxR" firstAttribute="width" secondItem="W3Z-SM-Pau" secondAttribute="width" id="ytq-Xg-4yh"/>
             </constraints>
             <point key="canvasLocation" x="71" y="20"/>
         </view>
     </objects>
     <resources>
         <image name="054 Grown Early" width="2400" height="2000"/>
-        <image name="person.2.fill" catalog="system" width="128" height="81"/>
         <image name="speaker.slash" catalog="system" width="118" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

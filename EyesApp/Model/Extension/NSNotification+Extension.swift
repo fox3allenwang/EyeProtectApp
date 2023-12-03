@@ -15,4 +15,5 @@ extension NSNotification.Name {
     static let dismissAddInviteView = Notification.Name("dismissAddInviteView")
     static let goToConcentrate = Notification.Name("goToConcentrate")
     static let reloadMissionStatus = Notification.Name("reloadMissionStatus")
+    static let concentrateCackgroundNotification = Notification.Name("concentrateCackgroundNotification")
 }

@@ -234,6 +234,14 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
         }
     }
     
+    @objc func closeAppInConcentrateMode() {
+        self.concentrateFaild()
+        self.wsMutipleConcentrate?.cancel()
+        NotificationCenter.default.removeObserver(self,
+                                                  name: .concentrateCackgroundNotification,
+                                                  object: nil)
+    }
+    
     func concentrateFaild() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
@@ -279,6 +287,10 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
                 case .string(let string):
                     if string.contains("所有成員已進入專注模式") {
                         self.setTimer()
+                        NotificationCenter.default.addObserver(self,
+                                                               selector: #selector(self.closeAppInConcentrateMode),
+                                                               name: .concentrateCackgroundNotification,
+                                                               object: nil)
                         ProgressHUD.dismiss()
                     } else if string.contains("有成員沒有進入專注模式"){
                         ProgressHUD.dismiss()
@@ -288,10 +300,9 @@ class MutipleConcentrateMemberVersionViewController: UIViewController {
                         self.wsMutipleConcentrate?.cancel()
                         let interruptAccountId = string.prefix(36)
                         print(interruptAccountId)
+                        self.concentrateFaild()
                         self.callFindAccountApi(accountId: String(interruptAccountId)) { result in
-                            Alert.showAlert(title: "\((result.data?.name)!) 中斷專注了", message: "因為 \((result.data?.name)!) 中斷專注，所以這次的專注沒有成功", vc: self, confirmTitle: "確認") {
-                                self.concentrateFaild()
-                            }
+                            Alert.showAlert(title: "\((result.data?.name)!) 中斷專注了", message: "因為 \((result.data?.name)!) 中斷專注，所以這次的專注沒有成功", vc: self, confirmTitle: "確認")
                         }
                     } else if string.contains("已完成專注模式") {
                         self.wsMutipleConcentrate?.cancel()
