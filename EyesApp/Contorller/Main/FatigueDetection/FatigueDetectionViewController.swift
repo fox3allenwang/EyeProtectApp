@@ -27,7 +27,8 @@ class FatigueDetectionViewController: UIViewController {
     var fatigueArray: [Float] = []
     var ARText = SCNText(string: "", extrusionDepth: 2)
     var delegate: FatigueDetectionBackToStartConcentrateVCDelegate?
-    
+    var openOrCloseEyeRequests = [VNRequest]()
+    var openOrCloseStatus = 0 // 0 是 open
     
     // MARK: - LifeCycle
     
@@ -63,6 +64,7 @@ class FatigueDetectionViewController: UIViewController {
     func setupUI() {
         setupARSCNView()
         setupAlertBackgroun()
+        setupVision()
     }
     
     func setupARSCNView() {
@@ -78,6 +80,49 @@ class FatigueDetectionViewController: UIViewController {
     
     func addText() {
 
+    }
+    
+    func setupVision() -> NSError? {
+        // Setup Vision parts
+        let error: NSError! = nil
+        
+        guard let modelURL = Bundle.main.url(forResource: "OpenEyeAndCloseEye 0.87 loss", withExtension: "mlmodelc") else {
+            return NSError(domain: "VisionObjectRecognitionViewController", code: -1, userInfo: [NSLocalizedDescriptionKey: "Model file is missing"])
+        }
+        do {
+            let visionModel = try VNCoreMLModel(for: MLModel(contentsOf: modelURL))
+            let objectRecognition = VNCoreMLRequest(model: visionModel, completionHandler: { (request, error) in
+                DispatchQueue.main.async(execute: {
+                    // perform all the UI updates on the main queue
+                    if let results = request.results {
+                        self.CountOpenOrCloseEyeRequestResults(results)
+                    }
+                    
+                })
+            })
+            openOrCloseEyeRequests = [objectRecognition]
+        } catch let error as NSError {
+            print("Model loading went wrong: \(error)")
+        }
+        
+        return error
+    }
+    
+    func CountOpenOrCloseEyeRequestResults(_ results: [Any]) {
+        for observation in results where observation is VNRecognizedObjectObservation {
+            guard let objectObservation = observation as? VNRecognizedObjectObservation else {
+                continue
+            }
+            // Select only the label with the highest confidence.
+            let topLabelObservation = objectObservation.labels[0]
+            if topLabelObservation.confidence > 0.9 {
+                if topLabelObservation.identifier == "closed eye" {
+                    openOrCloseStatus = 1
+                } else {
+                    openOrCloseStatus = 0
+                }
+            }
+        }
     }
     
     // MARK: - ARJudgeFace
@@ -161,9 +206,6 @@ extension FatigueDetectionViewController: ARSCNViewDelegate {
         if let faceAnchor = anchor as? ARFaceAnchor, let faceGeometry = node.geometry as? ARSCNFaceGeometry {
             faceGeometry.update(from: faceAnchor.geometry)
             
-           
-            
-            
             guard let pixelBuffer = self.vARSCN.session.currentFrame?.capturedImage else { return }
             
             do {
@@ -172,25 +214,39 @@ extension FatigueDetectionViewController: ARSCNViewDelegate {
                 let input = FatigueDetection_New__Test_76_ACCInput(image: pixelBuffer)
                 let output = try model.prediction(input: input)
                 
+                let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
+                do {
+                    try imageRequestHandler.perform(self.openOrCloseEyeRequests)
+                } catch {
+                    print(error)
+                }
                
                 let eyeBlinkLeft = faceAnchor.blendShapes[.eyeBlinkLeft]
                 let eyeBlinkRight = faceAnchor.blendShapes[.eyeBlinkRight]
                 let jawOpen = faceAnchor.blendShapes[.jawOpen]
-                
+
+
+
                 var activeProbs = output.classLabelProbs.first!.value
                 if ((eyeBlinkLeft?.decimalValue ?? 0.0) + (eyeBlinkRight?.decimalValue ?? 0.0)) > 0.8 {
                     activeProbs -= 0.5
                 } else {
                     activeProbs += 0.26
                 }
-                
+
                 if (jawOpen?.decimalValue ?? 0.0) > 0.5 {
                     activeProbs -= 0.1
                 }
                 
+                if openOrCloseStatus == 0 {
+                    activeProbs += 0.1
+                } else {
+                    activeProbs -= 0.1
+                }
+
                 fatigueArray.append(Float(activeProbs))
                 count += 1
-                
+
                 if count == 20 {
                     var result = fatigueArray.average
                     DispatchQueue.main.async {
@@ -200,7 +256,7 @@ extension FatigueDetectionViewController: ARSCNViewDelegate {
                             result = 1
                         }
                         let newText = "Faigue: \(round((1 - result) * 100)) %"
-                        
+
                         var material = SCNMaterial()
                         if (round((1 - result) * 100)) >= 70 && (round((1 - result) * 100)) < 90 {
                             material.diffuse.contents = UIColor.yellow // 設置文字顏色
@@ -209,15 +265,15 @@ extension FatigueDetectionViewController: ARSCNViewDelegate {
                         } else {
                             material.diffuse.contents = UIColor.buttom2Color // 設置文字顏色
                         }
-                        
+
                         if (round((1 - result) * 100)) > 70 && self.swAlert.isOn == true {
                             AudioServicesPlaySystemSound(1005)
                         }
-                        
+
                         if (round((1 - result) * 100)) > 70 {
                             Alert.showAlert(title: "警告", message: "系統檢測到您很想睡覺，建議你進行適度休息", vc: self, confirmTitle: "確認")
                         }
-                        
+
                         self.ARText.string = newText
                         self.ARText.materials = [material]
                     }
