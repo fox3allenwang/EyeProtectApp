@@ -412,7 +412,7 @@ class StartConcentrateViewController: UIViewController {
         }
         
         let nextVC = FatigueDetectionViewController()
-        nextVC.delegate = self
+        nextVC.backToStartConcentrateDelegate = self
         if let presentationController = nextVC.presentationController as? UISheetPresentationController {
             presentationController.detents = [.medium()]
         }

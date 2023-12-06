@@ -653,6 +653,7 @@ class MainViewController: BaseViewController {
     
     @IBAction func clickBtnFatigueDetection() {
         let nextVC = FatigueDetectionViewController()
+        nextVC.backToMainVCDelegate = self
         var btn = UIBarButtonItem()
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = btn
         navigationController?.pushViewController(nextVC, animated: true)
@@ -783,7 +784,7 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                        from connection: AVCaptureConnection) {
         DispatchQueue.main.async {
             self.isoValue = self.frontCamera?.iso ?? 0
-            
+            print(self.isoValue)
             if self.isoValue > 750 {
                 Alert.showAlert(title: "警示",
                                 message: "環境亮度低，即將自動啟用檯燈",
@@ -796,6 +797,14 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                     UserPreferences.shared.isoLowValue = false
                 })
             }
+        }
+    }
+}
+
+extension MainViewController: FatigueDetectionBackToMainVCDelegate {
+    func startCatchISO() {
+        DispatchQueue.global().async {
+            self.captureSession.startRunning()
         }
     }
 }

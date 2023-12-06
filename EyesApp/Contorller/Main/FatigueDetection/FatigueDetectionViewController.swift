@@ -26,7 +26,8 @@ class FatigueDetectionViewController: UIViewController {
     var noneFatigue = 0
     var fatigueArray: [Float] = []
     var ARText = SCNText(string: "", extrusionDepth: 2)
-    var delegate: FatigueDetectionBackToStartConcentrateVCDelegate?
+    var backToStartConcentrateDelegate: FatigueDetectionBackToStartConcentrateVCDelegate?
+    var backToMainVCDelegate: FatigueDetectionBackToMainVCDelegate?
     var openOrCloseEyeRequests = [VNRequest]()
     var openOrCloseStatus = 0 // 0 是 open
     
@@ -52,7 +53,8 @@ class FatigueDetectionViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        delegate?.transformUI()
+        backToStartConcentrateDelegate?.transformUI()
+        backToMainVCDelegate?.startCatchISO()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -311,3 +313,6 @@ protocol FatigueDetectionBackToStartConcentrateVCDelegate {
     func transformUI()
 }
 
+protocol FatigueDetectionBackToMainVCDelegate {
+    func startCatchISO()
+}

@@ -249,7 +249,7 @@ extension EquipmentViewController: BluetoothServicesDelegate {
         DispatchQueue.main.async {
             self.lbBlueLightValue.text = "藍光度數：\(value) %"
             if self.blueLightStatus == true {
-                if value >= 50 {
+                if value >= 65 {
                     Alert.showAlert(title: "藍光",
                                     message: "藍光過高，請注意眼睛健康",
                                     vc: self,
