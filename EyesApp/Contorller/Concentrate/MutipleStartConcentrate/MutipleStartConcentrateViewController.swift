@@ -124,7 +124,7 @@ class MutipleStartConcentrateViewController: UIViewController {
     
     func setTimer() {
         NotificationCenter.default.post(name: .goToConcentrate, object: nil)
-        countConcentrateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countConcentrate), userInfo: nil, repeats: true)
+        countConcentrateTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(countConcentrate), userInfo: nil, repeats: true)
     }
     
     func setupAudio() {
@@ -541,7 +541,7 @@ class MutipleStartConcentrateViewController: UIViewController {
                               options: .transitionCrossDissolve) {
                 self.vAnimate?.isHidden = false
             }
-            countRestTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countRest), userInfo: nil, repeats: true)
+            countRestTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(countRest), userInfo: nil, repeats: true)
             UIView.transition(with: btnConfirm!,
                               duration: 0.2,
                               options: .transitionCrossDissolve) {

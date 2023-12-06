@@ -432,7 +432,7 @@ class EyeExerciseViewController: UIViewController {
                 self.eyePositionIndicatorView.isHidden = true
                 self.blackBackgroundView.isHidden = true
                 Alert.showAlert(title: "校正完成", message: "請與眼睛保持一樣角度以及距離來進行後續的眼睛保健操", vc: self, confirmTitle: "確認") {
-                    self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(3 - self.stepOneCount) 秒"
+                    self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(2 - self.stepOneCount) 秒"
                     self.lbExerciseGuide.isHidden = false
                     self.stepOneTimer = Timer.scheduledTimer(timeInterval: 1,
                                                                 target: self,
@@ -451,12 +451,12 @@ class EyeExerciseViewController: UIViewController {
             distance >= 30 {
             AudioServicesPlaySystemSound(soundShort)
             stepOneCount += 1
-            self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(3 - stepOneCount) 秒"
+            self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(2 - stepOneCount) 秒"
         } else {
             stepOneCount = 0
-            self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(3 - stepOneCount) 秒"
+            self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(2 - stepOneCount) 秒"
         }
-        if stepOneCount == 3 {
+        if stepOneCount == 2 {
             AudioServicesPlaySystemSound(soundHeavy)
             AudioServicesPlaySystemSound(1000)
             stepOneTimer.invalidate()
@@ -479,12 +479,12 @@ class EyeExerciseViewController: UIViewController {
             distance >= 30  {
             AudioServicesPlaySystemSound(soundShort)
             stepTwoCount += 1
-            self.lbExerciseGuide.text = "請往上看並維持 \(5 - stepTwoCount) 秒"
+            self.lbExerciseGuide.text = "請往上看並維持 \(3 - stepTwoCount) 秒"
         } else {
             stepTwoCount = 0
-            self.lbExerciseGuide.text = "請往上看並維持 \(5 - stepTwoCount) 秒"
+            self.lbExerciseGuide.text = "請往上看並維持 \(3 - stepTwoCount) 秒"
         }
-        if stepTwoCount == 5 {
+        if stepTwoCount == 3 {
             AudioServicesPlaySystemSound(soundHeavy)
             AudioServicesPlaySystemSound(1000)
             stepTwoTimer.invalidate()

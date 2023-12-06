@@ -249,7 +249,7 @@ extension EquipmentViewController: BluetoothServicesDelegate {
         DispatchQueue.main.async {
             self.lbBlueLightValue.text = "藍光度數：\(value) %"
             if self.blueLightStatus == true {
-                if value >= 70 {
+                if value >= 50 {
                     Alert.showAlert(title: "藍光",
                                     message: "藍光過高，請注意眼睛健康",
                                     vc: self,
@@ -259,7 +259,7 @@ extension EquipmentViewController: BluetoothServicesDelegate {
                     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
                     let now = dateFormatter.string(from: Date())
                     self.callAPIAddMissionComplete(missionId: UserPreferences.shared.blueLightMissionId,
-                                              accountId: UserPreferences.shared.accountId,
+                                                   accountId: UserPreferences.shared.accountId,
                                                    date: now) {
                         Thread.sleep(forTimeInterval: 0.5)
                     }

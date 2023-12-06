@@ -229,7 +229,7 @@ extension FatigueDetectionViewController: ARSCNViewDelegate {
 
                 var activeProbs = output.classLabelProbs.first!.value
                 if ((eyeBlinkLeft?.decimalValue ?? 0.0) + (eyeBlinkRight?.decimalValue ?? 0.0)) > 0.8 {
-                    activeProbs -= 0.5
+                    activeProbs -= 0.2
                 } else {
                     activeProbs += 0.26
                 }
