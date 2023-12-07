@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "swifthelpers",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/leoho0722/SwiftHelpers.git",
+      "state" : {
+        "revision" : "d9d1299086c487ad37d0d311561fc016856776c8",
+        "version" : "0.0.6"
+      }
+    }
+  ],
+  "version" : 2
+}
