@@ -17,9 +17,9 @@ class FriendInviteTableViewCell: UITableViewCell {
     @IBOutlet weak var btnAccept: UIButton!
     @IBOutlet weak var btnReject: UIButton!
     
-    // MARK: - Variables
+    // MARK: - Properties
     
-    static let identified = "FriendInviteTableViewCell"
+    static let identifier = "FriendInviteTableViewCell"
     
     
     // MARK: - LifeCycle
@@ -28,7 +28,7 @@ class FriendInviteTableViewCell: UITableViewCell {
         super.awakeFromNib()
         igvUserImg.layer.cornerRadius = igvUserImg.frame.width * 0.7
         igvUserImg.layer.borderWidth = 3
-        igvUserImg.layer.borderColor = UIColor.buttomColor?.cgColor
+        igvUserImg.layer.borderColor = UIColor.buttomColor.cgColor
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

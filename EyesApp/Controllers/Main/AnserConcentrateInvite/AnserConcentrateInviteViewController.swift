@@ -10,18 +10,18 @@ import UIKit
 class AnserConcentrateInviteViewController: UIViewController {
     
     // MARK: - IBOutlet
-    @IBOutlet weak var vInvite: UIView?
-    @IBOutlet weak var lbInviteMessage: UILabel?
-    @IBOutlet weak var btnAccept: UIButton?
-    @IBOutlet weak var btnCancel: UIButton?
     
-    // MARK: - Variables
+    @IBOutlet weak var vInvite: UIView!
+    @IBOutlet weak var lbInviteMessage: UILabel!
+    @IBOutlet weak var btnAccept: UIButton!
+    @IBOutlet weak var btnCancel: UIButton!
+    
+    // MARK: - Properties
     
     var message = ""
     var inviteRoomId = ""
     var sendName = ""
-    var inviteAcceptDelegate: InviteAcceptDelegate?
-    var inviteCancelDelegate: InviteCancelDelegate?
+    weak var delegate: InviteDelegate?
     
     // MARK: - LifeCycle
     
@@ -48,37 +48,38 @@ class AnserConcentrateInviteViewController: UIViewController {
     
     // MARK: - UI Settings
     
-    func setupUI() {
-        lbInviteMessage?.text = message
+    fileprivate func setupUI() {
+        lbInviteMessage.text = message
         setupInviteView()
     }
     
-    func setupInviteView() {
-        vInvite!.layer.cornerRadius = 50
-        vInvite!.layer.shadowOffset = .zero
-        vInvite!.layer.shadowRadius = 10
-        vInvite!.layer.shadowOpacity = 0.2
+    fileprivate func setupInviteView() {
+        vInvite.layer.cornerRadius = 50
+        vInvite.layer.shadowOffset = .zero
+        vInvite.layer.shadowRadius = 10
+        vInvite.layer.shadowOpacity = 0.2
     }
     
     // MARK: - IBAction
+    
     @IBAction func clickAcceptButton() {
-        inviteAcceptDelegate?.inviteAccept()
+        delegate?.accept()
     }
     
     @IBAction func clickCancelButtom() {
-        inviteCancelDelegate?.inviteCancel()
+        delegate?.cancel()
     }
 }
 
-// MARK: - Extension
+// MARK: - Extensions
+
+
 
 // MARK: - Protocol
 
-protocol InviteAcceptDelegate {
-    func inviteAccept()
+protocol InviteDelegate: NSObjectProtocol {
+    
+    func accept()
+    
+    func cancel()
 }
-
-protocol InviteCancelDelegate {
-    func inviteCancel()
-}
-

@@ -5,10 +5,10 @@
 //  Created by imac-3570 on 2023/10/29.
 //
 
-import UIKit
-import Lottie
 import AVFoundation
+import Lottie
 import ProgressHUD
+import UIKit
 
 class MutipleStartConcentrateViewController: UIViewController {
     
@@ -24,7 +24,7 @@ class MutipleStartConcentrateViewController: UIViewController {
     @IBOutlet weak var vMember: UIView!
     @IBOutlet weak var tbvMemberList: UITableView!
     
-    // MARK: - Variables
+    // MARK: - Properties
     
     var concentrateTime: String = "50:00:00"
     var restTime: String = "10"
@@ -62,8 +62,8 @@ class MutipleStartConcentrateViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if isDoneForConcentrate == false {
-            ProgressHUD.colorAnimation = .buttomColor!
-            ProgressHUD.colorHUD = .themeColor!
+            ProgressHUD.colorAnimation = .buttomColor
+            ProgressHUD.colorHUD = .themeColor
             ProgressHUD.animationType = .lineSpinFade
             ProgressHUD.show("等待成員進入中...")
             Task {
@@ -77,9 +77,7 @@ class MutipleStartConcentrateViewController: UIViewController {
         player.pause()
         
         if btnGiveUp.isHidden == true {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-            let now = dateFormatter.string(from: Date())
+            let now = Formatter().convertDate(from: Date(), format: "yyyy-MM-dd HH:mm")
         }
         WebSocketManager.shared.cancel()
     }
@@ -100,7 +98,7 @@ class MutipleStartConcentrateViewController: UIViewController {
     func setupMemberTableView() {
         tbvMemberList.delegate = self
         tbvMemberList.dataSource = self
-        tbvMemberList.register(UINib(nibName: "MemberTableViewCell", bundle: nil),
+        tbvMemberList.register(MemberTableViewCell.loadFromNib(),
                                forCellReuseIdentifier: MemberTableViewCell.identifier)
         vMember.layer.cornerRadius = 20
     }
@@ -110,8 +108,8 @@ class MutipleStartConcentrateViewController: UIViewController {
         vStartCount.contentMode = .scaleAspectFill
         vStartCount.frame = CGRect(x: 0,
                                    y: 0,
-                                   width: CGFloat((vAnimate?.frame.width)!),
-                                   height: CGFloat((vAnimate?.frame.height)!))
+                                   width: vAnimate.frame.width,
+                                   height: vAnimate.frame.height)
         vStartCount.center = CGPoint(x: UIScreen.main.bounds.width * 0.99,
                                      y: UIScreen.main.bounds.height * 0.45)
         vStartCount.loopMode = .loop
@@ -136,31 +134,29 @@ class MutipleStartConcentrateViewController: UIViewController {
     }
     
     func pushConcentrateNotification() {
-        let content = UNMutableNotificationContent()
-        content.subtitle = "恭喜你完成這次的專注任務"
-        content.body = "時間在哪里，成就就在哪裡"
-        content.badge = 1
-        content.sound = UNNotificationSound.default
-        
-        let request = UNNotificationRequest(identifier: "ConcentrateNotification", content: content, trigger: nil)
-        
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: {error in
-            print("成功建立通知...")
-        })
+        Task {
+            do {
+                try await UNNotificationManager.shared.add(subtitle: "恭喜你完成這次的專注任務",
+                                                           body: "時間在哪里，成就就在哪裡",
+                                                           badge: 1,
+                                                           identifier: "ConcentrateNotification")
+            } catch {
+                print(error)
+            }
+        }
     }
     
     func pushRestNotification() {
-        let content = UNMutableNotificationContent()
-        content.subtitle = "休息時間到了！可以回來安排下一次的專注任務"
-        content.body = "休息是為了走更長遠的路"
-        content.badge = 1
-        content.sound = UNNotificationSound.default
-        
-        let request = UNNotificationRequest(identifier: "RestNotification", content: content, trigger: nil)
-        
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: {error in
-            print("成功建立通知...")
-        })
+        Task {
+            do {
+                try await UNNotificationManager.shared.add(subtitle: "休息時間到了！可以回來安排下一次的專注任務",
+                                                           body: "休息是為了走更長遠的路",
+                                                           badge: 1,
+                                                           identifier: "RestNotification")
+            } catch {
+                print(error)
+            }
+        }
     }
     
     @objc func countConcentrate() {
@@ -258,7 +254,7 @@ class MutipleStartConcentrateViewController: UIViewController {
     }
     
     @objc func closeAppInConcentrateMode() {
-        self.concentrateFaild()
+        concentrateFaild()
         WebSocketManager.shared.cancel()
         NotificationCenter.default.removeObserver(self,
                                                   name: .concentrateCackgroundNotification,
@@ -270,62 +266,21 @@ class MutipleStartConcentrateViewController: UIViewController {
         lbStatusTitle.text = "已放棄"
         giveUpStatus = true
         btnGiveUp.setTitle("關閉並回到主頁", for: .normal)
-        UIView.transition(with: self.imgvBackground!,
+        UIView.transition(with: imgvBackground,
                           duration: 0.2,
                           options: .transitionCrossDissolve) {
-            self.imgvBackground?.image = UIImage(named: "Sin City Red")
+            self.imgvBackground.image = UIImage(named: "Sin City Red")
         }
-        UIView.transition(with: self.vAnimate!,
+        UIView.transition(with: vAnimate,
                           duration: 0.2,
                           options: .transitionCrossDissolve) {
-            self.vAnimate?.isHidden = true
+            self.vAnimate.isHidden = true
         }
     }
     
-    // MARK: - Send WebSocket Message
-    
-    func sendWebSocketMessage(message: String) async throws {
-        try await WebSocketManager.shared.send(message: message)
-    }
-    
-    // MARK: - callGiveUpConcentrateRecordAPI
-    
-    func callGiveUpConcentrateRecordApi(recordId: String,
-                                        endTime: String) {
-        let request = GiveUpConcentrateRecordRequest(recordId: UUID(uuidString: recordId)!,
-                                                     endTime: endTime)
-        Task {
-            do {
-                let _: GeneralResponse<String> = try await NetworkManager.shared.requestData(method: .post,
-                                                                                             path: .giveUpConcentrateRecord,
-                                                                                             parameters: request,
-                                                                                             needToken: true)
-            } catch {
-                print(error)
-            }
-        }
-    }
-    
-    // MARK: - callCompleteConcentrateRecordAPI
-    
-    func callCompleteConcentrateRecordApi(recordId: String,
-                                          endTime: String) {
-        let request = GiveUpConcentrateRecordRequest(recordId: UUID(uuidString: recordId)!,
-                                                     endTime: endTime)
-        Task {
-            do {
-                let _: GeneralResponse<String> = try await NetworkManager.shared.requestData(method: .post,
-                                                                                             path: .completeConcentrateRecord,
-                                                                                             parameters: request,
-                                                                                             needToken: true)
-            } catch {
-                print(error)
-            }
-        }
-    }
-    
-    // MARK: - callWebSocketStartMutipleConcentrate
-    
+    // MARK: - Call Backend WebSocket API
+
+    /// 呼叫 WebSocket API StartMutipleConcentrate
     func callWebSocketStartMutipleConcentrate(path: ApiPathConstants, parameters: String) {
         WebSocketManager.shared.delegate = self
         WebSocketManager.shared.connect(path: path,
@@ -333,10 +288,47 @@ class MutipleStartConcentrateViewController: UIViewController {
                                         sessionDescription: "MutipleConcentrate")
     }
     
-    // MARK: - callFindAccountAPI
+    /// 呼叫 WebSocket API 發送 WebSocket Message
+    func sendWebSocketMessage(message: String) async throws {
+        try await WebSocketManager.shared.send(message: message)
+    }
     
-    func callFindAccountApi(accountId: String,
-                            completionHandler: ((GeneralResponse<FindAccountResponse>) -> Void)? = nil) {
+    // MARK: - Call Backend RESTful API
+    
+    // MARK: GiveUpConcentrateRecord
+    
+    func callApiGiveUpConcentrateRecord(recordId: String, endTime: String) async {
+        let request = GiveUpConcentrateRecordRequest(recordId: UUID(uuidString: recordId)!,
+                                                     endTime: endTime)
+        do {
+            let _: GeneralResponse<String> = try await NetworkManager.shared.requestData(method: .post,
+                                                                                         path: .giveUpConcentrateRecord,
+                                                                                         parameters: request,
+                                                                                         needToken: true)
+        } catch {
+            print(error)
+        }
+    }
+    
+    // MARK: CompleteConcentrateRecord
+    
+    func callApiCompleteConcentrateRecord(recordId: String, endTime: String) async {
+        let request = GiveUpConcentrateRecordRequest(recordId: UUID(uuidString: recordId)!,
+                                                     endTime: endTime)
+        do {
+            let _: GeneralResponse<String> = try await NetworkManager.shared.requestData(method: .post,
+                                                                                         path: .completeConcentrateRecord,
+                                                                                         parameters: request,
+                                                                                         needToken: true)
+        } catch {
+            print(error)
+        }
+    }
+    
+    // MARK: FindAccount
+    
+    func callApiFindAccount(accountId: String,
+                            finish: ((GeneralResponse<FindAccountResponse>) -> Void)? = nil) {
         let request = FindAccountRequest(accountId: UUID(uuidString: accountId)!)
         
         Task {
@@ -346,8 +338,8 @@ class MutipleStartConcentrateViewController: UIViewController {
                                                                                                                parameters: request,
                                                                                                                needToken: true)
                 // 這裡用了邀請畫面更新好友資料的 API
-                if result.message == "加入成功" {
-                    completionHandler?(result)
+                if result.message.isEqual(to: "加入成功") {
+                    finish?(result)
                 } else {
                     Alert.showAlert(title: "錯誤",
                                     message: result.message,
@@ -366,9 +358,7 @@ class MutipleStartConcentrateViewController: UIViewController {
     
     // MARK: - callCompleteMutipleConcentrateAPI
     
-    func callCompleteMutipleConcentrateApi(accountId: String,
-                                           inviteRoomId: String,
-                                           endTime: String) {
+    func callCompleteMutipleConcentrateApi(accountId: String, inviteRoomId: String, endTime: String) {
         let request = CompleteMutipleConcentrateRequest(accountId: UUID(uuidString: accountId)!,
                                                         inviteRoomId: UUID(uuidString: inviteRoomId)!,
                                                         endTime: endTime)
@@ -407,7 +397,7 @@ class MutipleStartConcentrateViewController: UIViewController {
                                                                                                   path: .useInviteRoomIdAndAccountIdTofindConcentrateRecordId,
                                                                                                   parameters: request,
                                                                                                   needToken: true)
-                if result.message == "查詢成功" {
+                if result.message.isEqual(to: "查詢成功") {
                     finish?(result.data)
                 } else {
                     Alert.showAlert(title: "錯誤",
@@ -436,7 +426,7 @@ class MutipleStartConcentrateViewController: UIViewController {
                                                                                                   path: .addConcentrateToNews,
                                                                                                   parameters: request,
                                                                                                   needToken: true)
-                if result.message == "發送成功" {
+                if result.message.isEqual(to: "發送成功") {
                     finish?()
                 } else {
                     Alert.showAlert(title: "錯誤",
@@ -603,7 +593,7 @@ extension MutipleStartConcentrateViewController: WebSocketManagerDelegate {
             WebSocketManager.shared.cancel()
             let interruptAccountId = message.prefix(36)
             concentrateFaild()
-            callFindAccountApi(accountId: String(interruptAccountId)) { result in
+            callApiFindAccount(accountId: String(interruptAccountId)) { result in
                 Alert.showAlert(title: "\((result.data.name)) 中斷專注了",
                                 message: "因為 \((result.data.name)) 中斷專注，所以這次的專注沒有成功",
                                 vc: self,

@@ -14,18 +14,15 @@ class InviteRoomMemberListTableViewCell: UITableViewCell {
     @IBOutlet weak var imgvUser: UIImageView!
     @IBOutlet weak var name: UILabel!
     
-    // MARK: - Variables
+    // MARK: - Properties
     
-    static let identified = "InviteRoomMemberListTableViewCell"
-    
+    static let identifier = "InviteRoomMemberListTableViewCell"
     
     // MARK: - LifeCycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        imgvUser.layer.cornerRadius = imgvUser.frame.height / 2.1
-        imgvUser.layer.borderWidth = 3
-        imgvUser.layer.borderColor = UIColor.buttomColor?.cgColor
+        setupUI()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -34,6 +31,11 @@ class InviteRoomMemberListTableViewCell: UITableViewCell {
     
     // MARK: - UI Settings
     
+    fileprivate func setupUI() {
+        imgvUser.layer.cornerRadius = imgvUser.frame.height / 2.1
+        imgvUser.layer.borderWidth = 3
+        imgvUser.layer.borderColor = UIColor.buttomColor.cgColor
+    }
     
     // MARK: - IBAction
     

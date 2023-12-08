@@ -11,24 +11,20 @@ class NewsTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlet
     
-    @IBOutlet weak var imgvUser: UIImageView?
-    @IBOutlet weak var lbTitle: UILabel?
-    @IBOutlet weak var lbDescription: UILabel?
-    @IBOutlet weak var btnShowReply: UIButton?
+    @IBOutlet weak var imgvUser: UIImageView!
+    @IBOutlet weak var lbTitle: UILabel!
+    @IBOutlet weak var lbDescription: UILabel!
+    @IBOutlet weak var btnShowReply: UIButton!
     
-    // MARK: - Variables
+    // MARK: - Properties
     
-    static let identified = "NewsTableViewCell"
-    
+    static let identifier = "NewsTableViewCell"
     
     // MARK: - LifeCycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        imgvUser!.layer.cornerRadius = imgvUser!.frame.width / 2
-        imgvUser!.layer.borderWidth = 1
-        imgvUser!.layer.borderColor = UIColor.buttomColor?.cgColor
-        
+        setupUI()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -37,6 +33,11 @@ class NewsTableViewCell: UITableViewCell {
     
     // MARK: - UI Settings
     
+    fileprivate func setupUI() {
+        imgvUser.layer.cornerRadius = imgvUser!.frame.width / 2
+        imgvUser.layer.borderWidth = 1
+        imgvUser.layer.borderColor = UIColor.buttomColor.cgColor
+    }
     
     // MARK: - IBAction
     

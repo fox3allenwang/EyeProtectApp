@@ -9,11 +9,11 @@ import UIKit
 
 extension UIColor {
     
-    static var themeColor = UIColor(named: "ThemeColor")
+    static let themeColor = UIColor(named: "ThemeColor")!
     
-    static var buttomColor = UIColor(named: "ButtomColor")
+    static let buttomColor = UIColor(named: "ButtomColor")!
     
-    static var buttom2Color = UIColor(named: "Buttom2Color")
+    static let buttom2Color = UIColor(named: "Buttom2Color")!
     
-    static var cancel = UIColor(named: "Cancel")
+    static let cancel = UIColor(named: "Cancel")!
 }

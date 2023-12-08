@@ -5,26 +5,28 @@
 //  Created by imac-3570 on 2023/7/27.
 //
 
-import UIKit
 import ProgressHUD
+import UIKit
 
 class SocialViewController: UIViewController {
     
     // MARK: - IBOutlet
+    
     @IBOutlet weak var tbvFriendList: UITableView!
     
+    // MARK: - Properties
     
-    // MARK: - Variables
+    private var friendListArray: [FriendListInfo] = []
     
-    let manager = NetworkManager.shared
-    
-    private var friendListArray: [friendListInfo] = []
-    
-    private struct friendListInfo {
-        var accountId: String
-        var name: String
-        var email: String
-        var image: String
+    private struct FriendListInfo {
+        
+        let accountId: String
+        
+        let name: String
+        
+        let email: String
+        
+        let image: String
     }
     
     // MARK: - LifeCycle
@@ -37,10 +39,11 @@ class SocialViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("SocialViewController")
-        callApiFriendList()
-        NotificationCenter.default.addObserver(self, selector: #selector(addFriend), name: .addFriend, object: nil)
-       
-        
+        addFriend()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(addFriend),
+                                               name: .addFriend,
+                                               object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,70 +60,81 @@ class SocialViewController: UIViewController {
     
     // MARK: - UI Settings
     
-    func setupUI() {
-       setupTbv()
+    fileprivate func setupUI() {
+        setupTbv()
     }
     
-    func setupTbv() {
-        tbvFriendList.register(UINib(nibName: "FriendListTableViewCell", bundle: nil),
-                               forCellReuseIdentifier: FriendListTableViewCell.identified)
+    fileprivate func setupTbv() {
+        tbvFriendList.register(FriendListTableViewCell.loadFromNib(),
+                               forCellReuseIdentifier: FriendListTableViewCell.identifier)
         tbvFriendList.dataSource = self
         tbvFriendList.delegate = self
     }
     
     @objc func addFriend() {
-        callApiFriendList()
+        Task {
+            await callApiFriendList()
+        }
     }
     
     // MARK: - CallAPIFriendList
     
-    func callApiFriendList() {
-        ProgressHUD.colorAnimation = .buttomColor!
-        ProgressHUD.colorHUD = .themeColor!
+    func callApiFriendList() async {
+        ProgressHUD.colorAnimation = .buttomColor
+        ProgressHUD.colorHUD = .themeColor
         ProgressHUD.animationType = .multipleCircleScaleRipple
         ProgressHUD.show("載入中...")
         
-        Task {
-            let request = GetFriendListRequest(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
-                                               
-            do {
-                let result: GetFriendListResponse = try await manager.requestData(method: .post,
-                                                                                  path: .getFriendList,
-                                                                                  parameters: request,
-                                                                                  needToken: true)
-                friendListArray = []
-                result.data.forEach { friendInfo in
-                    if friendInfo.image == "未設置" {
-                        friendListArray.append(friendListInfo(accountId: friendInfo.accountId, name: friendInfo.name, email: friendInfo.email, image: friendInfo.image))
-                    } else {
-                        friendListArray.append(friendListInfo(accountId: friendInfo.accountId, name: friendInfo.name, email: friendInfo.email, image: friendInfo.image))
-                    }
+        let request = GetFriendListRequest(accountId: UUID(uuidString: UserPreferences.shared.accountId)!)
+        
+        do {
+            let result: GetFriendListResponse = try await NetworkManager.shared.requestData(method: .post,
+                                                                                            path: .getFriendList,
+                                                                                            parameters: request,
+                                                                                            needToken: true)
+            friendListArray = []
+            result.data.forEach { friendInfo in
+                if friendInfo.image.isEqual(to: "未設置") {
+                    friendListArray.append(FriendListInfo(accountId: friendInfo.accountId,
+                                                          name: friendInfo.name,
+                                                          email: friendInfo.email,
+                                                          image: friendInfo.image))
+                } else {
+                    friendListArray.append(FriendListInfo(accountId: friendInfo.accountId,
+                                                          name: friendInfo.name,
+                                                          email: friendInfo.email,
+                                                          image: friendInfo.image))
                 }
-                tbvFriendList.reloadData()
-                ProgressHUD.dismiss()
-                print(friendListArray.count)
-            } catch {
-                print(error)
-                ProgressHUD.dismiss()
             }
+            tbvFriendList.reloadData()
+            ProgressHUD.dismiss()
+            print(friendListArray.count)
+        } catch {
+            print(error)
+            ProgressHUD.dismiss()
         }
+        
     }
     
     // MARK: - IBAction
     
 }
 
-// MARK: - Extension
+// MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension SocialViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return friendListArray.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tbvFriendList.dequeueReusableCell(withIdentifier: FriendListTableViewCell.identified, for: indexPath) as! FriendListTableViewCell
-        if friendListArray[indexPath.row].image == "未設置" {
-            cell.imgvAccountImage.image = UIImage(systemName: "person.fill")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendListTableViewCell.identifier,
+                                                       for: indexPath) as? FriendListTableViewCell else {
+            fatalError("FriendListTableViewCell Load Failed")
+        }
+        if friendListArray[indexPath.row].image.isEqual(to: "未設置") {
+            cell.imgvAccountImage.image = UIImage(systemIcon: .personFill)
         } else {
             cell.imgvAccountImage.image = friendListArray[indexPath.row].image.stringToUIImage()
         }
@@ -130,20 +144,20 @@ extension SocialViewController: UITableViewDelegate, UITableViewDataSource {
         cell.lbEmail.text = friendListArray[indexPath.row].email
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nextView = FriendPersonalViewController()
-        nextView.userName = friendListArray[indexPath.row].name
-        nextView.title = friendListArray[indexPath.row].name
-        nextView.friendAccountId = friendListArray[indexPath.row].accountId
-        if friendListArray[indexPath.row].image == "未設置" {
-            nextView.userImage = UIImage(systemName: "person.fill")
+        let nextVC = FriendPersonalViewController()
+        nextVC.userName = friendListArray[indexPath.row].name
+        nextVC.title = friendListArray[indexPath.row].name
+        nextVC.friendAccountId = friendListArray[indexPath.row].accountId
+        if friendListArray[indexPath.row].image.isEqual(to: "未設置") {
+            nextVC.userImage = UIImage(systemIcon: .personFill)
         } else {
-            nextView.userImage = friendListArray[indexPath.row].image.stringToUIImage()
+            nextVC.userImage = friendListArray[indexPath.row].image.stringToUIImage()
         }
         var btn = UIBarButtonItem()
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = btn
-        navigationController?.pushViewController(nextView, animated: true)
+        navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 

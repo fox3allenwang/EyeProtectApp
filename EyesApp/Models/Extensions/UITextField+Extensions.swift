@@ -15,11 +15,11 @@ extension UITextField {
                            imageX: Int,
                            imageY: Int,
                            imageWidth: Int,
-                           imageheight: Int) {
+                           imageHeight: Int) {
         let imageView = UIImageView(frame: CGRect(x: imageX,
                                                   y: imageY,
                                                   width: imageWidth,
-                                                  height: imageheight))
+                                                  height: imageHeight))
         
         imageView.image = UIImage(systemIcon: systemImageName)
         imageView.tintColor = .buttomColor

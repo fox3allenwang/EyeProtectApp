@@ -10,11 +10,12 @@ import UIKit
 class MissionTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlet
+    
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var lbProgress: UILabel!
     @IBOutlet weak var imgvCheck: UIImageView!
     
-    // MARK: - Variables
+    // MARK: - Properties
     
     static let identifier = "MissionTableViewCell"
     
@@ -30,6 +31,7 @@ class MissionTableViewCell: UITableViewCell {
     }
     
     // MARK: - UI Settings
+    
     
     
     // MARK: - IBAction

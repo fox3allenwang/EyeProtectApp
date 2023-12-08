@@ -16,7 +16,7 @@ struct LoginRequest: Codable {
     let deviceToken: String
 }
 
-struct LogingResponse: Decodable {
+struct LoginResponse: Decodable {
     
     let accountId: String
     

@@ -11,23 +11,22 @@ class FirstConcentrateRecordTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlet
     
-    @IBOutlet weak var imgvStatus: UIImageView?
-    @IBOutlet weak var vStatusCircle: UIView?
-    @IBOutlet weak var vStatusStrip: UIView?
-    @IBOutlet weak var lbConcentrateRecord: UILabel?
-    @IBOutlet weak var lbConcentrateTime: UILabel?
-    @IBOutlet weak var lbConcentrateWith: UILabel?
+    @IBOutlet weak var imgvStatus: UIImageView!
+    @IBOutlet weak var vStatusCircle: UIView!
+    @IBOutlet weak var vStatusStrip: UIView!
+    @IBOutlet weak var lbConcentrateRecord: UILabel!
+    @IBOutlet weak var lbConcentrateTime: UILabel!
+    @IBOutlet weak var lbConcentrateWith: UILabel!
     
-    // MARK: - Variables
+    // MARK: - Properties
     
-    static let identified = "FirstConcentrateRecordTableViewCell"
-    
+    static let identifier = "FirstConcentrateRecordTableViewCell"
     
     // MARK: - LifeCycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        vStatusCircle?.layer.cornerRadius = 10
+        vStatusCircle.layer.cornerRadius = 10
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

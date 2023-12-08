@@ -5,16 +5,16 @@
 //  Created by imac-3570 on 2023/11/5.
 //
 
-import UIKit
 import ProgressHUD
+import UIKit
 
 class MyPostViewController: UIViewController {
     
     // MARK: - IBOutlet
     
-    @IBOutlet weak var tbvMyPost: UITableView?
+    @IBOutlet weak var tbvMyPost: UITableView!
     
-    // MARK: - Variables
+    // MARK: - Properties
     
     var postList: [LoadNewsResponse.NewsItem] = []
     
@@ -28,12 +28,15 @@ class MyPostViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ProgressHUD.colorAnimation = .buttomColor!
-        ProgressHUD.colorHUD = .themeColor!
+        ProgressHUD.colorAnimation = .buttomColor
+        ProgressHUD.colorHUD = .themeColor
         ProgressHUD.animationType = .multipleCircleScaleRipple
         ProgressHUD.show("載入中...")
-        callApiLoadNews(accountId: UserPreferences.shared.accountId) {
-            ProgressHUD.dismiss()
+        Task {
+            await callApiLoadNews(accountId: UserPreferences.shared.accountId)
+            await MainActor.run {
+                ProgressHUD.dismiss()
+            }
         }
     }
     
@@ -56,8 +59,10 @@ class MyPostViewController: UIViewController {
     }
     
     func setupTableView() {
-        tbvMyPost?.register(UINib(nibName: "HasPictureNewsTableViewCell", bundle: nil), forCellReuseIdentifier: HasPictureNewsTableViewCell.identified)
-        tbvMyPost?.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: NewsTableViewCell.identified)
+        tbvMyPost?.register(HasPictureNewsTableViewCell.loadFromNib(),
+                            forCellReuseIdentifier: HasPictureNewsTableViewCell.identifier)
+        tbvMyPost?.register(NewsTableViewCell.loadFromNib(),
+                            forCellReuseIdentifier: NewsTableViewCell.identifier)
         tbvMyPost!.estimatedRowHeight = 100
         tbvMyPost!.rowHeight = UITableView.automaticDimension
         tbvMyPost?.dataSource = self
@@ -66,42 +71,36 @@ class MyPostViewController: UIViewController {
     
     // MARK: - callAPILoadNews
     
-    func callApiLoadNews(accountId: String,
-                         completionHandler: (() -> Void)? = nil) {
+    func callApiLoadNews(accountId: String) async {
         let request = LoadNewsRequest(accountId: UUID(uuidString: accountId)!)
-        Task {
-            do {
-                let result: GeneralResponse<LoadNewsResponse> = try await NetworkManager.shared.requestData(method: .post,
-                                                                                                       path: .loadOnePersonNews,
-                                                                                                       parameters: request,
-                                                                                                       needToken: true)
-                if result.message == "已搜尋所有的 News" {
-                    postList = []
-                    postList = result.data.newsItems
-                    postList.sort { FirstNewItem, SecondNewItem in
-                        if FirstNewItem.time > SecondNewItem.time {
-                            return true
-                        } else {
-                            return false
-                        }
+        do {
+            let result: GeneralResponse<LoadNewsResponse> = try await NetworkManager.shared.requestData(method: .post,
+                                                                                                        path: .loadOnePersonNews,
+                                                                                                        parameters: request,
+                                                                                                        needToken: true)
+            if result.message.isEqual(to: "已搜尋所有的 News") {
+                postList = []
+                postList = result.data.newsItems
+                postList.sort { first, second in
+                    if first.time > second.time {
+                        return true
+                    } else {
+                        return false
                     }
-                    tbvMyPost?.reloadData()
-                    completionHandler?()
-                } else {
-                    completionHandler?()
-                    Alert.showAlert(title: "錯誤",
-                                    message: result.message,
-                                    vc: self,
-                                    confirmTitle: "確認")
                 }
-            } catch {
-                completionHandler?()
-                print(error)
+                tbvMyPost.reloadData()
+            } else {
                 Alert.showAlert(title: "錯誤",
-                                message: "\(error)",
+                                message: result.message,
                                 vc: self,
                                 confirmTitle: "確認")
             }
+        } catch {
+            print(error)
+            Alert.showAlert(title: "錯誤",
+                            message: "\(error)",
+                            vc: self,
+                            confirmTitle: "確認")
         }
     }
     
@@ -110,53 +109,57 @@ class MyPostViewController: UIViewController {
     
     @objc func clickShowReply(_ sender: UIButton) {
         let replyVC = ReplyViewController()
-        replyVC.loadNewsDelegate = self
+        replyVC.delegate = self
         replyVC.newsId = postList[sender.tag].newsId.uuidString
         if let presentationController = replyVC.presentationController as? UISheetPresentationController {
             presentationController.detents = [.medium()]
         }
         self.present(replyVC, animated: true)
     }
-    
 }
 
-// MARK: - TableViewExtension
+// MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension MyPostViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postList.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if postList[indexPath.row].newsPicture == "未上傳" {
-            let cell = tbvMyPost?.dequeueReusableCell(withIdentifier: NewsTableViewCell.identified, for: indexPath) as! NewsTableViewCell
-            if postList[indexPath.row].sendAccountImage == "未設置" {
-                cell.imgvUser?.image = UIImage(systemName: "person.fill")
-            } else {
-                cell.imgvUser?.image = postList[indexPath.row].sendAccountImage.stringToUIImage()
+        if postList[indexPath.row].newsPicture.isEqual(to: "未上傳") {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier,
+                                                           for: indexPath) as? NewsTableViewCell else {
+                fatalError("NewsTableViewCell Load Failed")
             }
-            cell.lbDescription?.text = postList[indexPath.row].description
-            cell.lbTitle?.text = postList[indexPath.row].title
-            cell.btnShowReply!.tag = indexPath.row
-            cell.btnShowReply?.setTitle("查看全部 \(postList[indexPath.row].replyCount) 則留言", for: .normal)
-            cell.btnShowReply?.addTarget(self, action: #selector(clickShowReply), for: .touchUpInside)
+            if postList[indexPath.row].sendAccountImage.isEqual(to: "未設置") {
+                cell.imgvUser.image = UIImage(systemIcon: .personFill)
+            } else {
+                cell.imgvUser.image = postList[indexPath.row].sendAccountImage.stringToUIImage()
+            }
+            cell.lbDescription.text = postList[indexPath.row].description
+            cell.lbTitle.text = postList[indexPath.row].title
+            cell.btnShowReply.tag = indexPath.row
+            cell.btnShowReply.setTitle("查看全部 \(postList[indexPath.row].replyCount) 則留言", for: .normal)
+            cell.btnShowReply.addTarget(self, action: #selector(clickShowReply), for: .touchUpInside)
             return cell
-            
         } else {
-            let cell = tbvMyPost?.dequeueReusableCell(withIdentifier: HasPictureNewsTableViewCell.identified,
-                                                    for: indexPath) as! HasPictureNewsTableViewCell
-            if postList[indexPath.row].sendAccountImage == "未設置" {
-                cell.imgvUser?.image = UIImage(systemName: "person.fill")
-            } else {
-                cell.imgvUser?.image = postList[indexPath.row].sendAccountImage.stringToUIImage()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: HasPictureNewsTableViewCell.identifier,
+                                                           for: indexPath) as? HasPictureNewsTableViewCell else {
+                fatalError("HasPictureNewsTableViewCell Load Failed")
             }
-            cell.imgvPicture?.image = postList[indexPath.row].newsPicture.stringToUIImage()
-            cell.lbDescription?.text = postList[indexPath.row].description
-            cell.lbTitle?.text = postList[indexPath.row].title
-            cell.btnShowReply!.tag = indexPath.row
-            cell.btnShowReply?.setTitle("查看全部 \(postList[indexPath.row].replyCount) 則留言", for: .normal)
-            cell.btnShowReply?.addTarget(self, action: #selector(clickShowReply), for: .touchUpInside)
+            if postList[indexPath.row].sendAccountImage.isEqual(to: "未設置") {
+                cell.imgvUser.image = UIImage(systemIcon: .personFill)
+            } else {
+                cell.imgvUser.image = postList[indexPath.row].sendAccountImage.stringToUIImage()
+            }
+            cell.imgvPicture.image = postList[indexPath.row].newsPicture.stringToUIImage()
+            cell.lbDescription.text = postList[indexPath.row].description
+            cell.lbTitle.text = postList[indexPath.row].title
+            cell.btnShowReply.tag = indexPath.row
+            cell.btnShowReply.setTitle("查看全部 \(postList[indexPath.row].replyCount) 則留言", for: .normal)
+            cell.btnShowReply.addTarget(self, action: #selector(clickShowReply), for: .touchUpInside)
             return cell
         }
     }
@@ -165,8 +168,9 @@ extension MyPostViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - LoadNewsDelegate
 
 extension MyPostViewController: LoadNewsDelegate {
-    func loadNews() {
-        callApiLoadNews(accountId: UserPreferences.shared.accountId)
+    
+    func loadNews() async {
+        await callApiLoadNews(accountId: UserPreferences.shared.accountId)
     }
 }
 

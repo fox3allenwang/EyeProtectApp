@@ -5,8 +5,8 @@
 //  Created by imac-3570 on 2023/10/20.
 //
 
-import UIKit
 import ProgressHUD
+import UIKit
 
 class AddFriendViewController: UIViewController {
     
@@ -17,7 +17,9 @@ class AddFriendViewController: UIViewController {
     @IBOutlet weak var vBackground: UIView!
     @IBOutlet weak var btnAdd: UIButton!
     
-    // MARK: - Variables
+    // MARK: - Properties
+    
+    
     
     // MARK: - LifeCycle
     
@@ -68,74 +70,103 @@ class AddFriendViewController: UIViewController {
         btnAdd.layer.cornerRadius = 20
     }
     
-    //MARK: - callAddFriendInviteAPI
+    // MARK: - Call Backend RESTful API
     
-    func callAddFriendInviteApi(accountId: UUID,
+    // MARK: AddFriendInvite
+    
+    func callApiAddFriendInvite(accountId: UUID,
                                 name: String,
-                                email: String) {
-        ProgressHUD.colorAnimation = .buttomColor!
-        ProgressHUD.colorHUD = .themeColor!
+                                email: String) async {
+        ProgressHUD.colorAnimation = .buttomColor
+        ProgressHUD.colorHUD = .themeColor
         ProgressHUD.animationType = .multipleCircleScaleRipple
         ProgressHUD.show("寄出中...")
         let request = AddFriendInviteRequest(accountId: accountId,
                                              name: name,
                                              email: email)
-        Task {
-            do {
-                let result: GeneralResponse<String> = try await NetworkManager.shared.requestData(method: .post,
-                                                          path: .addFriendInvite,
-                                                          parameters: request,
-                                                          needToken: true)
-                if result.data == "寄送邀請成功" {
-                    ProgressHUD.dismiss()
-                    Alert.showToastWith(message: "邀請已寄出", vc: self, during: .short) {
-                        NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
-                    }
-                } else if result.data == "對方已寄邀請給你"{
-                    ProgressHUD.dismiss()
-                    Alert.showToastWith(message: "對方已寄邀請給你", vc: self, during: .short) {
-                        NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
-                    }
-                } else if result.data == "你和對方已經是好友" {
-                    ProgressHUD.dismiss()
-                    Alert.showToastWith(message: "你和對方已經是好友", vc: self, during: .short) {
-                        NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
-                    }
-                } else {
-                    Alert.showToastWith(message: "沒有找到被邀請者帳號", vc: self, during: .short) {
-                        ProgressHUD.dismiss()
-                        NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
-                    }
-                }
-            } catch {
-                print(error)
+        
+        do {
+            let result: GeneralResponse<String> = try await NetworkManager.shared.requestData(method: .post,
+                                                                                              path: .addFriendInvite,
+                                                                                              parameters: request,
+                                                                                              needToken: true)
+            if result.data == "寄送邀請成功" {
                 ProgressHUD.dismiss()
-                Alert.showToastWith(message: "寄出失敗,請確認與伺服器的連線", vc: self, during: .short) {
+                Alert.showToastWith(message: "邀請已寄出",
+                                    vc: self,
+                                    during: .short,
+                                    present: nil) {
+                    NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
+                }
+            } else if result.data == "對方已寄邀請給你"{
+                ProgressHUD.dismiss()
+                Alert.showToastWith(message: "對方已寄邀請給你",
+                                    vc: self,
+                                    during: .short,
+                                    present: nil) {
+                    NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
+                }
+            } else if result.data == "你和對方已經是好友" {
+                ProgressHUD.dismiss()
+                Alert.showToastWith(message: "你和對方已經是好友",
+                                    vc: self,
+                                    during: .short,
+                                    present: nil) {
+                    NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
+                }
+            } else {
+                Alert.showToastWith(message: "沒有找到被邀請者帳號",
+                                    vc: self,
+                                    during: .short,
+                                    present: nil) {
+                    ProgressHUD.dismiss()
                     NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
                 }
             }
-            btnAdd.isEnabled = false
+        } catch {
+            print(error)
+            ProgressHUD.dismiss()
+            Alert.showToastWith(message: "寄出失敗,請確認與伺服器的連線",
+                                vc: self,
+                                during: .short,
+                                present: nil) {
+                NotificationCenter.default.post(name: .addFriendInviteViewDismiss,object: nil)
+            }
         }
+        btnAdd.isEnabled = false
+        
     }
     
     // MARK: - IBAction
     
     @IBAction func clickAddFriendBtn() {
-        if txfName.text == UserPreferences.shared.name && txfEmail.text == UserPreferences.shared.email {
-            Alert.showToastWith(message: "請勿輸入自己的帳號", vc: self, during: .short)
-        } else  if txfName.text != "" || txfEmail.text != "" {
-            callAddFriendInviteApi(accountId: UUID(uuidString: UserPreferences.shared.accountId)!,
-                                   name: txfName.text!,
-                                   email: txfEmail.text!)
-            btnAdd.isEnabled = false
+        guard let name = txfName.text, let email = txfEmail.text else {
+            return
+        }
+        if name == UserPreferences.shared.name && email == UserPreferences.shared.email {
+            Alert.showToastWith(message: "請勿輸入自己的帳號",
+                                vc: self,
+                                during: .short)
+        } else if !name.isEmpty || !email.isEmpty {
+            Task {
+                await callApiAddFriendInvite(accountId: UUID(uuidString: UserPreferences.shared.accountId)!,
+                                             name: txfName.text!,
+                                             email: txfEmail.text!)
+                await MainActor.run {
+                    btnAdd.isEnabled = false
+                }
+            }
         } else {
-            Alert.showToastWith(message: "請輸入完整資訊", vc: self, during: .short)
+            Alert.showToastWith(message: "請輸入完整資訊",
+                                vc: self,
+                                during: .short)
         }
     }
-    
 }
 
-// MARK: - Extension
+// MARK: - Extensions
+
+
 
 // MARK: - Protocol
 

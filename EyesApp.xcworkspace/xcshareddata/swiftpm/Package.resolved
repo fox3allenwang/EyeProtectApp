@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/leoho0722/SwiftHelpers.git",
       "state" : {
-        "revision" : "d9d1299086c487ad37d0d311561fc016856776c8",
-        "version" : "0.0.6"
+        "revision" : "c1a44cb2b49cc37c3722c62b2c3908a523bdcc20",
+        "version" : "0.0.7"
       }
     }
   ],

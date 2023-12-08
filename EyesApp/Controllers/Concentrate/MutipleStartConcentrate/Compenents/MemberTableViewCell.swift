@@ -14,18 +14,15 @@ class MemberTableViewCell: UITableViewCell {
     @IBOutlet weak var imgvUser: UIImageView!
     @IBOutlet weak var lbName: UILabel!
     
-    // MARK: - Variables
+    // MARK: - Properties
     
     static let identifier = "MemberTableViewCell"
-    
     
     // MARK: - LifeCycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        imgvUser.layer.cornerRadius = 17
-        imgvUser.layer.borderWidth = 1
-        imgvUser.layer.borderColor = UIColor.buttomColor?.cgColor
+        setupUI()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -34,6 +31,11 @@ class MemberTableViewCell: UITableViewCell {
     
     // MARK: - UI Settings
     
+    fileprivate func setupUI() {
+        imgvUser.layer.cornerRadius = 17
+        imgvUser.layer.borderWidth = 1
+        imgvUser.layer.borderColor = UIColor.buttomColor.cgColor
+    }
     
     // MARK: - IBAction
     

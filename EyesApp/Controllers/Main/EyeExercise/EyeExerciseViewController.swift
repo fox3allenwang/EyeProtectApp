@@ -5,10 +5,10 @@
 //  Created by imac-3570 on 2023/7/29.
 //
 
-import UIKit
 import ARKit
-import SceneKit
 import Lottie
+import SceneKit
+import UIKit
 
 class EyeExerciseViewController: UIViewController {
     
@@ -33,7 +33,8 @@ class EyeExerciseViewController: UIViewController {
     @IBOutlet weak var imgvDazzingHardLeftEye: UIImageView!
     @IBOutlet weak var imgvDazzingHardRightEye: UIImageView!
     
-    // MARK: - Variables
+    // MARK: - Properties
+    
     var lookAtTargetEyeLNode: SCNNode = SCNNode()
     var lookAtTargetEyeRNode: SCNNode = SCNNode()
     var virtualPhoneNode: SCNNode = SCNNode()
@@ -43,35 +44,16 @@ class EyeExerciseViewController: UIViewController {
     var eyeExerciseStepStatus: [Bool] = [false, false, false, false, false]
     
     var eyeLNode: SCNNode = SCNNode()
-    
-//    var eyeLNode: SCNNode = {
-//        let guessTry = SCNCone(topRadius: 0.003, bottomRadius: 1, height: 0.1)
-//        guessTry.radialSegmentCount = 3
-//        guessTry.firstMaterial?.diffuse.contents = UIColor.blue
-//        let node = SCNNode()
-//        node.geometry = guessTry
-//        node.eulerAngles.x = -.pi
-//
-//
-//        let parentNode = SCNNode()
-//        parentNode.addChildNode(node)
-//        return parentNode
-//
-//    }()
-    
     var eyeRNode: SCNNode = SCNNode()
     
     var virtualScreenNode: SCNNode = {
-        
         let screenGeometry = SCNPlane(width: 1, height: 1)
         screenGeometry.firstMaterial?.isDoubleSided = true
         screenGeometry.firstMaterial?.diffuse.contents = UIColor.green
-        
         return SCNNode(geometry: screenGeometry)
     }()
     
     var eyeLookAtPositionXs: [CGFloat] = []
-    
     var eyeLookAtPositionYs: [CGFloat] = []
     
     var lookAtPointX:CGFloat = 0.0
@@ -96,7 +78,6 @@ class EyeExerciseViewController: UIViewController {
     
     // 透明的區塊
     var correctionBoxPath = UIBezierPath()
-//    var correctionBoxView = UIView()
     
     var correctionCount: Int = 0
     var stepOneCount = 0
@@ -161,17 +142,29 @@ class EyeExerciseViewController: UIViewController {
     
     func setupUI() {
         self.title = "Eye Exercise"
-        Alert.showToastWith(message: "Step1: 請將手機與眼睛的距離保持在 30~35 cm ", vc: self, during: .long) {
-            
-            Alert.showToastWith(message: "Step2: 將臉放在中間的臉模中", vc: self, during: .long) {
-                Alert.showToastWith(message: "Step3: 將綠色目標框框維持在中間的透明框框等到出現綠色勾勾", vc: self, during: .long) {
+        Alert.showToastWith(message: "Step1: 請將手機與眼睛的距離保持在 30~35 cm ", 
+                            vc: self,
+                            during: .long,
+                            present: nil) {
+            Alert.showToastWith(message: "Step2: 將臉放在中間的臉模中",
+                                vc: self,
+                                during: .long,
+                                present: nil) {
+                Alert.showToastWith(message: "Step3: 將綠色目標框框維持在中間的透明框框等到出現綠色勾勾",
+                                    vc: self,
+                                    during: .long,
+                                    present: nil) {
                     self.setFaceTrackerView()
                 }
             }
         }
         phoneScreenSize = getScreenSize()
         print("\(phoneScreenSize.width), \(phoneScreenSize.height)")
-        correctionTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(correctionTimerAction), userInfo: nil, repeats: true)
+        correctionTimer = Timer.scheduledTimer(timeInterval: 0.5, 
+                                               target: self,
+                                               selector: #selector(correctionTimerAction),
+                                               userInfo: nil,
+                                               repeats: true)
         eyeDistance.layer.cornerRadius = 20
         eyeDistance.clipsToBounds = true
         setupIconFaceAndEye()
@@ -181,7 +174,10 @@ class EyeExerciseViewController: UIViewController {
     }
     
     func setupRefreshBarButtonItem() {
-        let refreshBarButtonItem = UIBarButtonItem(title: "重整", style: .plain, target: self, action: #selector(refreshBarButtonItemAction))
+        let refreshBarButtonItem = UIBarButtonItem(title: "重整", 
+                                                   style: .plain,
+                                                   target: self,
+                                                   action: #selector(refreshBarButtonItemAction))
         navigationItem.rightBarButtonItem = refreshBarButtonItem
     }
     
@@ -190,16 +186,16 @@ class EyeExerciseViewController: UIViewController {
         
         vIconFace.backgroundColor = .clear
         vIconFace.layer.cornerRadius = 20
-        vIconFace.layer.borderColor = UIColor.buttom2Color?.cgColor
+        vIconFace.layer.borderColor = UIColor.buttom2Color.cgColor
         vIconFace.layer.borderWidth = 4
         
         vIconLeftEyeWhite.layer.cornerRadius = 23
         vIconLeftEyeWhite.backgroundColor = UIColor.clear
         vIconLeftEyeWhite.layer.borderWidth = 4
-        vIconLeftEyeWhite.layer.borderColor = UIColor.buttom2Color?.cgColor
+        vIconLeftEyeWhite.layer.borderColor = UIColor.buttom2Color.cgColor
         vIconRightEyeWhite.layer.cornerRadius = 23
         vIconRightEyeWhite.backgroundColor = UIColor.clear
-        vIconRightEyeWhite.layer.borderColor = UIColor.buttom2Color?.cgColor
+        vIconRightEyeWhite.layer.borderColor = UIColor.buttom2Color.cgColor
         vIconRightEyeWhite.layer.borderWidth = 4
         
         rightEyeIcon.layer.cornerRadius = 12
@@ -210,7 +206,10 @@ class EyeExerciseViewController: UIViewController {
         let width = eyePositionIndicatorView.frame.width * 1.3
         let newX = view.frame.width / 2 - (width / 2)
         let newY = view.frame.height / 2 - (width / 0.8)
-        let tempPath = UIBezierPath(roundedRect: CGRect(x: newX, y: newY, width: width, height: width),
+        let tempPath = UIBezierPath(roundedRect: CGRect(x: newX, 
+                                                        y: newY,
+                                                        width: width,
+                                                        height: width),
                                     cornerRadius: width / 10)
         correctionBoxPath = tempPath
     }
@@ -284,33 +283,22 @@ class EyeExerciseViewController: UIViewController {
         heightCompensation = -200
         widthCompensation = -100
         
-//        if UIScreen.main.bounds.width >= 428.0 {
-//            // iphone 12
-//            heightCompensation = -250
-//            widthCompensation = -300
-//        } else {
-//            // iphone 14
-//            heightCompensation = -100
-//            widthCompensation = -200
-//        }
-        
         DispatchQueue.main.async {
+            let phoneScreenEyeRHitTestResults = self.virtualPhoneNode.hitTestWithSegment(from: self.eyeRNode.worldPosition,
+                                                                                         to: self.lookAtTargetEyeRNode.worldPosition,
+                                                                                         options: nil)
             
-            let phoneScreenEyeRHitTestResults = self.virtualPhoneNode.hitTestWithSegment(from: self.eyeRNode.worldPosition, to: self.lookAtTargetEyeRNode.worldPosition, options: nil)
-            
-            let phoneScreenEyeLHitTestResults = self.virtualPhoneNode.hitTestWithSegment(from: self.eyeLNode.worldPosition, to: self.lookAtTargetEyeLNode.worldPosition, options: nil)
+            let phoneScreenEyeLHitTestResults = self.virtualPhoneNode.hitTestWithSegment(from: self.eyeLNode.worldPosition, 
+                                                                                         to: self.lookAtTargetEyeLNode.worldPosition,
+                                                                                         options: nil)
             
             for result in phoneScreenEyeRHitTestResults {
-                
                 eyeRLookAt.x = CGFloat(result.localCoordinates.x) / (self.phoneScreenSize.width / 2) * self.phoneScreenPointSize.width - widthCompensation
-                
                 eyeRLookAt.y = CGFloat(result.localCoordinates.y) / (self.phoneScreenSize.height / 2) * self.phoneScreenPointSize.height + heightCompensation
             }
             
             for result in phoneScreenEyeLHitTestResults {
-                
                 eyeLLookAt.x = CGFloat(result.localCoordinates.x) / (self.phoneScreenSize.width / 2) * self.phoneScreenPointSize.width
-                
                 eyeLLookAt.y = CGFloat(result.localCoordinates.y) / (self.phoneScreenSize.height / 2) * self.phoneScreenPointSize.height + heightCompensation
             }
             
@@ -324,22 +312,18 @@ class EyeExerciseViewController: UIViewController {
             let smoothEyeLookAtPositionY = self.eyeLookAtPositionYs.average!
             
             // 設定小人動畫
-            self.leftEyeIcon.transform = CGAffineTransform(translationX: (eyeLLookAt.x / 100) + 8,
-                                                           y:  -(eyeLLookAt.y / 100) + 8)
-            self.rightEyeIcon.transform = CGAffineTransform(translationX: (eyeRLookAt.x / 100) + 14,
-                                                            y: -(eyeRLookAt.y / 100) + 8)
+            self.leftEyeIcon.transform = CGAffineTransform(translationX: (eyeLLookAt.x / 100) + 8, y:  -(eyeLLookAt.y / 100) + 8)
+            self.rightEyeIcon.transform = CGAffineTransform(translationX: (eyeRLookAt.x / 100) + 14, y: -(eyeRLookAt.y / 100) + 8)
             
             // 校正模式完成與否要做的事
             if self.correctionMode == false {
                 self.eyePositionIndicatorView.isHidden = true
             } else {
                 self.eyePositionIndicatorView.isHidden = false
-                self.eyePositionIndicatorView.transform = CGAffineTransform(translationX: smoothEyeLookAtPositionX,
-                                                                            y: smoothEyeLookAtPositionY)
+                self.eyePositionIndicatorView.transform = CGAffineTransform(translationX: smoothEyeLookAtPositionX, y: smoothEyeLookAtPositionY)
             }
             
             var lookAtPositionXLabel = "\(Int(round(smoothEyeLookAtPositionX + self.phoneScreenPointSize.width / 2)))"
-           
             var lookAtPositionYLabel = "\(Int(round(smoothEyeLookAtPositionY + self.phoneScreenPointSize.height / 2)))"
             print("x: \(lookAtPositionXLabel), y: \(lookAtPositionYLabel)")
             self.lookAtPointX = smoothEyeLookAtPositionX
@@ -355,31 +339,35 @@ class EyeExerciseViewController: UIViewController {
             // Average distance from two eyes
             self.distance = Int(round(((distanceL.length() + distanceR.length()) / 2) * 100))
             
-            
             // 最好維持在 30~35 cm 之間
             self.eyeDistance.text = "\(self.distance)cm"
-            
         }
     }
     
-    func setupAnimate(complete: (() -> Void)? = nil) {
+    func setupAnimate(finish: (() -> Void)? = nil) {
         let animationView = LottieAnimationView(name: "Check")
         animationView.contentMode = .scaleAspectFit
-        animationView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-        animationView.center = CGPoint(x: UIScreen.main.bounds.size.width * 0.5, y:  UIScreen.main.bounds.size.height * 0.4)
+        animationView.frame = CGRect(x: 0,
+                                     y: 0,
+                                     width: view.frame.width,
+                                     height: view.frame.height)
+        animationView.center = CGPoint(x: UIScreen.main.bounds.size.width * 0.5,
+                                       y:  UIScreen.main.bounds.size.height * 0.4)
         animationView.loopMode = .repeatBackwards(1)
         animationView.animationSpeed = 1.2
         vAnimate.addSubview(animationView)
         animationView.play { animate in
-            complete?()
+            finish?()
         }
     }
     
     func completeStep() {
         // 使用動畫延遲 1 秒的方式，切換到下一個步驟
         completeStatus = true
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {
-            // 在动画块中，将视图的透明度设置为 1.0（完全可见）
+        UIView.animate(withDuration: 0.5, 
+                       delay: 0.0,
+                       options: .curveEaseInOut) {
+            // 在動畫塊中，將視圖的透明度設置為 1.0（完全可見）
             DispatchQueue.main.async {
                 self.vIconLeftEyeWhite.isHidden = true
                 self.vIconRightEyeWhite.isHidden = true
@@ -390,30 +378,29 @@ class EyeExerciseViewController: UIViewController {
                 self.imgvSmileLeftEye.isHidden = false
                 self.imgvSmileRightEye.isHidden = false
             }
-        }, completion: { _ in
+        } completion: { _ in
             // 在動畫結束後執行
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                UIView.animate(withDuration: 0.5, animations: {
+                UIView.animate(withDuration: 0.5) {
                     self.vIconLeftEyeWhite.isHidden = false
                     self.vIconRightEyeWhite.isHidden = false
                     self.imgvSmileLeftEye.isHidden = true
                     self.imgvSmileRightEye.isHidden = true
-                })
+                }
                 self.completeStatus = false
             }
-        })
-        
+        }
     }
     
-    // MARK: - IBAction
+    // MARK: - Function
+    
     @objc func correctionTimerAction() {
         if showLookAtPointX >= ((UIScreen.main.bounds.width / 1.13) - 50) &&
             showLookAtPointX <= ((UIScreen.main.bounds.width / 1.13) + 50) &&
             showLookAtPointY >= (UIScreen.main.bounds.height / 1.22) - 50 &&
             showLookAtPointY <= (UIScreen.main.bounds.height / 1.22) + 50 &&
             distance <= 35 &&
-            distance >= 30
-        {
+            distance >= 30 {
             AudioServicesPlaySystemSound(soundShort)
             correctionCount += 1
         } else {
@@ -423,7 +410,9 @@ class EyeExerciseViewController: UIViewController {
         if correctionCount == 5 {
             correctionTimer.invalidate()
             AudioServicesPlaySystemSound(1000)
-            UIView.transition(with: self.vfaceFram, duration: 3, options: .transitionCrossDissolve) {
+            UIView.transition(with: self.vfaceFram, 
+                              duration: 3,
+                              options: .transitionCrossDissolve) {
                 self.vfaceFram.isHidden = true
             }
             self.completeStep()
@@ -431,7 +420,10 @@ class EyeExerciseViewController: UIViewController {
                 self.correctionMode = false
                 self.eyePositionIndicatorView.isHidden = true
                 self.blackBackgroundView.isHidden = true
-                Alert.showAlert(title: "校正完成", message: "請與眼睛保持一樣角度以及距離來進行後續的眼睛保健操", vc: self, confirmTitle: "確認") {
+                Alert.showAlert(title: "校正完成", 
+                                message: "請與眼睛保持一樣角度以及距離來進行後續的眼睛保健操",
+                                vc: self,
+                                confirmTitle: "確認") {
                     self.lbExerciseGuide.text = "請緊閉雙眼並維持 \(2 - self.stepOneCount) 秒"
                     self.lbExerciseGuide.isHidden = false
                     self.stepOneTimer = Timer.scheduledTimer(timeInterval: 1,
@@ -476,7 +468,7 @@ class EyeExerciseViewController: UIViewController {
             showLookAtPointX <= ((UIScreen.main.bounds.width / 1.13) + 500) &&
             showLookAtPointY <= -500 &&
             distance <= 35 &&
-            distance >= 30  {
+            distance >= 30 {
             AudioServicesPlaySystemSound(soundShort)
             stepTwoCount += 1
             self.lbExerciseGuide.text = "請往上看並維持 \(3 - stepTwoCount) 秒"
@@ -531,7 +523,7 @@ class EyeExerciseViewController: UIViewController {
             showLookAtPointY <= ((UIScreen.main.bounds.height / 1.22) + 500) &&
             showLookAtPointX <= -400 &&
             distance <= 35 &&
-            distance >= 30  {
+            distance >= 30 {
             AudioServicesPlaySystemSound(soundShort)
             stepFourCount += 1
             self.lbExerciseGuide.text = "請往左看並維持 \(5 - stepFourCount) 秒"
@@ -641,7 +633,7 @@ class EyeExerciseViewController: UIViewController {
             showLookAtPointY <= ((UIScreen.main.bounds.height / 1.22) + 500) &&
             showLookAtPointX >= 1200 &&
             distance <= 35 &&
-            distance >= 30  {
+            distance >= 30 {
             AudioServicesPlaySystemSound(soundShort)
             stepEightCount += 1
             self.lbExerciseGuide.text = "請往右看並維持 \(5 - stepEightCount) 秒"
@@ -656,11 +648,12 @@ class EyeExerciseViewController: UIViewController {
             self.completeStep()
             setupAnimate {
                 self.lbExerciseGuide.text = "護眼操已完成"
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-                let now = dateFormatter.string(from: Date())
-                self.callAPIAddMissionComplete(missionId: UserPreferences.shared.eyeExerciseMissionId, accountId: UserPreferences.shared.accountId, date: now)
-                
+                Task {
+                    let now = Formatter().convertDate(from: Date(), format: "yyyy-MM-dd HH:mm")
+                    await self.callApiAddMissionComplete(missionId: UserPreferences.shared.eyeExerciseMissionId,
+                                                         accountId: UserPreferences.shared.accountId,
+                                                         date: now)
+                }
             }
         }
     }
@@ -673,43 +666,42 @@ class EyeExerciseViewController: UIViewController {
         faceTrackerView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
     
-    // MARK: - callAPIAddMissionComplete
+    // MARK: - Call Backend RESTful API
     
-    func callAPIAddMissionComplete(missionId: String,
+    // MARK: AddMissionComplete
+    
+    func callApiAddMissionComplete(missionId: String,
                                    accountId: String,
-                                   date: String) {
+                                   date: String) async {
         let request = AddMissionCompleteRequest(missionId: UUID(uuidString: missionId)!,
                                                 accountId: UUID(uuidString: accountId)!,
                                                 date: date)
-        
-        Task {
-            do {
-                let result: GeneralResponse<String> = try await NetworkManager.shared.requestData(method: .post,
-                                                                                     path: .addMissionComplete,
-                                                                                     parameters: request,
-                                                                                     needToken: true)
-                if result.message == "沒有此任務" {
-                    Alert.showAlert(title: "錯誤",
-                                    message: result.message,
-                                    vc: self,
-                                    confirmTitle: "確認")
-                }
-            } catch {
-                print(error)
+        do {
+            let result: GeneralResponse<String> = try await NetworkManager.shared.requestData(method: .post,
+                                                                                              path: .addMissionComplete,
+                                                                                              parameters: request,
+                                                                                              needToken: true)
+            if result.message.isEqual(to: "沒有此任務") {
                 Alert.showAlert(title: "錯誤",
-                                message: "\(error)",
+                                message: result.message,
                                 vc: self,
                                 confirmTitle: "確認")
             }
+        } catch {
+            print(error)
+            Alert.showAlert(title: "錯誤",
+                            message: "\(error)",
+                            vc: self,
+                            confirmTitle: "確認")
         }
     }
 }
 
-// MARK: - ARSCN Extension
+// MARK: - ARSCNViewDelegate, ARSessionDelegate
 
 extension EyeExerciseViewController: ARSCNViewDelegate, ARSessionDelegate {
+    
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-
         let faceMesh = ARSCNFaceGeometry(device: faceTrackerView.device!)
         faceNode = SCNNode(geometry: faceMesh)
         faceNode!.geometry?.firstMaterial?.fillMode = .lines
@@ -728,15 +720,17 @@ extension EyeExerciseViewController: ARSCNViewDelegate, ARSessionDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        if let faceAnchor = anchor as? ARFaceAnchor, let faceGeometry =  node.geometry as? ARSCNFaceGeometry {
-//            faceGeometry.firstMaterial?.diffuse.contents = UIColor.themeColor
+        if let faceAnchor = anchor as? ARFaceAnchor, 
+           let faceGeometry =  node.geometry as? ARSCNFaceGeometry {
             faceGeometry.update(from: faceAnchor.geometry)
             if correctionMode == false {
                 faceGeometry.firstMaterial?.diffuse.contents = UIColor.clear
             }
         }
         faceNode!.transform = node.transform
-        guard let faceAnchor = anchor as? ARFaceAnchor else { return }
+        guard let faceAnchor = anchor as? ARFaceAnchor else {
+            return
+        }
         
         // 新增扎眼判斷
         leftEyeDazzing = faceAnchor.blendShapes[.eyeBlinkLeft]!
@@ -746,9 +740,9 @@ extension EyeExerciseViewController: ARSCNViewDelegate, ARSessionDelegate {
         leftEyeSquinting = faceAnchor.blendShapes[.eyeSquintLeft]!
         rightEyeSquinting = faceAnchor.blendShapes[.eyeSquintRight]!
         
-        
         // 計算扎眼機率，如果皆大於 50% 則隱藏專注點
-        if leftEyeDazzing.decimalValue >= 0.5 && rightEyeDazzing.decimalValue >= 0.5 ||
+        if leftEyeDazzing.decimalValue >= 0.5 &&
+            rightEyeDazzing.decimalValue >= 0.5 ||
             correctionMode == false {
             DispatchQueue.main.async {
                 self.eyePositionIndicatorView.isHidden = true
@@ -784,7 +778,7 @@ extension EyeExerciseViewController: ARSCNViewDelegate, ARSessionDelegate {
             }
         }
         
-        if leftEyeDazzing.decimalValue >= 0.7  && completeStatus == false {
+        if leftEyeDazzing.decimalValue >= 0.7 && completeStatus == false {
             if leftEyeSquinting.decimalValue >= 0.2 {
                 DispatchQueue.main.async {
                     self.imgvDazzingHardRightEye.isHidden = false
@@ -816,14 +810,16 @@ extension EyeExerciseViewController: ARSCNViewDelegate, ARSessionDelegate {
         virtualPhoneNode.transform = (faceTrackerView.pointOfView?.transform)!
     }
     
-    
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        
         faceNode!.transform = node.transform
-        guard let faceAnchor = anchor as? ARFaceAnchor else { return }
+        guard let faceAnchor = anchor as? ARFaceAnchor else {
+            return
+        }
         
         update(withFaceAnchor: faceAnchor)
     }
 }
 
 // MARK: - Protocol
+
+

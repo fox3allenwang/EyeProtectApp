@@ -5,10 +5,10 @@
 //  Created by imac-3570 on 2023/11/6.
 //
 
-import UIKit
 import ARKit
 import AVFoundation
 import CoreML
+import UIKit
 
 class FatigueDetectionViewController: UIViewController {
     
@@ -18,7 +18,7 @@ class FatigueDetectionViewController: UIViewController {
     @IBOutlet weak var vAlertBackground: UIView!
     @IBOutlet weak var swAlert: UISwitch!
     
-    // MARK: - Variables
+    // MARK: - Properties
     
     var result = ""
     var count = 0
@@ -37,10 +37,13 @@ class FatigueDetectionViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Fatigue Detection"
         setupUI()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        let now = dateFormatter.string(from: Date())
-        callAPIAddMissionComplete(missionId: UserPreferences.shared.fatigueMissionId, accountId: UserPreferences.shared.accountId, date: now)
+        
+        Task {
+            let now = Formatter().convertDate(from: Date(), format: "yyyy-MM-dd HH:mm")
+            await callApiAddMissionComplete(missionId: UserPreferences.shared.fatigueMissionId,
+                                      accountId: UserPreferences.shared.accountId,
+                                      date: now)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,54 +66,58 @@ class FatigueDetectionViewController: UIViewController {
     
     // MARK: - UI Settings
     
-    func setupUI() {
+    fileprivate func setupUI() {
         setupARSCNView()
         setupAlertBackgroun()
         setupVision()
     }
     
-    func setupARSCNView() {
+    fileprivate func setupARSCNView() {
         vARSCN.delegate = self
         let config = ARFaceTrackingConfiguration()
         vARSCN.session.run(config)
     }
     
-    func setupAlertBackgroun() {
+    fileprivate func setupAlertBackgroun() {
         vAlertBackground.layer.cornerRadius = 20
         vAlertBackground.clipsToBounds = true
     }
     
-    func addText() {
-
-    }
-    
-    func setupVision() -> NSError? {
+    @discardableResult
+    fileprivate func setupVision() -> NSError? {
         // Setup Vision parts
-        let error: NSError! = nil
+        let error: NSError? = nil
         
-        guard let modelURL = Bundle.main.url(forResource: "OpenEyeAndCloseEye 0.87 loss", withExtension: "mlmodelc") else {
-            return NSError(domain: "VisionObjectRecognitionViewController", code: -1, userInfo: [NSLocalizedDescriptionKey: "Model file is missing"])
+        guard let modelURL = Bundle.main.url(forResource: "OpenEyeAndCloseEye 0.87 loss",
+                                             withExtension: "mlmodelc") else {
+            return NSError(domain: "VisionObjectRecognitionViewController",
+                           code: -1,
+                           userInfo: [NSLocalizedDescriptionKey: "Model file is missing"])
         }
         do {
             let visionModel = try VNCoreMLModel(for: MLModel(contentsOf: modelURL))
-            let objectRecognition = VNCoreMLRequest(model: visionModel, completionHandler: { (request, error) in
-                DispatchQueue.main.async(execute: {
-                    // perform all the UI updates on the main queue
-                    if let results = request.results {
-                        self.CountOpenOrCloseEyeRequestResults(results)
+            let objectRecognition = VNCoreMLRequest(model: visionModel) { result in
+                switch result {
+                case .success(let request):
+                    DispatchQueue.main.async {
+                        if let results = request.results {
+                            self.countOpenOrCloseEyeRequestResults(results)
+                        }
                     }
-                    
-                })
-            })
+                case .failure(let error):
+                    print(error)
+                }
+            }
             openOrCloseEyeRequests = [objectRecognition]
         } catch let error as NSError {
             print("Model loading went wrong: \(error)")
         }
-        
         return error
     }
     
-    func CountOpenOrCloseEyeRequestResults(_ results: [Any]) {
+    // MARK: - Functions
+    
+    func countOpenOrCloseEyeRequestResults(_ results: [Any]) {
         for observation in results where observation is VNRecognizedObjectObservation {
             guard let objectObservation = observation as? VNRecognizedObjectObservation else {
                 continue
@@ -127,22 +134,14 @@ class FatigueDetectionViewController: UIViewController {
         }
     }
     
-    // MARK: - ARJudgeFace
+    // MARK: - Call Backend RESTful API
     
-    func judgeFace(anchor: ARFaceAnchor) {
-       
-    }
-    
-    // MARK: - callAPIAddMissionComplete
-    
-    func callAPIAddMissionComplete(missionId: String,
+    func callApiAddMissionComplete(missionId: String,
                                    accountId: String,
-                                   date: String) {
+                                   date: String) async {
         let request = AddMissionCompleteRequest(missionId: UUID(uuidString: missionId)!,
                                                 accountId: UUID(uuidString: accountId)!,
                                                 date: date)
-        
-        Task {
             do {
                 let result: GeneralResponse<String> = try await NetworkManager.shared.requestData(method: .post,
                                                                                      path: .addMissionComplete,
@@ -161,27 +160,29 @@ class FatigueDetectionViewController: UIViewController {
                                 vc: self,
                                 confirmTitle: "確認")
             }
-        }
     }
     
     // MARK: - IBAction
     
     @IBAction func switchAlertStatus() {
         if swAlert.isOn == true {
-            Alert.showAlert(title: "啟用警示音", message: "在使用前請確保靜音模式已關閉，打開以後睡意值在 70% 以上會響鈴並警告", vc: self, confirmTitle: "啟用", cancelTitle: "取消") {
+            Alert.showAlert(title: "啟用警示音", 
+                            message: "在使用前請確保靜音模式已關閉，打開以後睡意值在 70% 以上會響鈴並警告",
+                            vc: self,
+                            confirmTitle: "啟用",
+                            cancelTitle: "取消") {
                 //
             } cancel: {
                 self.swAlert.isOn = false
             }
-
         }
     }
-    
 }
 
-// MARK: - Extension
+// MARK: - ARSCNViewDelegate
 
 extension FatigueDetectionViewController: ARSCNViewDelegate {
+    
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let faceMesh = ARSCNFaceGeometry(device: vARSCN.device!)
         let node = SCNNode(geometry: faceMesh)
@@ -205,10 +206,13 @@ extension FatigueDetectionViewController: ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        if let faceAnchor = anchor as? ARFaceAnchor, let faceGeometry = node.geometry as? ARSCNFaceGeometry {
+        if let faceAnchor = anchor as? ARFaceAnchor, 
+           let faceGeometry = node.geometry as? ARSCNFaceGeometry {
             faceGeometry.update(from: faceAnchor.geometry)
             
-            guard let pixelBuffer = self.vARSCN.session.currentFrame?.capturedImage else { return }
+            guard let pixelBuffer = self.vARSCN.session.currentFrame?.capturedImage else {
+                return
+            }
             
             do {
                 let modelConfigration = MLModelConfiguration()
@@ -216,7 +220,9 @@ extension FatigueDetectionViewController: ARSCNViewDelegate {
                 let input = FatigueDetection_New__Test_76_ACCInput(image: pixelBuffer)
                 let output = try model.prediction(input: input)
                 
-                let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
+                let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer,
+                                                                orientation: .right,
+                                                                options: [:])
                 do {
                     try imageRequestHandler.perform(self.openOrCloseEyeRequests)
                 } catch {
@@ -226,9 +232,7 @@ extension FatigueDetectionViewController: ARSCNViewDelegate {
                 let eyeBlinkLeft = faceAnchor.blendShapes[.eyeBlinkLeft]
                 let eyeBlinkRight = faceAnchor.blendShapes[.eyeBlinkRight]
                 let jawOpen = faceAnchor.blendShapes[.jawOpen]
-
-
-
+                
                 var activeProbs = output.classLabelProbs.first!.value
                 if ((eyeBlinkLeft?.decimalValue ?? 0.0) + (eyeBlinkRight?.decimalValue ?? 0.0)) > 0.8 {
                     activeProbs -= 0.2
@@ -273,7 +277,10 @@ extension FatigueDetectionViewController: ARSCNViewDelegate {
                         }
 
                         if (round((1 - result) * 100)) > 70 {
-                            Alert.showAlert(title: "警告", message: "系統檢測到您很想睡覺，建議你進行適度休息", vc: self, confirmTitle: "確認")
+                            Alert.showAlert(title: "警告",
+                                            message: "系統檢測到您很想睡覺，建議你進行適度休息",
+                                            vc: self,
+                                            confirmTitle: "確認")
                         }
 
                         self.ARText.string = newText
@@ -282,37 +289,23 @@ extension FatigueDetectionViewController: ARSCNViewDelegate {
                     fatigueArray = []
                    count = 0
                 }
-                
-               
             } catch {
                 print(error.localizedDescription)
             }
         }
-       
     }
 }
 
-extension Array where Element: FloatingPoint {
-    
-    var sum: Element {
-        return reduce(0, +)
-    }
-
-    var average: Element {
-        guard !isEmpty else {
-            return 0
-        }
-        return sum / Element(count)
-    }
-
-}
-
-// MARK: - Protocol
+// MARK: - FatigueDetectionBackToStartConcentrateVCDelegate
 
 protocol FatigueDetectionBackToStartConcentrateVCDelegate {
+    
     func transformUI()
 }
 
+// MARK: - FatigueDetectionBackToMainVCDelegate
+
 protocol FatigueDetectionBackToMainVCDelegate {
+    
     func startCatchISO()
 }

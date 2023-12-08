@@ -5,12 +5,13 @@
 //  Created by imac-3570 on 2023/7/27.
 //
 
-import UIKit
 import AVFoundation
+import UIKit
 
 class EquipmentViewController: UIViewController {
     
     // MARK: - IBOutlet
+    
     @IBOutlet weak var lightView: UIView!
     @IBOutlet weak var blueDetectionView: UIView!
     @IBOutlet weak var ivgLight: UIImageView!
@@ -19,17 +20,21 @@ class EquipmentViewController: UIViewController {
     @IBOutlet weak var lbBlueLightValue: UILabel!
     @IBOutlet weak var btnBlueLightDetection: UIButton!
     
-    // MARK: - Variables
-    var changeBackgroundValue :CGFloat?
-    var changeImageValueR :CGFloat?
-    var changeImageValueG :CGFloat?
-    var changeImageValueB :CGFloat?
+    // MARK: - Properties
+    
+    var changeBackgroundValue: CGFloat?
+    var changeImageValueR: CGFloat?
+    var changeImageValueG: CGFloat?
+    var changeImageValueB: CGFloat?
     var blueLightStatus = false
     
     private let bluetooth = BluetoothServices.shared
     
     private let captureSession = AVCaptureSession()
-    private let frontCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
+    private let frontCamera = AVCaptureDevice.default(.builtInWideAngleCamera, 
+                                                      for: .video,
+                                                      position: .front)
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -60,27 +65,20 @@ class EquipmentViewController: UIViewController {
     
     // MARK: - UI Settings
     
-    func setupUI() {
+    fileprivate func setupUI() {
         setupImageView()
         setupEquipmentView()
     }
     
-    func setupBlueServices() {
-        bluetooth.delegate = self
-        if Bluelight.peripheral != nil {
-            bluetooth.connectPeripheral(peripheral: Bluelight.peripheral!)
-        }
-    }
-    
-    func setupImageView() {
+    fileprivate func setupImageView() {
         if #available(iOS 16.0, *) {
-            ivgLight.image = UIImage(systemName: "lamp.desk")
+            ivgLight.image = UIImage(systemIcon: .lampDesk)
         } else {
-            ivgLight.image = UIImage(systemName: "lightbulb")
+            ivgLight.image = UIImage(systemIcon: .lightbulb)
         }
     }
     
-    func setupEquipmentView() {
+    fileprivate func setupEquipmentView() {
         lightView.layer.cornerRadius = 20
         lightView.layer.shadowOffset = CGSize(width: 5, height: 5)
         lightView.layer.shadowOpacity = 0.1
@@ -92,46 +90,21 @@ class EquipmentViewController: UIViewController {
         blueDetectionView.layer.shadowRadius = 20
     }
     
-    func changeColor() {
+    fileprivate func changeColor() {
         changeBackgroundValue = CGFloat(lightSlider.value / 100) * 0.5
         changeImageValueR = 0.23137 / CGFloat(lightSlider.value / 100)
         changeImageValueG = 0.49411 / CGFloat(lightSlider.value / 100)
         changeImageValueB = 0.203921 / CGFloat(lightSlider.value / 100)
     }
     
-    // MARK: - callAPIAddMissionComplete
+    // MARK: - Bluetooth Service
     
-    func callAPIAddMissionComplete(missionId: String,
-                                   accountId: String,
-                                   date: String,
-                                   completion: (() -> Void)? = nil) {
-        let request = AddMissionCompleteRequest(missionId: UUID(uuidString: missionId)!,
-                                                accountId: UUID(uuidString: accountId)!,
-                                                date: date)
-        
-        Task {
-            do {
-                let result: GeneralResponse<String> = try await NetworkManager.shared.requestData(method: .post,
-                                                                                     path: .addMissionComplete,
-                                                                                     parameters: request,
-                                                                                     needToken: true)
-                completion?()
-                if result.message == "沒有此任務" {
-                    Alert.showAlert(title: "錯誤",
-                                    message: result.message,
-                                    vc: self,
-                                    confirmTitle: "確認")
-                }
-            } catch {
-                print(error)
-                Alert.showAlert(title: "錯誤",
-                                message: "\(error)",
-                                vc: self,
-                                confirmTitle: "確認")
-            }
+    func setupBlueServices() {
+        bluetooth.delegate = self
+        if Bluelight.peripheral != nil {
+            bluetooth.connectPeripheral(peripheral: Bluelight.peripheral!)
         }
     }
-    
     
     func isoValue(vc: UIViewController) {
         if Lamp.peripheral == nil {
@@ -145,6 +118,36 @@ class EquipmentViewController: UIViewController {
             let data = "C".data(using: .utf8)
             bluetooth.writeValue(type: .withoutResponse, data: data!)
             print("C")
+        }
+    }
+    
+    // MARK: - Call Backend RESTful API
+    
+    // MARK: AddMissionComplete
+    
+    func callApiAddMissionComplete(missionId: String,
+                                   accountId: String,
+                                   date: String) async {
+        let request = AddMissionCompleteRequest(missionId: UUID(uuidString: missionId)!,
+                                                accountId: UUID(uuidString: accountId)!,
+                                                date: date)
+        do {
+            let result: GeneralResponse<String> = try await NetworkManager.shared.requestData(method: .post,
+                                                                                              path: .addMissionComplete,
+                                                                                              parameters: request,
+                                                                                              needToken: true)
+            if result.message.isEqual(to: "沒有此任務") {
+                Alert.showAlert(title: "錯誤",
+                                message: result.message,
+                                vc: self,
+                                confirmTitle: "確認")
+            }
+        } catch {
+            print(error)
+            Alert.showAlert(title: "錯誤",
+                            message: "\(error)",
+                            vc: self,
+                            confirmTitle: "確認")
         }
     }
     
@@ -174,7 +177,10 @@ class EquipmentViewController: UIViewController {
     @IBAction func slideLight() {
         print(lightSlider.value)
         changeColor()
-        lightView.backgroundColor = UIColor(hue: 0.35, saturation: 0.75, brightness: 0.49 + CGFloat(changeBackgroundValue!), alpha: 1)
+        lightView.backgroundColor = UIColor(hue: 0.35,
+                                            saturation: 0.75,
+                                            brightness: 0.49 + CGFloat(changeBackgroundValue!),
+                                            alpha: 1)
         ivgLight.tintColor = UIColor(red: changeImageValueR!,
                                      green: changeImageValueG!,
                                      blue: changeImageValueB!, alpha: 1)
@@ -210,22 +216,22 @@ class EquipmentViewController: UIViewController {
         if #available(iOS 16.0, *) {
             if lightSlider.isHidden == false {
                 lightSlider.isHidden = true
-                ivgLight.image = UIImage(systemName: "lamp.desk")
+                ivgLight.image = UIImage(systemIcon: .lampDesk)
                 lightView.backgroundColor = UIColor.buttomColor
                 ivgLight.tintColor = .white
             } else {
                 lightSlider.isHidden = false
-                ivgLight.image = UIImage(systemName: "lamp.desk.fill")
+                ivgLight.image = UIImage(systemIcon: .lampDeskFill)
             }
         } else {
             if lightSlider.isHidden == false {
                 lightSlider.isHidden = true
-                ivgLight.image = UIImage(systemName: "lightbulb")
+                ivgLight.image = UIImage(systemIcon: .lightbulb)
                 lightView.backgroundColor = UIColor.buttomColor
                 ivgLight.tintColor = .white
             } else {
                 lightSlider.isHidden = false
-                ivgLight.image = UIImage(systemName: "lightbulb.fill")
+                ivgLight.image = UIImage(systemIcon: .lightbulbFill)
             }
         }
     }
@@ -242,9 +248,10 @@ class EquipmentViewController: UIViewController {
     }
 }
 
-// MARK: - Extension
+// MARK: - BluetoothServicesDelegate
 
 extension EquipmentViewController: BluetoothServicesDelegate {
+    
     func getBLEPeripheralValue(value: Int) {
         DispatchQueue.main.async {
             self.lbBlueLightValue.text = "藍光度數：\(value) %"
@@ -255,12 +262,11 @@ extension EquipmentViewController: BluetoothServicesDelegate {
                                     vc: self,
                                     confirmTitle: "確認")
                 } else {
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-                    let now = dateFormatter.string(from: Date())
-                    self.callAPIAddMissionComplete(missionId: UserPreferences.shared.blueLightMissionId,
-                                                   accountId: UserPreferences.shared.accountId,
-                                                   date: now) {
+                    let now = Formatter().convertDate(from: Date(), format: "yyyy-MM-dd HH:mm")
+                    Task {
+                        await self.callApiAddMissionComplete(missionId: UserPreferences.shared.blueLightMissionId,
+                                                             accountId: UserPreferences.shared.accountId,
+                                                             date: now)
                         Thread.sleep(forTimeInterval: 0.5)
                     }
                 }

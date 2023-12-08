@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -21,9 +20,9 @@
                 <outlet property="backgroundView" destination="kE9-Vn-Qm7" id="uNV-Bh-JBI"/>
                 <outlet property="btnBack" destination="ehS-R2-XUL" id="XM7-3g-tiz"/>
                 <outlet property="btnLogin" destination="6wS-Fw-h0y" id="d0p-06-uXk"/>
-                <outlet property="btnSingUp" destination="rAv-fW-VkO" id="B3c-wK-X5Y"/>
+                <outlet property="btnSignUp" destination="rAv-fW-VkO" id="B3c-wK-X5Y"/>
                 <outlet property="lbEye" destination="2zb-W3-bGP" id="7N1-u6-D6I"/>
-                <outlet property="lbLoginOrSingUp" destination="Y85-N0-Apd" id="CT4-Ft-js0"/>
+                <outlet property="lbLoginOrSignUp" destination="Y85-N0-Apd" id="CT4-Ft-js0"/>
                 <outlet property="lbProtect" destination="VUv-uy-oUu" id="eaT-VG-a1v"/>
                 <outlet property="txfEmail" destination="UJk-f2-I0e" id="moQ-gK-cod"/>
                 <outlet property="txfName" destination="VSM-AH-wLj" id="lTP-gP-ci4"/>

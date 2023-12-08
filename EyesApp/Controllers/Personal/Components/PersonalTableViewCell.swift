@@ -10,13 +10,15 @@ import UIKit
 class PersonalTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlet
+    
     @IBOutlet weak var title: UILabel!
     
-    // MARK: - Variables
+    // MARK: - Properties
     
-    static let identified = "PersonalTableViewCell"
+    static let identifier = "PersonalTableViewCell"
     
-    // MARK: - lifeCycle
+    // MARK: - LifeCycle
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

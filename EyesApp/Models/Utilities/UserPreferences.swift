@@ -60,7 +60,7 @@ class UserPreferences {
 
     }
     
-    // MARK: - Variables
+    // MARK: - Properties
     
     var accountId: String {
         get { return userDefaults.string(forKey: Keys.accountId.rawValue) ?? "" }

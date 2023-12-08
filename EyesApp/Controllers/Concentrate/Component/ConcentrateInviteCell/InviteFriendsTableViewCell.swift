@@ -37,7 +37,7 @@ class InviteFriendsTableViewCell: UITableViewCell {
     fileprivate func setupUI() {
         imgvUser.layer.cornerRadius = (imgvUser?.frame.width)! / 2.1
         imgvUser.layer.borderWidth = 2
-        imgvUser.layer.borderColor = UIColor.buttomColor?.cgColor
+        imgvUser.layer.borderColor = UIColor.buttomColor.cgColor
         btnAddInvite.imageView?.contentMode = .scaleAspectFit
     }
     

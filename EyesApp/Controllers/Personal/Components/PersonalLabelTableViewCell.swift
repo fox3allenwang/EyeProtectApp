@@ -10,14 +10,16 @@ import UIKit
 class PersonalLabelTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlet
+    
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var value: UILabel!
     
-    // MARK: - Variables
+    // MARK: - Properties
     
-    static let identified = "PersonalLabelTableViewCell"
+    static let identifier = "PersonalLabelTableViewCell"
     
-    // MARK: - lifeCycle
+    // MARK: - LifeCycle
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -28,5 +30,4 @@ class PersonalLabelTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-    
 }

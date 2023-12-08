@@ -5,8 +5,8 @@
 //  Created by imac-3570 on 2023/11/5.
 //
 
-import UIKit
 import ProgressHUD
+import UIKit
 
 class FriendPersonalViewController: UIViewController {
     
@@ -17,7 +17,7 @@ class FriendPersonalViewController: UIViewController {
     @IBOutlet weak var tbvConcentrateRecord: UITableView!
     @IBOutlet weak var tbvPost: UITableView!
     
-    // MARK: - Variables
+    // MARK: - Properties
     
     var concentrateRecordList: [FindSelfConcentrateRecordResponse.SelfConcentrateRecordItem] = []
     var postList: [LoadNewsResponse.NewsItem] = []
@@ -34,14 +34,17 @@ class FriendPersonalViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ProgressHUD.colorAnimation = .buttomColor!
-        ProgressHUD.colorHUD = .themeColor!
+        ProgressHUD.colorAnimation = .buttomColor
+        ProgressHUD.colorHUD = .themeColor
         ProgressHUD.animationType = .multipleCircleScaleRipple
         ProgressHUD.show("載入中...")
         igvUser.image = userImage
-        callAPIFindSelfConcentrateRecord(accountId: friendAccountId)
-        callApiLoadNews(accountId: friendAccountId) {
-            ProgressHUD.dismiss()
+        Task {
+            await callApiFindSelfConcentrateRecord(accountId: friendAccountId)
+            await callApiLoadNews(accountId: friendAccountId)
+            await MainActor.run {
+                ProgressHUD.dismiss()
+            }
         }
     }
     
@@ -66,20 +69,20 @@ class FriendPersonalViewController: UIViewController {
     }
     
     func setupTableView() {
-        tbvPost?.register(UINib(nibName: "HasPictureNewsTableViewCell", bundle: nil), forCellReuseIdentifier: HasPictureNewsTableViewCell.identified)
-        tbvPost?.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: NewsTableViewCell.identified)
-        tbvPost!.estimatedRowHeight = 100
-        tbvPost!.rowHeight = UITableView.automaticDimension
-        tbvPost?.dataSource = self
-        tbvPost?.delegate = self
+        tbvPost.register(HasPictureNewsTableViewCell.loadFromNib(),
+                         forCellReuseIdentifier: HasPictureNewsTableViewCell.identifier)
+        tbvPost.register(NewsTableViewCell.loadFromNib(),
+                         forCellReuseIdentifier: NewsTableViewCell.identifier)
+        tbvPost.estimatedRowHeight = 100
+        tbvPost.rowHeight = UITableView.automaticDimension
+        tbvPost.dataSource = self
+        tbvPost.delegate = self
         tbvPost.tag = 0
         
-        tbvConcentrateRecord.register(UINib(nibName: "ConcentrateRecordTableViewCell",
-                                            bundle: nil),
-                                      forCellReuseIdentifier: ConcentrateRecordTableViewCell.identified)
-        tbvConcentrateRecord.register(UINib(nibName: "FirstConcentrateRecordTableViewCell",
-                                            bundle: nil),
-                                      forCellReuseIdentifier: FirstConcentrateRecordTableViewCell.identified)
+        tbvConcentrateRecord.register(ConcentrateRecordTableViewCell.loadFromNib(),
+                                      forCellReuseIdentifier: ConcentrateRecordTableViewCell.identifier)
+        tbvConcentrateRecord.register(FirstConcentrateRecordTableViewCell.loadFromNib(),
+                                      forCellReuseIdentifier: FirstConcentrateRecordTableViewCell.identifier)
         tbvConcentrateRecord.delegate = self
         tbvConcentrateRecord.dataSource = self
         tbvConcentrateRecord.tag = 1
@@ -88,7 +91,7 @@ class FriendPersonalViewController: UIViewController {
     func setupIgvUser() {
         igvUser.layer.cornerRadius = igvUser.frame.width / 2
         igvUser.layer.borderWidth = 3
-        igvUser.layer.borderColor = UIColor.buttomColor?.cgColor
+        igvUser.layer.borderColor = UIColor.buttomColor.cgColor
     }
     func setupBackgroundView() {
         backgroundView.layer.cornerRadius = 20
@@ -97,78 +100,76 @@ class FriendPersonalViewController: UIViewController {
         backgroundView.layer.shadowRadius = 20
         backgroundView.alpha = 0.2
     }
-    // MARK: - callAPIFindSelfConcentrateRecord
     
-    func callAPIFindSelfConcentrateRecord(accountId: String,
-                                          completionHandler: (() -> Void)? = nil) {
+    // MARK: - Call Backend RESTful API
+    
+    // MARK: FindSelfConcentrateRecord
+    
+    func callApiFindSelfConcentrateRecord(accountId: String) async {
         let request = FindSelfConcentrateRecordRequest(accountId: UUID(uuidString: accountId)!)
-        
-        Task {
-            do {
-                let result: GeneralResponse<FindSelfConcentrateRecordResponse> = try await NetworkManager.shared.requestData(method: .post, path: .findSelfConcentrateRecord, parameters: request, needToken: true)
-                
-                if result.message == "ConcentrateRecord 是空的" ||
-                    result.message == "找到 ConcentrateRecord 了" {
-                    concentrateRecordList = result.data.concentrateRecordList
-                    concentrateRecordList.sort { firstItem, secondItem in
-                        if firstItem.startTime < secondItem.startTime {
-                            return false
-                        } else {
-                            return true
-                        }
+        do {
+            let result: GeneralResponse<FindSelfConcentrateRecordResponse> = try await NetworkManager.shared.requestData(method: .post,
+                                                                                                                         path: .findSelfConcentrateRecord,
+                                                                                                                         parameters: request,
+                                                                                                                         needToken: true)
+            if result.message.isEqual(to: "ConcentrateRecord 是空的") ||
+                result.message.isEqual(to: "找到 ConcentrateRecord 了") {
+                concentrateRecordList = result.data.concentrateRecordList
+                concentrateRecordList.sort { firstItem, secondItem in
+                    if firstItem.startTime < secondItem.startTime {
+                        return false
+                    } else {
+                        return true
                     }
-                    tbvConcentrateRecord.reloadData()
-                    completionHandler?()
-                } else {
-                    completionHandler?()
-                    Alert.showAlert(title: "錯誤", message: result.message, vc: self, confirmTitle: "確認")
                 }
-            } catch {
-                completionHandler?()
-                print(error)
-                Alert.showAlert(title: "錯誤", message: "\(error)", vc: self, confirmTitle: "確認")
-            }
-        }
-    }
-    
-    // MARK: - callAPILoadNews
-    
-    func callApiLoadNews(accountId: String,
-                         completionHandler: (() -> Void)? = nil) {
-        let request = LoadNewsRequest(accountId: UUID(uuidString: accountId)!)
-        Task {
-            do {
-                let result: GeneralResponse<LoadNewsResponse> = try await NetworkManager.shared.requestData(method: .post,
-                                                                                                       path: .loadOnePersonNews,
-                                                                                                       parameters: request,
-                                                                                                       needToken: true)
-                if result.message == "已搜尋所有的 News" {
-                    postList = []
-                    postList = result.data.newsItems
-                    postList.sort { FirstNewItem, SecondNewItem in
-                        if FirstNewItem.time > SecondNewItem.time {
-                            return true
-                        } else {
-                            return false
-                        }
-                    }
-                    tbvPost?.reloadData()
-                    completionHandler?()
-                } else {
-                    completionHandler?()
-                    Alert.showAlert(title: "錯誤",
-                                    message: result.message,
-                                    vc: self,
-                                    confirmTitle: "確認")
-                }
-            } catch {
-                completionHandler?()
-                print(error)
+                tbvConcentrateRecord.reloadData()
+            } else {
                 Alert.showAlert(title: "錯誤",
-                                message: "\(error)",
+                                message: result.message,
                                 vc: self,
                                 confirmTitle: "確認")
             }
+        } catch {
+            print(error)
+            Alert.showAlert(title: "錯誤",
+                            message: "\(error)",
+                            vc: self,
+                            confirmTitle: "確認")
+        }
+    }
+    
+    // MARK: LoadNews
+    
+    func callApiLoadNews(accountId: String) async {
+        let request = LoadNewsRequest(accountId: UUID(uuidString: accountId)!)
+        do {
+            let result: GeneralResponse<LoadNewsResponse> = try await NetworkManager.shared.requestData(method: .post,
+                                                                                                        path: .loadOnePersonNews,
+                                                                                                        parameters: request,
+                                                                                                        needToken: true)
+            if result.message.isEqual(to: "已搜尋所有的 News") {
+                postList = []
+                postList = result.data.newsItems
+                postList.sort { first, second in
+                    if first.time > second.time {
+                        return true
+                    } else {
+                        return false
+                    }
+                }
+                tbvPost.reloadData()
+            } else {
+                Alert.showAlert(title: "錯誤",
+                                message: result.message,
+                                vc: self,
+                                confirmTitle: "確認")
+            }
+        } catch {
+            print(error)
+            Alert.showAlert(title: "錯誤",
+                            message: "\(error)",
+                            vc: self,
+                            confirmTitle: "確認")
         }
     }
     
@@ -176,21 +177,21 @@ class FriendPersonalViewController: UIViewController {
     
     @objc func clickShowReply(_ sender: UIButton) {
         let replyVC = ReplyViewController()
-        replyVC.loadNewsDelegate = self
+        replyVC.delegate = self
         replyVC.newsId = postList[sender.tag].newsId.uuidString
         if let presentationController = replyVC.presentationController as? UISheetPresentationController {
             presentationController.detents = [.medium()]
         }
         self.present(replyVC, animated: true)
     }
-    
 }
 
-// MARK: - TableViewExtension
+// MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension FriendPersonalViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView.tag == 0 {
+        if tableView.tag.isEqual(to: 0) {
             return postList.count
         } else {
             return concentrateRecordList.count
@@ -198,48 +199,56 @@ extension FriendPersonalViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView.tag == 0 {
-            if postList[indexPath.row].newsPicture == "未上傳" {
-                let cell = tbvPost?.dequeueReusableCell(withIdentifier: NewsTableViewCell.identified, for: indexPath) as! NewsTableViewCell
-                if postList[indexPath.row].sendAccountImage == "未設置" {
-                    cell.imgvUser?.image = UIImage(systemName: "person.fill")
-                } else {
-                    cell.imgvUser?.image = postList[indexPath.row].sendAccountImage.stringToUIImage()
+        if tableView.tag.isEqual(to: 0) {
+            if postList[indexPath.row].newsPicture.isEqual(to: "未上傳") {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier,
+                                                               for: indexPath) as? NewsTableViewCell else {
+                    fatalError("NewsTableViewCell Load Failed")
                 }
-                cell.lbDescription?.text = postList[indexPath.row].description
-                cell.lbTitle?.text = postList[indexPath.row].title
-                cell.btnShowReply!.tag = indexPath.row
-                cell.btnShowReply?.setTitle("查看全部 \(postList[indexPath.row].replyCount) 則留言", for: .normal)
-                cell.btnShowReply?.addTarget(self, action: #selector(clickShowReply), for: .touchUpInside)
+                if postList[indexPath.row].sendAccountImage.isEqual(to: "未設置") {
+                    cell.imgvUser.image = UIImage(systemIcon: .personFill)
+                } else {
+                    cell.imgvUser.image = postList[indexPath.row].sendAccountImage.stringToUIImage()
+                }
+                cell.lbDescription.text = postList[indexPath.row].description
+                cell.lbTitle.text = postList[indexPath.row].title
+                cell.btnShowReply.tag = indexPath.row
+                cell.btnShowReply.setTitle("查看全部 \(postList[indexPath.row].replyCount) 則留言", for: .normal)
+                cell.btnShowReply.addTarget(self, action: #selector(clickShowReply), for: .touchUpInside)
                 return cell
                 
             } else {
-                let cell = tbvPost?.dequeueReusableCell(withIdentifier: HasPictureNewsTableViewCell.identified,
-                                                        for: indexPath) as! HasPictureNewsTableViewCell
-                if postList[indexPath.row].sendAccountImage == "未設置" {
-                    cell.imgvUser?.image = UIImage(systemName: "person.fill")
-                } else {
-                    cell.imgvUser?.image = postList[indexPath.row].sendAccountImage.stringToUIImage()
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: HasPictureNewsTableViewCell.identifier,
+                                                               for: indexPath) as? HasPictureNewsTableViewCell else {
+                    fatalError("HasPictureNewsTableViewCell Load Failed")
                 }
-                cell.imgvPicture?.image = postList[indexPath.row].newsPicture.stringToUIImage()
-                cell.lbDescription?.text = postList[indexPath.row].description
-                cell.lbTitle?.text = postList[indexPath.row].title
-                cell.btnShowReply!.tag = indexPath.row
-                cell.btnShowReply?.setTitle("查看全部 \(postList[indexPath.row].replyCount) 則留言", for: .normal)
-                cell.btnShowReply?.addTarget(self, action: #selector(clickShowReply), for: .touchUpInside)
+                if postList[indexPath.row].sendAccountImage.isEqual(to: "未設置") {
+                    cell.imgvUser.image = UIImage(systemIcon: .personFill)
+                } else {
+                    cell.imgvUser.image = postList[indexPath.row].sendAccountImage.stringToUIImage()
+                }
+                cell.imgvPicture.image = postList[indexPath.row].newsPicture.stringToUIImage()
+                cell.lbDescription.text = postList[indexPath.row].description
+                cell.lbTitle.text = postList[indexPath.row].title
+                cell.btnShowReply.tag = indexPath.row
+                cell.btnShowReply.setTitle("查看全部 \(postList[indexPath.row].replyCount) 則留言", for: .normal)
+                cell.btnShowReply.addTarget(self, action: #selector(clickShowReply), for: .touchUpInside)
                 return cell
             }
         } else {
-            if indexPath.row == concentrateRecordList.count - 1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: FirstConcentrateRecordTableViewCell.identified, for: indexPath) as! FirstConcentrateRecordTableViewCell
+            if indexPath.row.isEqual(to: concentrateRecordList.count - 1) {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: FirstConcentrateRecordTableViewCell.identifier,
+                                                               for: indexPath) as? FirstConcentrateRecordTableViewCell else {
+                    fatalError("FirstConcentrateRecordTableViewCell Load Failed")
+                }
                 if concentrateRecordList[indexPath.row].isFinished == true {
-                    cell.imgvStatus?.image = UIImage(systemName: "checkmark")
-                    cell.vStatusCircle?.backgroundColor = UIColor.buttom2Color
-                    cell.vStatusStrip?.backgroundColor = UIColor.buttom2Color
+                    cell.imgvStatus.image = UIImage(systemIcon: .checkmark)
+                    cell.vStatusCircle.backgroundColor = .buttom2Color
+                    cell.vStatusStrip.backgroundColor = .buttom2Color
                 } else {
-                    cell.imgvStatus?.image = UIImage(systemName: "multiply")
-                    cell.vStatusCircle?.backgroundColor = UIColor.cancel
-                    cell.vStatusStrip?.backgroundColor = UIColor.cancel
+                    cell.imgvStatus.image = UIImage(systemIcon: .multiply)
+                    cell.vStatusCircle.backgroundColor = .cancel
+                    cell.vStatusStrip.backgroundColor = .cancel
                 }
                 
                 var withFriends: String = "好友： "
@@ -247,29 +256,32 @@ extension FriendPersonalViewController: UITableViewDelegate, UITableViewDataSour
                     withFriends.append("\(concentrateRecordList[indexPath.row].hostAccountId), ")
                 }
                 for i in 0 ..< concentrateRecordList[indexPath.row].withFriends.count {
-                    if i == concentrateRecordList[indexPath.row].withFriends.count - 1{
+                    if i == concentrateRecordList[indexPath.row].withFriends.count - 1 {
                         withFriends.append("\(concentrateRecordList[indexPath.row].withFriends[i])")
                     } else {
                         withFriends.append("\(concentrateRecordList[indexPath.row].withFriends[i]), ")
                     }
                 }
-                cell.lbConcentrateTime?.text = "\(concentrateRecordList[indexPath.row].startTime)"
-                cell.lbConcentrateRecord?.text = "專注時間： \(concentrateRecordList[indexPath.row].concentrateTime)   休息時間：\(concentrateRecordList[indexPath.row].restTime)"
-                if withFriends == "好友： " {
+                cell.lbConcentrateTime.text = "\(concentrateRecordList[indexPath.row].startTime)"
+                cell.lbConcentrateRecord.text = "專注時間： \(concentrateRecordList[indexPath.row].concentrateTime)   休息時間：\(concentrateRecordList[indexPath.row].restTime)"
+                if withFriends.isEqual(to: "好友： ") {
                     withFriends = "單人模式"
                 }
-                cell.lbConcentrateWith?.text = withFriends
+                cell.lbConcentrateWith.text = withFriends
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: ConcentrateRecordTableViewCell.identified, for: indexPath) as! ConcentrateRecordTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ConcentrateRecordTableViewCell.identifier,
+                                                               for: indexPath) as? ConcentrateRecordTableViewCell else {
+                    fatalError("ConcentrateRecordTableViewCell Load Failed")
+                }
                 if concentrateRecordList[indexPath.row].isFinished == true {
-                    cell.imgvStatus?.image = UIImage(systemName: "checkmark")
-                    cell.vStatusCircle?.backgroundColor = UIColor.buttom2Color
-                    cell.vStatusStrip?.backgroundColor = UIColor.buttom2Color
+                    cell.imgvStatus.image = UIImage(systemIcon: .checkmark)
+                    cell.vStatusCircle.backgroundColor = .buttom2Color
+                    cell.vStatusStrip.backgroundColor = .buttom2Color
                 } else {
-                    cell.imgvStatus?.image = UIImage(systemName: "multiply")
-                    cell.vStatusCircle?.backgroundColor = UIColor.cancel
-                    cell.vStatusStrip?.backgroundColor = UIColor.cancel
+                    cell.imgvStatus.image = UIImage(systemIcon: .multiply)
+                    cell.vStatusCircle.backgroundColor = .cancel
+                    cell.vStatusStrip.backgroundColor = .cancel
                 }
                 
                 var withFriends: String = "好友： "
@@ -277,26 +289,25 @@ extension FriendPersonalViewController: UITableViewDelegate, UITableViewDataSour
                     withFriends.append("\(concentrateRecordList[indexPath.row].hostAccountId), ")
                 }
                 for i in 0 ..< concentrateRecordList[indexPath.row].withFriends.count {
-                    if i == concentrateRecordList[indexPath.row].withFriends.count - 1{
+                    if i == concentrateRecordList[indexPath.row].withFriends.count - 1 {
                         withFriends.append("\(concentrateRecordList[indexPath.row].withFriends[i])")
                     } else {
                         withFriends.append("\(concentrateRecordList[indexPath.row].withFriends[i]), ")
                     }
-                    
                 }
-                cell.lbConcentrateTime?.text = "\(concentrateRecordList[indexPath.row].startTime)"
-                cell.lbConcentrateRecord?.text = "專注時間： \(concentrateRecordList[indexPath.row].concentrateTime)   休息時間：\(concentrateRecordList[indexPath.row].restTime)"
-                if withFriends == "好友： " {
+                cell.lbConcentrateTime.text = "\(concentrateRecordList[indexPath.row].startTime)"
+                cell.lbConcentrateRecord.text = "專注時間： \(concentrateRecordList[indexPath.row].concentrateTime)   休息時間：\(concentrateRecordList[indexPath.row].restTime)"
+                if withFriends.isEqual(to: "好友： ") {
                     withFriends = "單人模式"
                 }
-                cell.lbConcentrateWith?.text = withFriends
+                cell.lbConcentrateWith.text = withFriends
                 return cell
             }
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView.tag == 1 {
+        if tableView.tag.isEqual(to: 1) {
             let nextVC = ConcentrateRecordViewController()
             nextVC.timeTitle = "\(concentrateRecordList[indexPath.row].startTime) 的專注歷程"
             nextVC.recordId = concentrateRecordList[indexPath.row].recordId.uuidString
@@ -308,8 +319,9 @@ extension FriendPersonalViewController: UITableViewDelegate, UITableViewDataSour
 // MARK: - LoadNewsDelegate
 
 extension FriendPersonalViewController: LoadNewsDelegate {
-    func loadNews() {
-        callApiLoadNews(accountId: UserPreferences.shared.accountId)
+    
+    func loadNews() async {
+        await callApiLoadNews(accountId: UserPreferences.shared.accountId)
     }
 }
 
