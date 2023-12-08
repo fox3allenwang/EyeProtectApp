@@ -227,6 +227,13 @@ class MainViewController: BaseViewController {
                                                                action: #selector(clickShowFriendInviteView))
                 friendNotificationButtonItem?.tintColor = .yellow
             } else {
+                if index == 3 {
+                    if !captureSession.isRunning {
+                        DispatchQueue.global().async {
+                            self.captureSession.startRunning()
+                        }
+                    }
+                }
                 friendNotificationButtonItem = UIBarButtonItem(image: UIImage(systemName: "bell"),
                                                                style: .plain,
                                                                target: self,
